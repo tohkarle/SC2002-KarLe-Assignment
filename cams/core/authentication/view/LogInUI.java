@@ -19,7 +19,7 @@ public class LogInUI {
     }
 
     public void showUI() {
-        System.out.println("\nLog in as a Staff or a Student");
+        System.out.println("Log in as a Staff or a Student");
 
         // get userID
         System.out.print("Enter name: ");

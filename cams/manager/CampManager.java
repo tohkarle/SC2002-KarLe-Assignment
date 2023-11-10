@@ -26,10 +26,10 @@ public class CampManager {
         // Set registration closing date to be 45 days after date of creation
         LocalDateTime registrationClosingDate = LocalDateTime.now().plus(45, ChronoUnit.DAYS);
 
-        int key = UniqueKey.generateNewKey(uniqueKey);
-        while(campMap.get(key) != null) key = UniqueKey.generateNewKey(uniqueKey);
-        Camp newCamp = new Camp(key, staffID, registrationClosingDate);
-        campMap.put(key, newCamp);
+        this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
+        while(campMap.get(this.uniqueKey) != null) this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
+        Camp newCamp = new Camp(this.uniqueKey, staffID, registrationClosingDate);
+        campMap.put(this.uniqueKey, newCamp);
     }
 
 

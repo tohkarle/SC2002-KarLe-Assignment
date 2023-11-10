@@ -19,9 +19,9 @@ public class EnquiryManager {
 
     public void createEnquiry(String studentID, int campID, String content){
         // Create new enquiry and add to enquiryMap
-        int key = UniqueKey.generateNewKey(uniqueKey);
-        while(enquiryMap.get(key) != null) key = UniqueKey.generateNewKey(uniqueKey);
-        enquiryMap.put(key, new Enquiry(key, studentID, campID, content));
+        this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
+        while(enquiryMap.get(this.uniqueKey) != null) this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
+        enquiryMap.put(this.uniqueKey, new Enquiry(this.uniqueKey, studentID, campID, content));
     }
 
     public void editEnquiry(int enquiryID, String content) {

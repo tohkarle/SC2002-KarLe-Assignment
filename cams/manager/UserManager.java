@@ -22,17 +22,17 @@ public class UserManager {
     public int registerUser(String name, String password, String faculty, boolean isStaff) {
         User newUser;
 
-        int key = UniqueKey.generateNewKey(uniqueKey);
-        while(userMap.get(key) != null) key = UniqueKey.generateNewKey(uniqueKey);
+        this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
+        while(userMap.get(uniqueKey) != null) this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
 
         if (isStaff) {
-            newUser = new Staff(key, name, password, faculty);
+            newUser = new Staff(this.uniqueKey, name, password, faculty);
         } else {
-            newUser = new Student(key, name, password, faculty);
+            newUser = new Student(this.uniqueKey, name, password, faculty);
         }
         
-        userMap.put(key, newUser);
-        return key;
+        userMap.put(this.uniqueKey, newUser);
+        return this.uniqueKey;
     }
 
     public Boolean isValidUser(String name){
@@ -92,6 +92,7 @@ public class UserManager {
     }
 
     public void save(){
+        Serialize.save("UserManagerKey.sav", uniqueKey);
         Serialize.save("userMap.sav", userMap);
     }
 
