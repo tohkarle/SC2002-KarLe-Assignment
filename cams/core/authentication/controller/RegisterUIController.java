@@ -3,13 +3,12 @@ package cams.core.authentication.controller;
 import cams.Main;
 
 public class RegisterUIController {
-    public void register(String name, String password, String faculty) {
 
+    public int register(String name, String password, String faculty, boolean isStaff) {
         if (Main.userManager.nameAlreadyExists(name)) {
             System.out.println("Name already used, please enter another name.");
-            return;
+            return -1;
         }
-
-        Main.userManager.registerUser(name, password, faculty);
+        return Main.userManager.registerUser(name, password, faculty, isStaff);
     }
 }

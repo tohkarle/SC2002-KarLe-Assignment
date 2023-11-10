@@ -10,8 +10,8 @@ import cams.util.UniqueKey;
 
 public class CampManager {
 
-    private static int uniqueKey = 0;
-    private static HashMap<Integer, Camp> campMap = new HashMap<Integer, Camp>();
+    private int uniqueKey = 0;
+    private HashMap<Integer, Camp> campMap = new HashMap<Integer, Camp>();
 
     public CampManager(){
         Serialize.checkAndCreateFile("CampManagerKey.sav");

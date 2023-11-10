@@ -30,7 +30,8 @@ public class LogInUI {
         this.password = Main.scanner.nextLine();
 
         // Log in user
-        // Set the currentUserID in rootUI
+        // Set the currentUserID and currentUserName in rootUI after logging in user
         rootUI.setCurrentUserID(logInUIController.logIn(this.name, this.password));
+        rootUI.setCurrentUserName(this.name);
     }
 }

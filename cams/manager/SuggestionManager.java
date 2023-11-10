@@ -7,8 +7,8 @@ import cams.util.Serialize;
 import cams.util.UniqueKey;
 
 public class SuggestionManager {
-    private static Integer uniqueKey = 0;
-    private static HashMap<Integer, Suggestion> suggestionMap;
+    private Integer uniqueKey = 0;
+    private HashMap<Integer, Suggestion> suggestionMap;
 
     public SuggestionManager() {
         Serialize.checkAndCreateFile("SuggestionMangerKey.sav");

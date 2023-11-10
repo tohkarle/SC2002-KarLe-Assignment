@@ -10,19 +10,29 @@ import cams.util.UniqueKey;
 
 public class UserManager {
 
-    private static int uniqueKey = 0;
+    private int uniqueKey = 0;
     protected HashMap<Integer, User> userMap;
 
     public UserManager(){
+        Serialize.checkAndCreateFile("UserManagerKey.sav");
         Serialize.checkAndCreateFile("userMap.sav");
         load();
     }
 
-    public void registerUser(String name, String password, String faculty) {
+    public int registerUser(String name, String password, String faculty, boolean isStaff) {
+        User newUser;
+
         int key = UniqueKey.generateNewKey(uniqueKey);
         while(userMap.get(key) != null) key = UniqueKey.generateNewKey(uniqueKey);
-        User newUser = new User(key, name, password, faculty);
+
+        if (isStaff) {
+            newUser = new Staff(key, name, password, faculty);
+        } else {
+            newUser = new Student(key, name, password, faculty);
+        }
+        
         userMap.put(key, newUser);
+        return key;
     }
 
     public Boolean isValidUser(String name){
@@ -86,8 +96,14 @@ public class UserManager {
     }
 
     public void load(){
-        @SuppressWarnings("unchecked")
-        HashMap<Integer, User> loadedMap = (HashMap<Integer, User>)Serialize.load("userMap.sav");
-        userMap = loadedMap;
+        try {
+            this.uniqueKey = (Integer)Serialize.load("UserManagerKey.sav");
+            @SuppressWarnings("unchecked")
+            HashMap<Integer, User> loadedMap = (HashMap<Integer, User>)Serialize.load("userMap.sav");
+            this.userMap = loadedMap;
+        } catch (Exception e) {
+            this.uniqueKey = 0;
+            this.userMap = new HashMap<>();
+        }
     }
 }
