@@ -1,7 +1,7 @@
 package cams.model;
 import java.util.ArrayList;
 
-public abstract class User {
+public class User {
     private String name;
     private String userID;
     private String password;
