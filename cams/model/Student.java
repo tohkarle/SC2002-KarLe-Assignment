@@ -2,7 +2,7 @@ package cams.model;
 
 public class Student extends User {
 
-    public Student(String name, String ID, String info) {
-        super(name, ID, info);
+    public Student(int userID, String name,String password, String faculty) {
+        super(userID, name, password, faculty);
     }
 }

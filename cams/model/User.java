@@ -2,17 +2,17 @@ package cams.model;
 import java.util.ArrayList;
 
 public class User {
+    private int userID;
     private String name;
-    private String userID;
     private String password;
     private String faculty;
     private ArrayList<Integer> campIDs;
     
-    public User(String name, String ID, String info){
+    public User(int userID, String name,String password, String faculty){
         this.name = name;
-        this.userID = ID;
-        this.password = "password";
-        this.faculty = info;
+        this.userID = userID;
+        this.password = password;
+        this.faculty = faculty;
         this.campIDs = new ArrayList<Integer>();
     }
 
@@ -32,7 +32,7 @@ public class User {
         return this.name;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return this.userID;
     }
 
