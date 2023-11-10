@@ -1,6 +1,7 @@
 package cams.util;
 
 import java.io.IOException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -25,7 +26,13 @@ public class Serialize
 		FileInputStream fis = null;
 		ObjectInputStream in = null;
 		try {
-			fis = new FileInputStream(filename);
+			File file = new File("cams/data/" + filename);
+			if (file.length() == 0) {
+				System.out.println(filename + " is empty");
+				return null;
+			}
+
+			fis = new FileInputStream(file);
             in = new ObjectInputStream(fis);
 
             // check file name for type of Object
@@ -59,7 +66,7 @@ public class Serialize
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
 		try {
-			fos = new FileOutputStream(filename);
+			fos = new FileOutputStream("cams/data/" + filename);
 			out = new ObjectOutputStream(fos);
 			out.writeObject(obj);
 			out.close();
@@ -67,4 +74,20 @@ public class Serialize
 			ex.printStackTrace();
 		}
 	}
+
+	public static void checkAndCreateFile(String filename) {
+        File file = new File("cams/data",filename);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println(filename + " File Created");
+                } else {
+                    System.out.println("File " + filename + " already exists in data");
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating " + filename);
+                e.printStackTrace();
+            }
+        }
+    }
 }

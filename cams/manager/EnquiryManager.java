@@ -12,6 +12,8 @@ public class EnquiryManager {
     private HashMap<Integer, Enquiry> enquiryMap; // the Enquiry objects stored in a map
 
     public EnquiryManager(){
+        Serialize.checkAndCreateFile("EnquiryMangerKey.sav");
+        Serialize.checkAndCreateFile("enquiryMap.sav");
         this.load();
     }
 

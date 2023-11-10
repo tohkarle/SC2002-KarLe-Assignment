@@ -11,6 +11,8 @@ public class SuggestionManager {
     private static HashMap<Integer, Suggestion> suggestionMap;
 
     public SuggestionManager() {
+        Serialize.checkAndCreateFile("SuggestionMangerKey.sav");
+        Serialize.checkAndCreateFile("suggestionMap.sav");
         this.load();
     }
 

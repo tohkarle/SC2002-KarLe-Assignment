@@ -16,7 +16,7 @@ public class LogInUI {
     }
 
     public void showUI() {
-        System.out.println("Welcome to the Camp Application and Management System");
+        System.out.println("\nWelcome to the Camp Application and Management System");
 
         // get userID
         System.out.print("Enter userID: ");

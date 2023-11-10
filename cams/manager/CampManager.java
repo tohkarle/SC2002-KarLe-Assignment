@@ -14,6 +14,8 @@ public class CampManager {
     private static HashMap<Integer, Camp> campMap = new HashMap<Integer, Camp>();
 
     public CampManager(){
+        Serialize.checkAndCreateFile("CampManagerKey.sav");
+        Serialize.checkAndCreateFile("campMap.sav");
         this.load();
     }
 

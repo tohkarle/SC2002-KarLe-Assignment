@@ -12,6 +12,7 @@ public class UserManager {
     protected HashMap<String, User> userMap;
 
     public UserManager(){
+        Serialize.checkAndCreateFile("userMap.sav");
         load();
     }
 
