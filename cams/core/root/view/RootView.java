@@ -1,31 +1,27 @@
 package cams.core.root.view;
 
 import cams.Main;
-import cams.core.authentication.view.LogInUI;
-import cams.core.authentication.view.RegisterUI;
+import cams.core.authentication.view.LogInView;
+import cams.core.authentication.view.RegisterView;
 import cams.core.root.controller.RootUIController;
 import cams.util.UserInput;
 
-public class RootUI {
+public class RootView {
 
     private int currentUserID;
-    private String currentUserName;
     private RootUIController rootUIController;
 
-    public RootUI() {
+    public RootView() {
         this.currentUserID = -1;
-        this.currentUserName = null;
         this.rootUIController = new RootUIController();
     }
 
-    public void showUI() {
-
+    public void show() {
         int option;
-
         System.out.println("\nWelcome to the Camp Application and Management System");
 
         // If user is not logged in, let user register or log in
-        while (currentUserID == -1 && currentUserName == null) {
+        while (currentUserID == -1) {
             // Let user choose to register or log in
             System.out.println("\nWould you like to register or log in?");
             System.out.println("(1) Register");
@@ -35,30 +31,26 @@ public class RootUI {
 
             switch(option) {
                 case 1:
-                    RegisterUI registerUI = new RegisterUI(this);
-                    registerUI.showUI();
+                    RegisterView registerView = new RegisterView(this);
+                    registerView.show();
                     break;
                 case 2:
-                    LogInUI logInUI = new LogInUI(this);
-                    logInUI.showUI();
+                    LogInView logInView = new LogInView(this);
+                    logInView.show();
                     break;
             }
         }
 
         // If user is staff, show staff interface, else if user is student, show student interface
         if (Main.userManager.isStaff(currentUserID)) {
-            System.out.println("\nYou are now logged in as Staff " + this.currentUserName + "!");
+            System.out.println("\nYou are now logged in as Staff " + Main.userManager.getName(this.currentUserID) + "!");
 
         } else if (Main.userManager.isStudent(currentUserID)) {
-            System.out.println("\nYou are now logged in as Student " + this.currentUserName + "!");
+            System.out.println("\nYou are now logged in as Student " + Main.userManager.getName(this.currentUserID) + "!");
         }
     }
 
     public void setCurrentUserID(int currentUserID) {
         this.currentUserID = currentUserID;
-    }
-
-    public void setCurrentUserName(String currentUserName) {
-        this.currentUserName = currentUserName;
     }
 }

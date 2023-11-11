@@ -2,7 +2,7 @@ package cams;
 
 import java.util.Scanner;
 
-import cams.core.root.view.RootUI;
+import cams.core.root.view.RootView;
 import cams.manager.CampManager;
 import cams.manager.EnquiryManager;
 import cams.manager.SuggestionManager;
@@ -18,8 +18,8 @@ public class Main {
     public static void main(String args[]){
 
         // Launch the login
-        RootUI rootUI = new RootUI();
-        rootUI.showUI();
+        RootView rootView = new RootView();
+        rootView.show();
 
         userManager.save();
         campManager.save();

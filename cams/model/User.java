@@ -42,7 +42,7 @@ public class User implements Serializable {
     }
 
     public Boolean checkPassword(String password){
-        return (this.password == password);
+        return (this.password.equals(password));
     }
 
     public void setPassword(String password){

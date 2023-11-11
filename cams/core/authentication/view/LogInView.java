@@ -2,36 +2,35 @@ package cams.core.authentication.view;
 
 import cams.Main;
 import cams.core.authentication.controller.LogInUIController;
-import cams.core.root.view.RootUI;
+import cams.core.root.view.RootView;
 
-public class LogInUI {
+public class LogInView {
 
     private String name ;
     private String password;
     private LogInUIController logInUIController;
-    private RootUI rootUI;
+    private RootView rootUI;
 
-    public LogInUI(RootUI rootUI) {
+    public LogInView(RootView rootUI) {
         this.name = null;
         this.password  = null;
         this.logInUIController = new LogInUIController();
         this.rootUI = rootUI;
     }
 
-    public void showUI() {
-        System.out.println("Log in as a Staff or a Student");
+    public void show() {
+        System.out.println("Log in");
 
         // get userID
         System.out.print("Enter name: ");
-        this.name = Main.scanner.nextLine().toUpperCase().trim();
+        this.name = Main.scanner.nextLine();
 
         // get password
         System.out.print("Enter password: ");
         this.password = Main.scanner.nextLine();
 
         // Log in user
-        // Set the currentUserID and currentUserName in rootUI after logging in user
+        // Set the currentUserID in rootUI after logging in user
         rootUI.setCurrentUserID(logInUIController.logIn(this.name, this.password));
-        rootUI.setCurrentUserName(this.name);
     }
 }
