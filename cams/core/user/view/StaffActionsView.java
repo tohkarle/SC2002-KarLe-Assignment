@@ -4,7 +4,6 @@ import cams.core.camp.view.AllCampsView;
 import cams.core.camp.view.CreateCampView;
 import cams.core.camp.view.DeleteCampView;
 import cams.core.root.view.RootView;
-import cams.manager.StaffManager;
 import cams.util.UIComponents;
 
 public class StaffActionsView {
@@ -17,11 +16,9 @@ public class StaffActionsView {
     // A staff can generate a report of the list of students attending each camp that his/her has created. The list will include details of the camp as well as the roles of the participants. There should be filters for how the staff would want to generate the list. (attendee, camp committee, etc.) (generate in either txt or csv format).
     // A staff can also generate a performance report of the camp committee members.
     private RootView rootView;
-    private StaffManager manager;
 
     public StaffActionsView(RootView rootView) {
         this.rootView = rootView;
-        this.manager = (StaffManager) rootView.getManager();
     }
 
     public void show() {
@@ -41,7 +38,7 @@ public class StaffActionsView {
                 profileView.show();
                 break;
             case 2:
-                AllCampsView allCampsView = new AllCampsView(null);
+                AllCampsView allCampsView = new AllCampsView(null, -1);
                 allCampsView.show();
                 break;
             case 3:
@@ -49,6 +46,8 @@ public class StaffActionsView {
                 createCampView.show();
                 break;
             case 4:
+                AllCampsView createdCampsView = new AllCampsView(null, this.rootView.getCurrentUserID());
+                createdCampsView.show();
                 break;
             case 5:
                 DeleteCampView deleteCampView = new DeleteCampView(this.rootView);

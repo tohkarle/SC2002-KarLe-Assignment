@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import cams.Main;
 import cams.core.root.view.RootView;
-import cams.manager.StaffManager;
 import cams.util.UIComponents;
 
 public class CreateCampView {
@@ -16,12 +15,10 @@ public class CreateCampView {
     private ArrayList<LocalDate> dates;
     private String faculty;
     private boolean visibility;
-    private StaffManager manager;
 
     public CreateCampView(RootView rootView) {
         this.staffID = rootView.getCurrentUserID();
         this.dates = new ArrayList<LocalDate>();
-        this.manager = (StaffManager) rootView.getManager();
     }
 
     public void show() {
@@ -51,10 +48,7 @@ public class CreateCampView {
         if (Main.scanner.nextInt() != 1) { return; }
 
         // Create camp and add to campMap
-        int campID = Main.campManager.createCamp(this.staffID, this.campName, this.dates, this.faculty, this.visibility);
-
-        // Add camp to user
-        manager.addToUserCampIDs(staffID, campID);
+        Main.campManager.createCamp(this.staffID, this.campName, this.dates, this.faculty, this.visibility);
 
         UIComponents.createLoadingIndicator("camp");
     }

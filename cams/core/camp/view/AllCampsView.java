@@ -7,22 +7,35 @@ import cams.util.UIComponents;
 
 public class AllCampsView {
 
+    private ArrayList<String> names;
     private String faculty;
+    private int staffID;
 
-    public AllCampsView(String faculty) {
+    public AllCampsView(String faculty, int staffID) {
         this.faculty = faculty;
+        this.staffID = staffID;
     }
 
     public void show() {
-        ArrayList<String> names;
 
-        if (faculty == null) {
-            names = Main.campManager.getAllCampNames();
-        } else {
-            names = Main.campManager.getAllFacultyCampNames(this.faculty);
+        if (faculty == null && staffID == -1) {
+            // Fetch all camps
+            this.names = Main.campManager.getAllCampNames();
+        } else if (faculty != null && staffID == -1) {
+            // Fetch all camps from faculty
+            this.names = Main.campManager.getAllFacultyCampNames(this.faculty);
+        } else if (faculty == null && staffID != -1) {
+            // Fetch all camps created by staff
+            this.names = Main.campManager.getAllStaffCampNames(this.staffID);
         }
 
-        if (names.size() == 0) {
+        this.displayCamps();
+
+        if (UIComponents.navigationInput(-1, -1) == UIComponents.backOptionInt()) { return; };
+    }
+
+    public void displayCamps() {
+        if (this.names.size() == 0) {
             UIComponents.pageHeader("No camp has been created.");
         } else {
             UIComponents.pageHeader("All camps:");
@@ -35,7 +48,5 @@ public class AllCampsView {
             }
             System.out.println("");
         }
-
-        if (UIComponents.navigationInput(-1, -1) == UIComponents.backOptionInt()) { return; };
     }
 }

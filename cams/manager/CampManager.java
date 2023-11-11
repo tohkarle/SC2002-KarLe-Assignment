@@ -50,6 +50,26 @@ public class CampManager {
         return names;
     }
 
+    public ArrayList<String> getAllStaffCampNames(int staffID) {
+        ArrayList<String> names = new ArrayList<>();
+        for (Camp camp : campMap.values()) {
+            if (camp.getStaffInCharge() == staffID) {
+                names.add(camp.getCampName());
+            }
+        }
+        return names;
+    }
+
+    public ArrayList<Integer> getAllStaffCampIDs(int staffID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Camp camp : campMap.values()) {
+            if (camp.getStaffInCharge() == staffID) {
+                ids.add(camp.getId());
+            }
+        }
+        return ids;
+    }
+
     public ArrayList<String> getAllFacultyCampNames(String faculty) {
         ArrayList<String> names = new ArrayList<>();
         for (Camp camp : campMap.values()) {
@@ -59,6 +79,7 @@ public class CampManager {
         }
         return names;
     }
+    
 
 
     public String getCampDescription(int campID){

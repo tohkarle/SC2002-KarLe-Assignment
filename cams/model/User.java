@@ -27,7 +27,7 @@ public class User implements Serializable {
 
     public void removeCamp(int campID){
         this.campIDs.remove(campID);
-    }   
+    }
 
     public ArrayList<Integer> getCampList(){
         return this.campIDs;
