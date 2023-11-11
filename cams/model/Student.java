@@ -9,10 +9,6 @@ public class Student extends User {
         this.committeeMamberFor = -1;
     }
 
-    public boolean isACommitteeMember() {
-        return (this.committeeMamberFor != -1);
-    }
-
     public int getCommitteeMemberFor() {
         return this.committeeMamberFor;
     }

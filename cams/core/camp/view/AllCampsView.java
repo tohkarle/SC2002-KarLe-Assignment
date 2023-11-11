@@ -16,30 +16,30 @@ public class AllCampsView {
     }
 
     public void show() {
-        ArrayList<String> names = Main.campManager.getAllCampNames(this.faculty);
-
         do {
+            ArrayList<String> names;
 
-            if (names.size() == 0) { 
-                System.out.println( "No camp has been created for your faculty. Please come back at a later time."); 
+            if (faculty == null) {
+                names = Main.campManager.getAllCampNames();
             } else {
-                System.out.println("All camps:");
+                names = Main.campManager.getAllFacultyCampNames(this.faculty);
+            }
+
+            if (names.size() == 0) {
+                UIComponents.pageHeader("No camp has been created.");
+            } else {
+                UIComponents.pageHeader("All camps:");
                 for (int i = 0; i < names.size(); i++) {
-                    System.out.println( "(" + (i+1) + ") " + names.get(i));
+                    if (i == names.size() - 1) {
+                        System.out.print(names.get(i));
+                    } else {
+                        System.out.print(names.get(i) + ", ");
+                    }
                 }
+                System.out.println("");
             }
 
-            UIComponents.backOption(1);
-            int option = UIComponents.userInput();
-
-            switch (option) {
-                case 1:
-                    this.running = false;
-                    break;
-                default:
-                    UIComponents.invalidUserInput();
-                    break;
-            }
+            this.running = (UIComponents.navigationInput(1, 1) != UIComponents.backOptionInt());
 
         } while (running);
     }

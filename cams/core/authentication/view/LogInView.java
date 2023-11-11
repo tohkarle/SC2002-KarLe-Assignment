@@ -2,6 +2,7 @@ package cams.core.authentication.view;
 
 import cams.Main;
 import cams.core.root.view.RootView;
+import cams.util.UIComponents;
 
 public class LogInView {
 
@@ -16,15 +17,18 @@ public class LogInView {
     }
 
     public void show() {
-        System.out.println("Log in");
+
+        UIComponents.pageHeader("Log in");
 
         // get userID
         System.out.print("Enter email: ");
         this.email = Main.scanner.nextLine();
+        if (this.email.equals(UIComponents.backOptionString())) { return; }
 
         // get password
         System.out.print("Enter password: ");
         this.password = Main.scanner.nextLine();
+        if (this.password.equals(UIComponents.backOptionString())) { return; }
 
         // Log in user
         this.logIn();
@@ -32,7 +36,7 @@ public class LogInView {
 
     public void logIn() {
         if (!Main.authManager.isValidUser(this.email)) {
-            System.out.println("Email not found!\n");
+            System.out.println("Email not found!");
             return;
         }
 
@@ -40,12 +44,10 @@ public class LogInView {
             // password accepted
             // Set the currentUserID in rootUI after logging in user
             this.rootView.setCurrentUserID(Main.authManager.getUserID(this.email));
-            return;
-
+            UIComponents.logInLoadingIndicator();
         } else {
             // password wrong, rejected
-            System.out.println("Wrong password, please try again.\n");
-            return;
+            System.out.println("Wrong password, please try again.");
         }
     }
 }

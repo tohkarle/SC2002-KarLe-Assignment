@@ -1,10 +1,11 @@
 package cams.manager;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import cams.Main;
 import cams.model.Student;
+import cams.model.User;
 
 public class StudentManager extends UserManager {
     // Student-specific methods
@@ -22,11 +23,13 @@ public class StudentManager extends UserManager {
     // student.addOnePoint()
 
 
-    public boolean isACommitteeMember(int studentID) {
-        return ((Student)userMap.get(studentID)).isACommitteeMember();
+    public int isACommitteeMemberFor(int studentID) {
+        return ((Student)userMap.get(studentID)).getCommitteeMemberFor();
     }
 
-
+    public int getPoint(int studentID){
+        return ((Student)userMap.get(studentID)).getPoint();
+    }
 
     // public void addCampCommitteeToStudent(String studentID, int campID) {
     //     Student student = (Student) userMap.get(studentID);
@@ -88,15 +91,15 @@ public class StudentManager extends UserManager {
 
     // public boolean hasCampClashes(String studentID, int campID) {
     //     Student student = (Student) userMap.get(studentID);
-    //     ArrayList<LocalDateTime> newCampDates = Main.campManager.getCampDates(campID);
+    //     ArrayList<LocalDate> newCampDates = Main.campManager.getCampDates(campID);
 
     //     // KARLE_TODO: Think of better implementation
     //     for (int registrationID : student.getRegistrationIDs()) {
     //         int tempCampID = Main.registrationManager.getCampID(registrationID);
-    //         ArrayList<LocalDateTime> existingCampDates = Main.campManager.getCampDates(tempCampID);
+    //         ArrayList<LocalDate> existingCampDates = Main.campManager.getCampDates(tempCampID);
     
-    //         for (LocalDateTime newDate : newCampDates) {
-    //             for (LocalDateTime existingDate : existingCampDates) {
+    //         for (LocalDate newDate : newCampDates) {
+    //             for (LocalDate existingDate : existingCampDates) {
     //                 if (newDate.equals(existingDate)) {
     //                     return true;
     //                 }

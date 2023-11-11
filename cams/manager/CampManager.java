@@ -1,5 +1,5 @@
 package cams.manager;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,14 +20,19 @@ public class CampManager {
 
 
 
-    public void createCamp(String staffID) {
+    public int createCamp(int staffID, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility) {
         // Set registration closing date to be 45 days after date of creation
-        LocalDateTime registrationClosingDate = LocalDateTime.now().plus(45, ChronoUnit.DAYS);
+        LocalDate registrationClosingDate = LocalDate.now().plus(45, ChronoUnit.DAYS);
 
         this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
         while(campMap.get(this.uniqueKey) != null) this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
-        Camp newCamp = new Camp(this.uniqueKey, staffID, registrationClosingDate);
+        Camp newCamp = new Camp(this.uniqueKey, campName, dates, faculty, visibility, staffID, registrationClosingDate);
         campMap.put(this.uniqueKey, newCamp);
+        return this.uniqueKey;
+    }
+
+    public void deleteCamp(int campID) {
+        campMap.remove(campID);
     }
 
 
@@ -37,7 +42,15 @@ public class CampManager {
         return arr;
     }
 
-    public ArrayList<String> getAllCampNames(String faculty) {
+    public ArrayList<String> getAllCampNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Camp camp : campMap.values()) {
+            names.add(camp.getCampName());
+        }
+        return names;
+    }
+
+    public ArrayList<String> getAllFacultyCampNames(String faculty) {
         ArrayList<String> names = new ArrayList<>();
         for (Camp camp : campMap.values()) {
             if (camp.getUserGroup() == faculty && camp.isVisible()) {
@@ -58,9 +71,9 @@ public class CampManager {
 
 
 
-    public String getCampStaffInCharge(int campID){
-        return (campMap.get(campID)).getStaffInCharge();
-    }
+    // public String getCampStaffInCharge(int campID){
+    //     return (campMap.get(campID)).getStaffInCharge();
+    // }
 
 
 
@@ -215,45 +228,45 @@ public class CampManager {
 
 
 
-    public boolean isAfterRegistrationClosingDate(int campID, LocalDateTime currentDate) {
+    public boolean isAfterRegistrationClosingDate(int campID, LocalDate currentDate) {
         Camp camp = campMap.get(campID);
         return currentDate.isAfter(camp.getRegistrationClosingDate());
     }
 
 
 
-    public ArrayList<LocalDateTime> getCampDates(int campID) {
+    public ArrayList<LocalDate> getCampDates(int campID) {
         Camp camp = campMap.get(campID);
         return camp.getDates();
     }
 
 
 
-    public LocalDateTime getStartDate(int campID){
+    public LocalDate getStartDate(int campID){
         return getCampDates(campID).get(0);
     }
 
-    public void setStartDate(int campID, LocalDateTime date){
+    public void setStartDate(int campID, LocalDate date){
         campMap.get(campID).setDate(0, date);
     }
 
 
 
-    public LocalDateTime getEndDate(int campID){
+    public LocalDate getEndDate(int campID){
         return getCampDates(campID).get(1);
     }
 
-    public void setEndDate(int campID, LocalDateTime date){
+    public void setEndDate(int campID, LocalDate date){
         campMap.get(campID).setDate(1, date);
     }
 
 
 
-    public LocalDateTime getRegCloseDate(int campID){
+    public LocalDate getRegCloseDate(int campID){
         return getCampDates(campID).get(2);
     }
 
-    public void setRegCloseDate(int campID, LocalDateTime date){
+    public void setRegCloseDate(int campID, LocalDate date){
         campMap.get(campID).setDate(2, date);
     }
 

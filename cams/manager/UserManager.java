@@ -16,15 +16,19 @@ public class UserManager extends AuthManager {
         return ((User)userMap.get(userID)).getFaculty();
     }
 
-    public int getPoint(int userID){
-        return ((User)userMap.get(userID)).getPoint();
-    }
-
     public Boolean hasDefaultPassword(int userID){
         return ((User)userMap.get(userID)).checkPassword("password");
     }
 
     public void setPassword(int userID, String password){
         ((User)userMap.get(userID)).setPassword(password);
+    }
+
+    public void addToUserCampIDs(int userID, int campID) {
+        ((User)userMap.get(userID)).addToCampIDsList(campID);
+    }
+
+    public void removeFromUserCampIDs(int userID, int campID) {
+        ((User)userMap.get(userID)).removeCamp(campID);
     }
 }

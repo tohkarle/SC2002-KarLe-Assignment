@@ -1,4 +1,4 @@
-package cams.core.profile.view;
+package cams.core.user.view;
 
 import cams.core.camp.view.AllCampsView;
 import cams.core.root.view.RootView;
@@ -21,11 +21,11 @@ public class StudentActionsView {
 
     public void show() {
         do {
-            studentOptions(manager.isACommitteeMember(this.rootView.getCurrentUserID()));
+            studentOptions();
         } while (this.rootView.getCurrentUserID() != -1);
     }
 
-    public void studentOptions(boolean isACommitteeMember) {
+    public void studentOptions() {
         System.out.println("Choose your action:");
         System.out.println("(1) View profile");
         System.out.println("(2) View all camps");
@@ -33,7 +33,7 @@ public class StudentActionsView {
         System.out.println("(4) View submitted enquiries");
         System.out.println("(5) Log out");
 
-        int option = UIComponents.userInput();
+        int option = UIComponents.navigationInput(1, 5);
 
         switch (option) {
             case 1:
@@ -52,8 +52,35 @@ public class StudentActionsView {
                 UIComponents.logOutLoadingIndicator();
                 rootView.logUserOut();
                 break;
-            default:
-                UIComponents.invalidUserInput();
+        }
+    }
+
+    public void committeeMemberOptions() {
+        System.out.println("\nChoose your action:");
+        System.out.println("(1) View profile");
+        System.out.println("(2) View all camps");
+        System.out.println("(3) View registered camps");
+        System.out.println("(4) View submitted enquiries");
+        System.out.println("(5) Log out");
+
+        int option = UIComponents.navigationInput(1, 5);
+
+        switch (option) {
+            case 1:
+                ProfileView profileView = new ProfileView(this.rootView);
+                profileView.show();
+                break;
+            case 2:
+                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()));
+                allCampsView.show();
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                UIComponents.logOutLoadingIndicator();
+                rootView.logUserOut();
                 break;
         }
     }

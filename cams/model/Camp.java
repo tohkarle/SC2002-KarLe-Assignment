@@ -1,19 +1,20 @@
 package cams.model;
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Camp {
+public class Camp implements Serializable {
     private int id;
     private String campName;
-    private ArrayList<LocalDateTime> dates; // 0: start, 1: end, 2: Register close
-    private LocalDateTime registrationClosingDate;
+    private ArrayList<LocalDate> dates; // 0: start, 1: end, 2: Register close
+    private LocalDate registrationClosingDate;
     private boolean visibility;
     private String userGroup;
     private String location;
     private int totalSlots;
     private int committeeSlots;
     private String description;
-    private String staffInCharge;
+    private int staffInCharge;
     private int remainingSlots;
     private int registerCount;
     private int registerCommCount;
@@ -23,13 +24,13 @@ public class Camp {
     private ArrayList<Integer> enquiryIDs;
     private ArrayList<Integer> suggestionIDs;
 
-    public Camp(int id, String staffID, LocalDateTime registrationClosingDate) {
+    public Camp(int id, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility, int staffID, LocalDate registrationClosingDate) {
         // Default values
-        this.campName = "Default Camp Name";
-        this.dates = new ArrayList<LocalDateTime>();
-        this.visibility = true;
-        this.userGroup = "NTU";
-        this.location = "North Spine";
+        this.campName = campName;
+        this.dates = dates;
+        this.visibility = visibility;
+        this.userGroup = faculty;
+        this.location = "NTU";
         this.totalSlots = 69;
         this.committeeSlots = 9;
         this.description = "Default description";
@@ -64,23 +65,23 @@ public class Camp {
         this.campName = campName;
     }
 
-    public ArrayList<LocalDateTime> getDates() {
+    public ArrayList<LocalDate> getDates() {
         return this.dates;
     }
 
-    public void setDates(ArrayList<LocalDateTime> dates) {
+    public void setDates(ArrayList<LocalDate> dates) {
         this.dates = dates;
     }
 
-    public void setDate(int index, LocalDateTime date){
+    public void setDate(int index, LocalDate date){
         this.dates.set(index, date);
     }
 
-    public LocalDateTime getRegistrationClosingDate() {
+    public LocalDate getRegistrationClosingDate() {
         return this.registrationClosingDate;
     }
 
-    public void setRegistrationClosingDate(LocalDateTime registrationClosingDate) {
+    public void setRegistrationClosingDate(LocalDate registrationClosingDate) {
         this.registrationClosingDate = registrationClosingDate;
     }
 
@@ -170,7 +171,7 @@ public class Camp {
         this.description = description;
     }
 
-    public String getStaffInCharge() {
+    public int getStaffInCharge() {
         return this.staffInCharge;
     }
 

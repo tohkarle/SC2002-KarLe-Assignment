@@ -3,7 +3,8 @@ package cams.core.root.view;
 import cams.Main;
 import cams.core.authentication.view.LogInView;
 import cams.core.authentication.view.RegisterView;
-import cams.core.profile.view.StudentActionsView;
+import cams.core.user.view.StaffActionsView;
+import cams.core.user.view.StudentActionsView;
 import cams.manager.StaffManager;
 import cams.manager.StudentManager;
 import cams.manager.UserManager;
@@ -29,12 +30,12 @@ public class RootView {
              // If user is not logged in, let user register or log in
              if (currentUserID == -1) {
                 // Let user choose to register or log in
-                System.out.println("Would you like to register or log in?");
+                System.out.println("\nWould you like to register or log in?");
                 System.out.println("(1) Register");
                 System.out.println("(2) Log In");
                 System.out.println("(3) Terminate app");
 
-                option = UIComponents.userInput();
+                option = UIComponents.navigationInput(1, 3);
 
                 switch(option) {
                     case 1:
@@ -49,17 +50,15 @@ public class RootView {
                         this.running = false;
                         UIComponents.terminateAppLoadingIndicator();
                         break;
-                    default:
-                        UIComponents.invalidUserInput();
-                        break;
                 }
              } else {
-
-                UIComponents.logInLoadingIndicator();
 
                 // If user is staff, show staff interface, else if user is student, show student interface
                 if (Main.authManager.isStaff(currentUserID)) {
                     userManager = new StaffManager();
+
+                    StaffActionsView staffActionsView = new StaffActionsView(this);
+                    staffActionsView.show();
 
                 } else if (Main.authManager.isStudent(currentUserID)) {
                     userManager = new StudentManager();
