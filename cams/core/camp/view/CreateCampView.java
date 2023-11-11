@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import cams.Main;
+import cams.component.CampInput;
 import cams.component.LoadingIndicator;
 import cams.component.UserInput;
 import cams.core.root.view.RootView;
@@ -26,23 +27,29 @@ public class CreateCampView {
         UserInput.pageHeader("Please enter the name, faculty, visibility and dates of the camp.");
 
         // get name
-        System.out.print("Enter name: ");
-        this.campName = Main.scanner.nextLine();
+        this.campName = CampInput.stringField("Enter name: ");
         if (this.campName.equals(UserInput.backOptionString())) { return; }
 
         // get faculty
-        System.out.print("Enter faculty: ");
-        this.faculty = Main.scanner.nextLine();
+        this.faculty = CampInput.stringField("Enter faculty: ");
         if (this.faculty.equals(UserInput.backOptionString())) { return; }
 
         // get visibility
-        int option = UserInput.intInputField("Enter visibility (1) On (2) Off: ", 1, 2);
+        int option = CampInput.intField("Edit visibility (1) On (2) Off: ");
         this.visibility = (option == 1);
         if (option == UserInput.backOptionInt()) { return; }
 
-        // get dates
-        option = this.getDates();
-        if (option == UserInput.backOptionInt()) { return; }
+        // get start date
+        LocalDate startDate = CampInput.dateField("Enter start date (yyyy-MM-dd): ");
+        if (startDate == null) { return; }
+
+        // get end date
+        LocalDate endDate;
+        endDate = CampInput.endDateField(startDate, "Enter end date (yyyy-MM-dd): ");
+        if (endDate == null) { return; }
+
+        this.dates.add(startDate);
+        this.dates.add(endDate);
 
         // Confirm changes or discard and go back
         UserInput.confirmOrDiscard("changes");

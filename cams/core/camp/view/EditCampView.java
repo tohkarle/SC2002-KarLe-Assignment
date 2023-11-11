@@ -12,7 +12,8 @@ import cams.component.UserInput;
 
 public class EditCampView {
     private String campName;
-    private ArrayList<LocalDate> dates;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String faculty;
     private boolean visibility;
     private AllCampsView createdCamps;
@@ -37,7 +38,8 @@ public class EditCampView {
 
             int campID = createdCamps.getIds().get(option - 1);
             this.campName = Main.campManager.getCampName(campID);
-            this.dates = Main.campManager.getCampDates(campID);
+            this.startDate = Main.campManager.getStartDate(campID);
+            this.endDate = Main.campManager.getEndDate(campID);
             this.faculty = Main.campManager.getUserGroup(campID);
             this.visibility = Main.campManager.getVisibility(campID);
             this.editCamp(campID);
@@ -53,20 +55,18 @@ public class EditCampView {
 
             System.out.println("(1) Name: " + this.campName);
 
-            System.out.print("(2) Dates: ");
-            for (int i = 0; i < dates.size(); i++) {
-                System.out.print(dates.get(i) + ((i == dates.size() - 1) ? "\n" : ", "));
-            }
+            System.out.println("(2) Start date: " + this.startDate);
 
-            System.out.println("(3) Faculty: " + this.faculty);
+            System.out.println("(3) End date: " + this.endDate);
 
-            System.out.print("(4) Visibility: ");
+            System.out.println("(4) Faculty: " + this.faculty);
+
+            System.out.print("(5) Visibility: ");
             System.out.print(this.visibility ? "On\n" : "Off\n");
 
-            System.out.println("(5) Confirm changes");
+            System.out.println("(6) Update changes");
 
-
-            int option = UserInput.selectionInputField(1, 5);
+            int option = UserInput.selectionInputField(1, 6);
             if (option == UserInput.backOptionInt()) { return; }
 
             switch (option) {
@@ -76,65 +76,39 @@ public class EditCampView {
                     if (this.campName.equals(UserInput.backOptionString())) { return; }
                     break;
                 case 2:
-                    // get dates
-                    this.dates.clear();
-                    option = this.getDates();
-                    if (option == UserInput.backOptionInt()) { return; }
+                    // edit start date
+                    this.startDate = CampInput.dateField("Edit start date (yyyy-MM-dd): ");
+                    if (this.startDate == null) { return; }
                     break;
                 case 3:
+                    // edit end date
+                    this.endDate = CampInput.endDateField(this.startDate, "Enter end date (yyyy-MM-dd): ");
+                    if (this.startDate == null) { return; }
+                    break;
+                case 4:
                     // edit faculty
                     this.faculty = CampInput.stringField("Edit faculty: ");
                     if (this.faculty.equals(UserInput.backOptionString())) { return; }
                     break;
-                case 4:
+                case 5:
                     // get visibility
                     option = CampInput.intField("Edit visibility (1) On (2) Off: ");
                     this.visibility = (option == 1);
                     if (option == UserInput.backOptionInt()) { return; }
                     break;
-                case 5:
+                case 6:
+                    // Confirm or discard
+                    UserInput.confirmOrDiscard("changes");
+                    if (Main.scanner.nextInt() != 1) { return; }
+
                     // Update changes
                     Main.campManager.setCampName(campID, this.campName);
-                    Main.campManager.setCampDates(campID, this.dates);
+                    Main.campManager.setStartDate(campID, this.startDate);
+                    Main.campManager.setEndDate(campID, this.endDate);
                     Main.campManager.setUserGroup(campID, this.faculty);
                     Main.campManager.setVisibility(campID, this.visibility);
                     return;
             }
-        }
-    }
-
-    private int getDates() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        while (true) {
-            this.displayAddedDates();
-            String dateString = Main.scanner.nextLine();
-            if (dateString.equals(UserInput.backOptionString())) { return -1; }
-            if (dateString.equalsIgnoreCase("done")) {
-                break;
-            }
-            try {
-                LocalDate date = LocalDate.parse(dateString, formatter);
-                if (this.dates.contains(date)) {
-                    System.out.println("This date has already been added. Please enter a different date.");
-                } else {
-                    this.dates.add(date);
-                }
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format. Please enter the date in the format 'yyyy-MM-dd'.");
-            }
-        }
-        return 1;
-    }
-
-    private void displayAddedDates() {
-        if (dates.size() == 0) {
-            System.out.print("Edit dates (yyyy-MM-dd): ");
-        } else {
-            System.out.print("Dates: ");
-            for (LocalDate date : dates) {
-                System.out.print(date + ", ");
-            }
-            System.out.print("add more or enter 'done' when finished: "); 
         }
     }
 }
