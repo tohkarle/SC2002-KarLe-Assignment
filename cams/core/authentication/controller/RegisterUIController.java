@@ -4,11 +4,11 @@ import cams.Main;
 
 public class RegisterUIController {
 
-    public int register(String name, String password, String faculty, boolean isStaff) {
-        if (Main.userManager.nameAlreadyExists(name)) {
-            System.out.println("Name already used, please enter another name.");
+    public int register(String email, String name, String password, String faculty, boolean isStaff) {
+        if (Main.userManager.emailAlreadyExists(email)) {
+            System.out.println("Email already used, please enter another email.");
             return -1;
         }
-        return Main.userManager.registerUser(name, password, faculty, isStaff);
+        return Main.userManager.registerUser(email, name, password, faculty, isStaff);
     }
 }

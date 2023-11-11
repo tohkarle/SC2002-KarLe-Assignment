@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
     private int userID;
+    private String email;
     private String name;
     private String password;
     private String faculty;
     private ArrayList<Integer> campIDs;
     
-    public User(int userID, String name,String password, String faculty){
-        this.name = name;
+    public User(int userID, String email, String name,String password, String faculty){
         this.userID = userID;
+        this.email = email;
+        this.name = name;
         this.password = password;
         this.faculty = faculty;
         this.campIDs = new ArrayList<Integer>();
@@ -29,12 +31,16 @@ public class User implements Serializable {
         return this.campIDs;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public int getUserID() {
         return this.userID;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public String getFaculty() {

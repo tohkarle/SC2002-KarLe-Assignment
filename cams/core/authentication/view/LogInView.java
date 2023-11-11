@@ -6,13 +6,13 @@ import cams.core.root.view.RootView;
 
 public class LogInView {
 
-    private String name ;
+    private String email ;
     private String password;
     private LogInUIController logInUIController;
     private RootView rootUI;
 
     public LogInView(RootView rootUI) {
-        this.name = null;
+        this.email = null;
         this.password  = null;
         this.logInUIController = new LogInUIController();
         this.rootUI = rootUI;
@@ -22,8 +22,8 @@ public class LogInView {
         System.out.println("Log in");
 
         // get userID
-        System.out.print("Enter name: ");
-        this.name = Main.scanner.nextLine();
+        System.out.print("Enter email: ");
+        this.email = Main.scanner.nextLine();
 
         // get password
         System.out.print("Enter password: ");
@@ -31,6 +31,6 @@ public class LogInView {
 
         // Log in user
         // Set the currentUserID in rootUI after logging in user
-        rootUI.setCurrentUserID(logInUIController.logIn(this.name, this.password));
+        rootUI.setCurrentUserID(logInUIController.logIn(this.email, this.password));
     }
 }

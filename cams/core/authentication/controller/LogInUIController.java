@@ -4,16 +4,16 @@ import cams.Main;
 
 public class LogInUIController {
     
-    public int logIn(String name, String password) {
-        if (!Main.userManager.isValidUser(name)) {
-            System.out.println("Name not found!");
+    public int logIn(String email, String password) {
+        if (!Main.userManager.isValidUser(email)) {
+            System.out.println("Email not found!");
             return -1;
         }
 
-        if (Main.userManager.checkPassword(name, password)){
+        if (Main.userManager.checkPassword(email, password)){
             // password accepted
             System.out.println("Credentials accepted!");
-            return Main.userManager.getUserID(name);
+            return Main.userManager.getUserID(email);
 
         } else {
             // password wrong, rejected

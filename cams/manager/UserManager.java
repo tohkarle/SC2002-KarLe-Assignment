@@ -19,34 +19,35 @@ public class UserManager {
         load();
     }
 
-    public int registerUser(String name, String password, String faculty, boolean isStaff) {
+    public int registerUser(String email, String name, String password, String faculty, boolean isStaff) {
+
         User newUser;
 
         this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
         while(userMap.get(uniqueKey) != null) this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
 
         if (isStaff) {
-            newUser = new Staff(this.uniqueKey, name, password, faculty);
+            newUser = new Staff(this.uniqueKey, email, name, password, faculty);
         } else {
-            newUser = new Student(this.uniqueKey, name, password, faculty);
+            newUser = new Student(this.uniqueKey, email, name, password, faculty);
         }
         
         userMap.put(this.uniqueKey, newUser);
         return this.uniqueKey;
     }
 
-    public Boolean isValidUser(String name){
+    public Boolean isValidUser(String email){
         for (User user : userMap.values()) {
-            if (user.getName().equals(name)) {
+            if (user.getEmail().equals(email)) {
                 return true;
             }
         }
         return false;
     }
 
-    public int getUserID(String name) {
+    public int getUserID(String email) {
         for (User user : userMap.values()) {
-            if (user.getName().equals(name)) {
+            if (user.getEmail().equals(email)) {
                 return user.getUserID();
             }
         }
@@ -57,9 +58,9 @@ public class UserManager {
         return ((User)userMap.get(userID)).getName();
     }
 
-    public Boolean checkPassword(String name, String password){
+    public Boolean checkPassword(String email, String password){
         for (User user : userMap.values()) {
-            if (user.getName().equals(name)) {
+            if (user.getEmail().equals(email)) {
                 return user.checkPassword(password);
             }
         }
@@ -82,9 +83,9 @@ public class UserManager {
         return (userMap.get(userID) instanceof Staff);
     }
 
-    public boolean nameAlreadyExists(String name) {
+    public boolean emailAlreadyExists(String email) {
         for (User user : userMap.values()) {
-            if (user.getName().equals(name)) {
+            if (user.getEmail().equals(email)) {
                 return true;
             }
         }

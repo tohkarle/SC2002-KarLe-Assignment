@@ -6,6 +6,7 @@ import cams.core.root.view.RootView;
 import cams.util.UserInput;
 
 public class RegisterView {
+    private String email;
     private String name ;
     private String password;
     private String faculty;
@@ -14,6 +15,7 @@ public class RegisterView {
     private RootView rootUI;
 
     public RegisterView(RootView rootUI) {
+        this.email = null;
         this.name = null;
         this.password  = null;
         this.faculty = null;
@@ -35,7 +37,11 @@ public class RegisterView {
             isStaff = false;
         }
 
-        System.out.println("Please enter your name, password and faculty.");
+        System.out.println("Please enter your email, name, password and faculty.");
+
+        // get email
+        System.out.print("Enter email: ");
+        this.email = Main.scanner.nextLine();
 
         // get name
         System.out.print("Enter name: ");
@@ -51,6 +57,6 @@ public class RegisterView {
 
         // Register user
         // Set the currentUserID in rootUI after registering user
-        rootUI.setCurrentUserID(registerUIController.register(this.name, this.password, this.faculty, this.isStaff));
+        rootUI.setCurrentUserID(registerUIController.register(this.email, this.name, this.password, this.faculty, this.isStaff));
     }
 }
