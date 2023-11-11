@@ -7,7 +7,7 @@ public class UIComponents {
     public static int intInputField(String title, int min, int max) {
         System.out.print(title);
         int option = Main.scanner.nextInt();
-
+        
         if (option == -1) { return -1; }
 
         while (option < min || option > max) {

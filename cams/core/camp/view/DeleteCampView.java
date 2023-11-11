@@ -17,6 +17,7 @@ public class DeleteCampView {
     }
 
     public void show() {
+        
         ArrayList<Integer> createdCampIDs = this.manager.getCreatedCampIDs(staffID);
 
         if (createdCampIDs.size() == 0) {

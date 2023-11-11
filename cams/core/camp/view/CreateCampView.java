@@ -39,8 +39,8 @@ public class CreateCampView {
 
         // get visibility
         int option = UIComponents.intInputField("Enter visibility (1) Turn on (2) Turn off: ", 1, 2);
-        if (option == UIComponents.backOptionInt()) { return; }
         this.visibility = (option == 1);
+        if (option == UIComponents.backOptionInt()) { return; }
 
         // get dates
         option = this.getDates();

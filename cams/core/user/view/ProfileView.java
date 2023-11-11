@@ -8,32 +8,27 @@ import cams.util.UIComponents;
 
 public class ProfileView {
 
-    private boolean running;
     private int studentID;
     private UserManager manager;
 
     public ProfileView(RootView rootView) {
-        this.running = true;
         this.studentID = rootView.getCurrentUserID();
         this.manager = rootView.getManager();
     }
 
     public void show() {
-        do {
-            UIComponents.pageHeader("Profile:");
-            System.out.println("Name: " + manager.getName(this.studentID));
-            System.out.println("Email: " + manager.getEmail(this.studentID));
-            System.out.println("Faculty: " + manager.getFaculty(this.studentID));
+        UIComponents.pageHeader("Profile:");
+        System.out.println("Name: " + manager.getName(this.studentID));
+        System.out.println("Email: " + manager.getEmail(this.studentID));
+        System.out.println("Faculty: " + manager.getFaculty(this.studentID));
 
-            if (manager.isStudent(this.studentID)) {
-                studentSpecificProfile();
-            } else {
-                staffSpecificProfile();
-            }
+        if (manager.isStudent(this.studentID)) {
+            studentSpecificProfile();
+        } else {
+            staffSpecificProfile();
+        }
 
-            this.running = (UIComponents.navigationInput(1, 1) != UIComponents.backOptionInt());
-
-        } while (this.running);
+        if (UIComponents.navigationInput(-1, -1) == UIComponents.backOptionInt()) { return; }
     }
 
     public void studentSpecificProfile() {
