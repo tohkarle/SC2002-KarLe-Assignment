@@ -37,7 +37,7 @@ public class CampManager {
 
 
 
-    public ArrayList<Integer> getAllCampID(){
+    public ArrayList<Integer> getAllCampIDs(){
         ArrayList<Integer> arr = new ArrayList<>(campMap.keySet());
         return arr;
     }
@@ -79,6 +79,17 @@ public class CampManager {
         }
         return names;
     }
+
+    public ArrayList<Integer> getAllFacultyCampIDs(String faculty) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Camp camp : campMap.values()) {
+            if (camp.getUserGroup() == faculty && camp.isVisible()) {
+                ids.add(camp.getId());
+            }
+        }
+        return ids;
+    }
+
     
 
 
@@ -118,8 +129,12 @@ public class CampManager {
 
 
 
-    public Boolean getIsVisible(int campID){
+    public Boolean getVisibility(int campID){
         return campMap.get(campID).isVisible();
+    }
+
+    public void setVisibility(int campID, boolean visibility) {
+        campMap.get(campID).setVisibility(visibility);
     }
 
     public void toggleIsVisible(int campID){
@@ -257,8 +272,11 @@ public class CampManager {
 
 
     public ArrayList<LocalDate> getCampDates(int campID) {
-        Camp camp = campMap.get(campID);
-        return camp.getDates();
+        return campMap.get(campID).getDates();
+    }
+
+    public void setCampDates(int campID, ArrayList<LocalDate> dates) {
+        campMap.get(campID).setDates(dates);
     }
 
 
@@ -280,6 +298,7 @@ public class CampManager {
     public void setEndDate(int campID, LocalDate date){
         campMap.get(campID).setDate(1, date);
     }
+
 
 
 

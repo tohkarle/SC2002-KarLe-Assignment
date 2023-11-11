@@ -1,8 +1,9 @@
 package cams.core.authentication.view;
 
 import cams.Main;
+import cams.component.LoadingIndicator;
+import cams.component.UserInput;
 import cams.core.root.view.RootView;
-import cams.util.UIComponents;
 
 public class LogInView {
 
@@ -18,17 +19,17 @@ public class LogInView {
 
     public void show() {
 
-        UIComponents.pageHeader("Log in");
+        UserInput.pageHeader("Log in");
 
         // get userID
         System.out.print("Enter email: ");
         this.email = Main.scanner.nextLine();
-        if (this.email.equals(UIComponents.backOptionString())) { return; }
+        if (this.email.equals(UserInput.backOptionString())) { return; }
 
         // get password
         System.out.print("Enter password: ");
         this.password = Main.scanner.nextLine();
-        if (this.password.equals(UIComponents.backOptionString())) { return; }
+        if (this.password.equals(UserInput.backOptionString())) { return; }
 
         // Log in user
         this.logIn();
@@ -44,7 +45,7 @@ public class LogInView {
             // password accepted
             // Set the currentUserID in rootUI after logging in user
             this.rootView.setCurrentUserID(Main.authManager.getUserID(this.email));
-            UIComponents.logInLoadingIndicator();
+            LoadingIndicator.logInLoadingIndicator();
         } else {
             // password wrong, rejected
             System.out.println("Wrong password, please try again.");

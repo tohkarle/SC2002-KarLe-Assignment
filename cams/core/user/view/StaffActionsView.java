@@ -1,10 +1,12 @@
 package cams.core.user.view;
 
+import cams.component.LoadingIndicator;
+import cams.component.UserInput;
 import cams.core.camp.view.AllCampsView;
 import cams.core.camp.view.CreateCampView;
 import cams.core.camp.view.DeleteCampView;
+import cams.core.camp.view.EditCampView;
 import cams.core.root.view.RootView;
-import cams.util.UIComponents;
 
 public class StaffActionsView {
     // A staff will be able to create, edit and delete camps.
@@ -27,34 +29,40 @@ public class StaffActionsView {
         System.out.println("(2) View all camps");
         System.out.println("(3) Create camp");
         System.out.println("(4) View created camps");
-        System.out.println("(5) Delete camp");
-        System.out.println("(6) Log out");
+        System.out.println("(5) Edit created camp");
+        System.out.println("(6) Delete created camp");
+        System.out.println("(7) Log out");
 
-        int option = UIComponents.navigationInput(1, 6);
+        int option = UserInput.selectionInputField(1, 7);
+
+        ProfileView profileView = new ProfileView(this.rootView);
+        AllCampsView allCampsView = new AllCampsView(null, -1);
+        CreateCampView createCampView = new CreateCampView(this.rootView);
+        AllCampsView createdCampsView = new AllCampsView(null, this.rootView.getCurrentUserID());
+        EditCampView editCampView = new EditCampView(createdCampsView);
+        DeleteCampView deleteCampView = new DeleteCampView(createdCampsView);
 
         switch (option) {
             case 1:
-                ProfileView profileView = new ProfileView(this.rootView);
                 profileView.show();
                 break;
             case 2:
-                AllCampsView allCampsView = new AllCampsView(null, -1);
                 allCampsView.show();
                 break;
             case 3:
-                CreateCampView createCampView = new CreateCampView(this.rootView);
                 createCampView.show();
                 break;
             case 4:
-                AllCampsView createdCampsView = new AllCampsView(null, this.rootView.getCurrentUserID());
                 createdCampsView.show();
                 break;
             case 5:
-                DeleteCampView deleteCampView = new DeleteCampView(this.rootView);
-                deleteCampView.show();
+                editCampView.show();
                 break;
             case 6:
-                UIComponents.logOutLoadingIndicator();
+                deleteCampView.show();
+                break;
+            case 7:
+                LoadingIndicator.logOutLoadingIndicator();
                 rootView.logUserOut();
                 break;
         }

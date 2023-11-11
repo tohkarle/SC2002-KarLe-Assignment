@@ -1,52 +1,39 @@
 package cams.core.camp.view;
 
-import java.util.ArrayList;
-
 import cams.Main;
-import cams.core.root.view.RootView;
-import cams.util.UIComponents;
+import cams.component.LoadingIndicator;
+import cams.component.UserInput;
 
 public class DeleteCampView {
-    private int staffID;
+    private AllCampsView createdCamps;
 
-    public DeleteCampView(RootView rootView) {
-        this.staffID = rootView.getCurrentUserID();
+    public DeleteCampView(AllCampsView createdCamps) {
+        this.createdCamps = createdCamps;
     }
 
     public void show() {
-        
-        // Fetch all camps created by staff
-        ArrayList<Integer> createdCampIDs = Main.campManager.getAllStaffCampIDs(staffID);
-        ArrayList<String> createdCampNames = Main.campManager.getAllStaffCampNames(staffID);
 
-        if (createdCampIDs.size() == 0) {
-            UIComponents.pageHeader("No camp has been created.");
+        // Show all created camps
+        createdCamps.displayCamps("Select the camp you want to delete:");
 
-            // Get user input
-            if (UIComponents.navigationInput(-1, -1) == UIComponents.backOptionInt()) { return; };
-
+        // Let user select the camp to delete
+        if (createdCamps.getIds().size() == 0) {
+            if (UserInput.selectionInputField(-1, -1) == UserInput.backOptionInt()) { return; };
         } else {
-            UIComponents.pageHeader("Select the camp you want to delete.");
-
-            for (int i = 0; i < createdCampNames.size(); i++) {
-                System.out.println("(" + (i + 1) + ") " + createdCampNames.get(i));
-            }
-
-            // Get user input
-            int option = UIComponents.navigationInput(1, createdCampIDs.size());
+            int option = UserInput.selectionInputField(1, createdCamps.getIds().size());
 
             // Go back if user selects back
-            if (option == UIComponents.backOptionInt()) { return; }
+            if (option == UserInput.backOptionInt()) { return; }
 
             // Confirm delete or discard and go back
-            UIComponents.confirmOrDiscard("delete");
+            UserInput.confirmOrDiscard("delete");
             if (Main.scanner.nextInt() != 1) { return; }
 
             // Delete camp from campMap
-            int campID = createdCampIDs.get(option - 1);
+            int campID = createdCamps.getIds().get(option - 1);
             Main.campManager.deleteCamp(campID);
 
-            UIComponents.deleteLoadingIndicator("camp");
+            LoadingIndicator.deleteLoadingIndicator("camp");
         }
     }
 }

@@ -1,9 +1,10 @@
 package cams.core.user.view;
 
+import cams.component.LoadingIndicator;
+import cams.component.UserInput;
 import cams.core.camp.view.AllCampsView;
 import cams.core.root.view.RootView;
 import cams.manager.StudentManager;
-import cams.util.UIComponents;
 
 public class StudentActionsView {
 
@@ -33,7 +34,7 @@ public class StudentActionsView {
         System.out.println("(4) View submitted enquiries");
         System.out.println("(5) Log out");
 
-        int option = UIComponents.navigationInput(1, 5);
+        int option = UserInput.selectionInputField(1, 5);
 
         switch (option) {
             case 1:
@@ -41,7 +42,7 @@ public class StudentActionsView {
                 profileView.show();
                 break;
             case 2:
-                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()));
+                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()), -1);
                 allCampsView.show();
                 break;
             case 3:
@@ -49,7 +50,7 @@ public class StudentActionsView {
             case 4:
                 break;
             case 5:
-                UIComponents.logOutLoadingIndicator();
+                LoadingIndicator.logOutLoadingIndicator();
                 rootView.logUserOut();
                 break;
         }
@@ -63,7 +64,7 @@ public class StudentActionsView {
         System.out.println("(4) View submitted enquiries");
         System.out.println("(5) Log out");
 
-        int option = UIComponents.navigationInput(1, 5);
+        int option = UserInput.selectionInputField(1, 5);
 
         switch (option) {
             case 1:
@@ -71,7 +72,7 @@ public class StudentActionsView {
                 profileView.show();
                 break;
             case 2:
-                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()));
+                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()), -1);
                 allCampsView.show();
                 break;
             case 3:
@@ -79,7 +80,7 @@ public class StudentActionsView {
             case 4:
                 break;
             case 5:
-                UIComponents.logOutLoadingIndicator();
+                LoadingIndicator.logOutLoadingIndicator();
                 rootView.logUserOut();
                 break;
         }

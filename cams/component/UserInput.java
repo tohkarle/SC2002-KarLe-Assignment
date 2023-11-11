@@ -1,8 +1,8 @@
-package cams.util;
+package cams.component;
 
 import cams.Main;
 
-public class UIComponents {
+public class UserInput {
 
     public static int intInputField(String title, int min, int max) {
         System.out.print(title);
@@ -25,30 +25,10 @@ public class UIComponents {
         return option;
     }
 
-    public static int navigationInput(int min, int max) {
+    public static int selectionInputField(int min, int max) {
         System.out.println("");
         int option = intInputField("Your selection: ", min, max);
         return option;
-    }
-
-    public static void logInLoadingIndicator() {
-        System.out.println("\nLogging in...");
-        System.out.println("Log in successful!");
-    }
-
-    public static void logOutLoadingIndicator() {
-        System.out.println("Logging out...");
-        System.out.println("Log out successful!");
-    }
-
-    public static void createLoadingIndicator(String title) {
-        System.out.println("\nCreating " + title + "...");
-        System.out.println("Create " + title + " successful!");
-    }
-
-    public static void deleteLoadingIndicator(String title) {
-        System.out.println("\nDeleting " + title + "...");
-        System.out.println("Delete " + title + " successful!");
     }
 
     public static String backOptionString() {
@@ -57,15 +37,6 @@ public class UIComponents {
 
     public static int backOptionInt() {
         return -1;
-    }
-
-    public static void invalidUserInput() {
-        System.out.println("Invalid input, please try again\n");
-    }
-
-    public static void terminateAppLoadingIndicator() {
-        System.out.println("Terminating app...");
-        System.out.println("Terminate app successful!\n");
     }
 
     public static void confirmOrDiscard(String title) {

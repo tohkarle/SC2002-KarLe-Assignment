@@ -1,10 +1,10 @@
 package cams.core.user.view;
 
 import cams.Main;
+import cams.component.UserInput;
 import cams.core.root.view.RootView;
 import cams.manager.StudentManager;
 import cams.manager.UserManager;
-import cams.util.UIComponents;
 
 public class ProfileView {
 
@@ -17,7 +17,7 @@ public class ProfileView {
     }
 
     public void show() {
-        UIComponents.pageHeader("Profile:");
+        UserInput.pageHeader("Profile:");
         System.out.println("Name: " + manager.getName(this.studentID));
         System.out.println("Email: " + manager.getEmail(this.studentID));
         System.out.println("Faculty: " + manager.getFaculty(this.studentID));
@@ -28,7 +28,7 @@ public class ProfileView {
             staffSpecificProfile();
         }
 
-        if (UIComponents.navigationInput(-1, -1) == UIComponents.backOptionInt()) { return; }
+        if (UserInput.selectionInputField(-1, -1) == UserInput.backOptionInt()) { return; }
     }
 
     public void studentSpecificProfile() {

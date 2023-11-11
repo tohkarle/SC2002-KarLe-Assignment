@@ -1,6 +1,8 @@
 package cams.core.root.view;
 
 import cams.Main;
+import cams.component.LoadingIndicator;
+import cams.component.UserInput;
 import cams.core.authentication.view.LogInView;
 import cams.core.authentication.view.RegisterView;
 import cams.core.user.view.StaffActionsView;
@@ -8,25 +10,22 @@ import cams.core.user.view.StudentActionsView;
 import cams.manager.StaffManager;
 import cams.manager.StudentManager;
 import cams.manager.UserManager;
-import cams.util.UIComponents;
 
 public class RootView {
 
-    private boolean running;
     private int currentUserID;
     private UserManager userManager;
 
     public RootView() {
-        this.running = true;
         this.currentUserID = -1;
     }
 
     public void show() {
         int option;
 
-        System.out.println("\nWelcome to the Camp Application and Management System\n");
+        System.out.println("\nWelcome to the Camp Application and Management System");
 
-        do {
+        while (true) {
              // If user is not logged in, let user register or log in
              if (currentUserID == -1) {
                 // Let user choose to register or log in
@@ -35,7 +34,7 @@ public class RootView {
                 System.out.println("(2) Log In");
                 System.out.println("(3) Terminate app");
 
-                option = UIComponents.navigationInput(1, 3);
+                option = UserInput.selectionInputField(1, 3);
 
                 switch(option) {
                     case 1:
@@ -47,9 +46,8 @@ public class RootView {
                         logInView.show();
                         break;
                     case 3:
-                        this.running = false;
-                        UIComponents.terminateAppLoadingIndicator();
-                        break;
+                        LoadingIndicator.terminateAppLoadingIndicator();
+                        return;
                 }
              } else {
 
@@ -68,7 +66,7 @@ public class RootView {
                 }
              }
 
-        } while (running);
+        }
     }
 
     public UserManager getManager() {

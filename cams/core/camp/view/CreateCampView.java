@@ -6,8 +6,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import cams.Main;
+import cams.component.LoadingIndicator;
+import cams.component.UserInput;
 import cams.core.root.view.RootView;
-import cams.util.UIComponents;
 
 public class CreateCampView {
     private int staffID;
@@ -22,43 +23,43 @@ public class CreateCampView {
     }
 
     public void show() {
-        UIComponents.pageHeader("Please enter the name, faculty, visibility and dates of the camp.");
+        UserInput.pageHeader("Please enter the name, faculty, visibility and dates of the camp.");
 
         // get name
         System.out.print("Enter name: ");
         this.campName = Main.scanner.nextLine();
-        if (this.campName.equals(UIComponents.backOptionString())) { return; }
+        if (this.campName.equals(UserInput.backOptionString())) { return; }
 
         // get faculty
         System.out.print("Enter faculty: ");
         this.faculty = Main.scanner.nextLine();
-        if (this.faculty.equals(UIComponents.backOptionString())) { return; }
+        if (this.faculty.equals(UserInput.backOptionString())) { return; }
 
         // get visibility
-        int option = UIComponents.intInputField("Enter visibility (1) Turn on (2) Turn off: ", 1, 2);
+        int option = UserInput.intInputField("Enter visibility (1) On (2) Off: ", 1, 2);
         this.visibility = (option == 1);
-        if (option == UIComponents.backOptionInt()) { return; }
+        if (option == UserInput.backOptionInt()) { return; }
 
         // get dates
         option = this.getDates();
-        if (option == UIComponents.backOptionInt()) { return; }
+        if (option == UserInput.backOptionInt()) { return; }
 
         // Confirm changes or discard and go back
-        UIComponents.confirmOrDiscard("changes");
+        UserInput.confirmOrDiscard("changes");
         if (Main.scanner.nextInt() != 1) { return; }
 
         // Create camp and add to campMap
         Main.campManager.createCamp(this.staffID, this.campName, this.dates, this.faculty, this.visibility);
 
-        UIComponents.createLoadingIndicator("camp");
+        LoadingIndicator.createLoadingIndicator("camp");
     }
 
-    public int getDates() {
+    private int getDates() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         while (true) {
             this.displayAddedDates();
             String dateString = Main.scanner.nextLine();
-            if (dateString.equals(UIComponents.backOptionString())) { return -1; }
+            if (dateString.equals(UserInput.backOptionString())) { return -1; }
             if (dateString.equalsIgnoreCase("done")) {
                 break;
             }
@@ -76,13 +77,13 @@ public class CreateCampView {
         return 1;
     }
 
-    public void displayAddedDates() {
+    private void displayAddedDates() {
         if (dates.size() == 0) {
             System.out.print("Enter dates (yyyy-MM-dd): ");
         } else {
             System.out.print("Dates: ");
-            for (int i = 0; i < dates.size(); i++) {
-                System.out.print(dates.get(i) + ", ");
+            for (LocalDate date : dates) {
+                System.out.print(date + ", ");
             }
             System.out.print("add more or enter 'done' when finished: "); 
         }
