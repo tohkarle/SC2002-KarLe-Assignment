@@ -8,6 +8,7 @@ public class User implements Serializable {
     private String name;
     private String password;
     private String faculty;
+    private int point;
     private ArrayList<Integer> campIDs;
     
     public User(int userID, String email, String name,String password, String faculty){
@@ -16,6 +17,7 @@ public class User implements Serializable {
         this.name = name;
         this.password = password;
         this.faculty = faculty;
+        this.point = 0;
         this.campIDs = new ArrayList<Integer>();
     }
 
@@ -53,5 +55,13 @@ public class User implements Serializable {
 
     public void setPassword(String password){
         this.password = password;
+    }
+
+    public int getPoint() {
+        return this.point;
+    }
+
+    public void addOnePoint() {
+        this.point++;
     }
 }

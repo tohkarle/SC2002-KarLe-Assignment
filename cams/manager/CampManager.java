@@ -16,13 +16,11 @@ public class CampManager {
     public CampManager(){
         Serialize.checkAndCreateFile("CampManagerKey.sav");
         Serialize.checkAndCreateFile("campMap.sav");
-        this.load();
     }
 
 
 
     public void createCamp(String staffID) {
-
         // Set registration closing date to be 45 days after date of creation
         LocalDateTime registrationClosingDate = LocalDateTime.now().plus(45, ChronoUnit.DAYS);
 
@@ -39,6 +37,15 @@ public class CampManager {
         return arr;
     }
 
+    public ArrayList<String> getAllCampNames(String faculty) {
+        ArrayList<String> names = new ArrayList<>();
+        for (Camp camp : campMap.values()) {
+            if (camp.getUserGroup() == faculty && camp.isVisible()) {
+                names.add(camp.getCampName());
+            }
+        }
+        return names;
+    }
 
 
     public String getCampDescription(int campID){

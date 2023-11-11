@@ -1,17 +1,16 @@
 package cams.core.authentication.view;
 
 import cams.Main;
-import cams.core.authentication.controller.RegisterUIController;
+import cams.core.authentication.controller.RegisterViewController;
 import cams.core.root.view.RootView;
-import cams.util.UserInput;
+import cams.util.UIComponents;
 
 public class RegisterView {
     private String email;
     private String name ;
     private String password;
     private String faculty;
-    private boolean isStaff;
-    private RegisterUIController registerUIController;
+    private RegisterViewController viewController;
     private RootView rootUI;
 
     public RegisterView(RootView rootUI) {
@@ -19,8 +18,7 @@ public class RegisterView {
         this.name = null;
         this.password  = null;
         this.faculty = null;
-        this.isStaff = false;
-        this.registerUIController = new RegisterUIController();
+        this.viewController = new RegisterViewController();
         this.rootUI = rootUI;
     }
 
@@ -29,13 +27,7 @@ public class RegisterView {
         System.out.println("(1) Staff");
         System.out.println("(2) Student");
 
-        int option = UserInput.optionInput();
-
-        if (option == 1) {
-            isStaff = true;
-        } else if (option == 2) {
-            isStaff = false;
-        }
+        int option = UIComponents.userInput();
 
         System.out.println("Please enter your email, name, password and faculty.");
 
@@ -57,6 +49,6 @@ public class RegisterView {
 
         // Register user
         // Set the currentUserID in rootUI after registering user
-        rootUI.setCurrentUserID(registerUIController.register(this.email, this.name, this.password, this.faculty, this.isStaff));
+        rootUI.setCurrentUserID(viewController.register(this.email, this.name, this.password, this.faculty, option));
     }
 }

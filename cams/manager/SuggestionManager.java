@@ -13,7 +13,6 @@ public class SuggestionManager {
     public SuggestionManager() {
         Serialize.checkAndCreateFile("SuggestionMangerKey.sav");
         Serialize.checkAndCreateFile("suggestionMap.sav");
-        this.load();
     }
 
     public void createSuggestion(String studentID, int campID, String content) {

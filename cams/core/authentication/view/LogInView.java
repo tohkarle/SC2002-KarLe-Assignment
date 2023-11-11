@@ -1,20 +1,20 @@
 package cams.core.authentication.view;
 
 import cams.Main;
-import cams.core.authentication.controller.LogInUIController;
+import cams.core.authentication.controller.LogInViewController;
 import cams.core.root.view.RootView;
 
 public class LogInView {
 
     private String email ;
     private String password;
-    private LogInUIController logInUIController;
+    private LogInViewController viewController;
     private RootView rootUI;
 
     public LogInView(RootView rootUI) {
         this.email = null;
         this.password  = null;
-        this.logInUIController = new LogInUIController();
+        this.viewController = new LogInViewController();
         this.rootUI = rootUI;
     }
 
@@ -31,6 +31,6 @@ public class LogInView {
 
         // Log in user
         // Set the currentUserID in rootUI after logging in user
-        rootUI.setCurrentUserID(logInUIController.logIn(this.email, this.password));
+        rootUI.setCurrentUserID(viewController.logIn(this.email, this.password));
     }
 }

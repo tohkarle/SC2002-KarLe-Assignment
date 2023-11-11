@@ -14,7 +14,6 @@ public class EnquiryManager {
     public EnquiryManager(){
         Serialize.checkAndCreateFile("EnquiryMangerKey.sav");
         Serialize.checkAndCreateFile("enquiryMap.sav");
-        this.load();
     }
 
     public void createEnquiry(String studentID, int campID, String content){

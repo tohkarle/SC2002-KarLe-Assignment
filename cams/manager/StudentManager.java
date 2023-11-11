@@ -21,86 +21,93 @@ public class StudentManager extends UserManager {
     // student.removeFromSuggestionIDs(suggestionID)
     // student.addOnePoint()
 
-    public void addCampCommitteeToStudent(String studentID, int campID) {
-        Student student = (Student) userMap.get(studentID);
-        student.addToCampCommittee(campID);
+
+    public boolean isACommitteeMember(int studentID) {
+        return ((Student)userMap.get(studentID)).isACommitteeMember();
     }
 
-    public boolean isCampCommitteeForCamp(String studentID, int campID) {
-        Student student = (Student) userMap.get(studentID);
-        return (student.isCampCommitteeForCamp(campID));
-    }
 
-    public ArrayList<Integer> getStudentRegistrationIDs(String studentID) {
-        Student student = (Student) userMap.get(studentID);
-        return student.getRegistrationIDs();
-    }
 
-    public ArrayList<Integer> getStudentEnquiryIDs(String studentID) {
-        Student student = (Student) userMap.get(studentID);
-        return student.getEnquiryIDs();
-    }
+    // public void addCampCommitteeToStudent(String studentID, int campID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     student.addToCampCommittee(campID);
+    // }
 
-    public ArrayList<Integer> getStudentSuggestionIDs(String studentID) {
-        Student student = (Student) userMap.get(studentID);
-        return student.getSuggestionIDs();
-    }
+    // public boolean isCampCommitteeForCamp(String studentID, int campID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     return (student.isCampCommitteeForCamp(campID));
+    // }
 
-    public void addRegistrationIDToStudent(String studentID, int registrationID) {
-        Student student = (Student) userMap.get(studentID);
-        student.addToRegistrationIDs(registrationID);
-    }
+    // public ArrayList<Integer> getStudentRegistrationIDs(String studentID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     return student.getRegistrationIDs();
+    // }
 
-    public void addEnquiryIDToStudent(String studentID, int enquiryID) {
-        Student student = (Student) userMap.get(studentID);
-        student.addToEnquiryIDs(enquiryID);
-    }
+    // public ArrayList<Integer> getStudentEnquiryIDs(String studentID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     return student.getEnquiryIDs();
+    // }
 
-    public void addSuggestionIDToStudent(String studentID, int suggestionID) {
-        Student student = (Student) userMap.get(studentID);
-        student.addToSuggestionIDs(suggestionID);
-    }
+    // public ArrayList<Integer> getStudentSuggestionIDs(String studentID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     return student.getSuggestionIDs();
+    // }
 
-    public void removeEnquiryIDFromStudent(String studentID, int enquiryID) {
-        Student student = (Student) userMap.get(studentID);
-        student.removeFromEnquiryIDs(enquiryID);
-    }
+    // public void addRegistrationIDToStudent(String studentID, int registrationID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     student.addToRegistrationIDs(registrationID);
+    // }
 
-    public void removeSuggestionIDFromStudent(String studentID, int suggestionID) {
-        Student student = (Student) userMap.get(studentID);
-        student.removeFromSuggestionIDs(suggestionID);
-    }
+    // public void addEnquiryIDToStudent(String studentID, int enquiryID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     student.addToEnquiryIDs(enquiryID);
+    // }
 
-    public boolean hasRegisteredForCamp(String studentID, int campID) {
-        Student student = (Student) userMap.get(studentID);
-        for (int registrationID : student.getRegistrationIDs()) {
-            if (Main.registrationManager.getCampID(registrationID) == campID) { return true; }
-        }
-        return false;
-    }
+    // public void addSuggestionIDToStudent(String studentID, int suggestionID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     student.addToSuggestionIDs(suggestionID);
+    // }
 
-    public boolean hasCampClashes(String studentID, int campID) {
-        Student student = (Student) userMap.get(studentID);
-        ArrayList<LocalDateTime> newCampDates = Main.campManager.getCampDates(campID);
+    // public void removeEnquiryIDFromStudent(String studentID, int enquiryID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     student.removeFromEnquiryIDs(enquiryID);
+    // }
 
-        // KARLE_TODO: Think of better implementation
-        for (int registrationID : student.getRegistrationIDs()) {
-            int tempCampID = Main.registrationManager.getCampID(registrationID);
-            ArrayList<LocalDateTime> existingCampDates = Main.campManager.getCampDates(tempCampID);
+    // public void removeSuggestionIDFromStudent(String studentID, int suggestionID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     student.removeFromSuggestionIDs(suggestionID);
+    // }
+
+    // public boolean hasRegisteredForCamp(String studentID, int campID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     for (int registrationID : student.getRegistrationIDs()) {
+    //         if (Main.registrationManager.getCampID(registrationID) == campID) { return true; }
+    //     }
+    //     return false;
+    // }
+
+    // public boolean hasCampClashes(String studentID, int campID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     ArrayList<LocalDateTime> newCampDates = Main.campManager.getCampDates(campID);
+
+    //     // KARLE_TODO: Think of better implementation
+    //     for (int registrationID : student.getRegistrationIDs()) {
+    //         int tempCampID = Main.registrationManager.getCampID(registrationID);
+    //         ArrayList<LocalDateTime> existingCampDates = Main.campManager.getCampDates(tempCampID);
     
-            for (LocalDateTime newDate : newCampDates) {
-                for (LocalDateTime existingDate : existingCampDates) {
-                    if (newDate.equals(existingDate)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
+    //         for (LocalDateTime newDate : newCampDates) {
+    //             for (LocalDateTime existingDate : existingCampDates) {
+    //                 if (newDate.equals(existingDate)) {
+    //                     return true;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 
-    public void addOnePointToStudent(String studentID) {
-        Student student = (Student) userMap.get(studentID);
-        student.addOnePoint();
-    }
+    // public void addOnePointToStudent(String studentID) {
+    //     Student student = (Student) userMap.get(studentID);
+    //     student.addOnePoint();
+    // }
 }
