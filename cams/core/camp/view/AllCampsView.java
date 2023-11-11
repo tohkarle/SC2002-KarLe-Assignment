@@ -29,7 +29,17 @@ public class AllCampsView {
                 }
             }
 
-            this.running = UIComponents.backOption(1);
+            UIComponents.backOption(1);
+            int option = UIComponents.userInput();
+
+            switch (option) {
+                case 1:
+                    this.running = false;
+                    break;
+                default:
+                    UIComponents.invalidUserInput();
+                    break;
+            }
 
         } while (running);
     }

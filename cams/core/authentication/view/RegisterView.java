@@ -1,24 +1,23 @@
 package cams.core.authentication.view;
 
 import cams.Main;
-import cams.core.authentication.controller.RegisterViewController;
 import cams.core.root.view.RootView;
 import cams.util.UIComponents;
 
 public class RegisterView {
+    private boolean isStaff;
     private String email;
     private String name ;
     private String password;
     private String faculty;
-    private RegisterViewController viewController;
     private RootView rootUI;
 
     public RegisterView(RootView rootUI) {
+        this.isStaff = false;
         this.email = null;
         this.name = null;
         this.password  = null;
         this.faculty = null;
-        this.viewController = new RegisterViewController();
         this.rootUI = rootUI;
     }
 
@@ -27,7 +26,7 @@ public class RegisterView {
         System.out.println("(1) Staff");
         System.out.println("(2) Student");
 
-        int option = UIComponents.userInput();
+        this.isStaff = (UIComponents.userInput() == 1);
 
         System.out.println("Please enter your email, name, password and faculty.");
 
@@ -48,7 +47,17 @@ public class RegisterView {
         this.faculty = Main.scanner.nextLine();
 
         // Register user
+        this.register();
+    }
+
+    private void register() {
+
+        if (Main.authManager.emailAlreadyExists(this.email)) {
+            System.out.println("Email already used, please enter another email.\n");
+            return;
+        }
+
         // Set the currentUserID in rootUI after registering user
-        rootUI.setCurrentUserID(viewController.register(this.email, this.name, this.password, this.faculty, option));
+        this.rootUI.setCurrentUserID(Main.authManager.registerUser(this.email, this.name, this.password, this.faculty, this.isStaff));
     }
 }

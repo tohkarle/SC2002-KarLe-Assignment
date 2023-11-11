@@ -23,7 +23,17 @@ public class ProfileView {
             System.out.println("Faculty: " + manager.getFaculty(this.rootView.getCurrentUserID()));
             System.out.println("Point: " + manager.getPoint(this.rootView.getCurrentUserID()));
 
-            this.running = UIComponents.backOption(1);
+            UIComponents.backOption(1);
+            int option = UIComponents.userInput();
+
+            switch (option) {
+                case 1:
+                    this.running = false;
+                    break;
+                default:
+                    UIComponents.invalidUserInput();
+                    break;
+            }
 
         } while (this.running);
     }

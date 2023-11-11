@@ -1,7 +1,6 @@
 package cams.core.profile.view;
 
 import cams.core.camp.view.AllCampsView;
-import cams.core.profile.controller.StudentActionsViewController;
 import cams.core.root.view.RootView;
 import cams.manager.StudentManager;
 import cams.util.UIComponents;
@@ -14,12 +13,10 @@ public class StudentActionsView {
     // A student can view, edit, and delete their enquiries before it is processed
     private RootView rootView;
     private StudentManager manager;
-    private StudentActionsViewController viewController;
 
     public StudentActionsView(RootView rootView) {
         this.rootView = rootView;
         this.manager = (StudentManager) rootView.getManager();
-        this.viewController = new StudentActionsViewController();
     }
 
     public void show() {
@@ -54,6 +51,9 @@ public class StudentActionsView {
             case 5:
                 UIComponents.logOutLoadingIndicator();
                 rootView.logUserOut();
+                break;
+            default:
+                UIComponents.invalidUserInput();
                 break;
         }
     }

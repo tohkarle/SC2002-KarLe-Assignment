@@ -22,8 +22,16 @@ public class UIComponents {
         System.out.println("Log out successful!\n");
     }
 
-    public static boolean backOption(int option) {
+    public static void backOption(int option) {
         System.out.println("(" + option+ ")" + " Back");
-        if (UIComponents.userInput() == option); { return false; }
+    }
+
+    public static void invalidUserInput() {
+        System.out.println("Invalid input, please try again\n");
+    }
+
+    public static void terminateAppLoadingIndicator() {
+        System.out.println("Terminating app...");
+        System.out.println("Terminate app successful!\n");
     }
 }
