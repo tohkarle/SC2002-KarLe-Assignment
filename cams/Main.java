@@ -2,12 +2,12 @@ package cams;
 
 import java.util.Scanner;
 
-import cams.core.root.view.RootView;
 import cams.manager.AuthManager;
 import cams.manager.CampManager;
 import cams.manager.EnquiryManager;
 import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
+import cams.view.root.RootView;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);

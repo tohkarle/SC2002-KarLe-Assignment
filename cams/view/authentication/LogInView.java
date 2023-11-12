@@ -1,9 +1,9 @@
-package cams.core.authentication.view;
+package cams.view.authentication;
 
 import cams.Main;
 import cams.component.LoadingIndicator;
 import cams.component.SelectionInput;
-import cams.core.root.view.RootView;
+import cams.view.root.RootView;
 
 public class LogInView {
 

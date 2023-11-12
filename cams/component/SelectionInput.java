@@ -18,7 +18,7 @@ public class SelectionInput {
 
             try {
                 option = Integer.parseInt(input);
-                if (option == -1) { return -1; }
+                if (option == SelectionInput.backOptionInt()) { return SelectionInput.backOptionInt(); }
                 if (option < min || option > max) {
                     System.out.println("Invalid input, please try again.");
                     continue;

@@ -1,13 +1,15 @@
-package cams.core.camp.view;
+package cams.view.camp;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import cams.Main;
 import cams.component.CampInput;
+import cams.component.ConfirmOrDiscard;
+import cams.component.IntInput;
 import cams.component.LoadingIndicator;
 import cams.component.SelectionInput;
-import cams.core.root.view.RootView;
+import cams.view.root.RootView;
 
 public class CreateCampView {
     private int staffID;
@@ -50,7 +52,8 @@ public class CreateCampView {
         this.dates.add(endDate);
 
         // Confirm changes or discard and go back
-        if (SelectionInput.confirmOrDiscard("changes") != 1) { return; };
+        IntInput confirmOrDiscard = new ConfirmOrDiscard("changes");
+        if (confirmOrDiscard.getValidInput() != 1) { return; }
 
         // Create camp and add to campMap
         Main.campManager.createCamp(this.staffID, this.campName, this.dates, this.faculty, this.visibility);

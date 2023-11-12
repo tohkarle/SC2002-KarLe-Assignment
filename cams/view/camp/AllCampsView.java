@@ -1,16 +1,20 @@
-package cams.core.camp.view;
+package cams.view.camp;
 
 import java.util.ArrayList;
 
 import cams.Main;
+import cams.component.IntInput;
 import cams.component.SelectionInput;
+import cams.component.YourSelectionWithBack;
 
 public class AllCampsView {
 
     private ArrayList<String> names;
     private ArrayList<Integer> ids;
+    private int selectedCampID;
 
     public AllCampsView(String faculty, int staffID) {
+
         if (faculty == null && staffID == -1) {
             // Fetch all camps
             this.names = Main.campManager.getAllCampNames();
@@ -27,11 +31,23 @@ public class AllCampsView {
             this.ids = Main.campManager.getAllStaffCampIDs(staffID);
 
         }
+
+        this.selectedCampID = SelectionInput.backOptionInt();
     }
 
     public void show() {
-        this.displayCamps("All camps:");
-        if (SelectionInput.selectionInputFieldWithBack(-1, -1) == SelectionInput.backOptionInt()) { return; };
+        while (true) {
+            // Display camps
+            this.displayCamps("Select camp to view details:");
+
+            // Let user select camp to view details
+            this.selectCamp();
+            if (this.selectedCampID == SelectionInput.backOptionInt()) { return; }
+
+            // Display camp details
+            CampDetailsView campDetailsView = new CampDetailsView(this.selectedCampID, "Camp details:");
+            campDetailsView.show();
+        }
     }
 
     public void displayCamps(String title) {
@@ -45,12 +61,26 @@ public class AllCampsView {
         }
     }
 
+    public void selectCamp() {
+        IntInput yourSelectionWithBack = new YourSelectionWithBack(1, this.ids.size());
+        int option = yourSelectionWithBack.getValidInput();
+        if (option == SelectionInput.backOptionInt()) { 
+            this.selectedCampID = option;
+            return; 
+        }
+        this.selectedCampID = this.ids.get(option - 1);
+    }
+
     public ArrayList<String> getNames() {
         return this.names;
     }
 
     public ArrayList<Integer> getIds() {
         return this.ids;
+    }
+
+    public int getSelectedCampID() {
+        return this.selectedCampID;
     }
 
 }

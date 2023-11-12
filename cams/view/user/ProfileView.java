@@ -1,10 +1,12 @@
-package cams.core.user.view;
+package cams.view.user;
 
 import cams.Main;
+import cams.component.IntInput;
 import cams.component.SelectionInput;
-import cams.core.root.view.RootView;
+import cams.component.YourSelectionWithBack;
 import cams.manager.StudentManager;
 import cams.manager.UserManager;
+import cams.view.root.RootView;
 
 public class ProfileView {
 
@@ -28,7 +30,8 @@ public class ProfileView {
             staffSpecificProfile();
         }
 
-        if (SelectionInput.selectionInputFieldWithBack(-1, -1) == SelectionInput.backOptionInt()) { return; }
+        IntInput yourSelectionWithBack = new YourSelectionWithBack(-1, -1);
+        yourSelectionWithBack.getValidInput();
     }
 
     public void studentSpecificProfile() {

@@ -1,12 +1,13 @@
-package cams.core.user.view;
+package cams.view.user;
 
+import cams.component.IntInput;
 import cams.component.LoadingIndicator;
-import cams.component.SelectionInput;
-import cams.core.camp.view.AllCampsView;
-import cams.core.camp.view.CreateCampView;
-import cams.core.camp.view.DeleteCampView;
-import cams.core.camp.view.EditCampView;
-import cams.core.root.view.RootView;
+import cams.component.YourSelection;
+import cams.view.camp.AllCampsView;
+import cams.view.camp.CreateCampView;
+import cams.view.camp.DeleteCampView;
+import cams.view.camp.EditCampView;
+import cams.view.root.RootView;
 
 public class StaffActionsView {
     // A staff will be able to create, edit and delete camps.
@@ -33,7 +34,8 @@ public class StaffActionsView {
         System.out.println("(6) Delete created camp");
         System.out.println("(7) Log out");
 
-        int option = SelectionInput.selectionInputFieldWithoutBack(1, 7);
+        IntInput yourSelection = new YourSelection(1, 7);
+        int option = yourSelection.getValidInput();
 
         ProfileView profileView = new ProfileView(this.rootView);
         AllCampsView allCampsView = new AllCampsView(null, -1);

@@ -1,9 +1,11 @@
-package cams.core.authentication.view;
+package cams.view.authentication;
 
 import cams.Main;
+import cams.component.IntInput;
 import cams.component.LoadingIndicator;
 import cams.component.SelectionInput;
-import cams.core.root.view.RootView;
+import cams.component.YourSelectionWithBack;
+import cams.view.root.RootView;
 
 public class RegisterView {
     private int option;
@@ -39,7 +41,8 @@ public class RegisterView {
         System.out.println("(1) Staff");
         System.out.println("(2) Student");
 
-        this.option = SelectionInput.selectionInputFieldWithBack(1, 2);
+        IntInput yourSelectionWithBack = new YourSelectionWithBack(1, 2);
+        this.option = yourSelectionWithBack.getValidInput();
     }
 
     public void regiatrationFields() {
