@@ -2,7 +2,7 @@ package cams.core.camp.view;
 
 import cams.Main;
 import cams.component.LoadingIndicator;
-import cams.component.UserInput;
+import cams.component.SelectionInput;
 
 public class DeleteCampView {
     private AllCampsView createdCamps;
@@ -18,15 +18,15 @@ public class DeleteCampView {
 
         // Let user select the camp to delete
         if (createdCamps.getIds().size() == 0) {
-            if (UserInput.selectionInputField(-1, -1) == UserInput.backOptionInt()) { return; };
+            if (SelectionInput.selectionInputFieldWithBack(-1, -1) == SelectionInput.backOptionInt()) { return; };
         } else {
-            int option = UserInput.selectionInputField(1, createdCamps.getIds().size());
+            int option = SelectionInput.selectionInputFieldWithBack(1, createdCamps.getIds().size());
 
             // Go back if user selects back
-            if (option == UserInput.backOptionInt()) { return; }
+            if (option == SelectionInput.backOptionInt()) { return; }
 
             // Confirm delete or discard and go back
-            UserInput.confirmOrDiscard("delete");
+            SelectionInput.confirmOrDiscard("delete");
             if (Main.scanner.nextInt() != 1) { return; }
 
             // Delete camp from campMap

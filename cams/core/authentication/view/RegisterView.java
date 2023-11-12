@@ -2,7 +2,7 @@ package cams.core.authentication.view;
 
 import cams.Main;
 import cams.component.LoadingIndicator;
-import cams.component.UserInput;
+import cams.component.SelectionInput;
 import cams.core.root.view.RootView;
 
 public class RegisterView {
@@ -29,43 +29,43 @@ public class RegisterView {
         chooseStaffOrStudent();
 
         // Go back to previous page if user enters -1
-        if (this.option == UserInput.backOptionInt()) { return; }
+        if (this.option == SelectionInput.backOptionInt()) { return; }
 
         regiatrationFields();
     }
 
     public void chooseStaffOrStudent() {
-        UserInput.pageHeader("Do you want to register as a Staff or a Student?");
+        SelectionInput.pageHeader("Do you want to register as a Staff or a Student?");
         System.out.println("(1) Staff");
         System.out.println("(2) Student");
 
-        this.option = UserInput.selectionInputField(1, 2);
+        this.option = SelectionInput.selectionInputFieldWithBack(1, 2);
     }
 
     public void regiatrationFields() {
         this.isStaff = (this.option == 1);
 
-        UserInput.pageHeader("Please enter your email, name, password and faculty.");
+        SelectionInput.pageHeader("Please enter your email, name, password and faculty.");
 
         // get email
         System.out.print("Enter email: ");
         this.email = Main.scanner.nextLine();
-        if (this.email.equals(UserInput.backOptionString())) { return; }
+        if (this.email.equals(SelectionInput.backOptionString())) { return; }
 
         // get name
         System.out.print("Enter name: ");
         this.name = Main.scanner.nextLine();
-        if (this.name.equals(UserInput.backOptionString())) { return; }
+        if (this.name.equals(SelectionInput.backOptionString())) { return; }
 
         // get password
         System.out.print("Enter password: ");
         this.password = Main.scanner.nextLine();
-        if (this.password.equals(UserInput.backOptionString())) { return; }
+        if (this.password.equals(SelectionInput.backOptionString())) { return; }
 
         // get faculty
         System.out.print("Enter faculty: ");
         this.faculty = Main.scanner.nextLine();
-        if (this.faculty.equals(UserInput.backOptionString())) { return; }
+        if (this.faculty.equals(SelectionInput.backOptionString())) { return; }
 
         // Register user
         this.register();

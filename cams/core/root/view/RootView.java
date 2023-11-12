@@ -2,7 +2,7 @@ package cams.core.root.view;
 
 import cams.Main;
 import cams.component.LoadingIndicator;
-import cams.component.UserInput;
+import cams.component.SelectionInput;
 import cams.core.authentication.view.LogInView;
 import cams.core.authentication.view.RegisterView;
 import cams.core.user.view.StaffActionsView;
@@ -34,7 +34,7 @@ public class RootView {
                 System.out.println("(2) Log In");
                 System.out.println("(3) Terminate app");
 
-                option = UserInput.selectionInputField(1, 3);
+                option = SelectionInput.selectionInputFieldWithoutBack(1, 3);
 
                 switch(option) {
                     case 1:

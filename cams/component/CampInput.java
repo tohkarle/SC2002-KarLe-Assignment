@@ -13,7 +13,7 @@ public class CampInput {
     }
 
     public static int intField(String title) {
-        return UserInput.intInputField(title, 1, 2);
+        return SelectionInput.intInputFieldWithBack(title, 1, 2);
     }
 
     public static LocalDate dateField(String title) {
@@ -21,7 +21,7 @@ public class CampInput {
         while (true) {
             System.out.print(title);
             String dateString = Main.scanner.nextLine();
-            if (dateString.equals(UserInput.backOptionString())) { return null; }
+            if (dateString.equals(SelectionInput.backOptionString())) { return null; }
 
             try {
                 return LocalDate.parse(dateString, formatter);

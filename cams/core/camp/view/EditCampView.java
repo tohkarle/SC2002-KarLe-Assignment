@@ -1,14 +1,11 @@
 package cams.core.camp.view;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 import cams.Main;
 import cams.component.CampInput;
 import cams.component.LoadingIndicator;
-import cams.component.UserInput;
+import cams.component.SelectionInput;
 
 public class EditCampView {
     private String campName;
@@ -29,12 +26,12 @@ public class EditCampView {
 
         // Let user select the camp to edit
         if (createdCamps.getIds().size() == 0) {
-            if (UserInput.selectionInputField(-1, -1) == UserInput.backOptionInt()) { return; };
+            if (SelectionInput.selectionInputFieldWithBack(-1, -1) == SelectionInput.backOptionInt()) { return; };
         } else {
-            int option = UserInput.selectionInputField(1, createdCamps.getIds().size());
+            int option = SelectionInput.selectionInputFieldWithBack(1, createdCamps.getIds().size());
 
             // Go back if user selects back
-            if (option == UserInput.backOptionInt()) { return; }
+            if (option == SelectionInput.backOptionInt()) { return; }
 
             int campID = createdCamps.getIds().get(option - 1);
             this.campName = Main.campManager.getCampName(campID);
@@ -51,7 +48,7 @@ public class EditCampView {
     private void editCamp(int campID) {
         while (true) {
 
-            UserInput.pageHeader("Select the field you want to edit.");
+            SelectionInput.pageHeader("Select the field you want to edit.");
 
             System.out.println("(1) Name: " + this.campName);
 
@@ -66,14 +63,14 @@ public class EditCampView {
 
             System.out.println("(6) Update changes");
 
-            int option = UserInput.selectionInputField(1, 6);
-            if (option == UserInput.backOptionInt()) { return; }
+            int option = SelectionInput.selectionInputFieldWithBack(1, 6);
+            if (option == SelectionInput.backOptionInt()) { return; }
 
             switch (option) {
                 case 1:
                     // edit name
                     this.campName = CampInput.stringField("Edit name: ");
-                    if (this.campName.equals(UserInput.backOptionString())) { return; }
+                    if (this.campName.equals(SelectionInput.backOptionString())) { return; }
                     break;
                 case 2:
                     // edit start date
@@ -88,17 +85,17 @@ public class EditCampView {
                 case 4:
                     // edit faculty
                     this.faculty = CampInput.stringField("Edit faculty: ");
-                    if (this.faculty.equals(UserInput.backOptionString())) { return; }
+                    if (this.faculty.equals(SelectionInput.backOptionString())) { return; }
                     break;
                 case 5:
                     // get visibility
                     option = CampInput.intField("Edit visibility (1) On (2) Off: ");
                     this.visibility = (option == 1);
-                    if (option == UserInput.backOptionInt()) { return; }
+                    if (option == SelectionInput.backOptionInt()) { return; }
                     break;
                 case 6:
                     // Confirm or discard
-                    UserInput.confirmOrDiscard("changes");
+                    SelectionInput.confirmOrDiscard("changes");
                     if (Main.scanner.nextInt() != 1) { return; }
 
                     // Update changes

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import cams.Main;
 import cams.component.CampInput;
 import cams.component.LoadingIndicator;
-import cams.component.UserInput;
+import cams.component.SelectionInput;
 import cams.core.root.view.RootView;
 
 public class CreateCampView {
@@ -24,20 +24,20 @@ public class CreateCampView {
     }
 
     public void show() {
-        UserInput.pageHeader("Please enter the name, faculty, visibility and dates of the camp.");
+        SelectionInput.pageHeader("Please enter the name, faculty, visibility and dates of the camp.");
 
         // get name
         this.campName = CampInput.stringField("Enter name: ");
-        if (this.campName.equals(UserInput.backOptionString())) { return; }
+        if (this.campName.equals(SelectionInput.backOptionString())) { return; }
 
         // get faculty
         this.faculty = CampInput.stringField("Enter faculty: ");
-        if (this.faculty.equals(UserInput.backOptionString())) { return; }
+        if (this.faculty.equals(SelectionInput.backOptionString())) { return; }
 
         // get visibility
         int option = CampInput.intField("Edit visibility (1) On (2) Off: ");
         this.visibility = (option == 1);
-        if (option == UserInput.backOptionInt()) { return; }
+        if (option == SelectionInput.backOptionInt()) { return; }
 
         // get start date
         LocalDate startDate = CampInput.dateField("Enter start date (yyyy-MM-dd): ");
@@ -52,7 +52,7 @@ public class CreateCampView {
         this.dates.add(endDate);
 
         // Confirm changes or discard and go back
-        UserInput.confirmOrDiscard("changes");
+        SelectionInput.confirmOrDiscard("changes");
         if (Main.scanner.nextInt() != 1) { return; }
 
         // Create camp and add to campMap
@@ -66,7 +66,7 @@ public class CreateCampView {
         while (true) {
             this.displayAddedDates();
             String dateString = Main.scanner.nextLine();
-            if (dateString.equals(UserInput.backOptionString())) { return -1; }
+            if (dateString.equals(SelectionInput.backOptionString())) { return -1; }
             if (dateString.equalsIgnoreCase("done")) {
                 break;
             }

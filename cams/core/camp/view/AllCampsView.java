@@ -3,7 +3,7 @@ package cams.core.camp.view;
 import java.util.ArrayList;
 
 import cams.Main;
-import cams.component.UserInput;
+import cams.component.SelectionInput;
 
 public class AllCampsView {
 
@@ -31,14 +31,14 @@ public class AllCampsView {
 
     public void show() {
         this.displayCamps("All camps:");
-        if (UserInput.selectionInputField(-1, -1) == UserInput.backOptionInt()) { return; };
+        if (SelectionInput.selectionInputFieldWithBack(-1, -1) == SelectionInput.backOptionInt()) { return; };
     }
 
     public void displayCamps(String title) {
         if (this.names.size() == 0) {
-            UserInput.pageHeader("No camp has been created.");
+            SelectionInput.pageHeader("No camp has been created.");
         } else {
-            UserInput.pageHeader(title);
+            SelectionInput.pageHeader(title);
             for (int i = 0; i < names.size(); i++) {
                 System.out.println("(" + (i + 1) + ") " + names.get(i));
             }
