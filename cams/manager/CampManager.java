@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cams.model.Camp;
+import cams.model.RegistrationType;
 import cams.util.Serialize;
 import cams.util.UniqueKey;
 
@@ -84,6 +85,26 @@ public class CampManager {
         ArrayList<Integer> ids = new ArrayList<>();
         for (Camp camp : campMap.values()) {
             if (camp.getUserGroup().equals(faculty) && camp.isVisible()) {
+                ids.add(camp.getId());
+            }
+        }
+        return ids;
+    }
+
+    public ArrayList<String> getAllRegisteredCampNames(int studentID) {
+        ArrayList<String> names = new ArrayList<>();
+        for (Camp camp : campMap.values()) {
+            if ((camp.getParticipatingStudentIDs().contains(studentID) || camp.getCommitteeMemberIDs().contains(studentID)) && camp.isVisible()) {
+                names.add(camp.getCampName());
+            }
+        }
+        return names;
+    }
+
+    public ArrayList<Integer> getAllRegisteredCampIDs(int studentID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Camp camp : campMap.values()) {
+            if ((camp.getParticipatingStudentIDs().contains(studentID) || camp.getCommitteeMemberIDs().contains(studentID)) && camp.isVisible()) {
                 ids.add(camp.getId());
             }
         }
@@ -187,17 +208,17 @@ public class CampManager {
 
 
 
-    public ArrayList<String> getCampParticipatingStudentIDs(int campID) {
+    public ArrayList<Integer> getCampParticipatingStudentIDs(int campID) {
         Camp camp = campMap.get(campID);
         return camp.getParticipatingStudentIDs();
     }
 
-    public void addStudentIDToCamp(int campID, String studentID) {
+    public void addStudentIDToCamp(int campID, int studentID) {
         Camp camp = campMap.get(campID);
         camp.addToParticipatingStudentIDs(studentID);
     }
     
-    public void removeStudentIDFromCamp(int campID, String studentID) {
+    public void removeStudentIDFromCamp(int campID, int studentID) {
         Camp camp = campMap.get(campID);
         camp.removeFromParticipatingStudentIDs(studentID);
     }
@@ -209,47 +230,13 @@ public class CampManager {
         return camp.getRemainingSlots();
     }
 
-    public boolean isFull(int campID) {
+    public boolean participationIsFull(int campID) {
+        return (campMap.get(campID).getRemainingSlots() == 0);
+    }
+
+    public boolean committeeIsFull(int campID) {
         Camp camp = campMap.get(campID);
-        return (camp.getRemainingSlots() == camp.getTotalSlots());
-    }
-
-
-
-    public int getRegCount(int campID){
-        return campMap.get(campID).getRegCount();
-    }
-
-    public void addRegCount(int campID){
-        campMap.get(campID).addRegCount();
-    }
-
-    public void minusRegCount(int campID){
-        campMap.get(campID).minusRegCount();
-    }
-
-
-
-    public int getCommCount(int campID){
-        return campMap.get(campID).getCommCount();
-    }
-
-    public void addCommCount(int campID){
-        campMap.get(campID).addCommCount();
-    }
-
-    public void minusCommCount(int campID){
-        campMap.get(campID).minusCommCount();
-    }
-
-
-
-    public int getMaxRegSlots(int campID){
-        return campMap.get(campID).getMaxRegSlots();
-    }
-
-    public void setMaxRegSlots(int campID, int newMax){
-        campMap.get(campID).setTotalSlots(newMax);
+        return (camp.getCommitteeSlots() == camp.getCommitteeMemberIDs().size());
     }
 
 
@@ -311,7 +298,70 @@ public class CampManager {
     }
 
 
+
+
+    public void registerForCamp(int studentID, int campID, RegistrationType registrationType) {
+
+        Camp camp = campMap.get(campID);
+
+        // If student registers as ATTENDEE, add student to participating student list
+        // Else add to committee member list
+        if (registrationType == RegistrationType.ATTENDEE) {
+            camp.addToParticipatingStudentIDs(studentID);
+            camp.minusOneRemainingSlots();
+        } else {
+            camp.addToCommitteeMemberIDs(studentID);
+        }
+    }
+
+    public void withdrawFromCamp(int studentID, int campID) {
+        Camp camp = campMap.get(campID);
+        camp.removeFromParticipatingStudentIDs(studentID);
+        camp.addToWithdrawnStudentIDs(studentID);
+    }
+
+
+    public boolean hasRegisteredForCamp(int studentID, int campID) {
+        Camp camp = campMap.get(campID);
+        if (camp.getParticipatingStudentIDs().contains(studentID) || camp.getCommitteeMemberIDs().contains(studentID)) { return true; }
+        return false;
+    }
+
+    public boolean hasCampClashes(int studentID, int campID) {
+        Camp newCamp = campMap.get(campID);
+        LocalDate newCampStart = newCamp.getStartDate();
+        LocalDate newCampEnd = newCamp.getEndDate();
     
+        for (Camp camp : campMap.values()) {
+            if (camp.getParticipatingStudentIDs().contains(studentID)) {
+                if ((newCampStart.isAfter(camp.getStartDate()) && newCampStart.isBefore(camp.getEndDate())) ||
+                    (newCampEnd.isAfter(camp.getStartDate()) && newCampEnd.isBefore(camp.getEndDate())) ||
+                    (newCampStart.isEqual(camp.getStartDate()) || newCampEnd.isEqual(camp.getEndDate()))) {
+                    return true;
+                }
+            }
+
+            if (camp.getCommitteeMemberIDs().contains(studentID)) {
+                if ((newCampStart.isAfter(camp.getStartDate()) && newCampStart.isBefore(camp.getEndDate())) ||
+                    (newCampEnd.isAfter(camp.getStartDate()) && newCampEnd.isBefore(camp.getEndDate())) ||
+                    (newCampStart.isEqual(camp.getStartDate()) || newCampEnd.isEqual(camp.getEndDate()))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isACommitteeMemberForAnotherCamp(int studentID, int campID) {
+        for (Camp camp : campMap.values()) {
+            if (camp.getCommitteeMemberIDs().contains(studentID) && camp.getId() != campID) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+
     public void save(){
         Serialize.save("CampManagerKey.sav", uniqueKey);
         Serialize.save("campMap.sav", campMap);

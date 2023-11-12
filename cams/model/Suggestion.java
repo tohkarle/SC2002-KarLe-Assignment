@@ -1,6 +1,8 @@
 package cams.model;
 
-public class Suggestion {
+import java.io.Serializable;
+
+public class Suggestion implements Serializable {
     private int id;
     private int campID;
     private String studentID;

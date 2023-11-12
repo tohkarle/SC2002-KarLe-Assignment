@@ -65,8 +65,8 @@ public class RootView {
                 } else if (Main.authManager.isStudent(currentUserID)) {
                     userManager = new StudentManager();
 
-                    StudentActionsView studentProfileView = new StudentActionsView(this);
-                    studentProfileView.show();
+                    StudentActionsView studentActionsView = new StudentActionsView(this);
+                    studentActionsView.show();
                 }
              }
 

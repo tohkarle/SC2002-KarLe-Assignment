@@ -3,8 +3,8 @@ package cams.view.user;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
 import cams.component.YourSelectionInput;
-import cams.manager.StudentManager;
 import cams.view.camp.AllCampsView;
+import cams.view.camp.RegisterCampsView;
 import cams.view.root.RootView;
 
 public class StudentActionsView {
@@ -13,18 +13,26 @@ public class StudentActionsView {
     // A student can view the remaining slots of each camp that is open to his/her.
     // A student can submit enquiries regarding a camp and only staff and camp committees in charge of that camp can view it
     // A student can view, edit, and delete their enquiries before it is processed
+
     private RootView rootView;
-    private StudentManager manager;
+
+    // Views to navigate to from this page
+    ProfileView profileView;
+    AllCampsView allCampsInFacultyView;
+    AllCampsView allRegisteredCamps;
+    RegisterCampsView registerCampsView;
+
 
     public StudentActionsView(RootView rootView) {
         this.rootView = rootView;
-        this.manager = (StudentManager) rootView.getManager();
+        this.profileView = new ProfileView(rootView);
+        this.allCampsInFacultyView = new AllCampsView(rootView.getManager().getFaculty(rootView.getCurrentUserID()));
+        this.allRegisteredCamps = new AllCampsView(rootView.getCurrentUserID());
+        this.registerCampsView = new RegisterCampsView(rootView.getCurrentUserID(), allCampsInFacultyView.getAllCamps());
     }
 
     public void show() {
-        do {
-            studentOptions();
-        } while (this.rootView.getCurrentUserID() != -1);
+        studentOptions();
     }
 
     public void studentOptions() {
@@ -32,26 +40,29 @@ public class StudentActionsView {
         System.out.println("(1) View profile");
         System.out.println("(2) View all camps");
         System.out.println("(3) View registered camps");
-        System.out.println("(4) View submitted enquiries");
-        System.out.println("(5) Log out");
+        System.out.println("(4) Register for camps");
+        System.out.println("(5) View submitted enquiries");
+        System.out.println("(6) Log out");
 
-        IntInput yourSelectionInput = new YourSelectionInput(1, 5);
+        IntInput yourSelectionInput = new YourSelectionInput(1, 6);
         int option = yourSelectionInput.getValidInput();
 
         switch (option) {
             case 1:
-                ProfileView profileView = new ProfileView(this.rootView);
                 profileView.show();
                 break;
             case 2:
-                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()));
-                allCampsView.show();
+                allCampsInFacultyView.show();
                 break;
             case 3:
+                allRegisteredCamps.show();
                 break;
             case 4:
+                registerCampsView.show();
                 break;
             case 5:
+                break;
+            case 6:
                 LoadingIndicator.logOutLoadingIndicator();
                 rootView.logUserOut();
                 break;
@@ -71,14 +82,13 @@ public class StudentActionsView {
 
         switch (option) {
             case 1:
-                ProfileView profileView = new ProfileView(this.rootView);
                 profileView.show();
                 break;
             case 2:
-                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()));
-                allCampsView.show();
+                allCampsInFacultyView.show();
                 break;
             case 3:
+                allRegisteredCamps.show();
                 break;
             case 4:
                 break;

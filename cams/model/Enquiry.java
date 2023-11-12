@@ -1,6 +1,8 @@
 package cams.model;
 
-public class Enquiry{
+import java.io.Serializable;
+
+public class Enquiry implements Serializable {
     private int id;
     private int campID;
     private String studentID;

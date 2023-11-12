@@ -16,11 +16,9 @@ public class Camp implements Serializable {
     private String description;
     private int staffInCharge;
     private int remainingSlots;
-    private int registerCount;
-    private int registerCommCount;
-    private ArrayList<String> committeeMemberIDs;
-    private ArrayList<String> participatingStudentIDs;
-    private ArrayList<String> withdrawnStudentIDs;
+    private ArrayList<Integer> committeeMemberIDs;
+    private ArrayList<Integer> participatingStudentIDs;
+    private ArrayList<Integer> withdrawnStudentIDs;
     private ArrayList<Integer> enquiryIDs;
     private ArrayList<Integer> suggestionIDs;
 
@@ -34,17 +32,15 @@ public class Camp implements Serializable {
         this.totalSlots = 69;
         this.committeeSlots = 9;
         this.description = "Default description";
-        this.registerCount = 0;
-        this.registerCommCount = 0;
 
         this.id = id;
         this.staffInCharge = staffID;
         this.remainingSlots = totalSlots;
         this.registrationClosingDate = registrationClosingDate;
 
-        this.committeeMemberIDs = new ArrayList<String>();
-        this.participatingStudentIDs = new ArrayList<String>();
-        this.withdrawnStudentIDs = new ArrayList<String>();
+        this.committeeMemberIDs = new ArrayList<Integer>();
+        this.participatingStudentIDs = new ArrayList<Integer>();
+        this.withdrawnStudentIDs = new ArrayList<Integer>();
         this.enquiryIDs = new ArrayList<Integer>();
         this.suggestionIDs = new ArrayList<Integer>();
     }
@@ -63,6 +59,14 @@ public class Camp implements Serializable {
 
     public void setCampName(String campName) {
         this.campName = campName;
+    }
+
+    public LocalDate getStartDate() {
+        return this.dates.get(0);
+    }
+
+    public LocalDate getEndDate() {
+        return this.dates.get(1);
     }
 
     public ArrayList<LocalDate> getDates() {
@@ -129,39 +133,9 @@ public class Camp implements Serializable {
         this.committeeSlots = committeeSlots;
     }
 
-
-    public void addRegCount(){
-        registerCount++;
-    }
-
-    public void minusRegCount(){
-        registerCount--;
-    }
-
-    public void addCommCount(){
-        registerCommCount++;
-    }
-
-    public void minusCommCount(){
-        registerCommCount--;
-    }
-
-    public int getRegCount(){
-        return registerCount;
-    }
-
-    public int getCommCount(){
-        return registerCommCount;
-    }
-
-    public int getMaxRegSlots(){
-        return totalSlots;
-    }
-
     public int getMaxCommSlots(){
         return committeeSlots;
     }
-
 
     public String getDescription() {
         return this.description;
@@ -175,6 +149,10 @@ public class Camp implements Serializable {
         return this.staffInCharge;
     }
 
+    public void minusOneRemainingSlots() {
+        this.remainingSlots--;
+    }
+
     public int getRemainingSlots() {
         return this.remainingSlots;
     }
@@ -183,39 +161,39 @@ public class Camp implements Serializable {
         this.remainingSlots = remainingSlots;
     }
 
-    public ArrayList<String> getParticipatingStudentIDs() {
+    public ArrayList<Integer> getParticipatingStudentIDs() {
         return this.participatingStudentIDs;
     }
 
-    public void addToParticipatingStudentIDs(String studentID) {
+    public void addToParticipatingStudentIDs(int studentID) {
         this.participatingStudentIDs.add(studentID);
     }
 
-    public void removeFromParticipatingStudentIDs(String studentID) {
+    public void removeFromParticipatingStudentIDs(int studentID) {
         this.participatingStudentIDs.remove(studentID);
     }
 
-    public ArrayList<String> getWithdrawnStudentIDs() {
+    public ArrayList<Integer> getWithdrawnStudentIDs() {
         return this.withdrawnStudentIDs;
     }
 
-    public void addToWithdrawnStudentIDs(String studentID) {
+    public void addToWithdrawnStudentIDs(int studentID) {
         this.withdrawnStudentIDs.add(studentID);
     }
 
-    public void removeFromWithdrawnStudentIDs(String studentID) {
+    public void removeFromWithdrawnStudentIDs(int studentID) {
         this.withdrawnStudentIDs.remove(studentID);
     }
 
-    public ArrayList<String> getCommitteeMemberIDs() {
+    public ArrayList<Integer> getCommitteeMemberIDs() {
         return this.committeeMemberIDs;
     }
 
-    public void addToCommitteeMemberIDs(String studentID) {
+    public void addToCommitteeMemberIDs(int studentID) {
         this.committeeMemberIDs.add(studentID);
     }
 
-    public void removeFromCommitteeMemberIDs(String studentID) {
+    public void removeFromCommitteeMemberIDs(int studentID) {
         this.committeeMemberIDs.remove(studentID);
     }
 

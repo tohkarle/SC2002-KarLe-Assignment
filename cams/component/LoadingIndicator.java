@@ -21,6 +21,11 @@ public class LoadingIndicator {
         System.out.println("Delete " + title + " successful!");
     }
 
+    public static void registerLoadingIndicator(String title) {
+        System.out.println("\nRegistering for " + title + "...");
+        System.out.println("Register for " + title + " successful!");
+    }
+
     public static void updateLoadingIndicator(String title) {
         System.out.println("\nUpdating " + title + "...");
         System.out.println("Update " + title + " successful!");

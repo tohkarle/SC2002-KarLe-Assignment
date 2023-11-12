@@ -15,8 +15,8 @@ public class AllCampsView {
         this.allCamps = new AllCamps(faculty);
     }
 
-    public AllCampsView(int staffID) {
-        this.allCamps = new AllCamps(staffID);
+    public AllCampsView(int userID) {
+        this.allCamps = new AllCamps(userID);
     }
 
     public void show() {

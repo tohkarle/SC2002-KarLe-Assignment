@@ -21,6 +21,8 @@ public class StaffActionsView {
     // A staff can also generate a performance report of the camp committee members.
 
     private RootView rootView;
+
+    // Views to navigate to from this page
     private ProfileView profileView;
     private AllCampsView allCampsView;
     private CreateCampView createCampView;
