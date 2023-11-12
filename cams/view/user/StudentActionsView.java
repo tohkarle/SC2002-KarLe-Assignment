@@ -41,10 +41,10 @@ public class StudentActionsView {
         System.out.println("(2) View all camps");
         System.out.println("(3) View registered camps");
         System.out.println("(4) Register for camps");
-        System.out.println("(5) View submitted enquiries");
-        System.out.println("(6) Log out");
+        // System.out.println("(5) View submitted enquiries");
+        System.out.println("(5) Log out");
 
-        IntInput yourSelectionInput = new YourSelectionInput(1, 6);
+        IntInput yourSelectionInput = new YourSelectionInput(1, 5);
         int option = yourSelectionInput.getValidInput();
 
         switch (option) {
@@ -61,8 +61,6 @@ public class StudentActionsView {
                 registerCampsView.show();
                 break;
             case 5:
-                break;
-            case 6:
                 LoadingIndicator.logOutLoadingIndicator();
                 rootView.logUserOut();
                 break;
