@@ -2,7 +2,8 @@ package cams.view.authentication;
 
 import cams.Main;
 import cams.component.LoadingIndicator;
-import cams.component.SelectionInput;
+import cams.util.Dismiss;
+import cams.util.Page;
 import cams.view.root.RootView;
 
 public class LogInView {
@@ -19,17 +20,17 @@ public class LogInView {
 
     public void show() {
 
-        SelectionInput.pageHeader("Log in");
+        Page.header("Log in");
 
         // get userID
         System.out.print("Enter email: ");
         this.email = Main.scanner.nextLine();
-        if (this.email.equals(SelectionInput.backOptionString())) { return; }
+        if (this.email.equals(Dismiss.stringOption())) { return; }
 
         // get password
         System.out.print("Enter password: ");
         this.password = Main.scanner.nextLine();
-        if (this.password.equals(SelectionInput.backOptionString())) { return; }
+        if (this.password.equals(Dismiss.stringOption())) { return; }
 
         // Log in user
         this.logIn();

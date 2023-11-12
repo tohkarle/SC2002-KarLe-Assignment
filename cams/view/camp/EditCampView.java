@@ -3,12 +3,15 @@ package cams.view.camp;
 import java.time.LocalDate;
 
 import cams.Main;
-import cams.component.CampInput;
 import cams.component.ConfirmOrDiscard;
+import cams.component.DateInput;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
-import cams.component.SelectionInput;
-import cams.component.YourSelectionWithBack;
+import cams.component.StartEndDatesInput;
+import cams.component.TwoOptionsInput;
+import cams.component.YourSelectionInputWithDismiss;
+import cams.util.Dismiss;
+import cams.util.Page;
 
 public class EditCampView {
     private String campName;
@@ -38,40 +41,44 @@ public class EditCampView {
 
     private void editCamp(int campID) {
         while (true) {
-            SelectionInput.pageHeader("Select the field you want to edit.");
+            Page.header("Select the field you want to edit.");
             this.campDetails();
             System.out.println("(6) Update changes");
 
-            IntInput yourSelectionWithBack = new YourSelectionWithBack(1, 6);
-            int option = yourSelectionWithBack.getValidInput();
-            if (option == SelectionInput.backOptionInt()) { return; }
+            IntInput yourSelectionInputWithDismiss = new YourSelectionInputWithDismiss(1, 6);
+            int option = yourSelectionInputWithDismiss.getValidInput();
+            if (option == Dismiss.intOption()) { return; }
 
             switch (option) {
                 case 1:
                     // edit name
-                    this.campName = CampInput.stringField("Edit name: ");
-                    if (this.campName.equals(SelectionInput.backOptionString())) { return; }
+                    System.out.println("Edit name: ");
+                    this.campName = Main.scanner.nextLine();
+                    if (this.campName.equals(Dismiss.stringOption())) { return; }
                     break;
                 case 2:
                     // edit start date
-                    this.startDate = CampInput.dateField("Edit start date (yyyy-MM-dd): ");
+                    DateInput startEndDatesInput = new StartEndDatesInput("Edit start date (yyyy-MM-dd): ", "Enter end date (yyyy-MM-dd): ");
+                    this.startDate = startEndDatesInput.getValidStartDate();
                     if (this.startDate == null) { return; }
                     break;
                 case 3:
                     // edit end date
-                    this.endDate = CampInput.endDateField(this.startDate, "Enter end date (yyyy-MM-dd): ");
-                    if (this.startDate == null) { return; }
+                    this.endDate = startEndDatesInput.getValidEndDate();
+                    if (this.endDate == null) { return; }
                     break;
                 case 4:
                     // edit faculty
-                    this.faculty = CampInput.stringField("Edit faculty: ");
-                    if (this.faculty.equals(SelectionInput.backOptionString())) { return; }
+                    System.out.println("Edit faculty: ");
+                    this.faculty = Main.scanner.nextLine();
+                    if (this.faculty.equals(Dismiss.stringOption())) { return; }
                     break;
                 case 5:
                     // get visibility
-                    option = CampInput.intField("Edit visibility (1) On (2) Off: ");
+                    IntInput twoOptionsInput = new TwoOptionsInput("Edit visibility", "On", "Off");
+                    option = twoOptionsInput.getValidInput();
                     this.visibility = (option == 1);
-                    if (option == SelectionInput.backOptionInt()) { return; }
+                    if (option == Dismiss.intOption()) { return; }
                     break;
                 case 6:
                     // Confirm or discard

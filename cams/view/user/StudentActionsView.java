@@ -2,7 +2,7 @@ package cams.view.user;
 
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
-import cams.component.YourSelection;
+import cams.component.YourSelectionInput;
 import cams.manager.StudentManager;
 import cams.view.camp.AllCampsView;
 import cams.view.root.RootView;
@@ -35,8 +35,8 @@ public class StudentActionsView {
         System.out.println("(4) View submitted enquiries");
         System.out.println("(5) Log out");
 
-        IntInput yourSelection = new YourSelection(1, 5);
-        int option = yourSelection.getValidInput();
+        IntInput yourSelectionInput = new YourSelectionInput(1, 5);
+        int option = yourSelectionInput.getValidInput();
 
         switch (option) {
             case 1:
@@ -66,8 +66,8 @@ public class StudentActionsView {
         System.out.println("(4) View submitted enquiries");
         System.out.println("(5) Log out");
 
-        IntInput yourSelection = new YourSelection(1, 5);
-        int option = yourSelection.getValidInput();
+        IntInput yourSelectionInput = new YourSelectionInput(1, 5);
+        int option = yourSelectionInput.getValidInput();
 
         switch (option) {
             case 1:

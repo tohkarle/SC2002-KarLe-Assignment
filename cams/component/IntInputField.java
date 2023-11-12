@@ -1,5 +1,7 @@
 package cams.component;
 
+import cams.util.Dismiss;
+
 public abstract class IntInputField implements IntInput {
     // Input must be between and including min and max
     // Input must be an int
@@ -14,7 +16,7 @@ public abstract class IntInputField implements IntInput {
         this.min = min;
         this.max = max;
         this.input = null;
-        this.option = SelectionInput.backOptionInt();
+        this.option = Dismiss.intOption();
     }
 
     public abstract int getValidInput();

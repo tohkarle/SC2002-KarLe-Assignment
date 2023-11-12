@@ -4,11 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import cams.Main;
-import cams.component.CampInput;
 import cams.component.ConfirmOrDiscard;
+import cams.component.DateInput;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
-import cams.component.SelectionInput;
+import cams.component.StartEndDatesInput;
+import cams.component.TwoOptionsInput;
+import cams.util.Dismiss;
+import cams.util.Page;
 import cams.view.root.RootView;
 
 public class CreateCampView {
@@ -24,28 +27,31 @@ public class CreateCampView {
     }
 
     public void show() {
-        SelectionInput.pageHeader("Please enter the name, faculty, visibility and dates of the camp.");
+        Page.header("Please enter the name, faculty, visibility and dates of the camp.");
 
         // get name
-        this.campName = CampInput.stringField("Enter name: ");
-        if (this.campName.equals(SelectionInput.backOptionString())) { return; }
+        System.out.println("Enter name: ");
+        this.campName = Main.scanner.nextLine();
+        if (this.campName.equals(Dismiss.stringOption())) { return; }
 
         // get faculty
-        this.faculty = CampInput.stringField("Enter faculty: ");
-        if (this.faculty.equals(SelectionInput.backOptionString())) { return; }
+        System.out.println("Enter faculty: ");
+        this.faculty = Main.scanner.nextLine();
+        if (this.faculty.equals(Dismiss.stringOption())) { return; }
 
         // get visibility
-        int option = CampInput.intField("Edit visibility (1) On (2) Off: ");
+        IntInput twoOptionsInput = new TwoOptionsInput("Enter visibility", "On", "Off");
+        int option = twoOptionsInput.getValidInput();
         this.visibility = (option == 1);
-        if (option == SelectionInput.backOptionInt()) { return; }
+        if (option == Dismiss.intOption()) { return; }
 
         // get start date
-        LocalDate startDate = CampInput.dateField("Enter start date (yyyy-MM-dd): ");
+        DateInput startEndDatesInput = new StartEndDatesInput("Edit start date (yyyy-MM-dd): ", "Enter end date (yyyy-MM-dd): ");
+        LocalDate startDate = startEndDatesInput.getValidStartDate();
         if (startDate == null) { return; }
 
         // get end date
-        LocalDate endDate;
-        endDate = CampInput.endDateField(startDate, "Enter end date (yyyy-MM-dd): ");
+        LocalDate endDate = startEndDatesInput.getValidEndDate();
         if (endDate == null) { return; }
 
         this.dates.add(startDate);

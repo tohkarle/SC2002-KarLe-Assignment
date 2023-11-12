@@ -1,10 +1,11 @@
 package cams.component;
 
 import cams.Main;
+import cams.util.Dismiss;
 
-public class YourSelectionWithBack extends IntInputField {
+public class YourSelectionInputWithBack extends IntInputField {
 
-    public YourSelectionWithBack(int min, int max) {
+    public YourSelectionInputWithBack(int min, int max) {
         super(min, max);
     }
 
@@ -14,7 +15,7 @@ public class YourSelectionWithBack extends IntInputField {
             System.out.print("Your selection: ");
             super.input = Main.scanner.nextLine();
             if (super.inputIsEmpty() || super.inputIsNotInt()) { continue; }
-            if (super.option == SelectionInput.backOptionInt()) { return super.option; }
+            if (super.option == Dismiss.intOption()) { return super.option; }
             if (super.inputIsNotBetweenMinMax()) { continue; }
             return super.option;
         }

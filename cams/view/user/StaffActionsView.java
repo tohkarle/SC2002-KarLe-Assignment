@@ -2,7 +2,7 @@ package cams.view.user;
 
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
-import cams.component.YourSelection;
+import cams.component.YourSelectionInput;
 import cams.view.camp.AllCampsView;
 import cams.view.camp.CreateCampView;
 import cams.view.camp.DeleteCampView;
@@ -34,8 +34,8 @@ public class StaffActionsView {
         System.out.println("(6) Delete created camp");
         System.out.println("(7) Log out");
 
-        IntInput yourSelection = new YourSelection(1, 7);
-        int option = yourSelection.getValidInput();
+        IntInput yourSelectionInput = new YourSelectionInput(1, 7);
+        int option = yourSelectionInput.getValidInput();
 
         ProfileView profileView = new ProfileView(this.rootView);
         AllCampsView allCampsView = new AllCampsView(null, -1);

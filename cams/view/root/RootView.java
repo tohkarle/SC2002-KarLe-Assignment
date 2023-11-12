@@ -3,7 +3,7 @@ package cams.view.root;
 import cams.Main;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
-import cams.component.YourSelection;
+import cams.component.YourSelectionInput;
 import cams.manager.StaffManager;
 import cams.manager.StudentManager;
 import cams.manager.UserManager;
@@ -36,8 +36,8 @@ public class RootView {
                 System.out.println("(3) Terminate app");
 
                 // Input field for user to enter selection
-                IntInput yourSelection = new YourSelection(1, 3);
-                int option = yourSelection.getValidInput();
+                IntInput yourSelectionInput = new YourSelectionInput(1, 3);
+                int option = yourSelectionInput.getValidInput();
 
                 // Execute selection
                 switch(option) {

@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 import cams.Main;
 import cams.component.IntInput;
-import cams.component.SelectionInput;
-import cams.component.YourSelectionWithBack;
+import cams.component.YourSelectionInputWithDismiss;
+import cams.util.Page;
 
 public class CampDetailsView {
 
@@ -30,12 +30,12 @@ public class CampDetailsView {
         this.displayDetails(title, false);
 
         // Allow user to go back
-        IntInput yourSelectionWithBack = new YourSelectionWithBack(-1, -1);
-        yourSelectionWithBack.getValidInput();
+        IntInput yourSelectionInputWithDismiss = new YourSelectionInputWithDismiss(-1, -1);
+        yourSelectionInputWithDismiss.getValidInput();
     }
 
     public void displayDetails(String title, boolean canEdit) {
-        SelectionInput.pageHeader(title);
+        Page.header(title);
         if (canEdit) {
             System.out.println("(1) Name: " + this.campName);
             System.out.println("(2) Start date: " + this.startDate);
@@ -53,7 +53,7 @@ public class CampDetailsView {
     }
 
     public int selectDetail() {
-        IntInput yourSelectionWithBack = new YourSelectionWithBack(1, 5);
-        return yourSelectionWithBack.getValidInput();
+        IntInput yourSelectionInputWithDismiss = new YourSelectionInputWithDismiss(1, 5);
+        return yourSelectionInputWithDismiss.getValidInput();
     }
 }

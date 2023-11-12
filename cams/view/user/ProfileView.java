@@ -2,10 +2,10 @@ package cams.view.user;
 
 import cams.Main;
 import cams.component.IntInput;
-import cams.component.SelectionInput;
-import cams.component.YourSelectionWithBack;
+import cams.component.YourSelectionInputWithDismiss;
 import cams.manager.StudentManager;
 import cams.manager.UserManager;
+import cams.util.Page;
 import cams.view.root.RootView;
 
 public class ProfileView {
@@ -19,7 +19,7 @@ public class ProfileView {
     }
 
     public void show() {
-        SelectionInput.pageHeader("Profile:");
+        Page.header("Profile:");
         System.out.println("Name: " + manager.getName(this.studentID));
         System.out.println("Email: " + manager.getEmail(this.studentID));
         System.out.println("Faculty: " + manager.getFaculty(this.studentID));
@@ -30,8 +30,8 @@ public class ProfileView {
             staffSpecificProfile();
         }
 
-        IntInput yourSelectionWithBack = new YourSelectionWithBack(-1, -1);
-        yourSelectionWithBack.getValidInput();
+        IntInput yourSelectionInputWithDismiss = new YourSelectionInputWithDismiss(-1, -1);
+        yourSelectionInputWithDismiss.getValidInput();
     }
 
     public void studentSpecificProfile() {

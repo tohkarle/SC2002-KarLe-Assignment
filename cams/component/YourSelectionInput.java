@@ -2,9 +2,9 @@ package cams.component;
 
 import cams.Main;
 
-public class YourSelection extends IntInputField {
+public class YourSelectionInput extends IntInputField {
 
-    public YourSelection(int min, int max) {
+    public YourSelectionInput(int min, int max) {
         super(min, max);
     }
 

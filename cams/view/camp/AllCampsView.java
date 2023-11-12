@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import cams.Main;
 import cams.component.IntInput;
-import cams.component.SelectionInput;
-import cams.component.YourSelectionWithBack;
+import cams.component.YourSelectionInputWithDismiss;
+import cams.util.Dismiss;
+import cams.util.Page;
 
 public class AllCampsView {
 
@@ -32,7 +33,7 @@ public class AllCampsView {
 
         }
 
-        this.selectedCampID = SelectionInput.backOptionInt();
+        this.selectedCampID = Dismiss.intOption();
     }
 
     public void show() {
@@ -42,7 +43,7 @@ public class AllCampsView {
 
             // Let user select camp to view details
             this.selectCamp();
-            if (this.selectedCampID == SelectionInput.backOptionInt()) { return; }
+            if (this.selectedCampID == Dismiss.intOption()) { return; }
 
             // Display camp details
             CampDetailsView campDetailsView = new CampDetailsView(this.selectedCampID, "Camp details:");
@@ -52,9 +53,9 @@ public class AllCampsView {
 
     public void displayCamps(String title) {
         if (this.names.size() == 0) {
-            SelectionInput.pageHeader("No camp has been created.");
+            Page.header("No camp has been created.");
         } else {
-            SelectionInput.pageHeader(title);
+            Page.header(title);
             for (int i = 0; i < names.size(); i++) {
                 System.out.println("(" + (i + 1) + ") " + names.get(i));
             }
@@ -62,9 +63,9 @@ public class AllCampsView {
     }
 
     public void selectCamp() {
-        IntInput yourSelectionWithBack = new YourSelectionWithBack(1, this.ids.size());
-        int option = yourSelectionWithBack.getValidInput();
-        if (option == SelectionInput.backOptionInt()) { 
+        IntInput yourSelectionInputWithDismiss = new YourSelectionInputWithDismiss(1, this.ids.size());
+        int option = yourSelectionInputWithDismiss.getValidInput();
+        if (option == Dismiss.intOption()) { 
             this.selectedCampID = option;
             return; 
         }
