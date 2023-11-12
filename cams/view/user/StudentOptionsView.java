@@ -2,6 +2,7 @@ package cams.view.user;
 
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
+import cams.component.Options;
 import cams.component.StudentOptions;
 import cams.component.View;
 import cams.component.YourSelectionInput;
@@ -10,7 +11,7 @@ import cams.view.camp.AllCampsView;
 import cams.view.camp.RegisterCampsView;
 import cams.view.root.RootView;
 
-public class StudentActionsView implements View {
+public class StudentOptionsView implements View {
 
     // A student can only view the list of camps that are open to his/her user group (SCSE, whole NTU etc.) and if their visibility has been toggled “on”
     // A student can view the remaining slots of each camp that is open to his/her.
@@ -18,18 +19,18 @@ public class StudentActionsView implements View {
     // A student can view, edit, and delete their enquiries before it is processed
 
     private RootView rootView;
-    private StudentOptions studentOptions;
+    private Options studentOptions;
     private View[] views;
 
-    // Views to navigate to from this page
-    ProfileView profileView;
-    ChangePasswordView changePasswordView;
-    AllCampsView allCampsInFacultyView;
-    AllCampsView allRegisteredCamps;
-    RegisterCampsView registerCampsView;
+    // Views to navigate to
+    private ProfileView profileView;
+    private ChangePasswordView changePasswordView;
+    private AllCampsView allCampsInFacultyView;
+    private AllCampsView allRegisteredCamps;
+    private RegisterCampsView registerCampsView;
 
 
-    public StudentActionsView(RootView rootView) {
+    public StudentOptionsView(RootView rootView) {
         this.rootView = rootView;
         this.studentOptions = new StudentOptions();
 

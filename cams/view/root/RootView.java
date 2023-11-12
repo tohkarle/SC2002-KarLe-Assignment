@@ -9,8 +9,8 @@ import cams.manager.StudentManager;
 import cams.manager.UserManager;
 import cams.view.authentication.LogInView;
 import cams.view.authentication.RegisterView;
-import cams.view.user.StaffActionsView;
-import cams.view.user.StudentActionsView;
+import cams.view.user.StaffOptionsView;
+import cams.view.user.StudentOptionsView;
 
 public class RootView {
 
@@ -59,14 +59,14 @@ public class RootView {
                 if (Main.authManager.isStaff(currentUserID)) {
                     userManager = new StaffManager();
 
-                    StaffActionsView staffActionsView = new StaffActionsView(this);
-                    staffActionsView.show();
+                    StaffOptionsView staffOptionsView = new StaffOptionsView(this);
+                    staffOptionsView.show();
 
                 } else if (Main.authManager.isStudent(currentUserID)) {
                     userManager = new StudentManager();
 
-                    StudentActionsView studentActionsView = new StudentActionsView(this);
-                    studentActionsView.show();
+                    StudentOptionsView studentOptionsView = new StudentOptionsView(this);
+                    studentOptionsView.show();
                 }
              }
         }
