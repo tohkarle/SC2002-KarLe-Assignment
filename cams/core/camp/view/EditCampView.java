@@ -20,28 +20,29 @@ public class EditCampView {
     }
 
     public void show() {
+        while (true) {
+            // Show all created camps
+            createdCamps.displayCamps("Select the camp you want to edit:");
 
-        // Show all created camps
-        createdCamps.displayCamps("Select the camp you want to edit:");
+            // Let user select the camp to edit
+            if (createdCamps.getIds().size() == 0) {
+                if (SelectionInput.selectionInputFieldWithBack(-1, -1) == SelectionInput.backOptionInt()) { return; };
+            } else {
+                int option = SelectionInput.selectionInputFieldWithBack(1, createdCamps.getIds().size());
 
-        // Let user select the camp to edit
-        if (createdCamps.getIds().size() == 0) {
-            if (SelectionInput.selectionInputFieldWithBack(-1, -1) == SelectionInput.backOptionInt()) { return; };
-        } else {
-            int option = SelectionInput.selectionInputFieldWithBack(1, createdCamps.getIds().size());
+                // Go back if user selects back
+                if (option == SelectionInput.backOptionInt()) { return; }
 
-            // Go back if user selects back
-            if (option == SelectionInput.backOptionInt()) { return; }
+                int campID = createdCamps.getIds().get(option - 1);
+                this.campName = Main.campManager.getCampName(campID);
+                this.startDate = Main.campManager.getStartDate(campID);
+                this.endDate = Main.campManager.getEndDate(campID);
+                this.faculty = Main.campManager.getUserGroup(campID);
+                this.visibility = Main.campManager.getVisibility(campID);
+                this.editCamp(campID);
 
-            int campID = createdCamps.getIds().get(option - 1);
-            this.campName = Main.campManager.getCampName(campID);
-            this.startDate = Main.campManager.getStartDate(campID);
-            this.endDate = Main.campManager.getEndDate(campID);
-            this.faculty = Main.campManager.getUserGroup(campID);
-            this.visibility = Main.campManager.getVisibility(campID);
-            this.editCamp(campID);
-
-            LoadingIndicator.updateLoadingIndicator("camp");
+                LoadingIndicator.updateLoadingIndicator("camp");
+            }
         }
     }
 

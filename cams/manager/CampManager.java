@@ -73,7 +73,7 @@ public class CampManager {
     public ArrayList<String> getAllFacultyCampNames(String faculty) {
         ArrayList<String> names = new ArrayList<>();
         for (Camp camp : campMap.values()) {
-            if (camp.getUserGroup() == faculty && camp.isVisible()) {
+            if (camp.getUserGroup().equals(faculty) && camp.isVisible()) {
                 names.add(camp.getCampName());
             }
         }
@@ -83,7 +83,7 @@ public class CampManager {
     public ArrayList<Integer> getAllFacultyCampIDs(String faculty) {
         ArrayList<Integer> ids = new ArrayList<>();
         for (Camp camp : campMap.values()) {
-            if (camp.getUserGroup() == faculty && camp.isVisible()) {
+            if (camp.getUserGroup().equals(faculty) && camp.isVisible()) {
                 ids.add(camp.getId());
             }
         }

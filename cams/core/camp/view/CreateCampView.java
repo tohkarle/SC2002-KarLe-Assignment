@@ -1,8 +1,6 @@
 package cams.core.camp.view;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import cams.Main;
@@ -59,40 +57,5 @@ public class CreateCampView {
         Main.campManager.createCamp(this.staffID, this.campName, this.dates, this.faculty, this.visibility);
 
         LoadingIndicator.createLoadingIndicator("camp");
-    }
-
-    private int getDates() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        while (true) {
-            this.displayAddedDates();
-            String dateString = Main.scanner.nextLine();
-            if (dateString.equals(SelectionInput.backOptionString())) { return -1; }
-            if (dateString.equalsIgnoreCase("done")) {
-                break;
-            }
-            try {
-                LocalDate date = LocalDate.parse(dateString, formatter);
-                if (this.dates.contains(date)) {
-                    System.out.println("This date has already been added. Please enter a different date.");
-                } else {
-                    this.dates.add(date);
-                }
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format. Please enter the date in the format 'yyyy-MM-dd'.");
-            }
-        }
-        return 1;
-    }
-
-    private void displayAddedDates() {
-        if (dates.size() == 0) {
-            System.out.print("Enter dates (yyyy-MM-dd): ");
-        } else {
-            System.out.print("Dates: ");
-            for (LocalDate date : dates) {
-                System.out.print(date + ", ");
-            }
-            System.out.print("add more or enter 'done' when finished: "); 
-        }
     }
 }
