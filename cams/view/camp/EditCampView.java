@@ -3,26 +3,42 @@ package cams.view.camp;
 import java.time.LocalDate;
 
 import cams.Main;
+import cams.component.AllCamps;
+import cams.component.CampDetails;
 import cams.component.ConfirmOrDiscard;
 import cams.component.DateInput;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
 import cams.component.StartEndDatesInput;
+import cams.component.StringInput;
+import cams.component.StringInputField;
 import cams.component.TwoOptionsInput;
 import cams.component.YourSelectionInputWithDismiss;
 import cams.util.Dismiss;
-import cams.util.Page;
 
 public class EditCampView {
+
     private String campName;
     private LocalDate startDate;
     private LocalDate endDate;
     private String faculty;
     private boolean visibility;
-    private AllCampsView createdCamps;
+    private AllCamps createdCamps;
 
-    public EditCampView(AllCampsView createdCamps) {
+    // Input fields
+    private StringInput campNameInput;
+    private StringInput facultyInput;
+    private DateInput startEndDatesInput;
+    private IntInput visibilityInput;
+    private IntInput confirmOrDiscard;
+
+    public EditCampView(AllCamps createdCamps) {
         this.createdCamps = createdCamps;
+        this.campNameInput = new StringInputField("Edit name: ");
+        this.facultyInput = new StringInputField("Edit faculty: ");
+        this.startEndDatesInput = new StartEndDatesInput("Edit start date (yyyy-MM-dd): ", "Edit end date (yyyy-MM-dd): ");
+        this.visibilityInput = new TwoOptionsInput("Edit visibility", "On", "Off");
+        this.confirmOrDiscard = new ConfirmOrDiscard("changes");
     }
 
     public void show() {
@@ -31,8 +47,8 @@ public class EditCampView {
             createdCamps.displayCamps("Select the camp you want to edit:");
 
             // Let user select the camp to edit
-            createdCamps.selectCamp();
-            int campID = createdCamps.getSelectedCampID();
+            int campID = createdCamps.selectCamp();
+            if (campID == Dismiss.intOption()) { return; }
 
             // Edit camp
             this.editCamp(campID);
@@ -40,10 +56,12 @@ public class EditCampView {
     }
 
     private void editCamp(int campID) {
+        CampDetails campDetails = new CampDetails(campID);
         while (true) {
-            Page.header("Select the field you want to edit.");
-            this.campDetails();
-            System.out.println("(6) Update changes");
+            // Display camp details
+            campDetails.displayDetails("Select the field you want to edit.", true);
+
+            System.out.println("(5) Update changes");
 
             IntInput yourSelectionInputWithDismiss = new YourSelectionInputWithDismiss(1, 6);
             int option = yourSelectionInputWithDismiss.getValidInput();
@@ -52,38 +70,37 @@ public class EditCampView {
             switch (option) {
                 case 1:
                     // edit name
-                    System.out.println("Edit name: ");
-                    this.campName = Main.scanner.nextLine();
+                    this.campName = this.campNameInput.getValidInput();
                     if (this.campName.equals(Dismiss.stringOption())) { return; }
+                    campDetails.setCampName(this.campName);
                     break;
                 case 2:
                     // edit start date
-                    DateInput startEndDatesInput = new StartEndDatesInput("Edit start date (yyyy-MM-dd): ", "Enter end date (yyyy-MM-dd): ");
-                    this.startDate = startEndDatesInput.getValidStartDate();
+                    this.startDate = this.startEndDatesInput.getValidStartDate();
                     if (this.startDate == null) { return; }
+                    campDetails.setStartDate(this.startDate);
+
+                    // edit end date
+                    this.endDate = this.startEndDatesInput.getValidEndDate();
+                    if (this.endDate == null) { return; }
+                    campDetails.setEndDate(this.endDate);
                     break;
                 case 3:
-                    // edit end date
-                    this.endDate = startEndDatesInput.getValidEndDate();
-                    if (this.endDate == null) { return; }
+                    // edit faculty
+                    this.faculty = this.facultyInput.getValidInput();
+                    if (this.faculty.equals(Dismiss.stringOption())) { return; }
+                    campDetails.setFaculty(this.faculty);
                     break;
                 case 4:
-                    // edit faculty
-                    System.out.println("Edit faculty: ");
-                    this.faculty = Main.scanner.nextLine();
-                    if (this.faculty.equals(Dismiss.stringOption())) { return; }
-                    break;
-                case 5:
                     // get visibility
-                    IntInput twoOptionsInput = new TwoOptionsInput("Edit visibility", "On", "Off");
-                    option = twoOptionsInput.getValidInput();
+                    option = this.visibilityInput.getValidInput();
                     this.visibility = (option == 1);
                     if (option == Dismiss.intOption()) { return; }
+                    campDetails.setVisibility(this.visibility);
                     break;
-                case 6:
+                case 5:
                     // Confirm or discard
-                    IntInput confirmOrDiscard = new ConfirmOrDiscard("changes");
-                    if (confirmOrDiscard.getValidInput() != 1) { return; }
+                    if (this.confirmOrDiscard.getValidInput() != 1) { return; }
 
                     // Update changes
                     Main.campManager.setCampName(campID, this.campName);

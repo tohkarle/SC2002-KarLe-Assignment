@@ -1,14 +1,16 @@
 package cams.view.camp;
 
 import cams.Main;
+import cams.component.AllCamps;
 import cams.component.ConfirmOrDiscard;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
+import cams.util.Dismiss;
 
 public class DeleteCampView {
-    private AllCampsView createdCamps;
+    private AllCamps createdCamps;
 
-    public DeleteCampView(AllCampsView createdCamps) {
+    public DeleteCampView(AllCamps createdCamps) {
         this.createdCamps = createdCamps;
     }
 
@@ -17,8 +19,8 @@ public class DeleteCampView {
         createdCamps.displayCamps("Select the camp you want to delete:");
 
         // Let user select the camp to delete
-        createdCamps.selectCamp();
-        int campID = createdCamps.getSelectedCampID();
+        int campID = createdCamps.selectCamp();
+        if (campID == Dismiss.intOption()) { return; }
 
         // Confirm delete or discard and go back
         IntInput confirmOrDiscard = new ConfirmOrDiscard("delete");

@@ -3,9 +3,9 @@ package cams.component;
 import cams.Main;
 import cams.util.Dismiss;
 
-public class YourSelectionInputWithBack extends IntInputField {
+public class YourSelectionInputWithDismiss extends IntInputField {
 
-    public YourSelectionInputWithBack(int min, int max) {
+    public YourSelectionInputWithDismiss(int min, int max) {
         super(min, max);
     }
 

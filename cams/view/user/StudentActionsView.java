@@ -44,7 +44,7 @@ public class StudentActionsView {
                 profileView.show();
                 break;
             case 2:
-                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()), -1);
+                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()));
                 allCampsView.show();
                 break;
             case 3:
@@ -75,7 +75,7 @@ public class StudentActionsView {
                 profileView.show();
                 break;
             case 2:
-                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()), -1);
+                AllCampsView allCampsView = new AllCampsView(this.manager.getFaculty(this.rootView.getCurrentUserID()));
                 allCampsView.show();
                 break;
             case 3:

@@ -23,7 +23,7 @@ public abstract class DateInputField implements DateInput{
             System.out.print(title);
             this.input = Main.scanner.nextLine();
             if (this.inputIsEmpty()) { continue; }
-            if (this.input == Dismiss.stringOption()) { return null; }
+            if (this.input.equals(Dismiss.stringOption())) { return null; }
             if (this.inputIsInWrongFormat()) { continue; }
             return this.date;
         }

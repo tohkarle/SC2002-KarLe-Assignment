@@ -10,6 +10,7 @@ import cams.view.camp.EditCampView;
 import cams.view.root.RootView;
 
 public class StaffActionsView {
+
     // A staff will be able to create, edit and delete camps.
     // A staff can toggle the visibility of the camp to be “on” or “off”. This will be reflected in the camp list that will be visible to students.
     // A staff can view all camps.
@@ -18,10 +19,23 @@ public class StaffActionsView {
     // A staff can view and approve suggestions to changes to camp details from camp committee.
     // A staff can generate a report of the list of students attending each camp that his/her has created. The list will include details of the camp as well as the roles of the participants. There should be filters for how the staff would want to generate the list. (attendee, camp committee, etc.) (generate in either txt or csv format).
     // A staff can also generate a performance report of the camp committee members.
+
     private RootView rootView;
+    private ProfileView profileView;
+    private AllCampsView allCampsView;
+    private CreateCampView createCampView;
+    private AllCampsView createdCampsView;
+    private EditCampView editCampView;
+    private DeleteCampView deleteCampView;
 
     public StaffActionsView(RootView rootView) {
         this.rootView = rootView;
+        this.profileView = new ProfileView(rootView);
+        this.allCampsView = new AllCampsView();
+        this.createCampView = new CreateCampView(rootView);
+        this.createdCampsView = new AllCampsView(rootView.getCurrentUserID());
+        this.editCampView = new EditCampView(createdCampsView.getAllCamps());
+        this.deleteCampView = new DeleteCampView(createdCampsView.getAllCamps());
     }
 
     public void show() {
@@ -36,13 +50,6 @@ public class StaffActionsView {
 
         IntInput yourSelectionInput = new YourSelectionInput(1, 7);
         int option = yourSelectionInput.getValidInput();
-
-        ProfileView profileView = new ProfileView(this.rootView);
-        AllCampsView allCampsView = new AllCampsView(null, -1);
-        CreateCampView createCampView = new CreateCampView(this.rootView);
-        AllCampsView createdCampsView = new AllCampsView(null, this.rootView.getCurrentUserID());
-        EditCampView editCampView = new EditCampView(createdCampsView);
-        DeleteCampView deleteCampView = new DeleteCampView(createdCampsView);
 
         switch (option) {
             case 1:

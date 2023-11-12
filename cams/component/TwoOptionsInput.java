@@ -18,7 +18,7 @@ public class TwoOptionsInput extends IntInputField {
 
     public int getValidInput() {
         while (true) {
-            System.out.print(this.title + " (1) " + this.option1 + " (2) " + this.option2);
+            System.out.print(this.title + " (1) " + this.option1 + " (2) " + this.option2 + ": ");
             super.input = Main.scanner.nextLine();
             if (super.inputIsEmpty() || super.inputIsNotInt()) { continue; }
             if (super.option == Dismiss.intOption()) { return super.option; }
