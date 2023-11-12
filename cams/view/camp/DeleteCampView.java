@@ -5,9 +5,10 @@ import cams.component.AllCamps;
 import cams.component.ConfirmOrDiscard;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
+import cams.component.View;
 import cams.util.Dismiss;
 
-public class DeleteCampView {
+public class DeleteCampView implements View {
     private AllCamps createdCamps;
 
     public DeleteCampView(AllCamps createdCamps) {

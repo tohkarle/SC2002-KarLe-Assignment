@@ -2,6 +2,7 @@ package cams.view.user;
 
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
+import cams.component.View;
 import cams.component.YourSelectionInput;
 import cams.view.camp.AllCampsView;
 import cams.view.camp.CreateCampView;
@@ -9,7 +10,7 @@ import cams.view.camp.DeleteCampView;
 import cams.view.camp.EditCampView;
 import cams.view.root.RootView;
 
-public class StaffActionsView {
+public class StaffActionsView implements View {
 
     // A staff will be able to create, edit and delete camps.
     // A staff can toggle the visibility of the camp to be “on” or “off”. This will be reflected in the camp list that will be visible to students.

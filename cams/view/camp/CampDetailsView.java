@@ -2,9 +2,10 @@ package cams.view.camp;
 
 import cams.component.CampDetails;
 import cams.component.IntInput;
+import cams.component.View;
 import cams.component.YourSelectionInputWithDismiss;
 
-public class CampDetailsView {
+public class CampDetailsView implements View {
 
     private CampDetails campDetails;
 

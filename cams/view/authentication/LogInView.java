@@ -2,11 +2,12 @@ package cams.view.authentication;
 
 import cams.Main;
 import cams.component.LoadingIndicator;
+import cams.component.View;
 import cams.util.Dismiss;
 import cams.util.Page;
 import cams.view.root.RootView;
 
-public class LogInView {
+public class LogInView implements View {
 
     private String email ;
     private String password;

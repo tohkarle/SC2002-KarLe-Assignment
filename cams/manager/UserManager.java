@@ -20,6 +20,10 @@ public class UserManager extends AuthManager {
         return ((User)userMap.get(userID)).checkPassword("password");
     }
 
+    public boolean passwordIsCorrect(int userID, String password) {
+        return ((User)userMap.get(userID)).checkPassword(password);
+    }
+
     public void setPassword(int userID, String password){
         ((User)userMap.get(userID)).setPassword(password);
     }

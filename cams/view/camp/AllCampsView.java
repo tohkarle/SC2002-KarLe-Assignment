@@ -1,9 +1,10 @@
 package cams.view.camp;
 
 import cams.component.AllCamps;
+import cams.component.View;
 import cams.util.Dismiss;
 
-public class AllCampsView {
+public class AllCampsView implements View {
 
     private AllCamps allCamps;
 

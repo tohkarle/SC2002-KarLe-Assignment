@@ -12,11 +12,12 @@ import cams.component.StartEndDatesInput;
 import cams.component.StringInput;
 import cams.component.StringInputField;
 import cams.component.TwoOptionsInput;
+import cams.component.View;
 import cams.util.Dismiss;
 import cams.util.Page;
 import cams.view.root.RootView;
 
-public class CreateCampView {
+public class CreateCampView implements View {
 
     private int staffID;
 

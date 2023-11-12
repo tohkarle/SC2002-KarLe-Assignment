@@ -3,12 +3,13 @@ package cams.view.authentication;
 import cams.Main;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
+import cams.component.View;
 import cams.component.YourSelectionInputWithDismiss;
 import cams.util.Dismiss;
 import cams.util.Page;
 import cams.view.root.RootView;
 
-public class RegisterView {
+public class RegisterView implements View {
     private int option;
     private boolean isStaff;
     private String email;

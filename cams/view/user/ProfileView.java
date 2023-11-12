@@ -2,13 +2,14 @@ package cams.view.user;
 
 import cams.Main;
 import cams.component.IntInput;
+import cams.component.View;
 import cams.component.YourSelectionInputWithDismiss;
 import cams.manager.StudentManager;
 import cams.manager.UserManager;
 import cams.util.Page;
 import cams.view.root.RootView;
 
-public class ProfileView {
+public class ProfileView implements View {
 
     private int studentID;
     private UserManager manager;

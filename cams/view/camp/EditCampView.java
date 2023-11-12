@@ -13,10 +13,11 @@ import cams.component.StartEndDatesInput;
 import cams.component.StringInput;
 import cams.component.StringInputField;
 import cams.component.TwoOptionsInput;
+import cams.component.View;
 import cams.component.YourSelectionInputWithDismiss;
 import cams.util.Dismiss;
 
-public class EditCampView {
+public class EditCampView implements View {
 
     private String campName;
     private LocalDate startDate;

@@ -8,10 +8,11 @@ import cams.component.ConfirmOrDiscard;
 import cams.component.IntInput;
 import cams.component.LoadingIndicator;
 import cams.component.TwoOptionsInput;
+import cams.component.View;
 import cams.model.RegistrationType;
 import cams.util.Dismiss;
 
-public class RegisterCampsView {
+public class RegisterCampsView implements View {
 
     private int studentID;
     private AllCamps allCamps;
