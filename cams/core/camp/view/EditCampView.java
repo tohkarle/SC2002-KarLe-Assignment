@@ -40,8 +40,6 @@ public class EditCampView {
                 this.faculty = Main.campManager.getUserGroup(campID);
                 this.visibility = Main.campManager.getVisibility(campID);
                 this.editCamp(campID);
-
-                LoadingIndicator.updateLoadingIndicator("camp");
             }
         }
     }
@@ -96,8 +94,7 @@ public class EditCampView {
                     break;
                 case 6:
                     // Confirm or discard
-                    SelectionInput.confirmOrDiscard("changes");
-                    if (Main.scanner.nextInt() != 1) { return; }
+                    if (SelectionInput.confirmOrDiscard("changes") != 1) { return; };
 
                     // Update changes
                     Main.campManager.setCampName(campID, this.campName);
@@ -105,6 +102,8 @@ public class EditCampView {
                     Main.campManager.setEndDate(campID, this.endDate);
                     Main.campManager.setUserGroup(campID, this.faculty);
                     Main.campManager.setVisibility(campID, this.visibility);
+
+                    LoadingIndicator.updateLoadingIndicator("camp");
                     return;
             }
         }

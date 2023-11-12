@@ -50,8 +50,7 @@ public class CreateCampView {
         this.dates.add(endDate);
 
         // Confirm changes or discard and go back
-        SelectionInput.confirmOrDiscard("changes");
-        if (Main.scanner.nextInt() != 1) { return; }
+        if (SelectionInput.confirmOrDiscard("changes") != 1) { return; };
 
         // Create camp and add to campMap
         Main.campManager.createCamp(this.staffID, this.campName, this.dates, this.faculty, this.visibility);

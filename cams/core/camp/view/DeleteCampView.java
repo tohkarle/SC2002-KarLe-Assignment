@@ -12,7 +12,6 @@ public class DeleteCampView {
     }
 
     public void show() {
-
         // Show all created camps
         createdCamps.displayCamps("Select the camp you want to delete:");
 
@@ -26,8 +25,7 @@ public class DeleteCampView {
             if (option == SelectionInput.backOptionInt()) { return; }
 
             // Confirm delete or discard and go back
-            SelectionInput.confirmOrDiscard("delete");
-            if (Main.scanner.nextInt() != 1) { return; }
+            if (SelectionInput.confirmOrDiscard("delete") != 1) { return; };
 
             // Delete camp from campMap
             int campID = createdCamps.getIds().get(option - 1);
