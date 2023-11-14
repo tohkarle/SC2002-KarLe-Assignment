@@ -2,10 +2,11 @@ package cams.ui.camp;
 
 import cams.Main;
 import cams.components.input.GetInt;
-import cams.interfaces.Input;
+import cams.interfaces.InputField;
+import cams.interfaces.UI;
 import cams.utils.CampUtil;
 
-public class CampTotalSlotsUI extends GetInt implements Input {
+public class CampTotalSlotsUI extends GetInt implements UI, InputField {
 
     private CampUtil campUtil;
     private int totalSlots;
@@ -16,7 +17,11 @@ public class CampTotalSlotsUI extends GetInt implements Input {
         this.totalSlots = -1;
     }
 
-    public boolean getInput() {
+    public void body() {
+        if (!focused()) { return; }
+    }
+
+    public boolean focused() {
         totalSlots = super.getValidInt();
 
         // ensure new total slots will allow at least 1 student to register

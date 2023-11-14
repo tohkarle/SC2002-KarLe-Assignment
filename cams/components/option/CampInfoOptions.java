@@ -65,8 +65,8 @@ public class CampInfoOptions extends Options {
         super.options.remove(String.format("Staff-in-charge: %s", this.staffInCharge));
         super.options.addAll(Arrays.asList(
             "Update changes",
-            "Manage Enquiries",
-            "Manage Suggestions",
+            "Manage enquiries",
+            "Manage suggestions",
             "Create report",
             "Delete Camp"
         ));

@@ -2,10 +2,11 @@ package cams.ui.camp;
 
 import cams.Main;
 import cams.components.input.GetInt;
-import cams.interfaces.Input;
+import cams.interfaces.InputField;
+import cams.interfaces.UI;
 import cams.utils.CampUtil;
 
-public class CampCommitteeSlotsUI extends GetInt implements Input {
+public class CampCommitteeSlotsUI extends GetInt implements UI, InputField {
 
     private CampUtil campUtil;
     private int committeeSlots;
@@ -16,7 +17,11 @@ public class CampCommitteeSlotsUI extends GetInt implements Input {
         this.committeeSlots = 0;
     }
 
-    public boolean getInput() {
+    public void body() {
+        if (!focused()) { return; }
+    }
+
+    public boolean focused() {
 
         committeeSlots = super.getValidInt();
 

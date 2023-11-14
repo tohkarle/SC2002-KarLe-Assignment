@@ -4,10 +4,11 @@ import java.time.LocalDate;
 
 import cams.Main;
 import cams.components.input.GetDate;
-import cams.interfaces.Input;
+import cams.interfaces.InputField;
+import cams.interfaces.UI;
 import cams.utils.CampUtil;
 
-public class CampRegiatrationClosingDateUI extends GetDate implements Input {
+public class CampRegiatrationClosingDateUI extends GetDate implements UI, InputField {
 
     private CampUtil campUtil;
     private LocalDate registrationClosingDate;
@@ -17,7 +18,11 @@ public class CampRegiatrationClosingDateUI extends GetDate implements Input {
         this.campUtil = campUtil;
     }
 
-    public boolean getInput() {
+    public void body() {
+        if (!focused()) { return; }
+    }
+
+    public boolean focused() {
         registrationClosingDate = super.getValidDate();
         if (registrationClosingDate == null) { return false; }
 

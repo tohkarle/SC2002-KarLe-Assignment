@@ -2,7 +2,6 @@ package cams.utils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import cams.Main;
 import cams.components.LoadingIndicator;
@@ -115,6 +114,26 @@ public class CampUtil extends CampInfoOptions {
     public void setRegistrationClosingDate(LocalDate registrationClosingDate) {
         super.registrationClosingDate = registrationClosingDate;
         this.updateAndChangeOptions();
+    }
+
+    public int updateCampOption() {
+        return (super.options.indexOf("Update changes") + 1);
+    }
+
+    public int manageEnquiriesOption() {
+        return (super.options.indexOf("Manage enquiries") + 1);
+    }
+
+    public int manageSuggestionsOption() {
+        return (super.options.indexOf("Manage suggestions") + 1);
+    }
+
+    public int createReportOption() {
+        return (super.options.indexOf("Create report") + 1);
+    }
+
+    public int deleteCampOption() {
+        return (super.options.indexOf("Delete camp") + 1);
     }
     
 }

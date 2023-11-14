@@ -1,11 +1,12 @@
 package cams.ui.camp;
 
-import cams.interfaces.Input;
+import cams.interfaces.InputField;
+import cams.interfaces.UI;
 import cams.ui.ChooseBetweenTwoOptionsUI;
 import cams.utils.Dismiss;
 import cams.utils.CampUtil;
 
-public class CampVisibilityUI extends ChooseBetweenTwoOptionsUI implements Input {
+public class CampVisibilityUI extends ChooseBetweenTwoOptionsUI implements UI, InputField {
 
     private CampUtil campUtil;
     private boolean visibility;
@@ -15,7 +16,11 @@ public class CampVisibilityUI extends ChooseBetweenTwoOptionsUI implements Input
         this.campUtil = campUtil;
     }
 
-    public boolean getInput() {
+    public void body() {
+        if (!focused()) { return; }
+    }
+
+    public boolean focused() {
         int option = super.getValidInt();
         visibility = (option == 1);
         if (option == Dismiss.intOption()) { return false; }

@@ -1,11 +1,12 @@
 package cams.ui.camp;
 
 import cams.components.input.GetString;
-import cams.interfaces.Input;
+import cams.interfaces.InputField;
+import cams.interfaces.UI;
 import cams.utils.Dismiss;
 import cams.utils.CampUtil;
 
-public class CampDescriptionUI extends GetString implements Input {
+public class CampDescriptionUI extends GetString implements UI, InputField {
 
     private CampUtil campUtil;
     private String description;
@@ -16,7 +17,11 @@ public class CampDescriptionUI extends GetString implements Input {
         this.description = "";
     }
 
-    public boolean getInput() {
+    public void body() {
+        if (!focused()) { return; }
+    }
+
+    public boolean focused() {
         description = super.getValidString();
         if (description.equals(Dismiss.stringOption())) { return false; }
         campUtil.setDescription(description);

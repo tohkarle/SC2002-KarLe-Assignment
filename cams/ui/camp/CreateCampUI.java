@@ -2,22 +2,22 @@ package cams.ui.camp;
 
 import cams.components.option.CreateCampOptions;
 import cams.components.option.Options;
-import cams.interfaces.Input;
+import cams.interfaces.InputField;
 import cams.interfaces.IntInput;
 import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.CampUtil;
 
-public class CreateCampUI implements Input {
+public class CreateCampUI implements InputField {
 
     private int staffID;
     private CampUtil campUtil;
     private Options createCampOptions;
 
     // Edit camp UIs
-    private Input createCampNameUI;
-    private Input createCampFacultyUI;
-    private Input createCampVisibilityUI;
-    private Input createCampDatesUI;
+    private InputField createCampNameUI;
+    private InputField createCampFacultyUI;
+    private InputField createCampVisibilityUI;
+    private InputField createCampDatesUI;
 
     public CreateCampUI(int staffID) {
         this.staffID = staffID;
@@ -31,13 +31,13 @@ public class CreateCampUI implements Input {
         this.createCampDatesUI = new CampDatesUI(campUtil, createCampOptions.getOption(3), createCampOptions.getOption(4));
     }
 
-    public boolean getInput() {
+    public boolean focused() {
 
             // Enter name, faculty, visibility and dates
-            if (!createCampNameUI.getInput()) return false;
-            if (!createCampFacultyUI.getInput()) return false;
-            if (!createCampVisibilityUI.getInput()) return false;
-            if (!createCampDatesUI.getInput()) return false;
+            if (!createCampNameUI.focused()) return false;
+            if (!createCampFacultyUI.focused()) return false;
+            if (!createCampVisibilityUI.focused()) return false;
+            if (!createCampDatesUI.focused()) return false;
 
             // Confirm delete or discard and go back
             IntInput confirmOrDiscard = new ConfirmOrDiscardUI("create");

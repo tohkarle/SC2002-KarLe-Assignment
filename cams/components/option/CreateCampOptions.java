@@ -7,7 +7,7 @@ public class CreateCampOptions extends Options {
 
         public CreateCampOptions() {
         super.options = new ArrayList<String>(Arrays.asList(
-            "Enter name: ",
+            "Ente camp name: ",
             "Enter faculty: ",
             "Enter visibility",
             "Enter start date (yyyy-MM-dd): ",

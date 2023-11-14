@@ -3,9 +3,9 @@ package cams.components.option;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class EditCampInfoOptions extends Options {
+public class EditCampOptions extends Options {
 
-    public EditCampInfoOptions() {
+    public EditCampOptions() {
         super.options = new ArrayList<String>(Arrays.asList(
             "Edit name: ",
             "Edit faculty: ",

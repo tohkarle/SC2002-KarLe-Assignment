@@ -41,4 +41,8 @@ public class Options {
     public String getOption(int index) {
         return options.get(index);
     }
+
+    public void setOption(String option, String newOption) {
+        options.set(options.indexOf(option), newOption);
+    }
 }
