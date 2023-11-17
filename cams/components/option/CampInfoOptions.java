@@ -23,7 +23,9 @@ public class CampInfoOptions extends Options {
     protected String location;
     protected String description;
 
-    public CampInfoOptions() { }
+    public CampInfoOptions() {
+        this.id = -1;
+    }
 
     public CampInfoOptions(int campID) {
 
@@ -36,9 +38,7 @@ public class CampInfoOptions extends Options {
         this.faculty = Main.campManager.getUserGroup(campID);
         this.visibility = Main.campManager.getVisibility(campID);
         this.staffInCharge = Main.authManager.getName(Main.campManager.getCampStaffInCharge(campID));
-        this.remainingSlots = Main.campManager.getRemainingSlots(campID);
         this.totalSlots = Main.campManager.getTotalSlots(campID);
-        this.remainingCommitteeSlots = Main.campManager.getRemainingCommitteeSlots(campID);
         this.totalCommitteeSlots = Main.campManager.getTotalCommitteeSlots(campID);
         this.location = Main.campManager.getCampLocation(campID);
         this.description = Main.campManager.getCampDescription(campID);
@@ -47,7 +47,12 @@ public class CampInfoOptions extends Options {
     }
 
     public void updateOptions() {
-        super.options = new ArrayList<String>(Arrays.asList(
+
+        // Update remaining slots while user is editing total slots
+        // If user is not editing, it means user is creating camp, set remaining slots = total slots
+        updateRemainingSlots();
+
+        super.setOptions( new ArrayList<String>(Arrays.asList(
             String.format("Name: %s", this.name),
             String.format("Faculty: %s", this.faculty),
             String.format("Location: %s", this.location),
@@ -58,7 +63,9 @@ public class CampInfoOptions extends Options {
             String.format("Remaining slots: %d / %d", this.remainingSlots, this.totalSlots),
             String.format("Remaining committee slots: %d / %d", this.remainingCommitteeSlots, this.totalCommitteeSlots),
             String.format("Staff-in-charge: %s", this.staffInCharge)
-        ));
+        ))
+    );
+        
     }
 
     public void changeOptionsForEdit() {
@@ -70,5 +77,23 @@ public class CampInfoOptions extends Options {
             "Create report",
             "Delete Camp"
         ));
+    }
+
+    public void addWithdrawOption() {
+        // Student can withdraw from camp in the registered camp view
+        // It will be a view-only display for the camp info so we will need to add number here
+        super.options.addAll(Arrays.asList(
+            String.format("(%d) Withdraw from camp", 1)
+        ));
+    }
+
+    public void updateRemainingSlots() {
+        if (this.id != -1) {
+            this.remainingSlots =  this.totalSlots - Main.campManager.getCampParticipatingStudentIDs(this.id).size();
+            this.remainingCommitteeSlots = this.totalCommitteeSlots - Main.campManager.getCampCommitteeMemberIDs(this.id).size();
+        } else {
+            this.remainingSlots = this.totalSlots;
+            this.remainingCommitteeSlots = this.totalCommitteeSlots;
+        }
     }
 }

@@ -1,0 +1,5 @@
+root.RootView, auth.AuthOptions
+auth.RegisterTypeView, auth.UserOptions
+auth.RegisterView, auth.GetRegisterInfoUI
+auth.LogInView, auth.GetEmailPasswordUI
+user.UserOptionsView, user.StaffOptions, user.StudentOptions

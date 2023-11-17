@@ -3,10 +3,9 @@ package cams.ui.camp;
 import cams.Main;
 import cams.components.input.GetInt;
 import cams.interfaces.InputField;
-import cams.interfaces.UI;
 import cams.utils.CampUtil;
 
-public class CampTotalSlotsUI extends GetInt implements UI, InputField {
+public class CampTotalSlotsUI extends GetInt implements InputField {
 
     private CampUtil campUtil;
     private int totalSlots;
@@ -17,10 +16,7 @@ public class CampTotalSlotsUI extends GetInt implements UI, InputField {
         this.totalSlots = -1;
     }
 
-    public void body() {
-        if (!focused()) { return; }
-    }
-
+    @Override
     public boolean focused() {
         totalSlots = super.getValidInt();
 

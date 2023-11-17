@@ -8,16 +8,12 @@ public class GetString implements StringInput {
 
     // Input must not be empty
 
-    private String title;
     private String input;
 
-    public GetString(String title) {
-        this.title = title;
-    }
-
-    public String getValidString() {
+    @Override
+    public String getValidString(String title) {
         while (true) {
-            System.out.print(this.title);
+            System.out.print(title);
             this.input = Main.scanner.nextLine();
             if (this.inputIsEmpty()) { continue; }
             if (this.input.equals(Dismiss.stringOption())) { return this.input; }

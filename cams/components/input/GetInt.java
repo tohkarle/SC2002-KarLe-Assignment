@@ -19,6 +19,7 @@ public class GetInt implements IntInput {
         this.number = Dismiss.intOption();
     }
 
+    @Override
     public int getValidInt() {
         while (true) {
             System.out.print(title);

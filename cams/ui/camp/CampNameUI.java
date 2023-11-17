@@ -2,11 +2,10 @@ package cams.ui.camp;
 
 import cams.components.input.GetString;
 import cams.interfaces.InputField;
-import cams.interfaces.UI;
 import cams.utils.Dismiss;
 import cams.utils.CampUtil;
 
-public class CampNameUI extends GetString implements UI, InputField {
+public class CampNameUI extends GetString implements InputField {
 
     private CampUtil campUtil;
     private String campName;
@@ -17,10 +16,7 @@ public class CampNameUI extends GetString implements UI, InputField {
         this.campName = "";
     }
 
-    public void body() {
-        if (!focused()) { return; }
-    }
-
+    @Override
     public boolean focused() {
         campName = super.getValidString();
         if (campName.equals(Dismiss.stringOption())) { return false; }

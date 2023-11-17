@@ -6,7 +6,7 @@ import cams.Main;
 import cams.components.LoadingIndicator;
 import cams.interfaces.IntInput;
 import cams.interfaces.UI;
-import cams.models.RegistrationType;
+import cams.model.RegistrationType;
 import cams.utils.Dismiss;
 
 public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
@@ -45,6 +45,7 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
     public boolean notEligible(int campID, RegistrationType registrationType) {
         /*
         * A student is not allowed to register for a camp more than once
+        * A student is not allowed to register again after withdrawing from the camp
         * A student only can register a camp before it is full
         * A student only can register a camp before its registration deadline
         * A student is not allowed to register for multiple camps if there are clashes in the dates
@@ -52,7 +53,12 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
         */
 
         if (Main.campManager.hasRegisteredForCamp(studentID, campID)) {
-            System.out.println("\nRegister unsuccessful. You have already registered for this camp.");
+            System.out.println("\nRegistration is unsuccessful .You have registered for this camp");
+            return true;
+        }
+
+        if (Main.campManager.hasWithdrawnFromCamp(studentID, campID)){
+            System.out.println("\nRegistration is unsuccessful. You have withdrawn from this camp before");
             return true;
         }
 

@@ -1,6 +1,7 @@
 package cams.components;
 
 public class LoadingIndicator {
+
     public static void logInLoadingIndicator() {
         System.out.println("\nLogging in...");
         System.out.println("Log in successful!");
@@ -34,5 +35,10 @@ public class LoadingIndicator {
     public static void terminateAppLoadingIndicator() {
         System.out.println("\nTerminating app...");
         System.out.println("Terminate app successful!\n");
+    }
+
+    public static void withdrawLoadingIndicator(String title) {
+        System.out.println("\nWithdrawing from " + title + "...");
+        System.out.println("Withdraw from " + title + " successful!");
     }
 }

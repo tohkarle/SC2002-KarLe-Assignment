@@ -21,6 +21,7 @@ public class GetDate implements DateInput {
         this.title = title;
     }
 
+    @Override
     public LocalDate getValidDate() {
         while (true) {
             System.out.print(title);

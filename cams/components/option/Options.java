@@ -2,47 +2,40 @@ package cams.components.option;
 
 import java.util.ArrayList;
 
-import cams.interfaces.IntInput;
-import cams.ui.GetSelectionUI;
-import cams.ui.GetSelectionWithDismissUI;
+public abstract class Options {
 
-public class Options {
+    private ArrayList<String> options;
 
-    protected ArrayList<String> options;
-
-    public void display(String title) {
-        System.out.println("\n" + title);
+    public void printOptions() {
         for (int i = 0; i < this.options.size(); i++) {
             System.out.println("(" + (i + 1) + ") " + options.get(i));
         }
     }
 
-    public void viewOnly(String title) {
-        System.out.println("\n" + title);
-        for (int i = 0; i < this.options.size(); i++) {
-            System.out.println(this.options.get(i));
-        }
-    }
+    public abstract void display(String title);
+    public abstract int selection();
 
-    public int selection() {
-        IntInput selection = new GetSelectionUI(1, this.options.size());
-        return selection.getValidInt();
-    }
-
-    public int selectionWithDismiss() {
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(1, this.options.size());
-        return selectionWithDismiss.getValidInt();
-    }
-
-    public int getOptionsSize() {
-        return options.size();
+    public ArrayList<String> getOptions() {
+        return options;
     }
 
     public String getOption(int index) {
         return options.get(index);
     }
 
-    public void setOption(String option, String newOption) {
+    public void setOptions(ArrayList<String> options) {
+        this.options = options;
+    }
+
+    public void addOption(String option) {
+        this.options.add(option);
+    }
+
+    public void replaceOption(String option, String newOption) {
         options.set(options.indexOf(option), newOption);
+    }
+
+    public int getOptionsSize() {
+        return options.size();
     }
 }

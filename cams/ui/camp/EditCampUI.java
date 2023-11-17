@@ -10,7 +10,6 @@ public class EditCampUI implements UI {
 
     private int option;
     private InputField[] editCampUIs;
-    private Options editCampOptions;
 
     // Edit camp UIs
     private InputField editCampNameUI;
@@ -26,7 +25,8 @@ public class EditCampUI implements UI {
     public EditCampUI(int option, CampUtil campUtil) {
 
         this.option = option;
-        this.editCampOptions = new EditCampOptions();
+        
+        Options editCampOptions = new EditCampOptions();
 
         // Create and initialize all UIs for edit camp
         this.editCampNameUI = new CampNameUI(campUtil, editCampOptions.getOption(0));
@@ -52,6 +52,7 @@ public class EditCampUI implements UI {
         };
     }
 
+    @Override
     public void body() {
         // Display corresponding UI
         if (option <= editCampUIs.length) {

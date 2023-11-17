@@ -4,20 +4,15 @@ import cams.Main;
 import cams.components.LoadingIndicator;
 import cams.interfaces.InputField;
 import cams.interfaces.IntInput;
-import cams.interfaces.UI;
 import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.CampUtil;
 
-public class DeleteCampUI implements UI, InputField {
+public class DeleteCampUI implements InputField {
 
     private CampUtil campUtil;
 
     public DeleteCampUI(CampUtil campUtil) {
         this.campUtil =  campUtil;
-    }
-
-    public void body() {
-        if (!focused()) return;
     }
 
     public boolean focused() {
