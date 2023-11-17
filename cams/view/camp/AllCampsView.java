@@ -1,35 +1,37 @@
 package cams.view.camp;
 
-import cams.components.option.CampOptions;
 import cams.components.option.Options;
-import cams.interfaces.UI;
+import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.ui.camp.CampInfoUI;
+import cams.manager.CampManager;
 import cams.utils.Dismiss;
 
-public class AllCampsView implements View {
+public class AllCampsView extends View {
 
-    private Options campOptions;
+    private CampManager campManager;
 
-    // UIs involved
-    private UI campInfoView;
+    // Options for this view:
+    private Options allCampOptions;
 
-    public AllCampsView() {
-        this.campOptions = new CampOptions();
+    public AllCampsView(Navigation navigation, CampManager campManager) {
+        super(navigation);
+        this.campManager  = campManager;
     }
 
-    public void body() {
-        while (true) {
-            // Display camps
-            campOptions.displayWithDismiss("Select camp to view details:");
+    public void render() {
+        // Display camps
+        allCampOptions = super.getOptions("camp.AllCampOptions");
+        allCampOptions.display("Select camp to view details:");
 
-            // Let user select camp to view details
-            int option = this.campOptions.selectionWithDismiss();
-            if (option == Dismiss.intOption()) { return; }
-
-            // Display camp details
-            campInfoView = new CampInfoUI(option);
-            campInfoView.body();
+        // Let user select camp to view details
+        int option = allCampOptions.selection();
+        if (option == Dismiss.intOption()) { 
+            super.getNavigation().dismissView();
+            return; 
         }
+        campManager.setViewCampDetail(option);
+
+        // Navigate to CampInfoView
+        super.getNavigation().navigateTo("camp.CampInfoView");
     }
 }

@@ -9,19 +9,32 @@ auth.RegisterView, NavigationManager
 auth.LogInView, NavigationManager
 user.UserOptionsView, NavigationManager, UserManager
 user.ProfileView, NavigationManager, UserManager, CampManager
+user.ChangePasswordView
 camp.CreateCampView, NavigationManager
+camp.AllCampsView, NavigationManager, CampManager
+camp.FacultyCampsView, NavigationManager, CampManager
+camp.CreatedCampsView, NavigationManager, CampManager
+camp.RegisteredCampsView, NavigationManager, CampManager
+camp.CampInfoView, NavigationManager
 
 auth.AuthOptions
 auth.UserOptions
 user.StaffOptions
 user.StudentOptions
 user.ProfileOptions, UserManager
+camp.AllCampOptions, CampManager
+camp.FacultyCampOptions, UserManager, CampManager
+camp.UserCampOptions, UserManager, CampManager
+camp.CampInfoOptions, CampManager
 
 auth.GetEmailPasswordUI, NavigationManager, AuthManager
 auth.GetRegisterInfoUI, auth.RegisterTypeView, AuthManager
+auth.ChangePasswordUI, NavigationManager, UserManager, ConfirmOrDiscardUI
 camp.GetCampInfoUI, NavigationManager, UserManager, CampManager
+ConfirmOrDiscardUI
+camp.WithdrawFromCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
 
 NavigationManager, NavigationService
 AuthManager, AuthService, UserManager
-UserManager
+UserManager, AuthService
 CampManager, CampService

@@ -55,7 +55,7 @@ public class AuthService {
     public Boolean checkPassword(String email, String password){
         for (User user : userMap.values()) {
             if (user.getEmail().equals(email)) {
-                return user.checkPassword(password);
+                return user.passwordMatches(password);
             }
         }
         return false;
@@ -77,6 +77,11 @@ public class AuthService {
             }
         }
         return false;
+    }
+
+    public void updatePassword(String userName, String newPassword) {
+        userMap.get(userName).setPassword(newPassword);
+        save();
     }
 
     public void save() {

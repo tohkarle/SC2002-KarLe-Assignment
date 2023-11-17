@@ -1,50 +1,57 @@
-package cams.ui.camp;
+package cams.view.camp;
 
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
-import cams.manager.CampManager;
-import cams.manager.UserManager;
+import cams.interfaces.View;
 import cams.option.camp.CampInfoOptions;
 import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Dismiss;
 
-public class CampInfoUI implements UI {
+public class CampInfoView extends View {
 
-    private Navigation navigation;
-    private UserManager userManager;
-    private CampManager campManager;
+    // Options for this view:
     private CampInfoOptions campInfoOptions;
 
-    public CampInfoUI(Navigation navigation, UserManager userManager, CampManager campManager, CampInfoOptions campInfoOptions) {
-        this.navigation = navigation;
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.campInfoOptions = campInfoOptions;
+    // UIs for this view:
+    private UI withdrawFromCampUI;
+
+    public CampInfoView(Navigation navigation) {
+        super(navigation);
     }
 
-    public void body() {
+    public void render() {
+
+        campInfoOptions = (CampInfoOptions) super.getOptions("camp.CampInfoOptions");
+
         // If student is viewing registered camps, they will have an option to withdraw from the camp
         if (viewingRegisteredCampInfo()) { 
             campInfoOptions.addWithdrawOption(); 
             return;
         }
 
+        campInfoOptions.viewOnly("Camp details: ");
+
         if (!viewingRegisteredCampInfo()) {
             // Allow user to go back only, since there is no withdraw option
-            campInfoOptions.selectionWithDismiss();
-            return;
+            if (campInfoOptions.selectionWithDismiss() == Dismiss.intOption()) {
+                super.getNavigation().dismissView();
+                return;
+            }
         }
 
         // Allow student to go back or withdraw from camp
         IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 1);
         if (selectionWithDismiss.getValidInt("Your selection: ") == Dismiss.intOption() ) { 
-            navigation.dismissView();
+            super.getNavigation().dismissView();
             return; 
         }
+
+        withdrawFromCampUI = super.getUI("camp.WithdrawFromCampUI");
+        withdrawFromCampUI.body();
     }
 
     public boolean viewingRegisteredCampInfo () {
-        return (navigation.getPreviousView().equals("camp.RegisteredCampsView"));
+        return (super.getNavigation().getPreviousView().equals("camp.RegisteredCampsView"));
     }
 }

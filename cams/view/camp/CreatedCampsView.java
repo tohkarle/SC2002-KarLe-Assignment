@@ -1,57 +1,44 @@
 package cams.view.camp;
 
-import cams.components.option.CampOptions;
 import cams.components.option.Options;
+import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.utils.CampUtil;
+import cams.manager.CampManager;
 import cams.utils.Dismiss;
 
-public class CreatedCampsView implements View {
+public class CreatedCampsView extends View {
 
-    private int staffID;
-    private boolean justCreated;
-    private Options campOptions;
-    private CampUtil campUtil;
+      private CampManager campManager;
 
-    // Views to navigate to
-    private View editCampView;
+    // Options for this view:
+    private Options userCampOptions;
 
-    public CreatedCampsView(int staffID) {
-        this.staffID = staffID;
-        this.justCreated = false;
+    public CreatedCampsView(Navigation navigation, CampManager campManager) {
+        super(navigation);
+        this.campManager  = campManager;
     }
 
-    public CreatedCampsView(int staffID, boolean justCreated) {
-        this.staffID = staffID;
-        this.justCreated = justCreated;
-    }
+    public void render() {
+        // Display camps
+        userCampOptions = super.getOptions("camp.UserCampOptions");
+        userCampOptions.display("Select camp to view details:");
 
-    public void body() {
-
-        while (true) {
-            campOptions = new CampOptions(staffID);
-
-            // Label new if camp is just created
-            labelCampNew();
-
-            // Display camps created by staff
-            campOptions.displayWithDismiss("Select camp to edit:");
-
-            // Let staff select camp to view details
-            int option = campOptions.selectionWithDismiss();
-            if (option == Dismiss.intOption()) { return; }
-
-            // Edit camp details
-            campUtil = new CampUtil(option);
-            editCampView = new EditCampView(campUtil);
-            editCampView.render();
+        // Let user select camp to view details
+        int option = userCampOptions.selection();
+        if (option == Dismiss.intOption()) { 
+            super.getNavigation().dismissView();
+            return; 
         }
+        campManager.setViewCampDetail(option);
+
+        // Navigate to EditCampView
+        super.getNavigation().navigateTo("camp.EditCampView");
     }
 
-    public void labelCampNew() {
-        if (justCreated) {
-            String name = campOptions.getOption(campOptions.getOptionsSize() - 1);
-            campOptions.replaceOption(name, name + " (New)");
-        }
-    }
+    // public void labelCampNew() {
+    //     if (justCreated) {
+    //         String name = campOptions.getOption(campOptions.getOptionsSize() - 1);
+    //         campOptions.replaceOption(name, name + " (New)");
+    //     }
+    // }
 }

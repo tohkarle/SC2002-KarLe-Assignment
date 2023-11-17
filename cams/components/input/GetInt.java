@@ -9,18 +9,16 @@ public class GetInt implements IntInput {
     // Input must be an int
     // Input must not be empty
 
-    protected String title;
     protected String input;
     protected int number;
 
-    public GetInt(String title) {
-        this.title = title;
+    public GetInt() {
         this.input = null;
         this.number = Dismiss.intOption();
     }
 
     @Override
-    public int getValidInt() {
+    public int getValidInt(String title) {
         while (true) {
             System.out.print(title);
             input = Main.scanner.nextLine();

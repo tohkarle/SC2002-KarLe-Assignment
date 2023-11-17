@@ -6,13 +6,14 @@ import cams.components.input.GetOption;
 public class GetSelectionUI extends GetOption {
 
     public GetSelectionUI(int min, int max) {
-        super("Your selection: ", min, max);
+        super(min, max);
     }
 
-    public int getValidInt() {
+    @Override
+    public int getValidInt(String title) {
         System.out.println("");
         while (true) {
-            System.out.print(super.title);
+            System.out.print("Your selection: ");
             super.input = Main.scanner.nextLine();
             if (super.inputIsEmpty() || super.inputIsNotInt() || super.inputIsNotBetweenMinMax()) { continue; }
             return super.number;

@@ -1,5 +1,5 @@
 package cams.interfaces;
 
 public interface IntInput {
-    int getValidInt();
+    int getValidInt(String title);
 }

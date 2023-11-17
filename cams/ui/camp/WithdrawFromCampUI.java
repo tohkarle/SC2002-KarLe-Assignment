@@ -1,38 +1,43 @@
 package cams.ui.camp;
 
-import cams.Main;
 import cams.components.LoadingIndicator;
-import cams.interfaces.InputField;
 import cams.interfaces.IntInput;
-import cams.ui.ConfirmOrDiscardUI;
-import cams.utils.CampUtil;
+import cams.interfaces.Navigation;
+import cams.interfaces.UI;
+import cams.manager.CampManager;
+import cams.manager.UserManager;
 
-public class WithdrawFromCampUI implements InputField {
+public class WithdrawFromCampUI implements UI {
 
-    private int studentID;
-    private CampUtil campUtil;
+    private Navigation navigation;
+    private UserManager userManager;
+    private CampManager campManager;
+    private IntInput confirm;
 
-    public WithdrawFromCampUI(int studentID, CampUtil campUtil) {
-        this.campUtil =  campUtil;
+    public WithdrawFromCampUI(Navigation navigation, UserManager userManager, CampManager campManager, IntInput confirm) {
+        this.navigation = navigation;
+        this.userManager = userManager;
+        this.campManager = campManager;
+        this.confirm = confirm;
     }
 
     @Override
-    public boolean focused() {
+    public void body() {
         // Confirm withdraw or discard and go back
-        IntInput confirmOrDiscard = new ConfirmOrDiscardUI("withdraw");
-        if (confirmOrDiscard.getValidInt() != 1) { return false; }
+        if (confirm.getValidInt("Confirm withdraw?") != 1) {
+            return;
+        }
 
         // Committee member cannot withdraw from camp
-        if (Main.campManager.isACommitteeMemberOfThisCamp(studentID, campUtil.getId())) { 
+        if (campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), campManager.getViewCampDetail())) { 
             System.out.println("A camp committee member cannot quit from the camp");
-            return false; 
+            return;
         }
 
         // Withdraw student from camp
-        Main.campManager.removeFromParticipatingStudentIDs(studentID, campUtil.getId());
-        Main.campManager.addToWithdrawnStudentIDs(studentID, campUtil.getId());
-        Main.campManager.save();
+        campManager.withdrawFromCamp(userManager.getCurrentUser().getName(), campManager.getViewCampDetail());
         LoadingIndicator.withdrawLoadingIndicator("camp");
-        return false;
+        navigation.dismissView();
+        return;
     }
 }

@@ -15,6 +15,6 @@ public class SelectableOptions extends Options implements DisplayableSelectable 
     @Override
     public int selection() {
         IntInput selection = new GetSelectionUI(1, super.getOptionsSize());
-        return selection.getValidInt();
+        return selection.getValidInt("Your selection: ");
     }
 }

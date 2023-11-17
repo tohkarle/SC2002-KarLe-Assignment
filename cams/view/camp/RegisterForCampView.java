@@ -1,9 +1,9 @@
 package cams.view.camp;
 
-import cams.components.option.CampOptions;
 import cams.components.option.Options;
 import cams.interfaces.UI;
 import cams.interfaces.View;
+import cams.option.camp.AllCampOptions;
 import cams.ui.RegisterForCampUI;
 import cams.utils.Dismiss;
 
@@ -17,7 +17,7 @@ public class RegisterForCampView implements View {
 
     public RegisterForCampView(int studentID, String faculty) {
         this.studentID = studentID;
-        this.campOptions = new CampOptions(faculty);
+        this.campOptions = new AllCampOptions(faculty);
     }
 
     public void body() {

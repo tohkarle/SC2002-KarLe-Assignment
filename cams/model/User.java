@@ -35,7 +35,7 @@ public class User implements Serializable {
         return this.faculty;
     }
 
-    public Boolean checkPassword(String password){
+    public Boolean passwordMatches(String password){
         return (this.password.equals(password));
     }
 

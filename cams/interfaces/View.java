@@ -10,6 +10,12 @@ public abstract class View {
     private HashMap<String, Options> options;
     private HashMap<String, UI> uis;
 
+    public View() {
+        this.navigation = null;
+        this.options = new HashMap<>();
+        this.uis = new HashMap<>();
+    }
+
     public View (Navigation navigation) {
         this.navigation = navigation;
         this.options = new HashMap<>();

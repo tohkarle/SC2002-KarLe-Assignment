@@ -16,6 +16,6 @@ public class DismissableSelectableOptions extends Options implements Displayable
     @Override
     public int selection() {
         IntInput selectionWithDismiss = new GetSelectionWithDismissUI(1, super.getOptionsSize());
-        return selectionWithDismiss.getValidInt();
+        return selectionWithDismiss.getValidInt("Your selection: ");
     }
 }

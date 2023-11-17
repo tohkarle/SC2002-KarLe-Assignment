@@ -5,8 +5,6 @@ import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.UserManager;
-import cams.model.Staff;
-import cams.model.Student;
 
 public class UserOptionsView extends View {
 
@@ -50,7 +48,7 @@ public class UserOptionsView extends View {
             return;
         }
 
-        if (userManager.getCurrentUser() instanceof Staff) {
+        if (userManager.isStaff()) {
 
             // Display staff's options and let staff select action
             staffOptions = super.getOptions("user.StaffOptions");
@@ -60,12 +58,13 @@ public class UserOptionsView extends View {
             // Display corresponding view
             if (option <= staffOptionsViews.length) {
                 super.getNavigation().navigateTo(staffOptionsViews[option - 1]);
+                return;
             } else {
                 logOut();
                 return;
             }
 
-        } else if (userManager.getCurrentUser() instanceof Student) {
+        } {
 
             // Display student's options and let student select action
             studentOptions = super.getOptions("user.StudentOptions");
@@ -75,6 +74,7 @@ public class UserOptionsView extends View {
             // Display corresponding view
             if (option <= studentOptionsViews.length) {
                 super.getNavigation().navigateTo(studentOptionsViews[option - 1]);
+                return;
             } else {
                 logOut();
                 return;

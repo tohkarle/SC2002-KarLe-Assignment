@@ -18,6 +18,6 @@ public class DismissableViewOnlyOptions extends Options implements Displayable {
     @Override
     public int selection() {
         IntInput selection = new GetSelectionUI(-1, -1);
-        return selection.getValidInt();
+        return selection.getValidInt("Your selection: ");
     }
 }

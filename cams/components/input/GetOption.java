@@ -9,14 +9,13 @@ public abstract class GetOption extends GetInt {
     protected int min;
     protected int max;
 
-    public GetOption(String title, int min, int max) {
-        super(title);
+    public GetOption(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
     @Override
-    public abstract int getValidInt();
+    public abstract int getValidInt(String title);
 
     public boolean inputIsNotBetweenMinMax() {
         if (super.number >= min && super.number <= max) { return false; }

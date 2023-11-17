@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import cams.components.option.Options;
 import cams.interfaces.UI;
@@ -39,6 +40,15 @@ public class NavigationService {
             }
             return view;
         }
+    }
+
+    public String getViewName(View view) {
+        for (Map.Entry<String, View> entry : viewMap.entrySet()) {
+            if (entry.getValue().equals(view)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     private View createViewInstanceFromCsv(String viewName) {

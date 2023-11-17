@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import cams.Main;
 import cams.components.LoadingIndicator;
-import cams.components.option.CampInfoOptions;
+import cams.option.camp.CampInfoOptions;
 
 public class CampUtil extends CampInfoOptions {
 

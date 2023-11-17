@@ -7,13 +7,14 @@ import cams.utils.Dismiss;
 public class GetSelectionWithDismissUI extends GetOption {
 
     public GetSelectionWithDismissUI(int min, int max) {
-        super("Your selection: ", min, max);
+        super(min, max);
     }
 
-    public int getValidInt() {
+    @Override
+    public int getValidInt(String title) {
         System.out.println("");
         while (true) {
-            System.out.print(super.title);
+            System.out.print(title);
             super.input = Main.scanner.nextLine();
             if (super.inputIsEmpty() || super.inputIsNotInt()) { continue; }
             if (super.number == Dismiss.intOption()) { return super.number; }

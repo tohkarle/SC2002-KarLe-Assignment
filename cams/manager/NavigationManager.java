@@ -15,11 +15,11 @@ import cams.service.NavigationService;
 public class NavigationManager implements Navigation {
 
     private Stack<View> views;
-    private NavigationService service;
+    private NavigationService navigationService;
 
-    public NavigationManager(NavigationService service) {
+    public NavigationManager(NavigationService navigationService) {
         this.views = new Stack<>();
-        this.service = service;
+        this.navigationService = navigationService;
     }
 
     public void displayView() {
@@ -27,18 +27,19 @@ public class NavigationManager implements Navigation {
             for (View view : views) {
                 System.out.println(view);
             }
+            getPreviousView();
             View view = views.peek();
             view.render();
         }
     }
 
     public void initializeRootView() {
-        views.push(this.service.getView("root.RootView"));
+        views.push(this.navigationService.getView("root.RootView"));
     }
 
     @Override
     public void navigateTo(String viewName) {
-        views.push(service.getView(viewName));
+        views.push(navigationService.getView(viewName));
     }
 
     @Override
@@ -49,6 +50,16 @@ public class NavigationManager implements Navigation {
     @Override
     public void popToRoot() {
         views.clear();
-        views.push(this.service.getView("root.RootView"));
+        views.push(this.navigationService.getView("root.RootView"));
+    }
+
+    @Override
+    public String getPreviousView() {
+        if (views.size() < 2) {
+            return null;  // No previous view
+        }
+        String name = navigationService.getViewName(views.get(views.size() - 2));
+        System.out.println("Previous view: " + name);
+        return name;
     }
 }

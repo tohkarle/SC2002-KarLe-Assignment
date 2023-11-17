@@ -5,7 +5,6 @@ import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
-import cams.model.Staff;
 import cams.model.Student;
 import cams.utils.Dismiss;
 
@@ -31,10 +30,10 @@ public class ProfileView extends View {
         profileOptions = super.getOptions("user.ProfileOptions");
         profileOptions.display("Profile: ");
 
-        if (userManager.getCurrentUser() instanceof Student) {
-            studentSpecificProfile();
-        } else if (userManager.getCurrentUser() instanceof Staff) {
+        if (userManager.isStaff()) {
             staffSpecificProfile();
+        } else {
+            studentSpecificProfile();
         }
 
         int option = profileOptions.selection();

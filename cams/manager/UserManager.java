@@ -1,10 +1,17 @@
 package cams.manager;
 
+import cams.model.Staff;
 import cams.model.User;
+import cams.service.AuthService;
 
 public class UserManager {
 
     private User currentUser;
+    private AuthService authService;
+
+    public UserManager(AuthService authService) {
+        this.authService = authService;
+    }
 
     public User getCurrentUser() {
         return this.currentUser;
@@ -12,6 +19,14 @@ public class UserManager {
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
+    }
+
+    public boolean isStaff() {
+        return (this.currentUser instanceof Staff);
+    }
+
+    public void updatePassword(String newPassword) {
+        authService.updatePassword(currentUser.getName(), newPassword);
     }
 
     // public String getName(int userID){

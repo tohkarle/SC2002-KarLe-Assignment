@@ -4,4 +4,10 @@ auth.RegisterView, auth.GetRegisterInfoUI
 auth.LogInView, auth.GetEmailPasswordUI
 user.UserOptionsView, user.StaffOptions, user.StudentOptions
 user.ProfileView, user.ProfileOptions
+user.ChangePasswordView, auth.ChangePasswordUI
 camp.CreateCampView, camp.GetCampInfoUI
+camp.AllCampsView, camp.AllCampOptions
+camp.FacultyCampsView, camp.FacultyCampOptions, CampManager
+camp.CreatedCampsView, camp.UserCampOptions, CampManager
+camp.RegisteredCampsView, camp.UserCampOptions, CampManager
+camp.CampInfoView, camp.CampInfoOptions, camp.WithdrawFromCampUI
