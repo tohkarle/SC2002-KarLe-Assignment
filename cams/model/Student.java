@@ -4,8 +4,8 @@ public class Student extends User {
 
     private int point;
 
-    public Student(int userID, String email, String name,String password, String faculty) {
-        super(userID, email, name, password, faculty);
+    public Student(String name, String email, String password, String faculty) {
+        super(name, email, password, faculty);
         this.point = 0;
     }
 

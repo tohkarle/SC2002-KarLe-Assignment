@@ -1,33 +1,23 @@
 package cams.service;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import cams.model.Camp;
 import cams.utils.Serialize;
-import cams.utils.UniqueKey;
 
-public class CampManager {
+public class CampService {
 
     private int uniqueKey = 0;
     private HashMap<Integer, Camp> campMap = new HashMap<Integer, Camp>();
 
-    public CampManager(){
+    public CampService(){
         Serialize.checkAndCreateFile("CampManagerKey.sav");
         Serialize.checkAndCreateFile("campMap.sav");
         this.load();
     }
 
-    public int createCamp(int staffID, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility) {
-        // Set registration closing date to be 45 days after date of creation
-        LocalDate registrationClosingDate = LocalDate.now().plus(45, ChronoUnit.DAYS);
-
-        this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
-        while(campMap.get(this.uniqueKey) != null) this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
-        Camp newCamp = new Camp(this.uniqueKey, campName, dates, faculty, visibility, staffID, registrationClosingDate);
-        campMap.put(this.uniqueKey, newCamp);
-        return this.uniqueKey;
+    public void createCamp(Camp newCamp) {
+        campMap.put(newCamp.getId(), newCamp);
     }
 
     public void deleteCamp(int campID) {
@@ -35,6 +25,14 @@ public class CampManager {
     }
 
     // Creating defensive copies of Camp object so it does not affect the actual Camp object in the campMap
+    public Camp getCamp(int campID) {
+        return new Camp(campMap.get(campID));
+    }
+
+    public HashMap<Integer, Camp> getCampMap() {
+        return new HashMap<>(campMap);
+    }
+
     public ArrayList<Camp> getAllCamps() {
         ArrayList<Camp> camps = new ArrayList<>();
         for (Camp camp : campMap.values()) {
@@ -43,10 +41,10 @@ public class CampManager {
         return camps;
     }
     
-    public ArrayList<Camp> getStaffCamps(int staffID) {
+    public ArrayList<Camp> getStaffCamps(String staffName) {
         ArrayList<Camp> camps = new ArrayList<>();
         for (Camp camp : campMap.values()) {
-            if (camp.getStaffInCharge() == staffID) {
+            if (camp.getStaffInCharge().equals(staffName)) {
                 camps.add(new Camp(camp));
             }
         }
@@ -63,10 +61,10 @@ public class CampManager {
         return camps;
     }
     
-    public ArrayList<Camp> getRegisteredCamps(int studentID) {
+    public ArrayList<Camp> getRegisteredCamps(String studentName) {
         ArrayList<Camp> camps = new ArrayList<>();
         for (Camp camp : campMap.values()) {
-            if ((camp.getParticipatingStudentIDs().contains(studentID) || camp.getCommitteeMemberIDs().contains(studentID)) && camp.getVisibility()) {
+            if ((camp.getParticipatingStudentNames().contains(studentName) || camp.getCommitteeMemberNames().contains(studentName)) && camp.getVisibility()) {
                 camps.add(new Camp(camp));
             }
         }
@@ -80,6 +78,35 @@ public class CampManager {
         } else {
             System.out.println("ERROR: Camp with ID " + campID + " does not exist.");
         }
+    }
+
+    public boolean campAlreadyExists(String name) {
+        for (Camp camp : campMap.values()) {
+            if (camp.getCampName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<String> getParticipatingStudentNames(int campID) {
+        return campMap.get(campID).getParticipatingStudentNames();
+    }
+
+    public ArrayList<String> getWithdrawnStudentNames(int campID) {
+        return campMap.get(campID).getParticipatingStudentNames();
+    }
+
+    public ArrayList<String> getCommitteeMemberNames(int campID) {
+        return campMap.get(campID).getCommitteeMemberNames();
+    }
+
+    public ArrayList<Integer> getEnquiryIDs(int campID) {
+        return campMap.get(campID).getEnquiryIDs();
+    }
+
+    public ArrayList<Integer> getSuggestionIDs(int campID) {
+        return campMap.get(campID).getSuggestionIDs();
     }
  
     public void save(){

@@ -2,8 +2,8 @@ package cams.model;
 
 public class Staff extends User {
 
-    public Staff(int userID, String email, String name,String password, String faculty) {
-        super(userID, email, name, password, faculty);
+    public Staff(String name, String email, String password, String faculty) {
+        super(name, email, password, faculty);
     }
 
     // For creating a defensive copy

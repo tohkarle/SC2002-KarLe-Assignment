@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Camp implements Serializable {
+    private static int nextId = 0;
     private int id;
     private String campName;
     private ArrayList<LocalDate> dates; // 0: start, 1: end, 2: Register close
@@ -14,15 +15,17 @@ public class Camp implements Serializable {
     private int totalSlots;
     private int committeeSlots;
     private String description;
-    private int staffInCharge;
-    private ArrayList<Integer> committeeMemberIDs;
-    private ArrayList<Integer> participatingStudentIDs;
-    private ArrayList<Integer> withdrawnStudentIDs;
+    private String staffInCharge;
+    private ArrayList<String> committeeMemberNames;
+    private ArrayList<String> participatingStudentNames;
+    private ArrayList<String> withdrawnStudentNames;
     private ArrayList<Integer> enquiryIDs;
     private ArrayList<Integer> suggestionIDs;
 
-    public Camp(int id, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility, int staffID, LocalDate registrationClosingDate) {
+    public Camp(String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility, String staffInCharge, LocalDate registrationClosingDate) {
         // Default values
+        this.id = nextId;
+        Camp.nextId++;
         this.campName = campName;
         this.dates = dates;
         this.visibility = visibility;
@@ -32,13 +35,12 @@ public class Camp implements Serializable {
         this.committeeSlots = 10;
         this.description = "Default description";
 
-        this.id = id;
-        this.staffInCharge = staffID;
+        this.staffInCharge = staffInCharge;
         this.registrationClosingDate = registrationClosingDate;
 
-        this.committeeMemberIDs = new ArrayList<Integer>();
-        this.participatingStudentIDs = new ArrayList<Integer>();
-        this.withdrawnStudentIDs = new ArrayList<Integer>();
+        this.committeeMemberNames = new ArrayList<String>();
+        this.participatingStudentNames = new ArrayList<String>();
+        this.withdrawnStudentNames = new ArrayList<String>();
         this.enquiryIDs = new ArrayList<Integer>();
         this.suggestionIDs = new ArrayList<Integer>();
     }
@@ -57,9 +59,9 @@ public class Camp implements Serializable {
         this.committeeSlots = other.committeeSlots;
         this.description = other.description;
         this.staffInCharge = other.staffInCharge;
-        this.committeeMemberIDs = new ArrayList<>(other.committeeMemberIDs);
-        this.participatingStudentIDs = new ArrayList<>(other.participatingStudentIDs);
-        this.withdrawnStudentIDs = new ArrayList<>(other.withdrawnStudentIDs);
+        this.committeeMemberNames = new ArrayList<>(other.committeeMemberNames);
+        this.participatingStudentNames = new ArrayList<>(other.participatingStudentNames);
+        this.withdrawnStudentNames = new ArrayList<>(other.withdrawnStudentNames);
         this.enquiryIDs = new ArrayList<>(other.enquiryIDs);
         this.suggestionIDs = new ArrayList<>(other.suggestionIDs);
     }
@@ -153,20 +155,20 @@ public class Camp implements Serializable {
         this.description = description;
     }
 
-    public int getStaffInCharge() {
+    public String getStaffInCharge() {
         return this.staffInCharge;
     }
 
-    public ArrayList<Integer> getParticipatingStudentIDs() {
-        return this.participatingStudentIDs;
+    public ArrayList<String> getParticipatingStudentNames() {
+        return this.participatingStudentNames;
     }
 
-    public ArrayList<Integer> getWithdrawnStudentIDs() {
-        return this.withdrawnStudentIDs;
+    public ArrayList<String> getWithdrawnStudentNames() {
+        return this.withdrawnStudentNames;
     }
 
-    public ArrayList<Integer> getCommitteeMemberIDs() {
-        return this.committeeMemberIDs;
+    public ArrayList<String> getCommitteeMemberNames() {
+        return this.committeeMemberNames;
     }
 
     public ArrayList<Integer> getEnquiryIDs() {

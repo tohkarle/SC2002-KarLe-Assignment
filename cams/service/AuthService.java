@@ -6,7 +6,6 @@ import cams.model.Staff;
 import cams.model.Student;
 import cams.model.User;
 import cams.utils.Serialize;
-import cams.utils.UniqueKey;
 
 // Create user
 // Log user in
@@ -14,8 +13,7 @@ import cams.utils.UniqueKey;
 // Log user out
 public class AuthService {
 
-    private static int uniqueKey = 0;
-    private static HashMap<Integer, User> userMap;
+    private static HashMap<String, User> userMap;
 
     public AuthService(){
         Serialize.checkAndCreateFile("UserManagerKey.sav");
@@ -23,19 +21,17 @@ public class AuthService {
         this.load();
     }
 
-    public int registerUser(String email, String name, String password, String faculty, boolean isStaff) {
+    public User registerUser(String email, String name, String password, String faculty, boolean isStaff) {
         User newUser;
-        uniqueKey = UniqueKey.generateNewKey(uniqueKey);
-        while(userMap.get(uniqueKey) != null) uniqueKey = UniqueKey.generateNewKey(uniqueKey);
 
         if (isStaff) {
-            newUser = new Staff(uniqueKey, email, name, password, faculty);
+            newUser = new Staff(name, email, password, faculty);
         } else {
-            newUser = new Student(uniqueKey, email, name, password, faculty);
+            newUser = new Student(name, email, password, faculty);
         }
         
-        userMap.put(uniqueKey, newUser);
-        return uniqueKey;
+        userMap.put(name, newUser);
+        return newUser;
     }
 
     public Boolean isValidUser(String email){
@@ -47,13 +43,13 @@ public class AuthService {
         return false;
     }
 
-    public int logIn(String email) {
+    public User logIn(String email) {
         for (User user : userMap.values()) {
             if (user.getEmail().equals(email)) {
-                return user.getUserID();
+                return user;
             }
         }
-        return -1;
+        return null;
     }
 
     public Boolean checkPassword(String email, String password){
@@ -74,34 +70,31 @@ public class AuthService {
         return false;
     }
 
-    public User getUser(int userID) {
-        User user = userMap.get(userID);
-        if (user instanceof Student) {
-            return new Student(user);
-        } else if (user instanceof Staff) {
-            return new Staff(user);
+    public boolean nameAlreadyExists(String name) {
+        for (User user : userMap.values()) {
+            if (user.getName().equals(name)) {
+                return true;
+            }
         }
-        return null;
+        return false;
     }
 
     public void save() {
-        Serialize.save("UserManagerKey.sav", uniqueKey);
         Serialize.save("userMap.sav", userMap);
     }
 
     public void load() {
         try {
-            uniqueKey = (Integer)Serialize.load("UserManagerKey.sav");
             @SuppressWarnings("unchecked")
-            HashMap<Integer, User> loadedMap = (HashMap<Integer, User>)Serialize.load("userMap.sav");
-            userMap = loadedMap;
+            HashMap<String, User> loadedMap = (HashMap<String, User>) Serialize.load("userMap.sav");
+            if (loadedMap != null) {
+                userMap = loadedMap;
+            } else {
+                userMap = new HashMap<>();
+            }
+            // userMap = loadedMap;
         } catch (Exception e) {
-            uniqueKey = 0;
             userMap = new HashMap<>();
         }
-    }
-
-    public String getName(int userID){
-        return ((User)userMap.get(userID)).getName();
     }
 }

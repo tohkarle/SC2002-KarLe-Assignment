@@ -1,6 +1,7 @@
 package cams.manager;
 
 import cams.components.LoadingIndicator;
+import cams.model.User;
 import cams.service.AuthService;
 
 public class AuthManager {
@@ -19,8 +20,17 @@ public class AuthManager {
             return false;
         }
 
-        int userID = authService.registerUser(email, name, password, faculty, isStaff);
-        this.userManager.setCurrentUser(authService.getUser(userID));
+        if (authService.nameAlreadyExists(name)) {
+            System.out.println("Name already used, please enter another name.");
+            return false;
+        }
+
+        User newUser = authService.registerUser(email, name, password, faculty, isStaff);
+        if (newUser == null) {
+            System.out.println("Registration unsuccessful, please try again.");
+            return false;
+        }
+        this.userManager.setCurrentUser(newUser);
         authService.save();
         LoadingIndicator.registerLoadingIndicator("user");
         return true;
@@ -35,8 +45,12 @@ public class AuthManager {
         if (authService.checkPassword(email, password)){
             // password accepted
             LoadingIndicator.logInLoadingIndicator();
-            int userID = authService.logIn(email);
-            this.userManager.setCurrentUser(authService.getUser(userID));
+            User user = authService.logIn(email);
+            if (user == null) {
+                System.out.println("Log in unsuccessful, please try again.");
+                return false;
+            }
+            this.userManager.setCurrentUser(user);
             return true;
         } else {
             // password wrong, rejected

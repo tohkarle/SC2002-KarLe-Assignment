@@ -15,14 +15,12 @@ public class GetDate implements DateInput {
 
     protected String input;
     protected LocalDate date;
-    private String title;
 
-    public GetDate (String title) {
-        this.title = title;
+    public GetDate () {
     }
 
     @Override
-    public LocalDate getValidDate() {
+    public LocalDate getValidDate(String title) {
         while (true) {
             System.out.print(title);
             this.input = Main.scanner.nextLine();

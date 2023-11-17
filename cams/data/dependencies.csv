@@ -1,21 +1,27 @@
 DependencyService
 NavigationService, DependencyService
 AuthService
+CampService
 
 root.RootView, NavigationManager
 auth.RegisterTypeView, NavigationManager
 auth.RegisterView, NavigationManager
 auth.LogInView, NavigationManager
 user.UserOptionsView, NavigationManager, UserManager
+user.ProfileView, NavigationManager, UserManager, CampManager
+camp.CreateCampView, NavigationManager
 
 auth.AuthOptions
 auth.UserOptions
 user.StaffOptions
 user.StudentOptions
+user.ProfileOptions, UserManager
 
 auth.GetEmailPasswordUI, NavigationManager, AuthManager
 auth.GetRegisterInfoUI, auth.RegisterTypeView, AuthManager
+camp.GetCampInfoUI, NavigationManager, UserManager, CampManager
 
 NavigationManager, NavigationService
 AuthManager, AuthService, UserManager
 UserManager
+CampManager, CampService

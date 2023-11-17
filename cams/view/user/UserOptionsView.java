@@ -85,6 +85,6 @@ public class UserOptionsView extends View {
     private void logOut() {
         LoadingIndicator.logOutLoadingIndicator();
         userManager.setCurrentUser(null);
-        super.getNavigation().dismissView();
+        super.getNavigation().popToRoot();
     }
 }

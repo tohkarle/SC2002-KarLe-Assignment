@@ -3,8 +3,7 @@ package cams.components.option;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CreateCampOptions extends Options {
-
+public class CreateCampOptions extends ViewOnlyOptions {
     public CreateCampOptions() {
         super.setOptions( new ArrayList<String>(Arrays.asList(
                 "Ente camp name: ",
@@ -15,5 +14,4 @@ public class CreateCampOptions extends Options {
             ))
         );
     }
-    
 }

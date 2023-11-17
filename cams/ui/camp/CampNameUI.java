@@ -1,26 +1,21 @@
 package cams.ui.camp;
 
 import cams.components.input.GetString;
-import cams.interfaces.InputField;
 import cams.utils.Dismiss;
 import cams.utils.CampUtil;
 
-public class CampNameUI extends GetString implements InputField {
+public class CampNameUI extends GetString {
 
     private CampUtil campUtil;
     private String campName;
 
-    public CampNameUI(CampUtil campUtil, String title) {
-        super(title);
-        this.campUtil = campUtil;
+    public CampNameUI(String title) {
         this.campName = "";
     }
 
-    @Override
-    public boolean focused() {
-        campName = super.getValidString();
-        if (campName.equals(Dismiss.stringOption())) { return false; }
-        campUtil.setName(campName);
-        return true;
+    public String getValidString() {
+        campName = super.getValidString("Enter name: ");
+        if (campName.equals(Dismiss.stringOption())) { return null; }
+        return campName;
     }
 }

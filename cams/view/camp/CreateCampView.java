@@ -1,34 +1,24 @@
 package cams.view.camp;
 
-import cams.interfaces.InputField;
+import cams.interfaces.Navigation;
+import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.ui.camp.CreateCampUI;
 import cams.utils.Page;
-import cams.view.root.RootView;
 
-public class CreateCampView implements View {
+public class CreateCampView extends View {
 
-    private int staffID;
+    // No options in this view
 
-    // UIs involved
-    private InputField createCampUI;
+    // UIs in this view:
+    private UI getCampInfoUI;
 
-    // Views to navigate to
-    private View createdCampsView;
-
-    public CreateCampView(RootView rootView) {
-        this.staffID = rootView.getCurrentUserID();
-
-        // Create and initialize UIs for create camp
-        this.createCampUI = new CreateCampUI(this.staffID);
-
-        // Create and initialize views to navigate to
-        this.createdCampsView = new CreatedCampsView(rootView.getCurrentUserID(), true);
+    public CreateCampView(Navigation navigation) {
+        super(navigation);
     }
 
-    public void body() {
+    public void render() {
         Page.header("Please enter the name, faculty, visibility and dates of the camp.");
-        if (!createCampUI.focused()) { return; }
-        createdCampsView.render();
+        getCampInfoUI = super.getUI("camp.GetCampInfoUI");
+        getCampInfoUI.body();
     }
 }

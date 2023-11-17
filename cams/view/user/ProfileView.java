@@ -1,46 +1,52 @@
 package cams.view.user;
 
-import cams.Main;
 import cams.components.option.Options;
-import cams.components.option.UserInfoOptions;
-import cams.interfaces.IntInput;
+import cams.interfaces.Navigation;
 import cams.interfaces.View;
+import cams.manager.CampManager;
 import cams.manager.UserManager;
-import cams.service.StudentManager;
-import cams.ui.GetSelectionWithDismissUI;
-import cams.view.root.RootView;
+import cams.model.Staff;
+import cams.model.Student;
+import cams.utils.Dismiss;
 
-public class ProfileView implements View {
+public class ProfileView extends View {
 
-    private int studentID;
-    private UserManager manager;
-    private Options profileInfo;
+    private UserManager userManager;
+    private CampManager campManager;
 
-    public ProfileView(RootView rootView) {
-        this.studentID = rootView.getCurrentUserID();
-        this.manager = rootView.getManager();
-        this.profileInfo = new UserInfoOptions(rootView.getCurrentUserID(), rootView.getManager());
+    // Options:
+    private Options profileOptions;
+
+    // No UI for this view
+
+    public ProfileView(Navigation navigation, UserManager userManager, CampManager campManager) {
+        super(navigation);
+        this.userManager = userManager;
+        this.campManager = campManager;
     }
 
-    public void body() {
+    public void render() {
 
         // Display profile
-        profileInfo.viewOnlyWithDismiss("Profile: ");
+        profileOptions = super.getOptions("user.ProfileOptions");
+        profileOptions.display("Profile: ");
 
-        if (manager.isStudent(this.studentID)) {
+        if (userManager.getCurrentUser() instanceof Student) {
             studentSpecificProfile();
-        } else {
+        } else if (userManager.getCurrentUser() instanceof Staff) {
             staffSpecificProfile();
         }
 
-        // No selection, user can only go back
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, -1);
-        selectionWithDismiss.getValidInt();
+        int option = profileOptions.selection();
+        if (option == Dismiss.intOption()) { 
+            super.getNavigation().dismissView();
+            return;
+        }
     }
 
     public void studentSpecificProfile() {
-        System.out.println("Point: " + ((StudentManager) manager).getPoint(this.studentID));
-        String campName = Main.campManager.committeeMemberFor(this.studentID);
+        System.out.println("Point: " + ((Student) userManager.getCurrentUser()).getPoint());
+        String campName = campManager.committeeMemberFor(userManager.getCurrentUser().getName());
         if (campName != null) {
             System.out.println("Committee member for: " + campName);
         }

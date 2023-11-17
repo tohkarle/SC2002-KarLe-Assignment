@@ -133,7 +133,7 @@ public class CampManagerCopy {
     public ArrayList<String> getAllRegisteredCampNames(int studentID) {
         ArrayList<String> names = new ArrayList<String>();
         for (Camp camp : campMap.values()) {
-            if ((camp.getParticipatingStudentIDs().contains(studentID) || camp.getCommitteeMemberIDs().contains(studentID)) && camp.getVisibility()) {
+            if ((camp.getParticipatingStudentNames().contains(studentID) || camp.getCommitteeMemberNames().contains(studentID)) && camp.getVisibility()) {
                 names.add(camp.getCampName());
             }
         }
@@ -143,7 +143,7 @@ public class CampManagerCopy {
     public ArrayList<Integer> getAllRegisteredCampIDs(int studentID) {
         ArrayList<Integer> ids = new ArrayList<Integer>();
         for (Camp camp : campMap.values()) {
-            if ((camp.getParticipatingStudentIDs().contains(studentID) || camp.getCommitteeMemberIDs().contains(studentID)) && camp.getVisibility()) {
+            if ((camp.getParticipatingStudentNames().contains(studentID) || camp.getCommitteeMemberNames().contains(studentID)) && camp.getVisibility()) {
                 ids.add(camp.getId());
             }
         }
@@ -249,7 +249,7 @@ public class CampManagerCopy {
 
     public ArrayList<Integer> getCampParticipatingStudentIDs(int campID) {
         Camp camp = campMap.get(campID);
-        return camp.getParticipatingStudentIDs();
+        return camp.getParticipatingStudentNames();
     }
 
     public void addStudentIDToCamp(int campID, int studentID) {
@@ -264,7 +264,7 @@ public class CampManagerCopy {
 
     public ArrayList<Integer> getCampCommitteeMemberIDs(int campID) {
         Camp camp = campMap.get(campID);
-        return camp.getCommitteeMemberIDs();
+        return camp.getCommitteeMemberNames();
     }
 
     public void addCommitteeMemberIDToCamp(int campID, int studentID) {
@@ -280,7 +280,7 @@ public class CampManagerCopy {
 
     public int getRemainingSlots(int campID) {
         Camp camp = campMap.get(campID);
-        return (camp.getTotalSlots() - camp.getParticipatingStudentIDs().size());
+        return (camp.getTotalSlots() - camp.getParticipatingStudentNames().size());
     }
 
     public int getTotalSlots(int campID) {
@@ -293,7 +293,7 @@ public class CampManagerCopy {
 
     public int getRemainingCommitteeSlots(int campID) {
         Camp camp = campMap.get(campID);
-        return (camp.getCommitteeSlots() - camp.getCommitteeMemberIDs().size());
+        return (camp.getCommitteeSlots() - camp.getCommitteeMemberNames().size());
     }
 
     public int getTotalCommitteeSlots(int campID) {
@@ -308,7 +308,7 @@ public class CampManagerCopy {
 
     public boolean committeeIsFull(int campID) {
         Camp camp = campMap.get(campID);
-        return (camp.getCommitteeSlots() == camp.getCommitteeMemberIDs().size());
+        return (camp.getCommitteeSlots() == camp.getCommitteeMemberNames().size());
     }
 
 
@@ -396,12 +396,12 @@ public class CampManagerCopy {
 
     public boolean hasRegisteredForCamp(int studentID, int campID) {
         Camp camp = campMap.get(campID);
-        if (camp.getParticipatingStudentIDs().contains(studentID) || camp.getCommitteeMemberIDs().contains(studentID)) { return true; }
+        if (camp.getParticipatingStudentNames().contains(studentID) || camp.getCommitteeMemberNames().contains(studentID)) { return true; }
         return false;
     }
 
     public boolean hasWithdrawnFromCamp(int studentID, int campID) {
-        if (campMap.get(campID).getWithdrawnStudentIDs().contains(studentID)) { return true; }
+        if (campMap.get(campID).getWithdrawnStudentNames().contains(studentID)) { return true; }
         return false;
     }
 
@@ -411,7 +411,7 @@ public class CampManagerCopy {
         LocalDate newCampEnd = newCamp.getEndDate();
     
         for (Camp camp : campMap.values()) {
-            if (camp.getParticipatingStudentIDs().contains(studentID)) {
+            if (camp.getParticipatingStudentNames().contains(studentID)) {
                 if ((newCampStart.isAfter(camp.getStartDate()) && newCampStart.isBefore(camp.getEndDate())) ||
                     (newCampEnd.isAfter(camp.getStartDate()) && newCampEnd.isBefore(camp.getEndDate())) ||
                     (newCampStart.isEqual(camp.getStartDate()) || newCampEnd.isEqual(camp.getEndDate()))) {
@@ -419,7 +419,7 @@ public class CampManagerCopy {
                 }
             }
 
-            if (camp.getCommitteeMemberIDs().contains(studentID)) {
+            if (camp.getCommitteeMemberNames().contains(studentID)) {
                 if ((newCampStart.isAfter(camp.getStartDate()) && newCampStart.isBefore(camp.getEndDate())) ||
                     (newCampEnd.isAfter(camp.getStartDate()) && newCampEnd.isBefore(camp.getEndDate())) ||
                     (newCampStart.isEqual(camp.getStartDate()) || newCampEnd.isEqual(camp.getEndDate()))) {
@@ -432,7 +432,7 @@ public class CampManagerCopy {
 
     public String committeeMemberFor(int studentID) {
         for (Camp camp : campMap.values()) {
-            if (camp.getCommitteeMemberIDs().contains(studentID)) {
+            if (camp.getCommitteeMemberNames().contains(studentID)) {
                 return camp.getCampName();
             }
         }
@@ -441,7 +441,7 @@ public class CampManagerCopy {
 
     public boolean isACommitteeMember(int studentID) {
         for (Camp camp : campMap.values()) {
-            if (camp.getCommitteeMemberIDs().contains(studentID)) {
+            if (camp.getCommitteeMemberNames().contains(studentID)) {
                 return true;
             }
         }
@@ -449,13 +449,13 @@ public class CampManagerCopy {
     }
 
     public boolean isACommitteeMemberOfThisCamp(int studentID, int campID) {
-        if (campMap.get(campID).getCommitteeMemberIDs().contains(studentID)) { return true; }
+        if (campMap.get(campID).getCommitteeMemberNames().contains(studentID)) { return true; }
         return false;
     }
 
     public boolean isCommitteeMemberForAnotherCamp(int studentID, int campID) {
         for (Camp camp : campMap.values()) {
-            if (camp.getCommitteeMemberIDs().contains(studentID) && camp.getId() != campID) {
+            if (camp.getCommitteeMemberNames().contains(studentID) && camp.getId() != campID) {
                 return true;
             }
         }
@@ -487,11 +487,11 @@ public class CampManagerCopy {
     }
 
     public int getRegCount(int campID) {
-        return campMap.get(campID).getParticipatingStudentIDs().size();
+        return campMap.get(campID).getParticipatingStudentNames().size();
     }
 
     public void kickLastJoin(int campID) {
-        List<Integer> participatingStudentIDs = campMap.get(campID).getParticipatingStudentIDs();
+        List<Integer> participatingStudentIDs = campMap.get(campID).getParticipatingStudentNames();
 
         // Check if the list is not empty before attempting to remove the last element
         if (!participatingStudentIDs.isEmpty()) {
@@ -504,7 +504,7 @@ public class CampManagerCopy {
     }
 
     public void kickLastCommittee(int campID) {
-        List<Integer> committeeMemberIDs = campMap.get(campID).getCommitteeMemberIDs();
+        List<Integer> committeeMemberIDs = campMap.get(campID).getCommitteeMemberNames();
 
         // Check if the list is not empty before attempting to remove the last element
         if (!committeeMemberIDs.isEmpty()) {
