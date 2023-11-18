@@ -35,7 +35,7 @@ public class CampInfoOptions extends Options {
                 String.format("Visibility: %s", this.camp.getVisibility() ? "On" : "Off"),
                 String.format("Dates: %s to %s", this.camp.getStartDate(), this.camp.getEndDate()),
                 String.format("Registration closing date: %s", this.camp.getRegistrationClosingDate()),
-                String.format("Remaining slots: %d / %d", (this.camp.getTotalSlots() - this.camp.getParticipatingStudentNames().size()), this.camp.getTotalSlots()),
+                String.format("Remaining slots: %d / %d", (this.camp.getTotalSlots() - (this.camp.getParticipatingStudentNames().size() + this.camp.getCommitteeMemberNames().size())), this.camp.getTotalSlots()),
                 String.format("Remaining committee slots: %d / %d", (this.camp.getCommitteeSlots() - this.camp.getCommitteeMemberNames().size()), this.camp.getCommitteeSlots()),
                 String.format("Staff-in-charge: %s", this.camp.getStaffInCharge())
             ))

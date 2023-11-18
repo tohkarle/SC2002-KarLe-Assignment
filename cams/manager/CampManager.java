@@ -259,7 +259,7 @@ public class CampManager {
     }
 
     public boolean participationIsFull(int campID) {
-        return (campService.getCamp(campID).getTotalSlots() == campService.getCamp(campID).getParticipatingStudentNames().size());
+        return (campService.getCamp(campID).getTotalSlots() == (campService.getCamp(campID).getParticipatingStudentNames().size() + campService.getCamp(campID).getCommitteeMemberNames().size()));
     }
 
     public boolean committeeIsFull(int campID) {
