@@ -25,26 +25,7 @@ public class CampInfoOptions extends Options {
         this.setCampInfo();
     }
 
-    public void updateRegisteredCampInfo() {
-        this.camp = campManager.getSelectedCamp();
-        this.setCampInfo();
-        this.attendeeCampInfoOptions();
-    }
-
-    public void updateCreatedCampInfo() {
-        campManager.createTempCamp();
-        this.camp = campManager.getSelectedCamp();
-        this.setCampInfo();
-        this.staffCampInfoOptions();
-    }
-
-    public void updateEditingCampInfo() {
-        this.camp = campManager.getTempCamp();
-        this.setCampInfo();
-        this.editingCampInfoOptions();
-    }
-
-    private void setCampInfo() {
+    public void setCampInfo() {
         super.setOptions(
             new ArrayList<String>(Arrays.asList(
                 String.format("Name: %s", this.camp.getCampName()),
@@ -59,32 +40,6 @@ public class CampInfoOptions extends Options {
                 String.format("Staff-in-charge: %s", this.camp.getStaffInCharge())
             ))
         );
-    }
-
-    public void editingCampInfoOptions() {
-        super.getOptions().remove(String.format("Staff-in-charge: %s", this.camp.getStaffInCharge()));
-        super.getOptions().addAll(Arrays.asList(
-            "Update changes"
-        ));
-    }
-
-    public void staffCampInfoOptions() {
-        super.getOptions().remove(String.format("Staff-in-charge: %s", this.camp.getStaffInCharge()));
-        super.getOptions().addAll(Arrays.asList(
-            "(1) Edit camp details",
-            "(2) Manage enquiries",
-            "(3) Manage suggestions",
-            "(4) Create report",
-            "(5) Delete Camp"
-        ));
-    }
-
-    public void attendeeCampInfoOptions() {
-        // Student can withdraw from camp in the registered camp view
-        // It will be a view-only display for the camp info so we will need to add number here
-        super.getOptions().addAll(Arrays.asList(
-            String.format("(%d) Withdraw from camp", 1)
-        ));
     }
 
     @Override
@@ -109,5 +64,17 @@ public class CampInfoOptions extends Options {
     public int dismiss() {
         IntInput selection = new GetSelectionUI(-1, -1);
         return selection.getValidInt("Your selection: ");
+    }
+
+    public Camp getCamp() {
+        return this.camp;
+    }
+
+    public void setCamp(Camp camp) {
+        this.camp = camp;
+    }
+
+    public CampManager getCampManager() {
+        return this.campManager;
     }
 }

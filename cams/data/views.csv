@@ -6,13 +6,16 @@ user.UserOptionsView, user.StaffOptions, user.StudentOptions
 user.ProfileView, user.ProfileOptions
 user.ChangePasswordView, auth.ChangePasswordUI
 
-camp.CreateCampView, camp.GetCampInfoUI
+camp.CreateCampView, camp.CreateCampUI
 camp.AllCampsView, camp.AllCampOptions
 camp.FacultyCampsView, camp.FacultyCampOptions, CampManager
 camp.CreatedCampsView, camp.UserCampOptions, CampManager
 camp.RegisteredCampsView, camp.UserCampOptions, CampManager
-camp.CampInfoView, camp.CampInfoOptions, camp.WithdrawFromCampUI
+camp.CampInfoView, camp.CampInfoOptions
 camp.RegisterForCampView, camp.FacultyCampOptions, camp.RegisterForCampUI
-camp.RegisteredCampInfoView, camp.CampInfoOptions, camp.WithdrawFromCampUI
-camp.CreatedCampInfoView, camp.CampInfoOptions, camp.DeleteCampUI
-camp.EditCampView, camp.CampInfoOptions, camp.EditCampUI
+camp.RegisteredCampInfoView, camp.RegisteredCampInfoOptions, camp.WithdrawFromCampUI
+camp.CreatedCampInfoView, camp.CreatedCampInfoOptions, camp.DeleteCampUI
+camp.EditCampView, camp.EditCampInfoOptions, camp.EditCampUI
+
+suggestion.CampSuggestionsView, suggestion.CampSuggestionOptions
+suggestion.CreateSuggestionView, suggestion.CreateSuggestionOptions, suggestion.CreateSuggestionUI

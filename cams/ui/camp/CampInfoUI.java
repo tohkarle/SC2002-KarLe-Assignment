@@ -12,21 +12,17 @@ import cams.utils.Dismiss;
 public class CampInfoUI implements UI {
 
     private Navigation navigation;
-    private UserManager userManager;
-    private CampManager campManager;
     private CampInfoOptions campInfoOptions;
 
     public CampInfoUI(Navigation navigation, UserManager userManager, CampManager campManager, CampInfoOptions campInfoOptions) {
         this.navigation = navigation;
-        this.userManager = userManager;
-        this.campManager = campManager;
         this.campInfoOptions = campInfoOptions;
     }
 
     public void body() {
         // If student is viewing registered camps, they will have an option to withdraw from the camp
         if (viewingRegisteredCampInfo()) { 
-            campInfoOptions.attendeeCampInfoOptions(); 
+            campInfoOptions.setCampInfo(); 
             return;
         }
 

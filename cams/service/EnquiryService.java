@@ -6,12 +6,12 @@ import cams.model.Enquiry;
 import cams.utils.Serialize;
 import cams.utils.UniqueKey;
 
-public class EnquiryManager {
+public class EnquiryService {
 
     private Integer uniqueKey = 0;
     private HashMap<Integer, Enquiry> enquiryMap; // the Enquiry objects stored in a map
 
-    public EnquiryManager(){
+    public EnquiryService(){
         Serialize.checkAndCreateFile("EnquiryMangerKey.sav");
         Serialize.checkAndCreateFile("enquiryMap.sav");
         this.load();

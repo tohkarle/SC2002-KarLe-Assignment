@@ -1,50 +1,88 @@
 package cams.ui.camp;
 
-import cams.components.option.CreateCampOptions;
-import cams.components.option.Options;
-import cams.interfaces.InputField;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import cams.components.LoadingIndicator;
+import cams.components.input.GetIntInput;
+import cams.interfaces.DateInput;
 import cams.interfaces.IntInput;
-import cams.ui.ConfirmOrDiscardUI;
-import cams.utils.CampUtil;
+import cams.interfaces.Navigation;
+import cams.interfaces.StringInput;
+import cams.interfaces.UI;
+import cams.manager.CampManager;
+import cams.manager.UserManager;
+import cams.ui.ChooseBetweenTwoOptionsUI;
+import cams.utils.Dismiss;
 
-public class CreateCampUI implements InputField {
+public class CreateCampUI implements UI {
+    
+    private Navigation navigation;
+    private UserManager userManager;
+    private CampManager campManager;
+    private StringInput getString;
+    private DateInput getDate;
+    private IntInput confirm;
 
-    private int staffID;
-    private CampUtil campUtil;
-    private Options createCampOptions;
-
-    // Edit camp UIs
-    private InputField createCampNameUI;
-    private InputField createCampFacultyUI;
-    private InputField createCampVisibilityUI;
-    private InputField createCampDatesUI;
-
-    public CreateCampUI(int staffID) {
-        this.staffID = staffID;
-        this.campUtil = new CampUtil();
-        this.createCampOptions = new CreateCampOptions();
-
-        // Initialize all UIs
-        this.createCampNameUI = new EditCampNameUI(campUtil, createCampOptions.getOption(0));
-        this.createCampFacultyUI = new EditCampFacultyUI(campUtil, createCampOptions.getOption(1));
-        this.createCampVisibilityUI = new EditCampVisibilityUI(campUtil, createCampOptions.getOption(2));
-        this.createCampDatesUI = new EditCampDatesUI(campUtil, createCampOptions.getOption(3), createCampOptions.getOption(4));
+    public CreateCampUI(Navigation navigation, UserManager userManager, CampManager campManager, StringInput getString, DateInput getDate, IntInput confirm) {
+        this.navigation = navigation;
+        this.userManager = userManager;
+        this.campManager = campManager;
+        this.getString = getString;
+        this.getDate = getDate;
+        this.confirm = confirm;
     }
 
-    public boolean focused() {
+    @Override
+    public void body() {
 
-            // Enter name, faculty, visibility and dates
-            if (!createCampNameUI.focused()) return false;
-            if (!createCampFacultyUI.focused()) return false;
-            if (!createCampVisibilityUI.focused()) return false;
-            if (!createCampDatesUI.focused()) return false;
+        // Get name
+        String name = getString.getValidString("Enter name: ");
+        if (name.equals(Dismiss.stringOption())) {
+            navigation.dismissView();
+            return;
+        }
 
-            // Confirm delete or discard and go back
-            IntInput confirmOrDiscard = new ConfirmOrDiscardUI("create");
-            if (confirmOrDiscard.getValidInt() != 1) { return false; }
+        // Get faculty
+        String faculty = getString.getValidString("Enter faculty: ");
+        if (faculty.equals(Dismiss.stringOption())) {
+            navigation.dismissView();
+            return;
+        }
 
-            // Create camp
-            campUtil.createCamp(staffID);
-            return true;
+        // Get visibility
+        GetIntInput getOption = new ChooseBetweenTwoOptionsUI("On", "Off");
+        int option = getOption.getValidInt("Set visibility");
+        boolean visibility = (option == 1);
+
+        // Get start date
+        LocalDate startDate = getDate.getValidDate("Enter start date (yyyy-MM-dd): ");
+
+        // Get end date
+        LocalDate endDate;
+        while (true) {
+            endDate = getDate.getValidDate("Enter end date (yyyy-MM-dd): ");
+            if (endDate == null) { return; }
+            if (endDate.isEqual(startDate) || endDate.isAfter(startDate)) { break; }
+            System.out.println("End date cannot be before start date.");
+        }
+
+        // Put start and end date in array list
+        ArrayList<LocalDate> dates = new ArrayList<>();
+        dates.add(startDate);
+        dates.add(endDate);
+
+        // Confirm create
+        if (confirm.getValidInt("Confirm changes?") != 1) {
+            navigation.dismissView();
+            return; 
+        }
+
+        // Create camp
+        if (campManager.createCampSuccessful(userManager.getCurrentUser().getName(), name, dates, faculty, visibility)) {
+            LoadingIndicator.createLoadingIndicator("camp"); 
+            // navigation.dismissView();
+            return; 
+        }
     }
 }

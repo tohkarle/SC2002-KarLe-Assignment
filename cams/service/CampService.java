@@ -7,11 +7,9 @@ import cams.utils.Serialize;
 
 public class CampService {
 
-    private int uniqueKey = 0;
     private HashMap<Integer, Camp> campMap = new HashMap<Integer, Camp>();
 
     public CampService(){
-        Serialize.checkAndCreateFile("CampManagerKey.sav");
         Serialize.checkAndCreateFile("campMap.sav");
         this.load();
     }
@@ -110,19 +108,20 @@ public class CampService {
     }
  
     public void save(){
-        Serialize.save("CampManagerKey.sav", uniqueKey);
         Serialize.save("campMap.sav", campMap);
     }
 
     public void load(){
         try{
-            uniqueKey = (Integer)Serialize.load("CampManagerKey.sav");
             @SuppressWarnings("unchecked")
             HashMap<Integer, Camp> loadedMap = (HashMap<Integer, Camp>) Serialize.load("campMap.sav");
-            campMap = loadedMap;
+            if (loadedMap != null) {
+                campMap = loadedMap;
+            } else {
+                campMap = new HashMap<Integer, Camp>();
+            }
         }
         catch(Exception ex){
-            uniqueKey = 0;
             campMap = new HashMap<Integer, Camp>();
         }
     }

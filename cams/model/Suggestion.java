@@ -4,19 +4,28 @@ import java.io.Serializable;
 
 public class Suggestion implements Serializable {
     private int id;
-    private int campID;
-    private String studentID;
-    private String content;
+    private String studentName;
+    private String title;
+    private Camp camp;
     private String processedBy;
     private SuggestionStatus suggestionStatus;
 
-    public Suggestion(int id, int campID, String studentID, String content) {
+    public Suggestion(int id, String studentName, String title, Camp camp) {
         this.id = id;
-        this.campID = campID;
-        this.studentID = studentID;
-        this.content = content;
-        this.processedBy = "";
+        this.studentName = studentName;
+        this.title = title;
+        this.camp = camp;
+        this.processedBy = null;
         this.suggestionStatus = SuggestionStatus.PENDING;
+    }
+
+    public Suggestion(Suggestion other) {
+        this.id = other.id;
+        this.studentName = other.studentName;
+        this.title = other.title;
+        this.camp = other.camp;
+        this.processedBy = other.processedBy;
+        this.suggestionStatus = other.suggestionStatus;
     }
 
     public int getId() {
@@ -27,36 +36,28 @@ public class Suggestion implements Serializable {
         this.id = id;
     }
 
-    public int getCampID() {
-        return this.campID;
+    public String getStudentName() {
+        return this.studentName;
     }
 
-    public void setCampID(int campID) {
-        this.campID = campID;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public String getStudentID() {
-        return this.studentID;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getProcessedBy() {
         return this.processedBy;
     }
 
-    public void setProcessedBy(String staffID) {
-        this.processedBy = staffID;
+    public void setProcessedBy(String staffName) {
+        this.processedBy = staffName;
     }
 
     public SuggestionStatus getSuggestionStatus() {
@@ -65,6 +66,14 @@ public class Suggestion implements Serializable {
 
     public void setSuggestionStatus(SuggestionStatus suggestionStatus) {
         this.suggestionStatus = suggestionStatus;
+    }
+
+    public Camp getCamp() {
+        return new Camp(this.camp);
+    }
+    
+    public void setCamp(Camp camp) {
+        this.camp = camp;
     }
 }
 

@@ -5,6 +5,7 @@ import cams.interfaces.UI;
 import cams.interfaces.View;
 import cams.manager.CampManager;
 import cams.option.camp.CampInfoOptions;
+import cams.option.camp.EditCampInfoOptions;
 import cams.utils.Dismiss;
 
 public class EditCampView extends View {
@@ -12,7 +13,7 @@ public class EditCampView extends View {
     private CampManager campManager;
 
     // Options for this view:
-    private CampInfoOptions campInfoOptions;
+    private CampInfoOptions editCampInfoOptions;
 
     // UIs for this view:
     private UI editCampUI;
@@ -24,16 +25,16 @@ public class EditCampView extends View {
 
     public void render() {
 
-        campInfoOptions = (CampInfoOptions) super.getOptions("camp.CampInfoOptions");
+        editCampInfoOptions = (EditCampInfoOptions) super.getOptions("camp.EditCampInfoOptions");
 
         // Remove Staff-in-charge, add Update changes, Manage enquiries, Create report and Delete camp options
-        campInfoOptions.updateEditingCampInfo();
+        editCampInfoOptions.updateCampInfo();
 
         // Display camp info for editing
-        campInfoOptions.display("Select the field you want to edit: ");
+        editCampInfoOptions.display("Select the field you want to edit: ");
 
         // Let user choose the field to edit
-        int option = campInfoOptions.selection();
+        int option = editCampInfoOptions.selection();
         if (option == Dismiss.intOption()) { 
             campManager.clearTempCamp();
             super.getNavigation().dismissView();

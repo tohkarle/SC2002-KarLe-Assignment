@@ -24,10 +24,12 @@ public class CampManager {
     }
 
     public void createTempCamp() {
+        System.out.println("FETCH FROM DATABASE");
         this.tempCamp = campService.getCamp(selectedCampID);
     }
 
     public Camp getTempCamp() {
+        System.out.println("GET TEMP CAMP");
         return this.tempCamp;
     }
 
@@ -52,7 +54,6 @@ public class CampManager {
     }
 
     public Camp getSelectedCamp() {
-        System.out.println("GET FROM DATABASE");
         return campService.getCamp(selectedCampID);
     }
 
@@ -156,7 +157,6 @@ public class CampManager {
         uniqueKey = UniqueKey.generateNewKey(uniqueKey);
         while(campService.getCampMap().get(uniqueKey) != null) uniqueKey = UniqueKey.generateNewKey(uniqueKey);
         Camp newCamp = new Camp(uniqueKey, campName, dates, faculty, visibility, staffName, registrationClosingDate);
-        System.out.println("New camp: " + newCamp.getId());
         campService.createCamp(newCamp);
         campService.save();
         return true;

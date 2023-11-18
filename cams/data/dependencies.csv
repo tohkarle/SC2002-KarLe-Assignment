@@ -2,6 +2,7 @@ DependencyService
 NavigationService, DependencyService
 AuthService
 CampService
+SuggestionService
 
 root.RootView, NavigationManager
 auth.RegisterTypeView, NavigationManager
@@ -17,9 +18,11 @@ camp.CreatedCampsView, NavigationManager, CampManager
 camp.RegisteredCampsView, NavigationManager, CampManager
 camp.CampInfoView, NavigationManager
 camp.RegisterForCampView, NavigationManager, CampManager
-camp.RegisteredCampInfoView, NavigationManager
+camp.RegisteredCampInfoView, NavigationManager, UserManager, CampManager
 camp.CreatedCampInfoView, NavigationManager
 camp.EditCampView, NavigationManager, CampManager
+suggestion.CampSuggestionsView, NavigationManager, SuggestionManager
+suggestion.CreateSuggestionView, NavigationManager, SuggestionManager, CampManager
 
 auth.AuthOptions
 auth.UserOptions
@@ -30,22 +33,29 @@ camp.AllCampOptions, CampManager
 camp.FacultyCampOptions, UserManager, CampManager
 camp.UserCampOptions, UserManager, CampManager
 camp.CampInfoOptions, CampManager
+camp.CreatedCampInfoOptions, CampManager
+camp.RegisteredCampInfoOptions, CampManager, UserManager
+camp.EditCampInfoOptions, CampManager
 camp.EditCampOptions
+suggestion.CampSuggestionOptions, CampManager, SuggestionManager
+suggestion.CreateSuggestionOptions, CampManager
 
 auth.GetEmailPasswordUI, NavigationManager, AuthManager
 auth.GetRegisterInfoUI, auth.RegisterTypeView, AuthManager
 auth.ChangePasswordUI, NavigationManager, UserManager, ConfirmOrDiscardUI
-camp.GetCampInfoUI, NavigationManager, UserManager, CampManager, GetStringInput, GetDateInput, ConfirmOrDiscardUI
+camp.CreateCampUI, NavigationManager, UserManager, CampManager, GetStringInput, GetDateInput, ConfirmOrDiscardUI
 ConfirmOrDiscardUI
 camp.WithdrawFromCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
 camp.RegisterForCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
 camp.EditCampUI, NavigationManager, CampManager, camp.EditCampOptions, ConfirmOrDiscardUI
 camp.DeleteCampUI, NavigationManager, CampManager, ConfirmOrDiscardUI
+suggestion.CreateSuggestionUI, NavigationManager, UserManager, CampManager, SuggestionManager, camp.EditCampOptions, GetStringInput, ConfirmOrDiscardUI
 
 NavigationManager, NavigationService
 AuthManager, AuthService, UserManager
 UserManager, AuthService
 CampManager, CampService
+SuggestionManager, SuggestionService
 
 GetStringInput
 GetDateInput

@@ -1,21 +1,37 @@
-package cams.ui.camp;
+package cams.ui.suggestion;
 
 import cams.components.LoadingIndicator;
 import cams.components.option.Options;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
+import cams.interfaces.StringInput;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
+import cams.manager.SuggestionManager;
+import cams.manager.UserManager;
 import cams.model.Camp;
+import cams.ui.camp.EditCampCommitteeSlotsUI;
+import cams.ui.camp.EditCampDatesUI;
+import cams.ui.camp.EditCampDescriptionUI;
+import cams.ui.camp.EditCampFacultyUI;
+import cams.ui.camp.EditCampLocationUI;
+import cams.ui.camp.EditCampNameUI;
+import cams.ui.camp.EditCampRegiatrationClosingDateUI;
+import cams.ui.camp.EditCampTotalSlotsUI;
+import cams.ui.camp.EditCampVisibilityUI;
+import cams.utils.Dismiss;
 
-public class EditCampUI implements UI {
-
+public class CreateSuggestionUI implements UI {
+    
     private Options editCampOptions;
     private Navigation navigation;
+    private UserManager userManager;
     private CampManager campManager;
+    private SuggestionManager suggestionManager;
+    private StringInput getString;
     private IntInput confirm;
 
-    // Edit camp UIs
+    // Edit suggestion involves editing camp details
     private UI editCampNameUI;
     private UI editCampFacultyUI;
     private UI editCampLocationUI;
@@ -26,10 +42,13 @@ public class EditCampUI implements UI {
     private UI editCampTotalSlotsUI;
     private UI editCampCommitteeSlotsUI;
 
-    public EditCampUI(Navigation navigation, CampManager campManager, Options editCampOptions, IntInput confirm) {
+    public CreateSuggestionUI(Navigation navigation, UserManager userManager, CampManager campManager, SuggestionManager suggestionManager, Options editCampOptions, StringInput getString, IntInput confirm) {
         this.navigation = navigation;
-        this.campManager = campManager;
         this.editCampOptions = editCampOptions;
+        this.userManager = userManager;
+        this.campManager = campManager;
+        this.suggestionManager = suggestionManager;
+        this.getString = getString;
         this.confirm = confirm;
     }
 
@@ -61,14 +80,21 @@ public class EditCampUI implements UI {
             editCampCommitteeSlotsUI
         };
 
-        // Display corresponding UI
+        // Edit camp details
         if (campManager.getSelectedCampInfo() <= editCampUIs.length) {
             editCampUIs[campManager.getSelectedCampInfo() - 1].body();
         } else if (campManager.getSelectedCampInfo() == editCampUIs.length + 1) {
-            // Confirm changes or discard
-            if (confirm.getValidInt("Confirm changes?") != 1) { return; }
-            LoadingIndicator.editingLoadingIndicator("camp");
-            campManager.updateCamp(campManager.getTempCamp());
+            // Get title
+            String title = getString.getValidString("Enter title (an overview of what you are suggesting): ");
+            if (title.equals(Dismiss.stringOption())) {
+                navigation.dismissView();
+                return;
+            }
+            
+            // Confirm changes and submit or discard
+            if (confirm.getValidInt("Confirm changes and submit?") != 1) { return; }
+            LoadingIndicator.submitLoadingIndicator("suggestion");
+            suggestionManager.createSuggestion(userManager.getCurrentUser().getName(), title, campManager.getTempCamp());
             navigation.dismissView();
         }
     }

@@ -6,8 +6,8 @@ import cams.manager.NavigationManager;
 import cams.service.AuthService;
 import cams.service.CampService;
 import cams.service.DependencyService;
-import cams.service.EnquiryManager;
-import cams.service.SuggestionManager;
+import cams.service.EnquiryService;
+import cams.service.SuggestionService;
 
 /**
  * The Launcher for the Camp Application and Management System
@@ -39,13 +39,13 @@ public class Main {
      * A reference to the EnquiryManager that is used to load from and save to enquiryMan.sav and EnquiryManagerKey.sav.
      * Acts like an API that we can request required enquiry information from.
      */
-    public static EnquiryManager enquiryManager;
+    public static EnquiryService enquiryManager;
 
     /**
      * A reference to the SuggestionManager that is used to load from and save to suggestionMan.sav and SuggestionManagerKey.sav.
      * Acts like an API that we can request required suggestion information from.
      */
-    public static SuggestionManager suggestionManager;
+    public static SuggestionService suggestionManager;
 
     /**
      * The launch point of the CAMS
@@ -57,6 +57,8 @@ public class Main {
 
         AuthService authService = (AuthService) dependencyService.getInstance("AuthService");
         CampService campService = (CampService) dependencyService.getInstance("CampService");
+        SuggestionService suggestionService = (SuggestionService) dependencyService.getInstance("SuggestionService");
+        
 
         // Initialize ViewController - manages navigation flow of views
         NavigationManager navigationManager = (NavigationManager) dependencyService.getInstance("NavigationManager");
@@ -71,7 +73,7 @@ public class Main {
         authService.save();
         campService.save();
         // enquiryManager.save();
-        // suggestionManager.save();
+        suggestionService.save();
 
         // Close the scanner to release system resources
         scanner.close();
