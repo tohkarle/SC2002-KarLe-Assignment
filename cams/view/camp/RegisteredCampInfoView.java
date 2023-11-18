@@ -78,7 +78,7 @@ public class RegisteredCampInfoView extends View {
                 super.getNavigation().navigateTo("suggestion.CreateSuggestionView");
                 break;
             case 2:
-                super.getNavigation().navigateTo("suggestion.StudentCampSuggestionView");
+                super.getNavigation().navigateTo("suggestion.SuggestionStatusView");
                 break;
         }
     }

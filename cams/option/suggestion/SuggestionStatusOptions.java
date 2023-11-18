@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 import cams.components.option.DismissableSelectableOptions;
 
-public class StaffSuggestionOptions extends DismissableSelectableOptions {
+public class SuggestionStatusOptions extends DismissableSelectableOptions {
 
-    public StaffSuggestionOptions() {
+    public SuggestionStatusOptions() {
         super.setOptions( new ArrayList<String>(Arrays.asList(
                 "Pending suggestions",
                 "Approved suggestions",

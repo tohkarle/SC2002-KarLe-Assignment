@@ -4,28 +4,31 @@ import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.SuggestionManager;
+import cams.manager.UserManager;
 import cams.model.SuggestionStatus;
 import cams.utils.Dismiss;
 
-public class StaffSuggestionView extends View {
+public class SuggestionStatusView extends View {
 
+    private UserManager userManager;
     private SuggestionManager suggestionManager;
 
     // Options for this view:
-    private Options staffSuggestOptions;
+    private Options suggestionStatusOptions;
 
-    public StaffSuggestionView(Navigation navigation, SuggestionManager suggestionManager) {
+    public SuggestionStatusView(Navigation navigation, UserManager userManager, SuggestionManager suggestionManager) {
         super(navigation);
+        this.userManager = userManager;
         this.suggestionManager  = suggestionManager;
     }
 
     public void render() {
         // Display suggestion type options
-        staffSuggestOptions = super.getOptions("suggestion.StaffSuggestionOptions");
-        staffSuggestOptions.display("Select suggestion status:");
+        suggestionStatusOptions = super.getOptions("suggestion.SuggestionStatusOptions");
+        suggestionStatusOptions.display("Select suggestion status:");
 
         // Let staff select which suggestion type to view
-        int option = staffSuggestOptions.selection();
+        int option = suggestionStatusOptions.selection();
         if (option == Dismiss.intOption()) {
             super.getNavigation().dismissView();
             return; 
@@ -37,7 +40,11 @@ public class StaffSuggestionView extends View {
         if (option == 2) { suggestionStatus = SuggestionStatus.ACCEPTED; }
         if (option == 3) { suggestionStatus = SuggestionStatus.REJECTED; }
         suggestionManager.setSelectedSuggestionStatus(suggestionStatus);
-        super.getNavigation().navigateTo("suggestion.CampSuggestionsView");
+
+        if (userManager.isStaff()) {
+            super.getNavigation().navigateTo("suggestion.CampSuggestionsView");
+        } else {
+            super.getNavigation().navigateTo("suggestion.StudentCampSuggestionView");
+        }
     }
-    
 }

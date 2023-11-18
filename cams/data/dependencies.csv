@@ -27,7 +27,7 @@ suggestion.StudentCampSuggestionView, NavigationManager, SuggestionManager
 suggestion.CreatedSuggestionInfoView, NavigationManager
 suggestion.EditSuggestionView, NavigationManager, CampManager
 suggestion.ProcessSuggestionView, NavigationManager
-suggestion.StaffSuggestionView, NavigationManager, SuggestionManager
+suggestion.SuggestionStatusView, NavigationManager, UserManager, SuggestionManager
 
 auth.AuthOptions
 auth.UserOptions
@@ -48,7 +48,7 @@ suggestion.StudentCampSuggestionOptions, UserManager, CampManager, SuggestionMan
 suggestion.CreatedSuggestionOptions, CampManager, SuggestionManager
 suggestion.EditSuggestionInfoOptions, CampManager, SuggestionManager
 suggestion.ProcessSuggestionOptions, CampManager, SuggestionManager
-suggestion.StaffSuggestionOptions
+suggestion.SuggestionStatusOptions
 
 auth.GetEmailPasswordUI, NavigationManager, AuthManager
 auth.GetRegisterInfoUI, auth.RegisterTypeView, AuthManager
