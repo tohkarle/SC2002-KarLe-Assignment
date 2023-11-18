@@ -17,6 +17,7 @@ public class EditSuggestionInfoOptions extends CampInfoOptions {
 
     @Override
     public void updateCampInfo() {
+        System.out.println("GET TEMP CAMP");
         super.setCamp(suggestionManager.getTempSuggestion().getCamp());
         super.setCampInfo();
         this.setCampInfo();

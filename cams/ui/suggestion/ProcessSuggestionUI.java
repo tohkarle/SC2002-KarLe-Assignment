@@ -4,6 +4,7 @@ import cams.components.LoadingIndicator;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
+import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
 import cams.model.SuggestionStatus;
@@ -14,12 +15,14 @@ public class ProcessSuggestionUI implements UI {
     
     private Navigation navigation;
     private UserManager userManager;
+    private CampManager campManager;
     private SuggestionManager suggestionManager;
     private IntInput confirm;
 
-    public ProcessSuggestionUI(Navigation navigation, UserManager userManager, SuggestionManager suggestionManager, IntInput confirm) {
+    public ProcessSuggestionUI(Navigation navigation, UserManager userManager, CampManager campManager, SuggestionManager suggestionManager, IntInput confirm) {
         this.navigation = navigation;
         this.userManager = userManager;
+        this.campManager = campManager;
         this.suggestionManager = suggestionManager;
         this.confirm = confirm;
     }
@@ -48,6 +51,10 @@ public class ProcessSuggestionUI implements UI {
         // Process suggestion
         SuggestionStatus suggestionStatus = (option == 1) ? SuggestionStatus.ACCEPTED : SuggestionStatus.REJECTED;
         suggestionManager.processSuggestion(userManager.getCurrentUser().getName(), suggestionManager.getSelectedSuggestionID(), suggestionStatus);
+        if (option == 1) {
+            campManager.updateCamp(suggestionManager.getTempSuggestion().getCamp());
+        }
+        
         LoadingIndicator.processLoadingIndicator("suggestion");
         System.out.println((option == 1) ? "Suggestion accepted!" : "Suggestion rejected!");
         navigation.dismissView();

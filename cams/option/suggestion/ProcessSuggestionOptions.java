@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
+import cams.model.SuggestionStatus;
 import cams.option.camp.CampInfoOptions;
 
 public class ProcessSuggestionOptions extends CampInfoOptions {
@@ -27,9 +28,11 @@ public class ProcessSuggestionOptions extends CampInfoOptions {
     public void setCampInfo() {
         super.getOptions().add(0, String.format("Title: %s", suggestionManager.getTempSuggestion().getTitle()));
         super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
-        super.getOptions().addAll(Arrays.asList(
-            "(1) Approve suggestion",
-            "(2) Reject suggestion"
-        ));
+        if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.PENDING) {
+            super.getOptions().addAll(Arrays.asList(
+                "(1) Approve suggestion",
+                "(2) Reject suggestion"
+            ));
+        }
     }
 }

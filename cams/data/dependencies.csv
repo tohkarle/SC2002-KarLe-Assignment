@@ -62,7 +62,7 @@ camp.DeleteCampUI, NavigationManager, CampManager, ConfirmOrDiscardUI
 suggestion.CreateSuggestionUI, NavigationManager, UserManager, CampManager, SuggestionManager, camp.EditCampOptions, GetStringInput, ConfirmOrDiscardUI
 suggestion.DeleteSuggestionUI, NavigationManager, SuggestionManager, ConfirmOrDiscardUI
 suggestion.EditSuggestionUI, NavigationManager, CampManager, SuggestionManager, camp.EditCampOptions, ConfirmOrDiscardUI
-suggestion.ProcessSuggestionUI, NavigationManager, UserManager, SuggestionManager, ConfirmOrDiscardUI
+suggestion.ProcessSuggestionUI, NavigationManager, UserManager, CampManager, SuggestionManager, ConfirmOrDiscardUI
 
 NavigationManager, NavigationService
 AuthManager, AuthService, UserManager

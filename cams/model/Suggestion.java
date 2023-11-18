@@ -69,7 +69,7 @@ public class Suggestion implements Serializable {
     }
 
     public Camp getCamp() {
-        return new Camp(this.camp);
+        return this.camp;
     }
     
     public void setCamp(Camp camp) {

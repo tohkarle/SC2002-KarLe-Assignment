@@ -84,9 +84,8 @@ public class EditSuggestionUI implements UI {
         } else if (campManager.getSelectedCampInfo() == editCampUIs.length + 1) {            
             // Confirm changes and submit or discard
             if (confirm.getValidInt("Confirm changes?") != 1) { return; }
-            LoadingIndicator.submitLoadingIndicator("suggestion");
-            suggestionManager.getTempSuggestion().setCamp(campManager.getTempCamp());
             suggestionManager.updateSuggestion(suggestionManager.getTempSuggestion());
+            LoadingIndicator.submitLoadingIndicator("suggestion");
             navigation.dismissView();
         }
     }
