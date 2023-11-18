@@ -9,7 +9,7 @@ auth.RegisterTypeView, NavigationManager
 auth.RegisterView, NavigationManager
 auth.LogInView, NavigationManager
 user.UserOptionsView, NavigationManager, UserManager
-user.ProfileView, NavigationManager, UserManager, CampManager
+user.ProfileView, NavigationManager, UserManager, CampManager, SuggestionManager
 user.ChangePasswordView
 camp.CreateCampView, NavigationManager
 camp.AllCampsView, NavigationManager, CampManager
@@ -67,6 +67,7 @@ suggestion.ProcessSuggestionUI, NavigationManager, UserManager, CampManager, Sug
 NavigationManager, NavigationService
 AuthManager, AuthService, UserManager
 UserManager, AuthService
+StudentManager, AuthService
 CampManager, CampService
 SuggestionManager, SuggestionService
 

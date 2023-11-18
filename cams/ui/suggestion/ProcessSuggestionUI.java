@@ -51,6 +51,8 @@ public class ProcessSuggestionUI implements UI {
         // Process suggestion
         SuggestionStatus suggestionStatus = (option == 1) ? SuggestionStatus.ACCEPTED : SuggestionStatus.REJECTED;
         suggestionManager.processSuggestion(userManager.getCurrentUser().getName(), suggestionManager.getSelectedSuggestionID(), suggestionStatus);
+
+        // If approved, updates actual camp
         if (option == 1) {
             campManager.updateCamp(suggestionManager.getTempSuggestion().getCamp());
         }

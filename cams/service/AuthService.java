@@ -34,6 +34,10 @@ public class AuthService {
         return newUser;
     }
 
+    public User getUser(String userName) {
+        return new User(userMap.get(userName));
+    }
+
     public Boolean isValidUser(String email){
         for (User user : userMap.values()) {
             if (user.getEmail().equals(email)) {

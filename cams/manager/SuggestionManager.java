@@ -26,6 +26,16 @@ public class SuggestionManager {
         return this.selectedSuggestionStatus;
     }
 
+    public int getNumberOfSuggestionsApproved(String studentName) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids.size();
+    }
+
     public void setSelectedSuggestionStatus(SuggestionStatus suggestionStatus) {
         this.selectedSuggestionStatus = suggestionStatus;
     }

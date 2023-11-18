@@ -1,9 +1,9 @@
 package cams.utils;
 
 import cams.Main;
+import cams.manager.StudentManager;
 import cams.manager.UserManager;
 import cams.service.StaffManager;
-import cams.service.StudentManager;
 
 public class UserManagerFactory {
     public static UserManager createUserManager(int userID) {

@@ -13,6 +13,10 @@ public class UserManager {
         this.authService = authService;
     }
 
+    public AuthService getAuthService() {
+        return this.authService;
+    }
+
     public User getCurrentUser() {
         return this.currentUser;
     }
