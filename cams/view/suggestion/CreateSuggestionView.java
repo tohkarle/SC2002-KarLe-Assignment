@@ -27,7 +27,7 @@ public class CreateSuggestionView extends View {
 
         createSuggestionOptions = (CampInfoOptions) super.getOptions("suggestion.CreateSuggestionOptions");
         createSuggestionOptions.updateCampInfo();
-        createSuggestionOptions.display("Please choose the field you want to edit.");
+        createSuggestionOptions.display("Suggest edit, please choose the field you want to edit.");
 
         // Let user choose the field to edit
         int option = createSuggestionOptions.selection();

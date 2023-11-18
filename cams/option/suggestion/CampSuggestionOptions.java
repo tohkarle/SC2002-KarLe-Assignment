@@ -18,12 +18,12 @@ public class CampSuggestionOptions extends DismissableSelectableOptions {
     public CampSuggestionOptions(CampManager campManager, SuggestionManager suggestionManager) {
         this.campManager = campManager;
         this.suggestionManager = suggestionManager;
-        this.fetchFacultyCamps();
+        this.fetchCampSuggestions();
     }
 
     @Override
     public void display(String title) {
-        fetchFacultyCamps();
+        fetchCampSuggestions();
         if (super.getOptionsSize() == 0) {
             Page.header(this.noCampTitle);
         } else {
@@ -38,10 +38,10 @@ public class CampSuggestionOptions extends DismissableSelectableOptions {
         return this.suggestionIDs.get(option - 1);
     }
 
-    private void fetchFacultyCamps() {
+    private void fetchCampSuggestions() {
         // Fetch all suggestions from camp
         this.noCampTitle = "No suggestion has been created under this camp. Please conme back at a later time.";
-        super.setOptions(suggestionManager.getAllCampSuggestionContents(campManager.getSelectedID()));
+        super.setOptions(suggestionManager.getAllCampSuggestionTitles(campManager.getSelectedID()));
         this.suggestionIDs = suggestionManager.getAllCampSuggestionIDs(campManager.getSelectedID());
     }
 }

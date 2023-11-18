@@ -23,6 +23,8 @@ camp.CreatedCampInfoView, NavigationManager
 camp.EditCampView, NavigationManager, CampManager
 suggestion.CampSuggestionsView, NavigationManager, SuggestionManager
 suggestion.CreateSuggestionView, NavigationManager, SuggestionManager, CampManager
+suggestion.StudentCampSuggestionView, NavigationManager, SuggestionManager
+suggestion.CreatedSuggestionInfoView, NavigationManager
 
 auth.AuthOptions
 auth.UserOptions
@@ -39,6 +41,8 @@ camp.EditCampInfoOptions, CampManager
 camp.EditCampOptions
 suggestion.CampSuggestionOptions, CampManager, SuggestionManager
 suggestion.CreateSuggestionOptions, CampManager
+suggestion.StudentCampSuggestionOptions, UserManager, CampManager, SuggestionManager
+suggestion.CreatedSuggestionOptions, CampManager, SuggestionManager
 
 auth.GetEmailPasswordUI, NavigationManager, AuthManager
 auth.GetRegisterInfoUI, auth.RegisterTypeView, AuthManager
@@ -50,6 +54,7 @@ camp.RegisterForCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDi
 camp.EditCampUI, NavigationManager, CampManager, camp.EditCampOptions, ConfirmOrDiscardUI
 camp.DeleteCampUI, NavigationManager, CampManager, ConfirmOrDiscardUI
 suggestion.CreateSuggestionUI, NavigationManager, UserManager, CampManager, SuggestionManager, camp.EditCampOptions, GetStringInput, ConfirmOrDiscardUI
+suggestion.DeleteSuggestionUI, NavigationManager, SuggestionManager, ConfirmOrDiscardUI
 
 NavigationManager, NavigationService
 AuthManager, AuthService, UserManager

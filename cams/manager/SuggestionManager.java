@@ -21,6 +21,10 @@ public class SuggestionManager {
         this.selectedSuggestionCampInfo = -1;
     }
 
+    public Camp getSuggestionCamp() {
+        return suggestionService.getSuggestion(selectedSuggestionID).getCamp();
+    }
+
     public void createTempSuggestion() {
         this.tempSuggestion = suggestionService.getSuggestion(selectedSuggestionID);
     }
@@ -41,7 +45,7 @@ public class SuggestionManager {
         this.selectedSuggestionID = option;
     }
 
-    public int getSelectedSuggestionCampInfoD() {
+    public int getSelectedSuggestionCampInfo() {
         return this.selectedSuggestionCampInfo;
     }
 
@@ -49,12 +53,14 @@ public class SuggestionManager {
         this.selectedSuggestionCampInfo = option;
     }
 
+
+
     public ArrayList<String> getAllSuggestionTitles() {
-        ArrayList<String> contents = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<>();
         for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
-            contents.add(suggestion.getTitle());
+            titles.add(suggestion.getTitle());
         }
-        return contents;
+        return titles;
     }
 
     public ArrayList<Integer> getAllSuggestionIDs() {
@@ -67,39 +73,59 @@ public class SuggestionManager {
 
 
     public ArrayList<String> getAllCampSuggestionTitles(int campID) {
-        ArrayList<String> contents = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<>();
         for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
-            if (suggestion.getCamp().getId() == campID) {
-                contents.add(suggestion.getTitle());
+            if (suggestion.getCamp().getId() == campID && suggestion.getCamp().getVisibility()) {
+                titles.add(suggestion.getTitle());
             }
         }
-        return contents;
+        return titles;
     }
 
     public ArrayList<Integer> getAllCampSuggestionIDs(int campID) {
         ArrayList<Integer> ids = new ArrayList<>();
         for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
-            if (suggestion.getCamp().getId() == campID) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getCamp().getVisibility()) {
                 ids.add(suggestion.getId());
             }
         }
         return ids;
     }
 
-    public ArrayList<Integer> getAllStudentSuggestionTitles(String studentName) {
-        ArrayList<Integer> contents = new ArrayList<>();
+    public ArrayList<String> getAllStudentSuggestionTitles(String studentName) {
+        ArrayList<String> titles = new ArrayList<>();
         for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
-            if (suggestion.getStudentName().equals(studentName)) {
-                contents.add(suggestion.getId());
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility()) {
+                titles.add(suggestion.getTitle());
             }
         }
-        return contents;
+        return titles;
     }
 
     public ArrayList<Integer> getAllStudentSuggestionIDs(String studentName) {
         ArrayList<Integer> ids = new ArrayList<>();
         for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
-            if (suggestion.getStudentName().equals(studentName)) {
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility()) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+
+    public ArrayList<String> getAllStudentCampSuggestionTitles(String studentName, int campID) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility()) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+
+    public ArrayList<Integer> getAllStudentCampSuggestionIDs(String studentName, int campID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility()) {
                 ids.add(suggestion.getId());
             }
         }
@@ -117,12 +143,13 @@ public class SuggestionManager {
         return;
     }
 
-    public void editSuggestion(int suggestionID, String content) {
-        suggestionService.setSuggestionContent(suggestionID, content);
+    public void editSuggestion(int suggestionID, String title) {
+        suggestionService.setSuggestionTitle(suggestionID, title);
     }
 
     public void deleteSuggestion(int suggestionID){
         suggestionService.deleteSuggestion(suggestionID);
+        suggestionService.save();
     }
 
     public void processSuggestion(String staffName, int suggestionID, SuggestionStatus suggestionStatus) {

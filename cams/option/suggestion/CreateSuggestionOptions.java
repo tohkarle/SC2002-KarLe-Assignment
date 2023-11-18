@@ -22,7 +22,7 @@ public class CreateSuggestionOptions extends CampInfoOptions {
     public void setCampInfo() {
         super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
         super.getOptions().addAll(Arrays.asList(
-            "Done"
+            "Submit suggestion"
         ));
     }
 }

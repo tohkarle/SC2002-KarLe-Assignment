@@ -21,7 +21,7 @@ public class DeleteCampUI implements UI {
     @Override
     public void body() {
         // Confirm delete or discard and go back
-        if (confirm.getValidInt("Canfirm delete?") != 1) { return; }
+        if (confirm.getValidInt("Confirm delete?") != 1) { return; }
 
         // Delete camp
         campManager.deleteCamp(campManager.getSelectedID());
