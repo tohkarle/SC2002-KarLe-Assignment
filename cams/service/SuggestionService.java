@@ -22,6 +22,15 @@ public class SuggestionService {
         suggestionMap.remove(suggestionID);
     }
 
+    public void updateSuggestion(Suggestion suggestion) {
+        int suggestionID = suggestion.getId();
+        if (suggestionMap.containsKey(suggestionID)) {
+            suggestionMap.put(suggestionID, suggestion); // Replace the old suggestion with the new suggestion
+        } else {
+            System.out.println("ERROR: Suggestion with ID " + suggestionID + " does not exist.");
+        }
+    }
+
     public HashMap<Integer, Suggestion> getSuggestionMap() {
         return new HashMap<>(suggestionMap);
     }

@@ -143,6 +143,11 @@ public class SuggestionManager {
         return;
     }
 
+    public void updateSuggestion(Suggestion suggestion) {
+        suggestionService.updateSuggestion(suggestion);
+        suggestionService.save();
+    }
+
     public void editSuggestion(int suggestionID, String title) {
         suggestionService.setSuggestionTitle(suggestionID, title);
     }

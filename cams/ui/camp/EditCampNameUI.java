@@ -19,7 +19,6 @@ public class EditCampNameUI extends GetStringInput implements UI {
     public void body() {
         String name = super.getValidString(title);
         if (name.equals(Dismiss.stringOption())) { return; }
-        System.out.println("Name: " + name);
         camp.setCampName(name);
     }
 }

@@ -5,7 +5,6 @@ import cams.interfaces.UI;
 import cams.interfaces.View;
 import cams.manager.CampManager;
 import cams.option.camp.CampInfoOptions;
-import cams.option.camp.EditCampInfoOptions;
 import cams.utils.Dismiss;
 
 public class EditCampView extends View {
@@ -25,7 +24,7 @@ public class EditCampView extends View {
 
     public void render() {
 
-        editCampInfoOptions = (EditCampInfoOptions) super.getOptions("camp.EditCampInfoOptions");
+        editCampInfoOptions = (CampInfoOptions) super.getOptions("camp.EditCampInfoOptions");
 
         // Remove Staff-in-charge, add Update changes, Manage enquiries, Create report and Delete camp options
         editCampInfoOptions.updateCampInfo();

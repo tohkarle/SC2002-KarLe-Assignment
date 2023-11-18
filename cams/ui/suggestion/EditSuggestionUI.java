@@ -4,12 +4,11 @@ import cams.components.LoadingIndicator;
 import cams.components.option.Options;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
-import cams.interfaces.StringInput;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
-import cams.manager.UserManager;
 import cams.model.Camp;
+import cams.model.Suggestion;
 import cams.ui.camp.EditCampCommitteeSlotsUI;
 import cams.ui.camp.EditCampDatesUI;
 import cams.ui.camp.EditCampDescriptionUI;
@@ -19,19 +18,17 @@ import cams.ui.camp.EditCampNameUI;
 import cams.ui.camp.EditCampRegiatrationClosingDateUI;
 import cams.ui.camp.EditCampTotalSlotsUI;
 import cams.ui.camp.EditCampVisibilityUI;
-import cams.utils.Dismiss;
 
-public class CreateSuggestionUI implements UI {
+public class EditSuggestionUI implements UI {
     
     private Options editCampOptions;
     private Navigation navigation;
-    private UserManager userManager;
     private CampManager campManager;
     private SuggestionManager suggestionManager;
-    private StringInput getString;
     private IntInput confirm;
 
     // Edit suggestion involves editing camp details
+    private UI editSuggestionTitleUI;
     private UI editCampNameUI;
     private UI editCampFacultyUI;
     private UI editCampLocationUI;
@@ -42,22 +39,22 @@ public class CreateSuggestionUI implements UI {
     private UI editCampTotalSlotsUI;
     private UI editCampCommitteeSlotsUI;
 
-    public CreateSuggestionUI(Navigation navigation, UserManager userManager, CampManager campManager, SuggestionManager suggestionManager, Options editCampOptions, StringInput getString, IntInput confirm) {
+    public EditSuggestionUI(Navigation navigation, CampManager campManager, SuggestionManager suggestionManager, Options editCampOptions, IntInput confirm) {
         this.navigation = navigation;
         this.editCampOptions = editCampOptions;
-        this.userManager = userManager;
         this.campManager = campManager;
         this.suggestionManager = suggestionManager;
-        this.getString = getString;
         this.confirm = confirm;
     }
 
     @Override
     public void body() {
 
-        Camp tempCamp = campManager.getTempCamp();
+        Suggestion tempSuggestion = suggestionManager.getTempSuggestion();
+        Camp tempCamp = tempSuggestion.getCamp();
 
-        // Create and initialize all UIs for create suggestion
+        // Create and initialize all UIs for edit suggestion
+        editSuggestionTitleUI = new EditSuggestionTitleUI(tempSuggestion, "Edit title: ");
         editCampNameUI = new EditCampNameUI(tempCamp, editCampOptions.getOption(0));
         editCampFacultyUI = new EditCampFacultyUI(tempCamp, editCampOptions.getOption(1));
         editCampLocationUI = new EditCampLocationUI(tempCamp, editCampOptions.getOption(2));
@@ -69,6 +66,7 @@ public class CreateSuggestionUI implements UI {
         editCampCommitteeSlotsUI = new EditCampCommitteeSlotsUI(tempCamp, campManager, editCampOptions.getOption(9));
 
         UI[] editCampUIs = new UI[] {
+            editSuggestionTitleUI,
             editCampNameUI,
             editCampFacultyUI,
             editCampLocationUI,
@@ -83,18 +81,12 @@ public class CreateSuggestionUI implements UI {
         // Edit camp details
         if (campManager.getSelectedCampInfo() <= editCampUIs.length) {
             editCampUIs[campManager.getSelectedCampInfo() - 1].body();
-        } else if (campManager.getSelectedCampInfo() == editCampUIs.length + 1) {
-            // Get title
-            String title = getString.getValidString("Enter title (an overview of what you are suggesting): ");
-            if (title.equals(Dismiss.stringOption())) {
-                navigation.dismissView();
-                return;
-            }
-            
+        } else if (campManager.getSelectedCampInfo() == editCampUIs.length + 1) {            
             // Confirm changes and submit or discard
-            if (confirm.getValidInt("Confirm changes and submit?") != 1) { return; }
+            if (confirm.getValidInt("Confirm changes?") != 1) { return; }
             LoadingIndicator.submitLoadingIndicator("suggestion");
-            suggestionManager.createSuggestion(userManager.getCurrentUser().getName(), title, campManager.getTempCamp());
+            suggestionManager.getTempSuggestion().setCamp(campManager.getTempCamp());
+            suggestionManager.updateSuggestion(suggestionManager.getTempSuggestion());
             navigation.dismissView();
         }
     }
