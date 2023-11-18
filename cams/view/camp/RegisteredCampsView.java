@@ -1,9 +1,9 @@
 package cams.view.camp;
 
-import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.CampManager;
+import cams.option.camp.UserCampOptions;
 import cams.utils.Dismiss;
 
 public class RegisteredCampsView extends View {
@@ -11,7 +11,7 @@ public class RegisteredCampsView extends View {
     private CampManager campManager;
 
     // Options for this view:
-    private Options userCampOptions;
+    private UserCampOptions userCampOptions;
 
     public RegisteredCampsView(Navigation navigation, CampManager campManager) {
         super(navigation);
@@ -20,7 +20,12 @@ public class RegisteredCampsView extends View {
 
     public void render() {
         // Display camps
-        userCampOptions = super.getOptions("camp.UserCampOptions");
+        userCampOptions = (UserCampOptions) super.getOptions("camp.UserCampOptions");
+
+        // Fetch latest registered camps
+        userCampOptions.fetchUserCamps();
+
+        // Display registered camps
         userCampOptions.display("Select camp to view details:");
 
         // Let user select camp to view details
@@ -29,7 +34,7 @@ public class RegisteredCampsView extends View {
             super.getNavigation().dismissView();
             return; 
         }
-        campManager.setViewCampDetail(option);
+        campManager.setSelectedCampID(option);
 
         // Navigate to CampInfoView
         super.getNavigation().navigateTo("camp.CampInfoView");

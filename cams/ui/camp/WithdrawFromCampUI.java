@@ -23,19 +23,27 @@ public class WithdrawFromCampUI implements UI {
 
     @Override
     public void body() {
+
+        System.out.println("Selected camp: " + campManager.getSelectedID());
+        
         // Confirm withdraw or discard and go back
         if (confirm.getValidInt("Confirm withdraw?") != 1) {
             return;
         }
 
+        if (campManager.hasWithdrawnFromCamp(userManager.getCurrentUser().getName(), campManager.getSelectedID())) {
+            System.out.println("Student has already withdrawn from camp.");
+            return;
+        }
+
         // Committee member cannot withdraw from camp
-        if (campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), campManager.getViewCampDetail())) { 
+        if (campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), campManager.getSelectedID())) { 
             System.out.println("A camp committee member cannot quit from the camp");
             return;
         }
 
         // Withdraw student from camp
-        campManager.withdrawFromCamp(userManager.getCurrentUser().getName(), campManager.getViewCampDetail());
+        campManager.withdrawFromCamp(userManager.getCurrentUser().getName(), campManager.getSelectedID());
         LoadingIndicator.withdrawLoadingIndicator("camp");
         navigation.dismissView();
         return;

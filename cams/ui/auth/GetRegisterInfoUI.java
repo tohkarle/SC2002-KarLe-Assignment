@@ -1,12 +1,12 @@
 package cams.ui.auth;
 
-import cams.components.input.GetString;
+import cams.components.input.GetStringInput;
 import cams.interfaces.UI;
 import cams.manager.AuthManager;
 import cams.utils.Dismiss;
 import cams.view.auth.RegisterTypeView;
 
-public class GetRegisterInfoUI extends GetString implements UI {
+public class GetRegisterInfoUI extends GetStringInput implements UI {
 
     private RegisterTypeView registerTypeView;
     private AuthManager authManager;

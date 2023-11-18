@@ -7,26 +7,28 @@ import java.util.ArrayList;
 import cams.model.Camp;
 import cams.model.RegistrationType;
 import cams.service.CampService;
+import cams.utils.UniqueKey;
 
 public class CampManager {
 
     private CampService campService;
-    private int viewCampDetail;
+    private int selectedCampID;
 
     public CampManager(CampService campService) {
         this.campService = campService;
+        this.selectedCampID = 0;
     }
 
-    public int getViewCampDetail() {
-        return this.viewCampDetail;
+    public int getSelectedID() {
+        return this.selectedCampID;
     }
 
-    public void setViewCampDetail(int option) {
-        this.viewCampDetail = option;
+    public void setSelectedCampID(int option) {
+        this.selectedCampID = option;
     }
 
-    public Camp getCampInfo() {
-        return campService.getCamp(viewCampDetail);
+    public Camp getSelectedCampInfo() {
+        return campService.getCamp(selectedCampID);
     }
 
     public ArrayList<Camp> getAllCamps() {
@@ -125,7 +127,11 @@ public class CampManager {
         LocalDate registrationClosingDate = LocalDate.now().plus(45, ChronoUnit.DAYS);
 
         // Create new camp and add to 'database'
-        Camp newCamp = new Camp(campName, dates, faculty, visibility, staffName, registrationClosingDate);
+        int uniqueKey = 0;
+        uniqueKey = UniqueKey.generateNewKey(uniqueKey);
+        while(campService.getCampMap().get(uniqueKey) != null) uniqueKey = UniqueKey.generateNewKey(uniqueKey);
+        Camp newCamp = new Camp(uniqueKey, campName, dates, faculty, visibility, staffName, registrationClosingDate);
+        System.out.println("New camp: " + newCamp.getId());
         campService.createCamp(newCamp);
         campService.save();
         return true;
@@ -216,5 +222,17 @@ public class CampManager {
             }
         }
         return false;
+    }
+
+    public boolean isAfterRegistrationClosingDate(int campID, LocalDate currentDate) {
+        return currentDate.isAfter(campService.getCamp(campID).getRegistrationClosingDate());
+    }
+
+    public boolean participationIsFull(int campID) {
+        return (campService.getCamp(campID).getTotalSlots() == campService.getCamp(campID).getParticipatingStudentNames().size());
+    }
+
+    public boolean committeeIsFull(int campID) {
+        return (campService.getCamp(campID).getCommitteeSlots() == campService.getCamp(campID).getCommitteeMemberNames().size());
     }
 }

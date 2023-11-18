@@ -29,7 +29,7 @@ public class AllCampsView extends View {
             super.getNavigation().dismissView();
             return; 
         }
-        campManager.setViewCampDetail(option);
+        campManager.setSelectedCampID(option);
 
         // Navigate to CampInfoView
         super.getNavigation().navigateTo("camp.CampInfoView");

@@ -29,6 +29,10 @@ public class UserManager {
         authService.updatePassword(currentUser.getName(), newPassword);
     }
 
+    public boolean isAuthenticated() {
+        return (this.currentUser != null);
+    }
+
     // public String getName(int userID){
     //     return ((User)userMap.get(userID)).getName();
     // }

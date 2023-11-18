@@ -1,11 +1,11 @@
 package cams.ui;
 
-import cams.components.input.GetString;
+import cams.components.input.GetStringInput;
 import cams.components.option.Options;
 import cams.interfaces.InputField;
 import cams.utils.Dismiss;
 
-public class TestUI extends GetString implements InputField {
+public class TestUI extends GetStringInput implements InputField {
 
     private Options options;
     private String name;

@@ -1,44 +1,49 @@
-package cams.ui;
+package cams.ui.camp;
 
 import java.time.LocalDate;
 
-import cams.Main;
 import cams.components.LoadingIndicator;
 import cams.interfaces.IntInput;
+import cams.interfaces.Navigation;
 import cams.interfaces.UI;
+import cams.manager.CampManager;
+import cams.manager.UserManager;
 import cams.model.RegistrationType;
+import cams.ui.ChooseBetweenTwoOptionsUI;
 import cams.utils.Dismiss;
 
 public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
 
-    private int studentID;
-    private int campID;
+    // private Navigation navigation;
+    private UserManager userManager;
+    private CampManager campManager;
+    private IntInput confirm;
 
-    public RegisterForCampUI(int studentID, int campID) {
-        super("Do you want to sign up as ATTENDEE or COMMITTEE?", "ATTENDEE", "COMMITTEE");
-        this.studentID = studentID;
-        this.campID = campID;
+    public RegisterForCampUI(Navigation navigation, UserManager userManager, CampManager campManager, IntInput confirm) {
+        super("ATTENDEE", "COMMITTEE");
+        // this.navigation = navigation;
+        this.userManager = userManager;
+        this.campManager = campManager;
+        this.confirm = confirm;
     }
 
     public void body() {
 
-        System.out.printf(String.format("Is a committee member: %s\n", Main.campManager.isACommitteeMember(studentID)));
+        System.out.printf(String.format("Is a committee member: %s\n", campManager.isACommitteeMember(userManager.getCurrentUser().getName())));
         
         // Let user choose to sign up as ATTENDEE or COMMITTEE
-        int option = super.getValidInt();
+        int option = super.getValidInt("Do you want to sign up as ATTENDEE or COMMITTEE?");
         if (option == Dismiss.intOption()) { return; }
         RegistrationType registrationType = (option == 1) ? RegistrationType.ATTENDEE : RegistrationType.COMMITTEE;
 
         // Confirm register or discard and go back
-        IntInput confirmOrDiscard = new ConfirmOrDiscardUI("register");
-        if (confirmOrDiscard.getValidInt() != 1) { return; }
+        if (confirm.getValidInt("Confirm register?") != 1) { return; }
 
         // Check for eligibility
-        if (this.notEligible(campID, registrationType)) { return; }
+        if (this.notEligible(campManager.getSelectedID(), registrationType)) { return; }
 
         // Register for camp
-        Main.campManager.registerForCamp(studentID, campID, registrationType);
-        Main.campManager.save();
+        campManager.registerForCamp(userManager.getCurrentUser().getName(), campManager.getSelectedID(), registrationType);
         LoadingIndicator.registerLoadingIndicator("camp");
     }
 
@@ -52,39 +57,39 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
         * A student can only be committee member for one camp
         */
 
-        if (Main.campManager.hasRegisteredForCamp(studentID, campID)) {
+        if (campManager.hasRegisteredForCamp(userManager.getCurrentUser().getName(), campID)) {
             System.out.println("\nRegistration is unsuccessful .You have registered for this camp");
             return true;
         }
 
-        if (Main.campManager.hasWithdrawnFromCamp(studentID, campID)){
+        if (campManager.hasWithdrawnFromCamp(userManager.getCurrentUser().getName(), campID)){
             System.out.println("\nRegistration is unsuccessful. You have withdrawn from this camp before");
             return true;
         }
 
-        if (Main.campManager.isAfterRegistrationClosingDate(campID, LocalDate.now())) { 
+        if (campManager.isAfterRegistrationClosingDate(campID, LocalDate.now())) { 
             System.out.println("\nRegister unsuccessful. The dateline for the registration is over.");
             return true;
         }
 
-        if (Main.campManager.hasCampClashes(studentID, campID)) { 
+        if (campManager.hasCampClashes(userManager.getCurrentUser().getName(), campID)) { 
             System.out.println("\nRegister unsuccessful. This camp has clashes with other camps you have registered.");
             return true;
         }
 
         if (registrationType == RegistrationType.ATTENDEE) {
 
-            if (Main.campManager.participationIsFull(campID)) {
+            if (campManager.participationIsFull(campID)) {
                 System.out.println("\nRegister unsuccessful. Camp is full.");
                 return true;
             }
         } else {
-            if (Main.campManager.committeeIsFull(campID)) {
+            if (campManager.committeeIsFull(campID)) {
                 System.out.println("\nRegister unsuccessful. Camp's committee slot is full.");
                 return true;
             }
 
-            if (Main.campManager.isCommitteeMemberForAnotherCamp(studentID, campID)) {
+            if (campManager.isCommitteeMemberForAnotherCamp(userManager.getCurrentUser().getName(), campID)) {
                 System.out.println("\nRegister unsuccessful. You are already a committee member in another camp.");
                 return true;
             }

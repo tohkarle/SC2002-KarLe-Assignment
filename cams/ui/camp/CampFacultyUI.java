@@ -1,11 +1,11 @@
 package cams.ui.camp;
 
-import cams.components.input.GetString;
+import cams.components.input.GetStringInput;
 import cams.interfaces.InputField;
 import cams.utils.Dismiss;
 import cams.utils.CampUtil;
 
-public class CampFacultyUI extends GetString implements InputField {
+public class CampFacultyUI extends GetStringInput implements InputField {
     
     private CampUtil campUtil;
     private String faculty;

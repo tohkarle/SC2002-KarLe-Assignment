@@ -24,10 +24,12 @@ public class CampInfoView extends View {
 
         campInfoOptions = (CampInfoOptions) super.getOptions("camp.CampInfoOptions");
 
+        // Update camp details to latest
+        campInfoOptions.updateCampInfo();
+
         // If student is viewing registered camps, they will have an option to withdraw from the camp
         if (viewingRegisteredCampInfo()) { 
-            campInfoOptions.addWithdrawOption(); 
-            return;
+            campInfoOptions.addWithdrawOption();
         }
 
         campInfoOptions.viewOnly("Camp details: ");

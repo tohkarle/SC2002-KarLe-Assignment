@@ -4,7 +4,7 @@ import cams.Main;
 import cams.interfaces.IntInput;
 import cams.utils.Dismiss;
 
-public class GetInt implements IntInput {
+public class GetIntInput implements IntInput {
 
     // Input must be an int
     // Input must not be empty
@@ -12,7 +12,7 @@ public class GetInt implements IntInput {
     protected String input;
     protected int number;
 
-    public GetInt() {
+    public GetIntInput() {
         this.input = null;
         this.number = Dismiss.intOption();
     }

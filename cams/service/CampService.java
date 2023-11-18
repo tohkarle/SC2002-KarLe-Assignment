@@ -94,7 +94,7 @@ public class CampService {
     }
 
     public ArrayList<String> getWithdrawnStudentNames(int campID) {
-        return campMap.get(campID).getParticipatingStudentNames();
+        return campMap.get(campID).getWithdrawnStudentNames();
     }
 
     public ArrayList<String> getCommitteeMemberNames(int campID) {

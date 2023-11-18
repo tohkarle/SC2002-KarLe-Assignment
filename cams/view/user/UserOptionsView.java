@@ -43,13 +43,13 @@ public class UserOptionsView extends View {
     public void render() {
         
         // Check if user is authenticated
-        if (userManager.getCurrentUser() == null) {
+        if (!userManager.isAuthenticated()) {
             System.out.println("You have to register or log in first");
+            super.getNavigation().dismissView();
             return;
         }
 
         if (userManager.isStaff()) {
-
             // Display staff's options and let staff select action
             staffOptions = super.getOptions("user.StaffOptions");
             staffOptions.display("Choose your option: ");
@@ -64,7 +64,7 @@ public class UserOptionsView extends View {
                 return;
             }
 
-        } {
+        } else {
 
             // Display student's options and let student select action
             studentOptions = super.getOptions("user.StudentOptions");

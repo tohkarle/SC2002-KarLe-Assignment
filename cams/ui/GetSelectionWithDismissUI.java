@@ -1,10 +1,10 @@
 package cams.ui;
 
 import cams.Main;
-import cams.components.input.GetOption;
+import cams.components.input.GetOptionInput;
 import cams.utils.Dismiss;
 
-public class GetSelectionWithDismissUI extends GetOption {
+public class GetSelectionWithDismissUI extends GetOptionInput {
 
     public GetSelectionWithDismissUI(int min, int max) {
         super(min, max);

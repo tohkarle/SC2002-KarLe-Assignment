@@ -4,7 +4,7 @@ import cams.Main;
 import cams.interfaces.StringInput;
 import cams.utils.Dismiss;
 
-public class GetString implements StringInput {
+public class GetStringInput implements StringInput {
 
     // Input must not be empty
 

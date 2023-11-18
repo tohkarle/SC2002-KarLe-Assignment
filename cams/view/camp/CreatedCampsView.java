@@ -1,17 +1,17 @@
 package cams.view.camp;
 
-import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.CampManager;
+import cams.option.camp.UserCampOptions;
 import cams.utils.Dismiss;
 
 public class CreatedCampsView extends View {
 
-      private CampManager campManager;
+    private CampManager campManager;
 
     // Options for this view:
-    private Options userCampOptions;
+    private UserCampOptions userCampOptions;
 
     public CreatedCampsView(Navigation navigation, CampManager campManager) {
         super(navigation);
@@ -19,26 +19,37 @@ public class CreatedCampsView extends View {
     }
 
     public void render() {
+
+        userCampOptions = (UserCampOptions) super.getOptions("camp.UserCampOptions");
+
+        // Fetch latest created camps
+        userCampOptions.fetchUserCamps();
+
+        // Label camp as new if staff just created camp
+        if (justCreatedCamp()) { labelCampAsNew(); }
+
         // Display camps
-        userCampOptions = super.getOptions("camp.UserCampOptions");
         userCampOptions.display("Select camp to view details:");
 
         // Let user select camp to view details
         int option = userCampOptions.selection();
         if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+            super.getNavigation().popToRoot();
             return; 
         }
-        campManager.setViewCampDetail(option);
+        campManager.setSelectedCampID(option);
 
         // Navigate to EditCampView
         super.getNavigation().navigateTo("camp.EditCampView");
     }
 
-    // public void labelCampNew() {
-    //     if (justCreated) {
-    //         String name = campOptions.getOption(campOptions.getOptionsSize() - 1);
-    //         campOptions.replaceOption(name, name + " (New)");
-    //     }
-    // }
+    public void labelCampAsNew() {
+        String name = userCampOptions.getOption(userCampOptions.getOptionsSize() - 1);
+        System.out.println("Labeling: " + name);
+        userCampOptions.replaceOption(name, name + " (New)");
+    }
+
+    public boolean justCreatedCamp() {
+        return (super.getNavigation().getPreviousView().equals("camp.CreateCampView"));
+    }
 }

@@ -1,10 +1,10 @@
 package cams.ui;
 
 import cams.Main;
-import cams.components.input.GetOption;
+import cams.components.input.GetOptionInput;
 import cams.utils.Dismiss;
 
-public class ChooseBetweenTwoOptionsUI extends GetOption {
+public class ChooseBetweenTwoOptionsUI extends GetOptionInput {
 
     private String option1;
     private String option2;

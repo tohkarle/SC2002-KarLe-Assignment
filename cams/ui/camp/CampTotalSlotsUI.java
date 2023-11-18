@@ -1,11 +1,11 @@
 package cams.ui.camp;
 
 import cams.Main;
-import cams.components.input.GetInt;
+import cams.components.input.GetIntInput;
 import cams.interfaces.InputField;
 import cams.utils.CampUtil;
 
-public class CampTotalSlotsUI extends GetInt implements InputField {
+public class CampTotalSlotsUI extends GetIntInput implements InputField {
 
     private CampUtil campUtil;
     private int totalSlots;

@@ -14,13 +14,15 @@ import cams.utils.Page;
 public class CampInfoOptions extends Options {
 
     private Camp camp;
+    private CampManager campManager;
 
     public CampInfoOptions(CampManager campManager) {
-        this.camp = campManager.getCampInfo();
-        this.updateOptions();
+        this.campManager = campManager;
+        this.updateCampInfo();
     }
 
-    public void updateOptions() {
+    public void updateCampInfo() {
+        this.camp = campManager.getSelectedCampInfo();
         super.setOptions( 
             new ArrayList<String>(Arrays.asList(
                 String.format("Name: %s", this.camp.getCampName()),

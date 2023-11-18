@@ -2,12 +2,12 @@ package cams.ui.camp;
 
 import java.time.LocalDate;
 
-import cams.components.input.GetDate;
+import cams.components.input.GetDateInput;
 import cams.interfaces.DateInput;
 import cams.interfaces.InputField;
 import cams.utils.CampUtil;
 
-public class CampDatesUI extends GetDate implements InputField {
+public class CampDatesUI extends GetDateInput implements InputField {
 
     private CampUtil campUtil;
     private LocalDate startDate;
@@ -17,7 +17,7 @@ public class CampDatesUI extends GetDate implements InputField {
     public CampDatesUI(CampUtil campUtil, String startDateTitle, String endDateTitle) {
         super(startDateTitle);
         this.campUtil = campUtil;
-        this.endDateInput = new GetDate(endDateTitle);
+        this.endDateInput = new GetDateInput(endDateTitle);
     }
 
     @Override

@@ -8,7 +8,7 @@ import cams.Main;
 import cams.interfaces.DateInput;
 import cams.utils.Dismiss;
 
-public class GetDate implements DateInput {
+public class GetDateInput implements DateInput {
 
     // Input must be in the right format yyyy-MM-dd
     // Input must not be empty
@@ -16,7 +16,7 @@ public class GetDate implements DateInput {
     protected String input;
     protected LocalDate date;
 
-    public GetDate () {
+    public GetDateInput () {
     }
 
     @Override

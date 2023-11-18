@@ -51,6 +51,7 @@ public class NavigationManager implements Navigation {
     public void popToRoot() {
         views.clear();
         views.push(this.navigationService.getView("root.RootView"));
+        views.push(this.navigationService.getView("user.UserOptionsView"));
     }
 
     @Override

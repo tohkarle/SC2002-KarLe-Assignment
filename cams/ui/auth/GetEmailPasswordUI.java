@@ -1,12 +1,12 @@
 package cams.ui.auth;
 
-import cams.components.input.GetString;
+import cams.components.input.GetStringInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.AuthManager;
 import cams.utils.Dismiss;
 
-public class GetEmailPasswordUI extends GetString implements UI {
+public class GetEmailPasswordUI extends GetStringInput implements UI {
 
     private Navigation navigation;
     private AuthManager authManager;

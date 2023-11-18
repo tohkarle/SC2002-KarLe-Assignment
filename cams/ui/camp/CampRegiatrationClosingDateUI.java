@@ -3,11 +3,11 @@ package cams.ui.camp;
 import java.time.LocalDate;
 
 import cams.Main;
-import cams.components.input.GetDate;
+import cams.components.input.GetDateInput;
 import cams.interfaces.InputField;
 import cams.utils.CampUtil;
 
-public class CampRegiatrationClosingDateUI extends GetDate implements InputField {
+public class CampRegiatrationClosingDateUI extends GetDateInput implements InputField {
 
     private CampUtil campUtil;
     private LocalDate registrationClosingDate;

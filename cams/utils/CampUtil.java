@@ -43,7 +43,7 @@ public class CampUtil extends CampInfoOptions {
     }
 
     public void updateAndChangeOptions() {
-        super.updateOptions();
+        super.updateCampInfo();
         super.changeOptionsForEdit();
     }
 

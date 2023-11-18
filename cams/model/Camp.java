@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Camp implements Serializable {
-    private static int nextId = 0;
     private int id;
     private String campName;
     private ArrayList<LocalDate> dates; // 0: start, 1: end, 2: Register close
@@ -22,10 +21,9 @@ public class Camp implements Serializable {
     private ArrayList<Integer> enquiryIDs;
     private ArrayList<Integer> suggestionIDs;
 
-    public Camp(String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility, String staffInCharge, LocalDate registrationClosingDate) {
+    public Camp(int campID, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility, String staffInCharge, LocalDate registrationClosingDate) {
         // Default values
-        this.id = nextId;
-        Camp.nextId++;
+        this.id = campID;
         this.campName = campName;
         this.dates = dates;
         this.visibility = visibility;

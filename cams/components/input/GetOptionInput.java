@@ -1,6 +1,6 @@
 package cams.components.input;
 
-public abstract class GetOption extends GetInt {
+public abstract class GetOptionInput extends GetIntInput {
     
     // Input must be between and including min and max
     // Input must be an int
@@ -9,7 +9,7 @@ public abstract class GetOption extends GetInt {
     protected int min;
     protected int max;
 
-    public GetOption(int min, int max) {
+    public GetOptionInput(int min, int max) {
         this.min = min;
         this.max = max;
     }

@@ -107,6 +107,8 @@ public class DependencyService {
             return "cams.manager." + className;
         } else if (className.endsWith("Service")) {
             return "cams.service." + className;
+        } else if (className.endsWith("Input")) {
+            return "cams.components.input." + className;
         } else {
             return "cams." + className;
         }
