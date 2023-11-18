@@ -40,7 +40,7 @@ public class CreatedCampsView extends View {
         campManager.setSelectedCampID(option);
 
         // Navigate to EditCampView
-        super.getNavigation().navigateTo("camp.EditCampView");
+        super.getNavigation().navigateTo("camp.CreatedCampInfoView");
     }
 
     public void labelCampAsNew() {

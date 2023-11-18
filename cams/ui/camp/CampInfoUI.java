@@ -26,13 +26,13 @@ public class CampInfoUI implements UI {
     public void body() {
         // If student is viewing registered camps, they will have an option to withdraw from the camp
         if (viewingRegisteredCampInfo()) { 
-            campInfoOptions.addWithdrawOption(); 
+            campInfoOptions.attendeeCampInfoOptions(); 
             return;
         }
 
         if (!viewingRegisteredCampInfo()) {
             // Allow user to go back only, since there is no withdraw option
-            campInfoOptions.selectionWithDismiss();
+            campInfoOptions.dismiss();
             return;
         }
 

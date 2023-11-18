@@ -25,10 +25,10 @@ public class CreateCampUI implements InputField {
         this.createCampOptions = new CreateCampOptions();
 
         // Initialize all UIs
-        this.createCampNameUI = new CampNameUI(campUtil, createCampOptions.getOption(0));
-        this.createCampFacultyUI = new CampFacultyUI(campUtil, createCampOptions.getOption(1));
-        this.createCampVisibilityUI = new CampVisibilityUI(campUtil, createCampOptions.getOption(2));
-        this.createCampDatesUI = new CampDatesUI(campUtil, createCampOptions.getOption(3), createCampOptions.getOption(4));
+        this.createCampNameUI = new EditCampNameUI(campUtil, createCampOptions.getOption(0));
+        this.createCampFacultyUI = new EditCampFacultyUI(campUtil, createCampOptions.getOption(1));
+        this.createCampVisibilityUI = new EditCampVisibilityUI(campUtil, createCampOptions.getOption(2));
+        this.createCampDatesUI = new EditCampDatesUI(campUtil, createCampOptions.getOption(3), createCampOptions.getOption(4));
     }
 
     public boolean focused() {

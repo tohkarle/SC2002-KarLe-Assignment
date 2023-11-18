@@ -18,12 +18,34 @@ public class CampInfoOptions extends Options {
 
     public CampInfoOptions(CampManager campManager) {
         this.campManager = campManager;
-        this.updateCampInfo();
     }
 
     public void updateCampInfo() {
-        this.camp = campManager.getSelectedCampInfo();
-        super.setOptions( 
+        this.camp = campManager.getSelectedCamp();
+        this.setCampInfo();
+    }
+
+    public void updateRegisteredCampInfo() {
+        this.camp = campManager.getSelectedCamp();
+        this.setCampInfo();
+        this.attendeeCampInfoOptions();
+    }
+
+    public void updateCreatedCampInfo() {
+        campManager.createTempCamp();
+        this.camp = campManager.getSelectedCamp();
+        this.setCampInfo();
+        this.staffCampInfoOptions();
+    }
+
+    public void updateEditingCampInfo() {
+        this.camp = campManager.getTempCamp();
+        this.setCampInfo();
+        this.editingCampInfoOptions();
+    }
+
+    private void setCampInfo() {
+        super.setOptions(
             new ArrayList<String>(Arrays.asList(
                 String.format("Name: %s", this.camp.getCampName()),
                 String.format("Faculty: %s", this.camp.getUserGroup()),
@@ -39,18 +61,25 @@ public class CampInfoOptions extends Options {
         );
     }
 
-    public void changeOptionsForEdit() {
+    public void editingCampInfoOptions() {
         super.getOptions().remove(String.format("Staff-in-charge: %s", this.camp.getStaffInCharge()));
         super.getOptions().addAll(Arrays.asList(
-            "Update changes",
-            "Manage enquiries",
-            "Manage suggestions",
-            "Create report",
-            "Delete Camp"
+            "Update changes"
         ));
     }
 
-    public void addWithdrawOption() {
+    public void staffCampInfoOptions() {
+        super.getOptions().remove(String.format("Staff-in-charge: %s", this.camp.getStaffInCharge()));
+        super.getOptions().addAll(Arrays.asList(
+            "(1) Edit camp details",
+            "(2) Manage enquiries",
+            "(3) Manage suggestions",
+            "(4) Create report",
+            "(5) Delete Camp"
+        ));
+    }
+
+    public void attendeeCampInfoOptions() {
         // Student can withdraw from camp in the registered camp view
         // It will be a view-only display for the camp info so we will need to add number here
         super.getOptions().addAll(Arrays.asList(
@@ -77,7 +106,7 @@ public class CampInfoOptions extends Options {
         }
     }
 
-    public int selectionWithDismiss() {
+    public int dismiss() {
         IntInput selection = new GetSelectionUI(-1, -1);
         return selection.getValidInt("Your selection: ");
     }

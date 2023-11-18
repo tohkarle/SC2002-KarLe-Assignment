@@ -37,6 +37,6 @@ public class RegisteredCampsView extends View {
         campManager.setSelectedCampID(option);
 
         // Navigate to CampInfoView
-        super.getNavigation().navigateTo("camp.CampInfoView");
+        super.getNavigation().navigateTo("camp.RegisteredCampInfoView");
     }
 }

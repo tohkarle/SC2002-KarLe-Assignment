@@ -44,7 +44,7 @@ public class CampUtil extends CampInfoOptions {
 
     public void updateAndChangeOptions() {
         super.updateCampInfo();
-        super.changeOptionsForEdit();
+        super.staffCampInfoOptions();
     }
 
     public int getId() {

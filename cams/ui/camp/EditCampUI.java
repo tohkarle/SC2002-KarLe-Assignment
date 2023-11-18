@@ -1,62 +1,77 @@
 package cams.ui.camp;
 
-import cams.components.option.EditCampOptions;
+import cams.components.LoadingIndicator;
 import cams.components.option.Options;
-import cams.interfaces.InputField;
+import cams.interfaces.IntInput;
+import cams.interfaces.Navigation;
 import cams.interfaces.UI;
-import cams.utils.CampUtil;
+import cams.manager.CampManager;
+import cams.model.Camp;
 
 public class EditCampUI implements UI {
 
-    private int option;
-    private InputField[] editCampUIs;
+    private Options editCampOptions;
+    private Navigation navigation;
+    private CampManager campManager;
+    private IntInput confirm;
 
     // Edit camp UIs
-    private InputField editCampNameUI;
-    private InputField editCampFacultyUI;
-    private InputField editCampLocationUI;
-    private InputField editCampDescriptionUI;
-    private InputField editCampVisibility;
-    private InputField editCampRegiatrationClosingDateUI;
-    private InputField editCampDatesUI;
-    private InputField editCampTotalSlotsUI;
-    private InputField editCampCommitteeSlotsUI;
+    private UI editCampNameUI;
+    private UI editCampFacultyUI;
+    private UI editCampLocationUI;
+    private UI editCampDescriptionUI;
+    private UI editCampVisibility;
+    private UI editCampRegiatrationClosingDateUI;
+    private UI editCampDatesUI;
+    private UI editCampTotalSlotsUI;
+    private UI editCampCommitteeSlotsUI;
 
-    public EditCampUI(int option, CampUtil campUtil) {
-
-        this.option = option;
-        
-        Options editCampOptions = new EditCampOptions();
-
-        // Create and initialize all UIs for edit camp
-        this.editCampNameUI = new CampNameUI(campUtil, editCampOptions.getOption(0));
-        this.editCampFacultyUI = new CampFacultyUI(campUtil, editCampOptions.getOption(1));
-        this.editCampLocationUI = new CampLocationUI(campUtil, editCampOptions.getOption(2));
-        this.editCampDescriptionUI = new CampDescriptionUI(campUtil, editCampOptions.getOption(3));
-        this.editCampVisibility = new CampVisibilityUI(campUtil, editCampOptions.getOption(4));
-        this.editCampRegiatrationClosingDateUI = new CampRegiatrationClosingDateUI(campUtil, editCampOptions.getOption(5));
-        this.editCampDatesUI = new CampDatesUI(campUtil, editCampOptions.getOption(6), editCampOptions.getOption(7));
-        this.editCampTotalSlotsUI = new CampTotalSlotsUI(campUtil, editCampOptions.getOption(8));
-        this.editCampCommitteeSlotsUI = new CampCommitteeSlotsUI(campUtil, editCampOptions.getOption(9));
-
-        this.editCampUIs = new InputField[] {
-            this.editCampNameUI,
-            this.editCampFacultyUI,
-            this.editCampLocationUI,
-            this.editCampDescriptionUI,
-            this.editCampVisibility,
-            this.editCampRegiatrationClosingDateUI,
-            this.editCampDatesUI,
-            this.editCampTotalSlotsUI,
-            this.editCampCommitteeSlotsUI
-        };
+    public EditCampUI(Navigation navigation, CampManager campManager, Options editCampOptions, IntInput confirm) {
+        this.navigation = navigation;
+        this.campManager = campManager;
+        this.editCampOptions = editCampOptions;
+        this.confirm = confirm;
     }
 
     @Override
     public void body() {
+
+        Camp tempCamp = campManager.getTempCamp();
+
+        // Create and initialize all UIs for edit camp
+        editCampNameUI = new EditCampNameUI(tempCamp, editCampOptions.getOption(0));
+        editCampFacultyUI = new EditCampFacultyUI(tempCamp, editCampOptions.getOption(1));
+        editCampLocationUI = new EditCampLocationUI(tempCamp, editCampOptions.getOption(2));
+        editCampDescriptionUI = new EditCampDescriptionUI(tempCamp, editCampOptions.getOption(3));
+        editCampVisibility = new EditCampVisibilityUI(tempCamp, editCampOptions.getOption(4));
+        editCampDatesUI = new EditCampDatesUI(tempCamp, editCampOptions.getOption(5), editCampOptions.getOption(6));
+        editCampRegiatrationClosingDateUI = new EditCampRegiatrationClosingDateUI(tempCamp, editCampOptions.getOption(7));
+        editCampTotalSlotsUI = new EditCampTotalSlotsUI(tempCamp, campManager, editCampOptions.getOption(8));
+        editCampCommitteeSlotsUI = new EditCampCommitteeSlotsUI(tempCamp, campManager, editCampOptions.getOption(9));
+
+        UI[] editCampUIs = new UI[] {
+            editCampNameUI,
+            editCampFacultyUI,
+            editCampLocationUI,
+            editCampDescriptionUI,
+            editCampVisibility,
+            editCampDatesUI,
+            editCampRegiatrationClosingDateUI,
+            editCampTotalSlotsUI,
+            editCampCommitteeSlotsUI
+        };
+
         // Display corresponding UI
-        if (option <= editCampUIs.length) {
-            editCampUIs[option - 1].focused();
+        if (campManager.getSelectedCampInfo() <= editCampUIs.length) {
+            campManager.setIsEditingCamp(true);
+            editCampUIs[campManager.getSelectedCampInfo() - 1].body();
+        } else if (campManager.getSelectedCampInfo() == editCampUIs.length + 1) {
+            // Confirm changes or discard
+            if (confirm.getValidInt("Confirm changes?") != 1) { return; }
+            LoadingIndicator.editingLoadingIndicator("camp");
+            campManager.setIsEditingCamp(false);
+            campManager.updateCamp(campManager.getTempCamp());
+            navigation.dismissView();
         }
     }
 }

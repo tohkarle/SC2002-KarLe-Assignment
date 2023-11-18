@@ -3,6 +3,7 @@ package cams.manager;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 import cams.model.Camp;
 import cams.model.RegistrationType;
@@ -13,10 +14,26 @@ public class CampManager {
 
     private CampService campService;
     private int selectedCampID;
+    private int selectedCampInfo;
+
+    private Camp tempCamp;
+    private boolean isEditingCamp;
 
     public CampManager(CampService campService) {
         this.campService = campService;
-        this.selectedCampID = 0;
+        this.selectedCampID = -1;
+    }
+
+    public void createTempCamp() {
+        this.tempCamp = campService.getCamp(selectedCampID);
+    }
+
+    public Camp getTempCamp() {
+        return this.tempCamp;
+    }
+
+    public void clearTempCamp() {
+        this.tempCamp = null;
     }
 
     public int getSelectedID() {
@@ -27,7 +44,24 @@ public class CampManager {
         this.selectedCampID = option;
     }
 
-    public Camp getSelectedCampInfo() {
+    public boolean getIsEditingCamp() {
+        return this.isEditingCamp;
+    }
+
+    public void setIsEditingCamp(boolean isEditingCamp) {
+        this.isEditingCamp = isEditingCamp;
+    }
+
+    public int getSelectedCampInfo() {
+        return this.selectedCampInfo;
+    }
+
+    public void setSelectedCampInfo(int option) {
+        this.selectedCampInfo = option;
+    }
+
+    public Camp getSelectedCamp() {
+        System.out.println("GET FROM DATABASE");
         return campService.getCamp(selectedCampID);
     }
 
@@ -157,6 +191,11 @@ public class CampManager {
         campService.save();
     }
 
+    public void updateCamp(Camp camp) {
+        campService.updateCamp(camp);
+        campService.save();
+    }
+
     public boolean hasRegisteredForCamp(String studentName, int campID) {
         if (campService.getParticipatingStudentNames(campID).contains(studentName) || campService.getCommitteeMemberNames(campID).contains(studentName)) { return true; }
         return false;
@@ -234,5 +273,35 @@ public class CampManager {
 
     public boolean committeeIsFull(int campID) {
         return (campService.getCamp(campID).getCommitteeSlots() == campService.getCamp(campID).getCommitteeMemberNames().size());
+    }
+
+    public void demoteLastJoin(int campID) {
+        List<String> commiteeMemberNames = campService.getCommitteeMemberNames(campID);
+
+        // Check if the list is not empty before attempting to remove the last element
+        if (!commiteeMemberNames.isEmpty()) {
+            int lastIndex = commiteeMemberNames.size() - 1;
+            commiteeMemberNames.remove(lastIndex);
+        } else {
+            // Handle the case where the list is empty, if needed
+            System.out.println("There is no committee member in this camp.");
+        }
+    }
+
+    public void kickLastJoin(int campID) {
+        List<String> participatingStudentNames = campService.getParticipatingStudentNames(campID);
+
+        // Check if the list is not empty before attempting to remove the last element
+        if (!participatingStudentNames.isEmpty()) {
+            int lastIndex = participatingStudentNames.size() - 1;
+            participatingStudentNames.remove(lastIndex);
+        } else {
+            // Handle the case where the list is empty, if needed
+            System.out.println("There is no student in this camp.");
+        }
+    }
+
+    public int getRegCount(int campID) {
+        return campService.getParticipatingStudentNames(campID).size();
     }
 }

@@ -41,4 +41,9 @@ public class LoadingIndicator {
         System.out.println("\nWithdrawing from " + title + "...");
         System.out.println("Withdraw from " + title + " successful!");
     }
+
+    public static void editingLoadingIndicator(String title) {
+        System.out.println("\nEditing " + title + "...");
+        System.out.println("Edit " + title + " successful!");
+    }
 }
