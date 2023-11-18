@@ -2,6 +2,7 @@ package cams.view.camp;
 
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
+import cams.interfaces.UI;
 import cams.interfaces.View;
 import cams.option.camp.CampInfoOptions;
 import cams.ui.GetSelectionWithDismissUI;
@@ -11,6 +12,9 @@ public class CreatedCampInfoView extends View {
     
     // Options for this view:
     private CampInfoOptions campInfoOptions;
+
+    // UIs for this view:
+    private UI deleteCampUI;
 
     public CreatedCampInfoView(Navigation navigation) {
         super(navigation);
@@ -45,6 +49,8 @@ public class CreatedCampInfoView extends View {
             case 4:
                 break;
             case 5:
+                deleteCampUI = super.getUI("camp.DeleteCampUI");
+                deleteCampUI.body();
                 break;
         }
     }

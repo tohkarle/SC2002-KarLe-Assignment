@@ -40,6 +40,7 @@ ConfirmOrDiscardUI
 camp.WithdrawFromCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
 camp.RegisterForCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
 camp.EditCampUI, NavigationManager, CampManager, camp.EditCampOptions, ConfirmOrDiscardUI
+camp.DeleteCampUI, NavigationManager, CampManager, ConfirmOrDiscardUI
 
 NavigationManager, NavigationService
 AuthManager, AuthService, UserManager

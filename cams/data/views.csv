@@ -14,5 +14,5 @@ camp.RegisteredCampsView, camp.UserCampOptions, CampManager
 camp.CampInfoView, camp.CampInfoOptions, camp.WithdrawFromCampUI
 camp.RegisterForCampView, camp.FacultyCampOptions, camp.RegisterForCampUI
 camp.RegisteredCampInfoView, camp.CampInfoOptions, camp.WithdrawFromCampUI
-camp.CreatedCampInfoView, camp.CampInfoOptions, 
+camp.CreatedCampInfoView, camp.CampInfoOptions, camp.DeleteCampUI
 camp.EditCampView, camp.CampInfoOptions, camp.EditCampUI

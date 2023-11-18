@@ -1,29 +1,31 @@
 package cams.ui.camp;
 
-import cams.Main;
 import cams.components.LoadingIndicator;
-import cams.interfaces.InputField;
 import cams.interfaces.IntInput;
-import cams.ui.ConfirmOrDiscardUI;
-import cams.utils.CampUtil;
+import cams.interfaces.Navigation;
+import cams.interfaces.UI;
+import cams.manager.CampManager;
 
-public class DeleteCampUI implements InputField {
+public class DeleteCampUI implements UI {
 
-    private CampUtil campUtil;
+    private Navigation navigation;
+    private CampManager campManager;
+    private IntInput confirm;
 
-    public DeleteCampUI(CampUtil campUtil) {
-        this.campUtil =  campUtil;
+    public DeleteCampUI(Navigation navigation, CampManager campManager, IntInput confirm) {
+        this.navigation = navigation;
+        this.campManager = campManager;
+        this.confirm = confirm;
     }
 
-    public boolean focused() {
+    @Override
+    public void body() {
         // Confirm delete or discard and go back
-        IntInput confirmOrDiscard = new ConfirmOrDiscardUI("delete");
-        if (confirmOrDiscard.getValidInt() != 1) { return true; }
+        if (confirm.getValidInt("Canfirm delete?") != 1) { return; }
 
-        // Delete camp from campMap
-        Main.campManager.deleteCamp(campUtil.getId());
-        Main.campManager.save();
+        // Delete camp
+        campManager.deleteCamp(campManager.getSelectedID());
         LoadingIndicator.deleteLoadingIndicator("camp");
-        return false;
+        navigation.dismissView();
     }
 }

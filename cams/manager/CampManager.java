@@ -17,7 +17,6 @@ public class CampManager {
     private int selectedCampInfo;
 
     private Camp tempCamp;
-    private boolean isEditingCamp;
 
     public CampManager(CampService campService) {
         this.campService = campService;
@@ -42,14 +41,6 @@ public class CampManager {
 
     public void setSelectedCampID(int option) {
         this.selectedCampID = option;
-    }
-
-    public boolean getIsEditingCamp() {
-        return this.isEditingCamp;
-    }
-
-    public void setIsEditingCamp(boolean isEditingCamp) {
-        this.isEditingCamp = isEditingCamp;
     }
 
     public int getSelectedCampInfo() {
