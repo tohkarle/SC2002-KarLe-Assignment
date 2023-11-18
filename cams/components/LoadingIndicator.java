@@ -47,8 +47,13 @@ public class LoadingIndicator {
         System.out.println("Edit " + title + " successful!");
     }
 
-        public static void submitLoadingIndicator(String title) {
+    public static void submitLoadingIndicator(String title) {
         System.out.println("\nSubmitting " + title + "...");
         System.out.println("Submit " + title + " successful!");
+    }
+
+    public static void processLoadingIndicator(String title) {
+        System.out.println("\nProcessing " + title + "...");
+        System.out.println("Process " + title + " successful!");
     }
 }

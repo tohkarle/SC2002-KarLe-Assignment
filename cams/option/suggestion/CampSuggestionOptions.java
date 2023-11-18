@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cams.components.option.DismissableSelectableOptions;
 import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
+import cams.model.SuggestionStatus;
 import cams.utils.Dismiss;
 import cams.utils.Page;
 
@@ -39,9 +40,26 @@ public class CampSuggestionOptions extends DismissableSelectableOptions {
     }
 
     private void fetchCampSuggestions() {
-        // Fetch all suggestions from camp
-        this.noCampTitle = "No suggestion has been created under this camp. Please conme back at a later time.";
-        super.setOptions(suggestionManager.getAllCampSuggestionTitles(campManager.getSelectedID()));
-        this.suggestionIDs = suggestionManager.getAllCampSuggestionIDs(campManager.getSelectedID());
+
+        // Fetch suggestions from camp, accepted, rejected or pending
+        if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.PENDING) {
+
+            this.noCampTitle = "No pending suggestion for this camp at the moment. Please conme back at a later time.";
+            super.setOptions(suggestionManager.getPendingCampSuggestionTitles(campManager.getSelectedID()));
+            this.suggestionIDs = suggestionManager.getPendingCampSuggestionIDs(campManager.getSelectedID());
+
+        } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+
+            this.noCampTitle = "No approved suggestion for this camp at the moment. Please conme back at a later time.";
+            super.setOptions(suggestionManager.getAcceptedCampSuggestionTitles(campManager.getSelectedID()));
+            this.suggestionIDs = suggestionManager.getAcceptedCampSuggestionIDs(campManager.getSelectedID());
+
+        } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.REJECTED) {
+
+            this.noCampTitle = "No rejected suggestion for this camp at the moment. Please conme back at a later time.";
+            super.setOptions(suggestionManager.getRejectedCampSuggestionTitles(campManager.getSelectedID()));
+            this.suggestionIDs = suggestionManager.getRejectedCampSuggestionIDs(campManager.getSelectedID());
+
+        }
     }
 }

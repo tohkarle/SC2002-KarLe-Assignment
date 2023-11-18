@@ -11,6 +11,7 @@ import cams.utils.UniqueKey;
 public class SuggestionManager {
 
     private SuggestionService suggestionService;
+    private SuggestionStatus selectedSuggestionStatus;
     private int selectedSuggestionID;
     private int selectedSuggestionCampInfo;
     private Suggestion tempSuggestion;
@@ -19,6 +20,14 @@ public class SuggestionManager {
         this.suggestionService = suggestionService;
         this.selectedSuggestionID = -1;
         this.selectedSuggestionCampInfo = -1;
+    }
+
+    public SuggestionStatus getSelectedSuggestionStatus() {
+        return this.selectedSuggestionStatus;
+    }
+
+    public void setSelectedSuggestionStatus(SuggestionStatus suggestionStatus) {
+        this.selectedSuggestionStatus = suggestionStatus;
     }
 
     public Camp getSuggestionCamp() {
@@ -55,6 +64,7 @@ public class SuggestionManager {
 
 
 
+
     public ArrayList<String> getAllSuggestionTitles() {
         ArrayList<String> titles = new ArrayList<>();
         for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
@@ -70,6 +80,70 @@ public class SuggestionManager {
         }
         return ids;
     }
+
+    public ArrayList<String> getAcceptedSuggestionTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getAcceptedSuggestionIDs() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+
+    public ArrayList<String> getRejectedSuggestionTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getSuggestionStatus() == SuggestionStatus.REJECTED) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getRejectedSuggestionIDs() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getSuggestionStatus() == SuggestionStatus.REJECTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+    
+    public ArrayList<String> getPendingSuggestionTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getSuggestionStatus() == SuggestionStatus.PENDING) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getPendingSuggestionIDs() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getSuggestionStatus() == SuggestionStatus.PENDING) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+
+
+
+
 
 
     public ArrayList<String> getAllCampSuggestionTitles(int campID) {
@@ -92,6 +166,70 @@ public class SuggestionManager {
         return ids;
     }
 
+    public ArrayList<String> getAcceptedCampSuggestionTitles(int campID) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getAcceptedCampSuggestionIDs(int campID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+    
+    public ArrayList<String> getRejectedCampSuggestionTitles(int campID) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.REJECTED) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getRejectedCampSuggestionIDs(int campID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.REJECTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+    
+    public ArrayList<String> getPendingCampSuggestionTitles(int campID) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.PENDING) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getPendingCampSuggestionIDs(int campID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.PENDING) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+
+
+
+
+
     public ArrayList<String> getAllStudentSuggestionTitles(String studentName) {
         ArrayList<String> titles = new ArrayList<>();
         for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
@@ -112,6 +250,70 @@ public class SuggestionManager {
         return ids;
     }
 
+    public ArrayList<String> getAcceptedStudentSuggestionTitles(String studentName) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getAcceptedStudentSuggestionIDs(String studentName) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+
+    public ArrayList<String> getRejectedStudentSuggestionTitles(String studentName) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.REJECTED) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getRejectedStudentSuggestionIDs(String studentName) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.REJECTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+    
+    public ArrayList<String> getPendingStudentSuggestionTitles(String studentName) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.PENDING) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getPendingStudentSuggestionIDs(String studentName) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.PENDING) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+
+
+
+
+
     public ArrayList<String> getAllStudentCampSuggestionTitles(String studentName, int campID) {
         ArrayList<String> titles = new ArrayList<>();
         for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
@@ -131,6 +333,71 @@ public class SuggestionManager {
         }
         return ids;
     }
+
+    public ArrayList<String> getAcceptedStudentCampSuggestionTitles(String studentName, int campID) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getAcceptedStudentCampSuggestionIDs(String studentName, int campID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+
+    public ArrayList<String> getRejectedStudentCampSuggestionTitles(String studentName, int campID) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.REJECTED) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getRejectedStudentCampSuggestionIDs(String studentName, int campID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.REJECTED) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+    
+    public ArrayList<String> getPendingStudentCampSuggestionTitles(String studentName, int campID) {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.PENDING) {
+                titles.add(suggestion.getTitle());
+            }
+        }
+        return titles;
+    }
+    
+    public ArrayList<Integer> getPendingStudentCampSuggestionIDs(String studentName, int campID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getCamp().getId() == campID && suggestion.getStudentName().equals(studentName) && suggestion.getCamp().getVisibility() && suggestion.getSuggestionStatus() == SuggestionStatus.PENDING) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids;
+    }
+
+
+
+
+
 
     public void createSuggestion(String studentName, String title, Camp camp) {
         // Create new suggestion and add to 'database'
@@ -160,5 +427,6 @@ public class SuggestionManager {
     public void processSuggestion(String staffName, int suggestionID, SuggestionStatus suggestionStatus) {
         suggestionService.setProcessedBy(suggestionID, staffName);
         suggestionService.setSuggestionStatus(suggestionID, suggestionStatus);
+        suggestionService.save();
     }
 }

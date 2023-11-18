@@ -19,7 +19,7 @@ public class CampSuggestionsView extends View {
     }
 
     public void render() {
-        // Display suuggestions
+        // Display suggestion
         campSuggestionOptions = super.getOptions("suggestion.CampSuggestionOptions");
         campSuggestionOptions.display("Select camp to view details:");
 
@@ -32,6 +32,6 @@ public class CampSuggestionsView extends View {
         suggestionManager.setSelectedSuggestionID(option);
 
         // Navigate to CampInfoView
-        super.getNavigation().navigateTo("suggestion.SuggestionInfoView");
+        super.getNavigation().navigateTo("suggestion.ProcessSuggestionView");
     }
 }

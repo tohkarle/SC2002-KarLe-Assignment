@@ -22,3 +22,5 @@ suggestion.CreateSuggestionView, suggestion.CreateSuggestionOptions, suggestion.
 suggestion.StudentCampSuggestionView, suggestion.StudentCampSuggestionOptions
 suggestion.CreatedSuggestionInfoView, suggestion.CreatedSuggestionOptions, suggestion.DeleteSuggestionUI
 suggestion.EditSuggestionView, suggestion.EditSuggestionInfoOptions, suggestion.EditSuggestionUI
+suggestion.ProcessSuggestionView, suggestion.ProcessSuggestionOptions, suggestion.ProcessSuggestionUI
+suggestion.StaffSuggestionView, suggestion.StaffSuggestionOptions

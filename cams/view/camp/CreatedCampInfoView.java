@@ -46,6 +46,7 @@ public class CreatedCampInfoView extends View {
             case 2:
                 break;
             case 3:
+                super.getNavigation().navigateTo("suggestion.StaffSuggestionView");
                 break;
             case 4:
                 break;
