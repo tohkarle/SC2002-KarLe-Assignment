@@ -15,13 +15,13 @@ camp.CampInfoView, camp.CampInfoOptions
 camp.RegisterForCampView, camp.FacultyCampOptions, camp.RegisterForCampUI
 camp.RegisteredCampInfoView, camp.RegisteredCampInfoOptions, camp.WithdrawFromCampUI
 camp.CreatedCampInfoView, camp.CreatedCampInfoOptions, camp.DeleteCampUI
-camp.EditCampView, camp.EditCampInfoOptions, camp.EditCampUI
+camp.EditCampView, camp.EditCampOptions, camp.EditCampUI
 
 suggestion.CampSuggestionsView, suggestion.CampSuggestionOptions
 suggestion.CreateSuggestionView, suggestion.CreateSuggestionOptions, suggestion.CreateSuggestionUI
 suggestion.CommitteeCampSuggestionsView, suggestion.CommitteeCampSuggestionsOptions
 suggestion.CreatedSuggestionInfoView, suggestion.CreatedSuggestionOptions, suggestion.DeleteSuggestionUI
-suggestion.EditSuggestionView, suggestion.EditSuggestionInfoOptions, suggestion.EditSuggestionUI
+suggestion.EditSuggestionView, suggestion.EditSuggestionOptions, suggestion.EditSuggestionUI
 suggestion.ProcessSuggestionView, suggestion.ProcessSuggestionOptions, suggestion.ProcessSuggestionUI
 suggestion.SuggestionStatusView, suggestion.SuggestionStatusOptions
 
@@ -31,3 +31,4 @@ enquiry.CampEnquiriesView, enquiry.CampEnquiryOptions
 enquiry.AttendeeCampEnquiriesView, enquiry.AttendeeCampEnquiriesOptions
 enquiry.CreatedEnquiryInfoView, enquiry.CreatedEnquiryOptions, enquiry.DeleteEnquiryUI
 enquiry.ReplyEnquiryView, enquiry.ReplyEnquiryOptions, enquiry.ReplyEnquiryUI
+enquiry.EditEnquiryView, enquiry.EditEnquiryOptions, enquiry.EditEnquiryUI

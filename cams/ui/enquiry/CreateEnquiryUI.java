@@ -39,7 +39,7 @@ public class CreateEnquiryUI implements UI {
         }
 
         // Get content
-        String content = getString.getValidString("Enter enquiry: ");
+        String content = getString.getValidString("Enter content: ");
         if (content.equals(Dismiss.stringOption())) {
             navigation.dismissView();
             return;

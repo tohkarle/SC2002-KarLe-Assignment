@@ -12,7 +12,7 @@ public class EditSuggestionView extends View {
     private CampManager campManager;
 
     // Options for this view:
-    private CampInfoOptions editSuggestionInfoOptions;
+    private CampInfoOptions editSuggestionOptions;
 
     // UIs for this view:
     private UI editSuggestionUI;
@@ -24,18 +24,17 @@ public class EditSuggestionView extends View {
 
     public void render() {
 
-        editSuggestionInfoOptions = (CampInfoOptions) super.getOptions("suggestion.EditSuggestionInfoOptions");
+        editSuggestionOptions = (CampInfoOptions) super.getOptions("suggestion.EditSuggestionOptions");
 
         // Update suggestion info to the latest
-        editSuggestionInfoOptions.updateCampInfo();
+        editSuggestionOptions.updateCampInfo();
 
         // Display suggestion info for editing
-        editSuggestionInfoOptions.display("Select the field you want to edit: ");
+        editSuggestionOptions.display("Select the field you want to edit: ");
 
         // Let user choose the field to edit
-        int option = editSuggestionInfoOptions.selection();
+        int option = editSuggestionOptions.selection();
         if (option == Dismiss.intOption()) { 
-            campManager.clearTempCamp();
             super.getNavigation().dismissView();
             return; 
         }

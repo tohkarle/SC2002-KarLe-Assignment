@@ -14,18 +14,12 @@ public class ReplyEnquiryOptions extends EnquiryInfoOptions {
 
     @Override
     public void updateEnquiryInfo() {
-        super.setEnquiry(super.getEnquiryManager().getTempEnquiry());
-        super.setEnquiryInfo();
-        this.setEnquiryInfo();
-    }
-
-    @Override
-    public void setEnquiryInfo() {
-        if (super.getEnquiry().getReply() != null && super.getEnquiry().getResolvedBy() != null && super.getEnquiry().getIsResolved()) {
+        super.updateEnquiryInfo();
+        if (super.getEnquiryManager().getTempEnquiry().getReply() != null && super.getEnquiryManager().getTempEnquiry().getResolvedBy() != null && super.getEnquiryManager().getTempEnquiry().getIsResolved()) {
             super.getOptions().remove("(1) Reply enquiry");
             super.getOptions().addAll(Arrays.asList(
-                String.format("Reply: %s", super.getEnquiry().getReply()),
-                String.format("Resolved by: %s", super.getEnquiry().getResolvedBy())
+                String.format("Reply: %s", super.getEnquiryManager().getTempEnquiry().getReply()),
+                String.format("Resolved by: %s", super.getEnquiryManager().getTempEnquiry().getResolvedBy())
             ));
         } else {
             super.getOptions().addAll(Arrays.asList(
@@ -36,7 +30,7 @@ public class ReplyEnquiryOptions extends EnquiryInfoOptions {
 
     @Override
     public int selection() {
-        if (super.getEnquiry().getReply() != null && super.getEnquiry().getResolvedBy() != null && super.getEnquiry().getIsResolved()) {
+        if (super.getEnquiryManager().getTempEnquiry().getReply() != null && super.getEnquiryManager().getTempEnquiry().getResolvedBy() != null && super.getEnquiryManager().getTempEnquiry().getIsResolved()) {
             return super.selection();
         } else {
             IntInput selection = new GetSelectionUI(-1, 1);

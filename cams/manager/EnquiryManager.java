@@ -9,6 +9,7 @@ import cams.utils.UniqueKey;
 public class EnquiryManager {
 
     private int selectedEnquiryID;
+    private int selectedEnquiryInfo;
     private boolean viewResolvedEnquiries;
     private EnquiryService enquiryService;
     private Enquiry tempEnquiry;
@@ -30,13 +31,20 @@ public class EnquiryManager {
         return this.tempEnquiry;
     }
 
+    public int getSelectedEnquiryInfo() {
+        return this.selectedEnquiryInfo;
+    }
+
+    public void setSelectedEnquiryInfo(int option) {
+        this.selectedEnquiryInfo = option;
+    }
+
     public int getSelectedEnquiryID() {
         return this.selectedEnquiryID;
     }
 
     public void setSelectedEnquiryID(int option) {
         this.selectedEnquiryID = option;
-        this.createTempEnquiry();
     }
 
     public boolean getViewResolvedEnquiries() {
@@ -274,5 +282,16 @@ public class EnquiryManager {
             }
         }
         return ids;
+    }
+
+    public int getNumberOfEnquiriesReplied(String studentName) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Enquiry enquiry : enquiryService.getEnquiryMap().values()) {
+            String resolvedBy = enquiry.getResolvedBy();
+            if (resolvedBy != null && resolvedBy.equals(studentName) && enquiry.getIsResolved() && enquiry.getReply() != null) {
+                ids.add(enquiry.getId());
+            }
+        }
+        return ids.size();
     }
 }

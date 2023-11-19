@@ -10,7 +10,7 @@ import cams.model.Camp;
 
 public class EditCampUI implements UI {
 
-    private Options editCampOptions;
+    private Options EditCampInfoOptions;
     private Navigation navigation;
     private CampManager campManager;
     private IntInput confirm;
@@ -26,10 +26,10 @@ public class EditCampUI implements UI {
     private UI editCampTotalSlotsUI;
     private UI editCampCommitteeSlotsUI;
 
-    public EditCampUI(Navigation navigation, CampManager campManager, Options editCampOptions, IntInput confirm) {
+    public EditCampUI(Navigation navigation, CampManager campManager, Options EditCampInfoOptions, IntInput confirm) {
         this.navigation = navigation;
         this.campManager = campManager;
-        this.editCampOptions = editCampOptions;
+        this.EditCampInfoOptions = EditCampInfoOptions;
         this.confirm = confirm;
     }
 
@@ -39,15 +39,15 @@ public class EditCampUI implements UI {
         Camp tempCamp = campManager.getTempCamp();
 
         // Create and initialize all UIs for edit camp
-        editCampNameUI = new EditCampNameUI(tempCamp, editCampOptions.getOption(0));
-        editCampFacultyUI = new EditCampFacultyUI(tempCamp, editCampOptions.getOption(1));
-        editCampLocationUI = new EditCampLocationUI(tempCamp, editCampOptions.getOption(2));
-        editCampDescriptionUI = new EditCampDescriptionUI(tempCamp, editCampOptions.getOption(3));
-        editCampVisibility = new EditCampVisibilityUI(tempCamp, editCampOptions.getOption(4));
-        editCampDatesUI = new EditCampDatesUI(tempCamp, editCampOptions.getOption(5), editCampOptions.getOption(6));
-        editCampRegiatrationClosingDateUI = new EditCampRegiatrationClosingDateUI(tempCamp, editCampOptions.getOption(7));
-        editCampTotalSlotsUI = new EditCampTotalSlotsUI(tempCamp, campManager, editCampOptions.getOption(8));
-        editCampCommitteeSlotsUI = new EditCampCommitteeSlotsUI(tempCamp, campManager, editCampOptions.getOption(9));
+        editCampNameUI = new EditCampNameUI(tempCamp, EditCampInfoOptions.getOption(0));
+        editCampFacultyUI = new EditCampFacultyUI(tempCamp, EditCampInfoOptions.getOption(1));
+        editCampLocationUI = new EditCampLocationUI(tempCamp, EditCampInfoOptions.getOption(2));
+        editCampDescriptionUI = new EditCampDescriptionUI(tempCamp, EditCampInfoOptions.getOption(3));
+        editCampVisibility = new EditCampVisibilityUI(tempCamp, EditCampInfoOptions.getOption(4));
+        editCampDatesUI = new EditCampDatesUI(tempCamp, EditCampInfoOptions.getOption(5), EditCampInfoOptions.getOption(6));
+        editCampRegiatrationClosingDateUI = new EditCampRegiatrationClosingDateUI(tempCamp, EditCampInfoOptions.getOption(7));
+        editCampTotalSlotsUI = new EditCampTotalSlotsUI(tempCamp, campManager, EditCampInfoOptions.getOption(8));
+        editCampCommitteeSlotsUI = new EditCampCommitteeSlotsUI(tempCamp, campManager, EditCampInfoOptions.getOption(9));
 
         UI[] editCampUIs = new UI[] {
             editCampNameUI,

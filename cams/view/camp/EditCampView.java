@@ -12,7 +12,7 @@ public class EditCampView extends View {
     private CampManager campManager;
 
     // Options for this view:
-    private CampInfoOptions editCampInfoOptions;
+    private CampInfoOptions editCampOptions;
 
     // UIs for this view:
     private UI editCampUI;
@@ -24,16 +24,16 @@ public class EditCampView extends View {
 
     public void render() {
 
-        editCampInfoOptions = (CampInfoOptions) super.getOptions("camp.EditCampInfoOptions");
+        editCampOptions = (CampInfoOptions) super.getOptions("camp.EditCampOptions");
 
         // Remove Staff-in-charge, add Update changes, Manage enquiries, Create report and Delete camp options
-        editCampInfoOptions.updateCampInfo();
+        editCampOptions.updateCampInfo();
 
         // Display camp info for editing
-        editCampInfoOptions.display("Select the field you want to edit: ");
+        editCampOptions.display("Select the field you want to edit: ");
 
         // Let user choose the field to edit
-        int option = editCampInfoOptions.selection();
+        int option = editCampOptions.selection();
         if (option == Dismiss.intOption()) { 
             campManager.clearTempCamp();
             super.getNavigation().dismissView();

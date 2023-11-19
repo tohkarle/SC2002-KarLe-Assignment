@@ -1,30 +1,27 @@
 package cams.option.camp;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import cams.components.option.ViewOnlyOptions;
+import cams.manager.CampManager;
 
-public class EditCampOptions extends ViewOnlyOptions {
+public class EditCampOptions extends CampInfoOptions {
+    
+    public EditCampOptions(CampManager campManager) {
+        super(campManager);
+    }
 
-    public EditCampOptions() {
-        super.setOptions( 
-                new ArrayList<String>(Arrays.asList(
-                "Edit name: ",
-                "Edit faculty: ",
-                "Edit Location: ",
-                "Edit description: ",
-                "Edit visibility",
-                "Edit start date (yyyy-MM-dd): ",
-                "Edit end date (yyyy-MM-dd): ",
-                "Edit registration closing date: ",
-                "Edit total slots: ",
-                "Edit total comittee slots: ",
-                "Manage Enquiries: ",
-                "Manage Suggestions: ",
-                "Create report: ",
-                "Delete Camp: "
-            ))
-        );
+    @Override
+    public void updateCampInfo() {
+        super.setCamp(super.getCampManager().getTempCamp());
+        super.setCampInfo();
+        this.setCampInfo();
+    }
+
+    @Override
+    public void setCampInfo() {
+        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
+        super.getOptions().addAll(Arrays.asList(
+            "Update changes"
+        ));
     }
 }

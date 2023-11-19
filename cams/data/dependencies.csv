@@ -5,12 +5,20 @@ CampService
 SuggestionService
 EnquiryService
 
+NavigationManager, NavigationService
+AuthManager, AuthService, UserManager
+UserManager, AuthService
+StudentManager, AuthService
+CampManager, CampService
+SuggestionManager, SuggestionService
+EnquiryManager, EnquiryService
+
 root.RootView, NavigationManager
 auth.RegisterTypeView, NavigationManager
 auth.RegisterView, NavigationManager
 auth.LogInView, NavigationManager
 user.UserOptionsView, NavigationManager, UserManager
-user.ProfileView, NavigationManager, UserManager, CampManager, SuggestionManager
+user.ProfileView, NavigationManager, UserManager, CampManager, EnquiryManager, SuggestionManager
 user.ChangePasswordView
 camp.CreateCampView, NavigationManager
 camp.AllCampsView, NavigationManager, CampManager
@@ -35,6 +43,7 @@ enquiry.CampEnquiriesView, NavigationManager, EnquiryManager
 enquiry.AttendeeCampEnquiriesView, NavigationManager, EnquiryManager
 enquiry.CreatedEnquiryInfoView, NavigationManager
 enquiry.ReplyEnquiryView, NavigationManager
+enquiry.EditEnquiryView, NavigationManager, EnquiryManager
 
 auth.AuthOptions
 auth.UserOptions
@@ -47,13 +56,13 @@ camp.UserCampOptions, UserManager, CampManager
 camp.CampInfoOptions, CampManager
 camp.CreatedCampInfoOptions, CampManager
 camp.RegisteredCampInfoOptions, CampManager, UserManager
-camp.EditCampInfoOptions, CampManager
-camp.EditCampOptions
+camp.EditCampOptions, CampManager
+camp.EditCampInfoOptions
 suggestion.CampSuggestionOptions, CampManager, SuggestionManager
 suggestion.CreateSuggestionOptions, CampManager
 suggestion.CommitteeCampSuggestionsOptions, UserManager, CampManager, SuggestionManager
 suggestion.CreatedSuggestionOptions, CampManager, SuggestionManager
-suggestion.EditSuggestionInfoOptions, CampManager, SuggestionManager
+suggestion.EditSuggestionOptions, CampManager, SuggestionManager
 suggestion.ProcessSuggestionOptions, CampManager, SuggestionManager
 suggestion.SuggestionStatusOptions
 enquiry.EnquiryStatusOptions
@@ -62,6 +71,7 @@ enquiry.EnquiryInfoOptions, EnquiryManager
 enquiry.CreatedEnquiryOptions, EnquiryManager
 enquiry.AttendeeCampEnquiriesOptions, UserManager, CampManager, EnquiryManager
 enquiry.ReplyEnquiryOptions, EnquiryManager
+enquiry.EditEnquiryOptions, EnquiryManager
 
 ConfirmOrDiscardUI
 auth.GetEmailPasswordUI, NavigationManager, AuthManager
@@ -70,23 +80,16 @@ auth.ChangePasswordUI, NavigationManager, UserManager, ConfirmOrDiscardUI
 camp.CreateCampUI, NavigationManager, UserManager, CampManager, GetStringInput, GetDateInput, ConfirmOrDiscardUI
 camp.WithdrawFromCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
 camp.RegisterForCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
-camp.EditCampUI, NavigationManager, CampManager, camp.EditCampOptions, ConfirmOrDiscardUI
+camp.EditCampUI, NavigationManager, CampManager, camp.EditCampInfoOptions, ConfirmOrDiscardUI
 camp.DeleteCampUI, NavigationManager, CampManager, ConfirmOrDiscardUI
-suggestion.CreateSuggestionUI, NavigationManager, UserManager, CampManager, SuggestionManager, camp.EditCampOptions, GetStringInput, ConfirmOrDiscardUI
+suggestion.CreateSuggestionUI, NavigationManager, UserManager, CampManager, SuggestionManager, camp.EditCampInfoOptions, GetStringInput, ConfirmOrDiscardUI
 suggestion.DeleteSuggestionUI, NavigationManager, SuggestionManager, ConfirmOrDiscardUI
-suggestion.EditSuggestionUI, NavigationManager, CampManager, SuggestionManager, camp.EditCampOptions, ConfirmOrDiscardUI
+suggestion.EditSuggestionUI, NavigationManager, CampManager, SuggestionManager, camp.EditCampInfoOptions, ConfirmOrDiscardUI
 suggestion.ProcessSuggestionUI, NavigationManager, UserManager, CampManager, SuggestionManager, ConfirmOrDiscardUI
 enquiry.CreateEnquiryUI, NavigationManager, UserManager, CampManager, EnquiryManager, GetStringInput, ConfirmOrDiscardUI
 enquiry.DeleteEnquiryUI, NavigationManager, EnquiryManager, ConfirmOrDiscardUI
 enquiry.ReplyEnquiryUI, UserManager, EnquiryManager, GetStringInput, ConfirmOrDiscardUI
-
-NavigationManager, NavigationService
-AuthManager, AuthService, UserManager
-UserManager, AuthService
-StudentManager, AuthService
-CampManager, CampService
-SuggestionManager, SuggestionService
-EnquiryManager, EnquiryService
+enquiry.EditEnquiryUI, NavigationManager, EnquiryManager, GetStringInput, ConfirmOrDiscardUI
 
 GetStringInput
 GetDateInput

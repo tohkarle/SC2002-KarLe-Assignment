@@ -15,13 +15,7 @@ public class CreatedEnquiryOptions extends EnquiryInfoOptions {
     @Override
     public void updateEnquiryInfo() {
         super.getEnquiryManager().createTempEnquiry();
-        super.setEnquiry(super.getEnquiryManager().getTempEnquiry());
-        super.setEnquiryInfo();
-        this.setEnquiryInfo();
-    }
-
-    @Override
-    public void setEnquiryInfo() {
+        super.updateEnquiryInfo();
         super.getOptions().addAll(Arrays.asList(
                 "(1) Edit enquiry",
                 "(2) Delete enquiry"

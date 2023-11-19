@@ -4,6 +4,7 @@ import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.CampManager;
+import cams.manager.EnquiryManager;
 import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
 import cams.utils.Dismiss;
@@ -12,6 +13,7 @@ public class ProfileView extends View {
 
     private UserManager userManager;
     private CampManager campManager;
+    private EnquiryManager enquiryManager;
     private SuggestionManager suggestionManager;
 
     // Options:
@@ -19,10 +21,11 @@ public class ProfileView extends View {
 
     // No UI for this view
 
-    public ProfileView(Navigation navigation, UserManager userManager, CampManager campManager, SuggestionManager suggestionManager) {
+    public ProfileView(Navigation navigation, UserManager userManager, CampManager campManager, EnquiryManager enquiryManager, SuggestionManager suggestionManager) {
         super(navigation);
         this.userManager = userManager;
         this.campManager = campManager;
+        this.enquiryManager = enquiryManager;
         this.suggestionManager = suggestionManager;
     }
 
@@ -46,7 +49,9 @@ public class ProfileView extends View {
     }
 
     public void studentSpecificProfile() {
-        System.out.println("Point: " + (suggestionManager.getNumberOfSuggestionsApproved(userManager.getCurrentUser().getName())));
+        int numberOfEnquiriesReplied = enquiryManager.getNumberOfEnquiriesReplied(userManager.getCurrentUser().getName());
+        int numberOfSuggestionsApproved = suggestionManager.getNumberOfSuggestionsApproved(userManager.getCurrentUser().getName());
+        System.out.println("Point: " + (numberOfEnquiriesReplied + numberOfSuggestionsApproved));
         String campName = campManager.committeeMemberFor(userManager.getCurrentUser().getName());
         if (campName != null) {
             System.out.println("Committee member for: " + campName);

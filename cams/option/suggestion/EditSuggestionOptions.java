@@ -6,11 +6,11 @@ import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
 import cams.option.camp.CampInfoOptions;
 
-public class EditSuggestionInfoOptions extends CampInfoOptions {
+public class EditSuggestionOptions extends CampInfoOptions {
 
     private SuggestionManager suggestionManager;
     
-    public EditSuggestionInfoOptions(CampManager campManager, SuggestionManager suggestionManager) {
+    public EditSuggestionOptions(CampManager campManager, SuggestionManager suggestionManager) {
         super(campManager);
         this.suggestionManager = suggestionManager;
     }
