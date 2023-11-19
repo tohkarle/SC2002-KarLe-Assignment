@@ -40,10 +40,10 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
         if (confirm.getValidInt("Confirm register?") != 1) { return; }
 
         // Check for eligibility
-        if (this.notEligible(campManager.getSelectedID(), registrationType)) { return; }
+        if (this.notEligible(campManager.getSelectedCampID(), registrationType)) { return; }
 
         // Register for camp
-        campManager.registerForCamp(userManager.getCurrentUser().getName(), campManager.getSelectedID(), registrationType);
+        campManager.registerForCamp(userManager.getCurrentUser().getName(), campManager.getSelectedCampID(), registrationType);
         LoadingIndicator.registerLoadingIndicator("camp");
     }
 

@@ -81,7 +81,7 @@ public class CreateCampUI implements UI {
         // Create camp
         if (campManager.createCampSuccessful(userManager.getCurrentUser().getName(), name, dates, faculty, visibility)) {
             LoadingIndicator.createLoadingIndicator("camp"); 
-            // navigation.dismissView();
+            navigation.navigateTo("camp.CreatedCampsView");
             return; 
         }
     }

@@ -10,7 +10,7 @@ import cams.model.SuggestionStatus;
 import cams.utils.Dismiss;
 import cams.utils.Page;
 
-public class StudentCampSuggestionOptions extends DismissableSelectableOptions {
+public class CommitteeCampSuggestionsOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
     private ArrayList<Integer> suggestionIDs;
@@ -18,7 +18,7 @@ public class StudentCampSuggestionOptions extends DismissableSelectableOptions {
     private CampManager campManager;
     private SuggestionManager suggestionManager;
 
-    public StudentCampSuggestionOptions(UserManager userManager, CampManager campManager, SuggestionManager suggestionManager) {
+    public CommitteeCampSuggestionsOptions(UserManager userManager, CampManager campManager, SuggestionManager suggestionManager) {
         this.userManager = userManager;
         this.campManager = campManager;
         this.suggestionManager = suggestionManager;
@@ -48,20 +48,20 @@ public class StudentCampSuggestionOptions extends DismissableSelectableOptions {
         if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.PENDING) {
 
             this.noCampTitle = "No pending suggestion for this camp at the moment. Please raise suggestion under 'Raise Suggestion'.";
-            super.setOptions(suggestionManager.getPendingStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedID()));
-            this.suggestionIDs = suggestionManager.getPendingStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedID());
+            super.setOptions(suggestionManager.getPendingStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedCampID()));
+            this.suggestionIDs = suggestionManager.getPendingStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
 
         } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.ACCEPTED) {
 
             this.noCampTitle = "No approved suggestion for this camp at the moment. Please raise suggestion under 'Raise Suggestion'.";
-            super.setOptions(suggestionManager.getAcceptedStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedID()));
-            this.suggestionIDs = suggestionManager.getAcceptedStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedID());
+            super.setOptions(suggestionManager.getAcceptedStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedCampID()));
+            this.suggestionIDs = suggestionManager.getAcceptedStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
 
         } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.REJECTED) {
 
             this.noCampTitle = "No rejected suggestion for this camp at the moment. Please raise suggestion under 'Raise Suggestion'.";
-            super.setOptions(suggestionManager.getRejectedStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedID()));
-            this.suggestionIDs = suggestionManager.getRejectedStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedID());
+            super.setOptions(suggestionManager.getRejectedStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedCampID()));
+            this.suggestionIDs = suggestionManager.getRejectedStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
 
         }
     }

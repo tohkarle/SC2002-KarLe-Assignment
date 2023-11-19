@@ -4,77 +4,91 @@ import java.util.HashMap;
 
 import cams.model.Enquiry;
 import cams.utils.Serialize;
-import cams.utils.UniqueKey;
 
 public class EnquiryService {
 
-    private Integer uniqueKey = 0;
     private HashMap<Integer, Enquiry> enquiryMap; // the Enquiry objects stored in a map
 
     public EnquiryService(){
-        Serialize.checkAndCreateFile("EnquiryMangerKey.sav");
         Serialize.checkAndCreateFile("enquiryMap.sav");
         this.load();
     }
 
-    public void createEnquiry(String studentID, int campID, String content){
-        // Create new enquiry and add to enquiryMap
-        this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
-        while(enquiryMap.get(this.uniqueKey) != null) this.uniqueKey = UniqueKey.generateNewKey(this.uniqueKey);
-        enquiryMap.put(this.uniqueKey, new Enquiry(this.uniqueKey, studentID, campID, content));
+    public HashMap<Integer, Enquiry> getEnquiryMap() {
+        return new HashMap<>(enquiryMap);
     }
 
-    public void editEnquiry(int enquiryID, String content) {
+    public Enquiry getEnquiry(int enquiryID) {
+        return new Enquiry(enquiryMap.get(enquiryID));
+    }
 
-        Enquiry enquiry = enquiryMap.get(enquiryID);
+    public void updateEnquiry(Enquiry enquiry) {
+        int enquiryID = enquiry.getId();
+        if (enquiryMap.containsKey(enquiryID)) {
+            enquiryMap.put(enquiryID, enquiry); // Replace the old enquiry with the new enquiry
+        } else {
+            System.out.println("ERROR: Enquiry with ID " + enquiryID + " does not exist.");
+        }
+    }
 
-        // Cannot edit after enquiry is resolved
-        if (enquiry.isResolved()) { return; }
-
-        enquiry.setContent(content);
+    public void createEnquiry(Enquiry newEnquiry){
+        enquiryMap.put(newEnquiry.getId(), newEnquiry);
     }
 
     public void deleteEnquiry(int enquiryID) {
         enquiryMap.remove(enquiryID);
     }
 
-    public void resolveEnquiry(String userID, int enquiryID, String reply) {
-        Enquiry enquiry = enquiryMap.get(enquiryID);
 
-        // Cannot resolve again after enquiry is resolved
-        if (enquiry.isResolved()) { return; }
-
-        enquiry.setReply(reply);
-        enquiry.setResolvedBy(userID);
-        enquiry.setResolved();
+    public boolean getIsResolved(int enquiryID) {
+        return enquiryMap.get(enquiryID).getIsResolved();
     }
 
-    public String getEnquiryContent(int enquiryID) {
+    public void setIsResolved(int enquiryID, boolean isResolved) {
+        enquiryMap.get(enquiryID).setIsResolved(isResolved);
+    }
+
+    public String getResolvedBy(int enquiryID) {
+        return enquiryMap.get(enquiryID).getResolvedBy();
+    }
+
+    public void setResolvedBy(int enquiryID, String userName) {
+        enquiryMap.get(enquiryID).setResolvedBy(userName);
+    }
+
+    public String getContent(int enquiryID) {
         return enquiryMap.get(enquiryID).getContent();
     }
 
-    public String getEnquiryReply(int enquiryID) {
+    public void setContent(int enquiryID, String content) {
+        enquiryMap.get(enquiryID).setContent(content);
+    }
+
+    public String getReply(int enquiryID) {
         return enquiryMap.get(enquiryID).getReply();
     }
 
-    public String getStudentID(int enquiryID){
-        return enquiryMap.get(enquiryID).getStudentID();
+    public void setReply(int enquiryID, String reply) {
+        enquiryMap.get(enquiryID).setReply(reply);
     }
 
+
     public void save(){
-        Serialize.save("EnquiryMangerKey.sav", uniqueKey);
         Serialize.save("enquiryMap.sav", enquiryMap);
     }
 
     public void load(){
         try{
-            uniqueKey = (Integer)Serialize.load("EnquiryMangerKey.sav");
             @SuppressWarnings("unchecked")
             HashMap<Integer, Enquiry> loadedMap = (HashMap<Integer, Enquiry>)Serialize.load("enquiryMap.sav");
             enquiryMap = loadedMap;
+            if (loadedMap != null) {
+                enquiryMap = loadedMap;
+            } else {
+                enquiryMap = new HashMap<Integer, Enquiry>();
+            }
         }
         catch(Exception ex){
-            uniqueKey = 0;
             enquiryMap = new HashMap<Integer, Enquiry>();
         }
     }

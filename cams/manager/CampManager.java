@@ -37,7 +37,7 @@ public class CampManager {
         this.tempCamp = null;
     }
 
-    public int getSelectedID() {
+    public int getSelectedCampID() {
         return this.selectedCampID;
     }
 

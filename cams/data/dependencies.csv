@@ -3,6 +3,7 @@ NavigationService, DependencyService
 AuthService
 CampService
 SuggestionService
+EnquiryService
 
 root.RootView, NavigationManager
 auth.RegisterTypeView, NavigationManager
@@ -23,11 +24,17 @@ camp.CreatedCampInfoView, NavigationManager
 camp.EditCampView, NavigationManager, CampManager
 suggestion.CampSuggestionsView, NavigationManager, SuggestionManager
 suggestion.CreateSuggestionView, NavigationManager, SuggestionManager, CampManager
-suggestion.StudentCampSuggestionView, NavigationManager, SuggestionManager
+suggestion.CommitteeCampSuggestionsView, NavigationManager, SuggestionManager
 suggestion.CreatedSuggestionInfoView, NavigationManager
 suggestion.EditSuggestionView, NavigationManager, CampManager
-suggestion.ProcessSuggestionView, NavigationManager
+suggestion.ProcessSuggestionView, NavigationManager, SuggestionManager
 suggestion.SuggestionStatusView, NavigationManager, UserManager, SuggestionManager
+enquiry.CreateEnquiryView, NavigationManager
+enquiry.EnquiryStatusView, NavigationManager, UserManager, CampManager, EnquiryManager
+enquiry.CampEnquiriesView, NavigationManager, EnquiryManager
+enquiry.AttendeeCampEnquiriesView, NavigationManager, EnquiryManager
+enquiry.CreatedEnquiryInfoView, NavigationManager
+enquiry.ReplyEnquiryView, NavigationManager
 
 auth.AuthOptions
 auth.UserOptions
@@ -44,17 +51,23 @@ camp.EditCampInfoOptions, CampManager
 camp.EditCampOptions
 suggestion.CampSuggestionOptions, CampManager, SuggestionManager
 suggestion.CreateSuggestionOptions, CampManager
-suggestion.StudentCampSuggestionOptions, UserManager, CampManager, SuggestionManager
+suggestion.CommitteeCampSuggestionsOptions, UserManager, CampManager, SuggestionManager
 suggestion.CreatedSuggestionOptions, CampManager, SuggestionManager
 suggestion.EditSuggestionInfoOptions, CampManager, SuggestionManager
 suggestion.ProcessSuggestionOptions, CampManager, SuggestionManager
 suggestion.SuggestionStatusOptions
+enquiry.EnquiryStatusOptions
+enquiry.CampEnquiryOptions, CampManager, EnquiryManager
+enquiry.EnquiryInfoOptions, EnquiryManager
+enquiry.CreatedEnquiryOptions, EnquiryManager
+enquiry.AttendeeCampEnquiriesOptions, UserManager, CampManager, EnquiryManager
+enquiry.ReplyEnquiryOptions, EnquiryManager
 
+ConfirmOrDiscardUI
 auth.GetEmailPasswordUI, NavigationManager, AuthManager
 auth.GetRegisterInfoUI, auth.RegisterTypeView, AuthManager
 auth.ChangePasswordUI, NavigationManager, UserManager, ConfirmOrDiscardUI
 camp.CreateCampUI, NavigationManager, UserManager, CampManager, GetStringInput, GetDateInput, ConfirmOrDiscardUI
-ConfirmOrDiscardUI
 camp.WithdrawFromCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
 camp.RegisterForCampUI, NavigationManager, UserManager, CampManager, ConfirmOrDiscardUI
 camp.EditCampUI, NavigationManager, CampManager, camp.EditCampOptions, ConfirmOrDiscardUI
@@ -63,6 +76,9 @@ suggestion.CreateSuggestionUI, NavigationManager, UserManager, CampManager, Sugg
 suggestion.DeleteSuggestionUI, NavigationManager, SuggestionManager, ConfirmOrDiscardUI
 suggestion.EditSuggestionUI, NavigationManager, CampManager, SuggestionManager, camp.EditCampOptions, ConfirmOrDiscardUI
 suggestion.ProcessSuggestionUI, NavigationManager, UserManager, CampManager, SuggestionManager, ConfirmOrDiscardUI
+enquiry.CreateEnquiryUI, NavigationManager, UserManager, CampManager, EnquiryManager, GetStringInput, ConfirmOrDiscardUI
+enquiry.DeleteEnquiryUI, NavigationManager, EnquiryManager, ConfirmOrDiscardUI
+enquiry.ReplyEnquiryUI, UserManager, EnquiryManager, GetStringInput, ConfirmOrDiscardUI
 
 NavigationManager, NavigationService
 AuthManager, AuthService, UserManager
@@ -70,6 +86,7 @@ UserManager, AuthService
 StudentManager, AuthService
 CampManager, CampService
 SuggestionManager, SuggestionService
+EnquiryManager, EnquiryService
 
 GetStringInput
 GetDateInput

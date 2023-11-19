@@ -24,18 +24,21 @@ public class RegisteredCampInfoOptions extends CampInfoOptions {
 
     @Override
     public void setCampInfo() {
-        if (super.getCampManager().isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), super.getCampManager().getSelectedID())) {
+        if (super.getCampManager().isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), super.getCampManager().getSelectedCampID())) {
             // Committee member can suggest edit for camp in the registered camp view
             // It will be a view-only display for the camp info so we will need to add number here
             super.getOptions().addAll(Arrays.asList(
-                String.format("(%d) Raise suggestion", 1),
-                String.format("(%d) Manage your suggestions", 2)
+                String.format("(%d) Manage enquiries", 1),
+                String.format("(%d) Raise suggestion", 2),
+                String.format("(%d) Manage your suggestions", 3)
             ));
         } else {
             // Attendee can withdraw from camp in the registered camp view
             // It will be a view-only display for the camp info so we will need to add number here
             super.getOptions().addAll(Arrays.asList(
-                String.format("(%d) Withdraw from camp", 1)
+                String.format("(%d) Raise enquiry", 1),
+                String.format("(%d) Manage your enquiries", 2),
+                String.format("(%d) Withdraw from camp", 3)
             ));
         }
     }

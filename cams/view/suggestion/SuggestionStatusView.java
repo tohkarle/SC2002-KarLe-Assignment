@@ -34,17 +34,19 @@ public class SuggestionStatusView extends View {
             return; 
         }
 
-        // Navigate to respective view
+        // Set the selected status to display corresponding suggestions
         SuggestionStatus suggestionStatus = SuggestionStatus.PENDING;
         if (option == 1) { suggestionStatus = SuggestionStatus.PENDING; }
         if (option == 2) { suggestionStatus = SuggestionStatus.ACCEPTED; }
         if (option == 3) { suggestionStatus = SuggestionStatus.REJECTED; }
         suggestionManager.setSelectedSuggestionStatus(suggestionStatus);
 
+        // Staff can see all suggestions for this camp
+        // Committee can only see their own suggestions for this camp
         if (userManager.isStaff()) {
             super.getNavigation().navigateTo("suggestion.CampSuggestionsView");
         } else {
-            super.getNavigation().navigateTo("suggestion.StudentCampSuggestionView");
+            super.getNavigation().navigateTo("suggestion.CommitteeCampSuggestionsView");
         }
     }
 }

@@ -21,9 +21,9 @@ public class CampSuggestionsView extends View {
     public void render() {
         // Display suggestion
         campSuggestionOptions = super.getOptions("suggestion.CampSuggestionOptions");
-        campSuggestionOptions.display("Select camp to view details:");
+        campSuggestionOptions.display("Select suggestion to view details:");
 
-        // Let user select camp to view details
+        // Let user select suggestion to view details
         int option = campSuggestionOptions.selection();
         if (option == Dismiss.intOption()) { 
             super.getNavigation().dismissView();
@@ -31,7 +31,7 @@ public class CampSuggestionsView extends View {
         }
         suggestionManager.setSelectedSuggestionID(option);
 
-        // Navigate to CampInfoView
+        // Navigate to ProcessSuggestionView
         super.getNavigation().navigateTo("suggestion.ProcessSuggestionView");
     }
 }

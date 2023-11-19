@@ -44,21 +44,21 @@ public class CampSuggestionOptions extends DismissableSelectableOptions {
         // Fetch suggestions from camp, accepted, rejected or pending
         if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.PENDING) {
 
-            this.noCampTitle = "No pending suggestion for this camp at the moment. Please conme back at a later time.";
-            super.setOptions(suggestionManager.getPendingCampSuggestionTitles(campManager.getSelectedID()));
-            this.suggestionIDs = suggestionManager.getPendingCampSuggestionIDs(campManager.getSelectedID());
+            this.noCampTitle = "No pending suggestion for this camp at the moment. Please come back at a later time.";
+            super.setOptions(suggestionManager.getPendingCampSuggestionTitles(campManager.getSelectedCampID()));
+            this.suggestionIDs = suggestionManager.getPendingCampSuggestionIDs(campManager.getSelectedCampID());
 
         } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.ACCEPTED) {
 
-            this.noCampTitle = "No approved suggestion for this camp at the moment. Please conme back at a later time.";
-            super.setOptions(suggestionManager.getAcceptedCampSuggestionTitles(campManager.getSelectedID()));
-            this.suggestionIDs = suggestionManager.getAcceptedCampSuggestionIDs(campManager.getSelectedID());
+            this.noCampTitle = "No approved suggestion for this camp at the moment. Please come back at a later time.";
+            super.setOptions(suggestionManager.getAcceptedCampSuggestionTitles(campManager.getSelectedCampID()));
+            this.suggestionIDs = suggestionManager.getAcceptedCampSuggestionIDs(campManager.getSelectedCampID());
 
         } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.REJECTED) {
 
-            this.noCampTitle = "No rejected suggestion for this camp at the moment. Please conme back at a later time.";
-            super.setOptions(suggestionManager.getRejectedCampSuggestionTitles(campManager.getSelectedID()));
-            this.suggestionIDs = suggestionManager.getRejectedCampSuggestionIDs(campManager.getSelectedID());
+            this.noCampTitle = "No rejected suggestion for this camp at the moment. Please come back at a later time.";
+            super.setOptions(suggestionManager.getRejectedCampSuggestionTitles(campManager.getSelectedCampID()));
+            this.suggestionIDs = suggestionManager.getRejectedCampSuggestionIDs(campManager.getSelectedCampID());
 
         }
     }

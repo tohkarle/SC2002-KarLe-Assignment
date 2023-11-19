@@ -20,7 +20,5 @@ public class CreateCampView extends View {
         Page.header("Please enter the name, faculty, visibility and dates of the camp.");
         getCampInfoUI = super.getUI("camp.CreateCampUI");
         getCampInfoUI.body();
-
-        super.getNavigation().navigateTo("camp.CreatedCampsView");
     }
 }

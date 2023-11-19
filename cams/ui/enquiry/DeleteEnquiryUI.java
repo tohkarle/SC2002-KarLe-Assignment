@@ -1,20 +1,20 @@
-package cams.ui.camp;
+package cams.ui.enquiry;
 
 import cams.components.LoadingIndicator;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
-import cams.manager.CampManager;
+import cams.manager.EnquiryManager;
 
-public class DeleteCampUI implements UI {
+public class DeleteEnquiryUI implements UI {
 
     private Navigation navigation;
-    private CampManager campManager;
+    private EnquiryManager enquiryManager;
     private IntInput confirm;
 
-    public DeleteCampUI(Navigation navigation, CampManager campManager, IntInput confirm) {
+    public DeleteEnquiryUI(Navigation navigation, EnquiryManager enquiryManager, IntInput confirm) {
         this.navigation = navigation;
-        this.campManager = campManager;
+        this.enquiryManager = enquiryManager;
         this.confirm = confirm;
     }
 
@@ -23,9 +23,9 @@ public class DeleteCampUI implements UI {
         // Confirm delete or discard and go back
         if (confirm.getValidInt("Confirm delete?") != 1) { return; }
 
-        // Delete camp
-        campManager.deleteCamp(campManager.getSelectedCampID());
-        LoadingIndicator.deleteLoadingIndicator("camp");
+        // Delete enquiry
+        enquiryManager.deleteEnquiry(enquiryManager.getSelectedEnquiryID());
+        LoadingIndicator.deleteLoadingIndicator("enquiry");
         navigation.dismissView();
     }
 }

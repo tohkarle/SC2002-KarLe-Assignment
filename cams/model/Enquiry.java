@@ -5,19 +5,34 @@ import java.io.Serializable;
 public class Enquiry implements Serializable {
     private int id;
     private int campID;
-    private String studentID;
+    private String studentName;
+    private String title;
     private String content;
     private String reply;
     private Boolean isResolved;
     private String resolvedBy;
 
-    public Enquiry(int id, String studentID, int campID, String content) {
+    public Enquiry(int id, String studentName, int campID, String title, String content) {
+
         this.id = id;
         this.campID = campID;
-        this.studentID = studentID;
-        this.content = "";
+        this.studentName = studentName;
+        this.title = title;
+        this.content = content;
+        this.reply = null;
         this.isResolved = false;
-        this.resolvedBy = "";
+        this.resolvedBy = null;
+    }
+
+    public Enquiry(Enquiry other) {
+        this.id = other.id;
+        this.campID = other.campID;
+        this.studentName = other.studentName;
+        this.title = other.title;
+        this.content = other.content;
+        this.reply = other.reply;
+        this.isResolved = other.isResolved;
+        this.resolvedBy = other.resolvedBy;
     }
 
     public int getId() {
@@ -36,12 +51,20 @@ public class Enquiry implements Serializable {
         this.campID = campID;
     }
 
-    public String getStudentID() {
-        return this.studentID;
+    public String getStudentName() {
+        return this.studentName;
     }
 
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -60,19 +83,19 @@ public class Enquiry implements Serializable {
         this.reply = reply;
     }
 
-    public Boolean isResolved() {
+    public Boolean getIsResolved() {
         return this.isResolved;
     }
 
-    public void setResolved() {
-        this.isResolved = true;
+    public void setIsResolved(boolean isResolved) {
+        this.isResolved = isResolved;
     }
 
     public String getResolvedBy() {
         return this.resolvedBy;
     }
 
-    public void setResolvedBy(String userID) {
-        this.resolvedBy = userID;
+    public void setResolvedBy(String userName) {
+        this.resolvedBy = userName;
     }
 }

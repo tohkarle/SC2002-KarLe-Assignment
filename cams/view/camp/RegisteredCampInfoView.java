@@ -48,25 +48,12 @@ public class RegisteredCampInfoView extends View {
     }
 
     public boolean studentIsCommitteeForThisCamp() {
-        return campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), campManager.getSelectedID());
+        return campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
     }
 
     public void withdrawStudent() {
         // Allow student to go back or withdraw from camp
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 1);
-        if (selectionWithDismiss.getValidInt("Your selection: ") == Dismiss.intOption() ) { 
-            super.getNavigation().dismissView();
-            return; 
-        }
-
-        withdrawFromCampUI = super.getUI("camp.WithdrawFromCampUI");
-        withdrawFromCampUI.body();
-    }
-
-    public void createOrManageSuggestion() {
-
-        // Allow committee to go create or manage suggestion
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 2);
+        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 3);
         int option = selectionWithDismiss.getValidInt("Your selection: ");
         if (option == Dismiss.intOption() ) { 
             super.getNavigation().dismissView();
@@ -75,9 +62,36 @@ public class RegisteredCampInfoView extends View {
 
         switch(option) {
             case 1:
-                super.getNavigation().navigateTo("suggestion.CreateSuggestionView");
+                super.getNavigation().navigateTo("enquiry.CreateEnquiryView");
                 break;
             case 2:
+                super.getNavigation().navigateTo("enquiry.EnquiryStatusView");
+                break;
+            case 3:
+                withdrawFromCampUI = super.getUI("camp.WithdrawFromCampUI");
+                withdrawFromCampUI.body();
+                break;
+        }
+    }
+
+    public void createOrManageSuggestion() {
+
+        // Allow committee to go create or manage suggestion
+        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 3);
+        int option = selectionWithDismiss.getValidInt("Your selection: ");
+        if (option == Dismiss.intOption() ) { 
+            super.getNavigation().dismissView();
+            return; 
+        }
+
+        switch(option) {
+            case 1:
+                super.getNavigation().navigateTo("enquiry.EnquiryStatusView");
+                break;
+            case 2:
+                super.getNavigation().navigateTo("suggestion.CreateSuggestionView");
+                break;
+            case 3:
                 super.getNavigation().navigateTo("suggestion.SuggestionStatusView");
                 break;
         }

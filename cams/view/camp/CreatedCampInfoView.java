@@ -44,6 +44,7 @@ public class CreatedCampInfoView extends View {
                 super.getNavigation().navigateTo("camp.EditCampView");
                 break;
             case 2:
+                super.getNavigation().navigateTo("enquiry.EnquiryStatusView");
                 break;
             case 3:
                 super.getNavigation().navigateTo("suggestion.SuggestionStatusView");
