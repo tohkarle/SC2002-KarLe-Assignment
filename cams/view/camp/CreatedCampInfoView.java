@@ -1,12 +1,10 @@
 package cams.view.camp;
 
-import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
 import cams.option.camp.CampInfoOptions;
 import cams.option.camp.CreatedCampInfoOptions;
-import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Dismiss;
 
 public class CreatedCampInfoView extends View {
@@ -29,11 +27,10 @@ public class CreatedCampInfoView extends View {
         createdCampInfoOptions.updateCampInfo();
 
         // Display created camp details
-        createdCampInfoOptions.viewOnly("Camp details: ");
+        createdCampInfoOptions.display("Camp details: ");
 
         // Allow staff to go back or edit camp, manage enquiries etc
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 5);
-        int option = selectionWithDismiss.getValidInt("Your selection: ");
+        int option = createdCampInfoOptions.selection();
         if (option == Dismiss.intOption() ) { 
             super.getNavigation().dismissView();
             return; 

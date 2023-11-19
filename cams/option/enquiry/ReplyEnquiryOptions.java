@@ -14,6 +14,7 @@ public class ReplyEnquiryOptions extends EnquiryInfoOptions {
 
     @Override
     public void updateEnquiryInfo() {
+        super.getEnquiryManager().createTempEnquiry();
         super.updateEnquiryInfo();
         if (super.getEnquiryManager().getTempEnquiry().getReply() != null && super.getEnquiryManager().getTempEnquiry().getResolvedBy() != null && super.getEnquiryManager().getTempEnquiry().getIsResolved()) {
             super.getOptions().remove("(1) Reply enquiry");

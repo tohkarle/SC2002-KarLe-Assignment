@@ -2,8 +2,10 @@ package cams.option.camp;
 
 import java.util.Arrays;
 
+import cams.interfaces.IntInput;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
+import cams.ui.GetSelectionUI;
 
 public class RegisteredCampInfoOptions extends CampInfoOptions {
 
@@ -17,13 +19,7 @@ public class RegisteredCampInfoOptions extends CampInfoOptions {
     @Override
     public void updateCampInfo() {
         super.getCampManager().createTempCamp();
-        super.setCamp(super.getCampManager().getSelectedCamp());
-        super.setCampInfo();
-        this.setCampInfo();
-    }
-
-    @Override
-    public void setCampInfo() {
+        super.updateCampInfo();
         if (super.getCampManager().isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), super.getCampManager().getSelectedCampID())) {
             // Committee member can suggest edit for camp in the registered camp view
             // It will be a view-only display for the camp info so we will need to add number here
@@ -41,5 +37,11 @@ public class RegisteredCampInfoOptions extends CampInfoOptions {
                 String.format("(%d) Withdraw from camp", 3)
             ));
         }
+    }
+
+    @Override
+    public int selection() {
+        IntInput selection = new GetSelectionUI(-1, 3);
+        return selection.getValidInt("Your selection: ");
     }
 }

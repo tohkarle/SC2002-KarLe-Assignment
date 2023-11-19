@@ -16,10 +16,17 @@ public class CreatedEnquiryOptions extends EnquiryInfoOptions {
     public void updateEnquiryInfo() {
         super.getEnquiryManager().createTempEnquiry();
         super.updateEnquiryInfo();
-        super.getOptions().addAll(Arrays.asList(
-                "(1) Edit enquiry",
-                "(2) Delete enquiry"
-        ));
+        if (!super.getEnquiryManager().getTempEnquiry().getIsResolved()) {
+            super.getOptions().addAll(Arrays.asList(
+                    "(1) Edit enquiry",
+                    "(2) Delete enquiry"
+            ));
+        } else {
+            super.getOptions().addAll(Arrays.asList(
+                String.format("Reply: %s", super.getEnquiryManager().getTempEnquiry().getReply()),
+                String.format("Resolved by: %s", super.getEnquiryManager().getTempEnquiry().getResolvedBy())
+            ));
+        }
     }
 
     @Override

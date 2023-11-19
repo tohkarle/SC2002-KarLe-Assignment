@@ -13,14 +13,8 @@ public class CreateSuggestionOptions extends CampInfoOptions {
 
     @Override
     public void updateCampInfo() {
-        super.setCamp(super.getCampManager().getTempCamp());
-        super.setCampInfo();
-        this.setCampInfo();
-    }
-
-    @Override
-    public void setCampInfo() {
-        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
+        super.updateCampInfo();
+        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCampManager().getTempCamp().getStaffInCharge()));
         super.getOptions().addAll(Arrays.asList(
             "Submit suggestion"
         ));

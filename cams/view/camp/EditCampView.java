@@ -35,7 +35,6 @@ public class EditCampView extends View {
         // Let user choose the field to edit
         int option = editCampOptions.selection();
         if (option == Dismiss.intOption()) { 
-            campManager.clearTempCamp();
             super.getNavigation().dismissView();
             return; 
         }

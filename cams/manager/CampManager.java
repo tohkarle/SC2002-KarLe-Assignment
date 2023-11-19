@@ -29,12 +29,7 @@ public class CampManager {
     }
 
     public Camp getTempCamp() {
-        System.out.println("GET TEMP CAMP");
         return this.tempCamp;
-    }
-
-    public void clearTempCamp() {
-        this.tempCamp = null;
     }
 
     public int getSelectedCampID() {

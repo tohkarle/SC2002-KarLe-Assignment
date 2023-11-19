@@ -32,7 +32,6 @@ public class CreateSuggestionView extends View {
         // Let user choose the field to edit
         int option = createSuggestionOptions.selection();
         if (option == Dismiss.intOption()) { 
-            campManager.clearTempCamp();
             super.getNavigation().dismissView();
             return; 
         }

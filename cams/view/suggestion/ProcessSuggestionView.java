@@ -31,7 +31,7 @@ public class ProcessSuggestionView extends View {
         processSuggestionOptions.updateCampInfo();
 
         // Display suggestion details
-        processSuggestionOptions.viewOnly("Suggestion details: ");
+        processSuggestionOptions.display("Suggestion details: ");
 
         if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.PENDING) {
             // Allo process suggestion if suggestion is pending
@@ -39,7 +39,7 @@ public class ProcessSuggestionView extends View {
             processSuggestionUI.body();
         } else {
             // Let staff view details and go back only
-            if (processSuggestionOptions.dismiss() == Dismiss.intOption()) {
+            if (processSuggestionOptions.selection() == Dismiss.intOption()) {
                 super.getNavigation().dismissView();
             }
         }

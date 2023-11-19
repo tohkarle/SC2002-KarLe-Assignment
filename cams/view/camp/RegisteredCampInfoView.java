@@ -1,6 +1,5 @@
 package cams.view.camp;
 
-import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
@@ -8,7 +7,6 @@ import cams.manager.CampManager;
 import cams.manager.UserManager;
 import cams.option.camp.CampInfoOptions;
 import cams.option.camp.RegisteredCampInfoOptions;
-import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Dismiss;
 
 public class RegisteredCampInfoView extends View {
@@ -36,7 +34,7 @@ public class RegisteredCampInfoView extends View {
         registeredCampInfoOptions.updateCampInfo();
 
         // Display registered camp details
-        registeredCampInfoOptions.viewOnly("Camp details: ");
+        registeredCampInfoOptions.display("Camp details: ");
 
 
 
@@ -53,8 +51,7 @@ public class RegisteredCampInfoView extends View {
 
     public void withdrawStudent() {
         // Allow student to go back or withdraw from camp
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 3);
-        int option = selectionWithDismiss.getValidInt("Your selection: ");
+        int option = registeredCampInfoOptions.selection();
         if (option == Dismiss.intOption() ) { 
             super.getNavigation().dismissView();
             return; 
@@ -77,8 +74,7 @@ public class RegisteredCampInfoView extends View {
     public void createOrManageSuggestion() {
 
         // Allow committee to go create or manage suggestion
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 3);
-        int option = selectionWithDismiss.getValidInt("Your selection: ");
+        int option = registeredCampInfoOptions.selection();
         if (option == Dismiss.intOption() ) { 
             super.getNavigation().dismissView();
             return; 

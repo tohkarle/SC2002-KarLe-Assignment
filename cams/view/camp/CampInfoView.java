@@ -19,12 +19,13 @@ public class CampInfoView extends View {
         campInfoOptions = (CampInfoOptions) super.getOptions("camp.CampInfoOptions");
 
         // Update camp details to latest
+        campInfoOptions.initializeTempCamp();
         campInfoOptions.updateCampInfo();
 
-        campInfoOptions.viewOnly("Camp details: ");
+        campInfoOptions.display("Camp details: ");
 
         // Allow user to go back
-        if (campInfoOptions.dismiss() == Dismiss.intOption()) {
+        if (campInfoOptions.selection() == Dismiss.intOption()) {
             super.getNavigation().dismissView();
             return;
         }

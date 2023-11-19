@@ -1,11 +1,9 @@
 package cams.view.suggestion;
 
-import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
 import cams.option.camp.CampInfoOptions;
-import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Dismiss;
 
 public class CreatedSuggestionInfoView extends View {
@@ -28,11 +26,10 @@ public class CreatedSuggestionInfoView extends View {
         createdSuggestionOptions.updateCampInfo();
 
         // Display created suggestion details
-        createdSuggestionOptions.viewOnly("Suggestion details: ");
+        createdSuggestionOptions.display("Suggestion details: ");
 
         // Allow student to go back or edit suggestion and delete suggestion
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 2);
-        int option = selectionWithDismiss.getValidInt("Your selection: ");
+        int option = createdSuggestionOptions.selection();
         if (option == Dismiss.intOption() ) { 
             super.getNavigation().dismissView();
             return; 

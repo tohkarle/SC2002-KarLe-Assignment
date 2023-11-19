@@ -2,7 +2,9 @@ package cams.option.camp;
 
 import java.util.Arrays;
 
+import cams.interfaces.IntInput;
 import cams.manager.CampManager;
+import cams.ui.GetSelectionUI;
 
 public class CreatedCampInfoOptions extends CampInfoOptions {
 
@@ -13,14 +15,8 @@ public class CreatedCampInfoOptions extends CampInfoOptions {
     @Override
     public void updateCampInfo() {
         super.getCampManager().createTempCamp();
-        super.setCamp(super.getCampManager().getSelectedCamp());
-        super.setCampInfo();
-        this.setCampInfo();
-    }
-
-    @Override
-    public void setCampInfo() {
-        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
+        super.updateCampInfo();
+        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCampManager().getTempCamp().getStaffInCharge()));
         super.getOptions().addAll(Arrays.asList(
             "(1) Edit camp details",
             "(2) Manage enquiries",
@@ -28,5 +24,11 @@ public class CreatedCampInfoOptions extends CampInfoOptions {
             "(4) Create report",
             "(5) Delete Camp"
         ));
+    }
+
+    @Override
+    public int selection() {
+        IntInput selection = new GetSelectionUI(-1, 5);
+        return selection.getValidInt("Your selection: ");
     }
 }
