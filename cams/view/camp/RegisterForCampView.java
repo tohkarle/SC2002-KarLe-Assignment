@@ -20,7 +20,7 @@ public class RegisterForCampView implements View {
         while (true) {
             // Show all available camps
             Options facultyCampOptions = new FacultyCampOptions();
-            facultyCampOptions.display("Select the camp you wish to register. Do note that committee members are only allowed to register other camps as attendee");
+            facultyCampOptions.display("Select the camp you wish to register. Do note that committee members are only allowed to register other camps as attendee.");
 
             // Let user select the camp to register
             int selectedCampID = facultyCampOptions.selection();

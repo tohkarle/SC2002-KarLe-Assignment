@@ -32,9 +32,9 @@ public class NavigationManager implements Navigation {
 
     public void displayView() {
         while (!views.isEmpty()) {
-            for (View view : views) {
-                System.out.println(view);
-            }
+            // for (View view : views) {
+            //     System.out.println(view);
+            // }
             View view = views.peek();
             view.render();
         }

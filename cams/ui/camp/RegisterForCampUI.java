@@ -28,8 +28,6 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptions implements UI {
         userManager = UserManager.getInstance();
         campManager = CampManager.getInstance();
         IntInput confirm = new ConfirmOrDiscard();
-
-        System.out.printf(String.format("Is a committee member: %s\n", campManager.isACommitteeMember(userManager.getCurrentUser().getName())));
         
         // Let user choose to sign up as ATTENDEE or COMMITTEE
         int option = super.getValidInt("Do you want to sign up as ATTENDEE or COMMITTEE?");
@@ -58,7 +56,7 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptions implements UI {
         */
 
         if (campManager.hasRegisteredForCamp(userManager.getCurrentUser().getName(), campID)) {
-            System.out.println("\nRegistration is unsuccessful .You have registered for this camp");
+            System.out.println("\nRegistration is unsuccessful. You have already registered for this camp");
             return true;
         }
 
@@ -73,7 +71,7 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptions implements UI {
         }
 
         if (campManager.hasCampClashes(userManager.getCurrentUser().getName(), campID)) { 
-            System.out.println("\nRegister unsuccessful. This camp has clashes with other camps you have registered.");
+            System.out.println("\nRegister unsuccessful. This camp has clashes in dates with other camps you have registered.");
             return true;
         }
 
