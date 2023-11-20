@@ -1,8 +1,8 @@
 package cams.components.option;
 
+import cams.components.input.GetSelection;
 import cams.interfaces.Displayable;
 import cams.interfaces.IntInput;
-import cams.ui.GetSelectionUI;
 import cams.utils.Page;
 
 public class ViewOnlyOptions extends Options implements Displayable {
@@ -17,7 +17,7 @@ public class ViewOnlyOptions extends Options implements Displayable {
 
     @Override
     public int selection() {
-        IntInput selection = new GetSelectionUI(-1, -1);
+        IntInput selection = new GetSelection(-1, -1);
         return selection.getValidInt("Your selection: ");
     }
 }

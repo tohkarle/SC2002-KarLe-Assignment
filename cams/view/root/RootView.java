@@ -1,10 +1,10 @@
 package cams.view.root;
 
-import cams.components.LoadingIndicator;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.option.auth.AuthOptions;
+import cams.utils.LoadingIndicator;
 import cams.view.auth.LogInView;
 import cams.view.auth.RegisterTypeView;
 

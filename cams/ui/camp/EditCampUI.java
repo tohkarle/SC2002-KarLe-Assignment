@@ -1,6 +1,6 @@
 package cams.ui.camp;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ConfirmOrDiscard;
 import cams.components.option.Options;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
@@ -8,7 +8,7 @@ import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.model.Camp;
 import cams.option.camp.EditCampInfoOptions;
-import cams.ui.ConfirmOrDiscardUI;
+import cams.utils.LoadingIndicator;
 
 public class EditCampUI implements UI {
 
@@ -26,7 +26,7 @@ public class EditCampUI implements UI {
     public void body() {
         
         CampManager campManager = CampManager.getInstance();
-        IntInput confirm = new ConfirmOrDiscardUI();
+        IntInput confirm = new ConfirmOrDiscard();
         Options editCampInfoOptions = new EditCampInfoOptions();
 
         // Create and initialize all UIs for edit camp

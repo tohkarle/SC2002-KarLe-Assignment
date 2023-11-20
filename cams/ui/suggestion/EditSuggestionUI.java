@@ -1,6 +1,6 @@
 package cams.ui.suggestion;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ConfirmOrDiscard;
 import cams.components.option.Options;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
@@ -10,7 +10,6 @@ import cams.manager.SuggestionManager;
 import cams.model.Camp;
 import cams.model.Suggestion;
 import cams.option.camp.EditCampInfoOptions;
-import cams.ui.ConfirmOrDiscardUI;
 import cams.ui.camp.EditCampCommitteeSlotsUI;
 import cams.ui.camp.EditCampDatesUI;
 import cams.ui.camp.EditCampDescriptionUI;
@@ -20,6 +19,7 @@ import cams.ui.camp.EditCampNameUI;
 import cams.ui.camp.EditCampRegiatrationClosingDateUI;
 import cams.ui.camp.EditCampTotalSlotsUI;
 import cams.ui.camp.EditCampVisibilityUI;
+import cams.utils.LoadingIndicator;
 
 public class EditSuggestionUI implements UI {
     
@@ -50,7 +50,7 @@ public class EditSuggestionUI implements UI {
 
         CampManager campManager = CampManager.getInstance();
         SuggestionManager suggestionManager = SuggestionManager.getInstance();
-        IntInput confirm = new ConfirmOrDiscardUI();
+        IntInput confirm = new ConfirmOrDiscard();
         Options editCampInfoOptions = new EditCampInfoOptions();
         Camp camp = suggestion.getCamp();
 

@@ -1,8 +1,8 @@
 package cams.manager;
 
-import cams.components.LoadingIndicator;
 import cams.model.User;
 import cams.service.AuthService;
+import cams.utils.LoadingIndicator;
 
 public class AuthManager {
 

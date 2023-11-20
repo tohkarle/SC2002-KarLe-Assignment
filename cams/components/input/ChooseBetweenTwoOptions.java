@@ -1,15 +1,14 @@
-package cams.ui;
+package cams.components.input;
 
 import cams.Main;
-import cams.components.input.GetOptionInput;
 import cams.utils.Dismiss;
 
-public class ChooseBetweenTwoOptionsUI extends GetOptionInput {
+public class ChooseBetweenTwoOptions extends GetOptionInput {
 
     private String option1;
     private String option2;
 
-    public ChooseBetweenTwoOptionsUI(String option1, String option2) {
+    public ChooseBetweenTwoOptions(String option1, String option2) {
         super(1, 2);
         this.option1 = option1;
         this.option2 = option2;

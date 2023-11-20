@@ -1,12 +1,12 @@
 package cams.view.user;
 
-import cams.components.LoadingIndicator;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.UserManager;
 import cams.option.user.StaffOptions;
 import cams.option.user.StudentOptions;
+import cams.utils.LoadingIndicator;
 import cams.view.camp.AllCampsView;
 import cams.view.camp.CreateCampView;
 import cams.view.camp.CreatedCampsView;

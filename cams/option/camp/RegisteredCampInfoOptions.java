@@ -2,11 +2,11 @@ package cams.option.camp;
 
 import java.util.Arrays;
 
+import cams.components.input.GetSelection;
 import cams.interfaces.IntInput;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
 import cams.model.Camp;
-import cams.ui.GetSelectionUI;
 
 public class RegisteredCampInfoOptions extends CampInfoOptions {
 
@@ -41,7 +41,7 @@ public class RegisteredCampInfoOptions extends CampInfoOptions {
 
     @Override
     public int selection() {
-        IntInput selection = new GetSelectionUI(-1, 3);
+        IntInput selection = new GetSelection(-1, 3);
         return selection.getValidInt("Your selection: ");
     }
 }

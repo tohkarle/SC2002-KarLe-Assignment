@@ -1,11 +1,11 @@
 package cams.ui.suggestion;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ConfirmOrDiscard;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.SuggestionManager;
-import cams.ui.ConfirmOrDiscardUI;
+import cams.utils.LoadingIndicator;
 
 public class DeleteSuggestionUI implements UI {
 
@@ -21,7 +21,7 @@ public class DeleteSuggestionUI implements UI {
 
     @Override
     public void body() {
-        IntInput confirm = new ConfirmOrDiscardUI();
+        IntInput confirm = new ConfirmOrDiscard();
 
         // Confirm delete or discard and go back
         if (confirm.getValidInt("Confirm delete?") != 1) { return; }

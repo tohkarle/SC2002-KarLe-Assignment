@@ -1,6 +1,6 @@
 package cams.ui.suggestion;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ConfirmOrDiscard;
 import cams.components.input.GetStringInput;
 import cams.components.option.Options;
 import cams.interfaces.IntInput;
@@ -12,7 +12,6 @@ import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
 import cams.model.Camp;
 import cams.option.camp.EditCampInfoOptions;
-import cams.ui.ConfirmOrDiscardUI;
 import cams.ui.camp.EditCampCommitteeSlotsUI;
 import cams.ui.camp.EditCampDatesUI;
 import cams.ui.camp.EditCampDescriptionUI;
@@ -23,6 +22,7 @@ import cams.ui.camp.EditCampRegiatrationClosingDateUI;
 import cams.ui.camp.EditCampTotalSlotsUI;
 import cams.ui.camp.EditCampVisibilityUI;
 import cams.utils.Dismiss;
+import cams.utils.LoadingIndicator;
 
 public class CreateSuggestionUI implements UI {
 
@@ -43,7 +43,7 @@ public class CreateSuggestionUI implements UI {
         SuggestionManager suggestionManager = SuggestionManager.getInstance();
         CampManager campManager = CampManager.getInstance();
         StringInput getString = new GetStringInput();
-        IntInput confirm = new ConfirmOrDiscardUI();
+        IntInput confirm = new ConfirmOrDiscard();
         Options editCampInfoOptions = new EditCampInfoOptions();
 
         // Create and initialize all UIs for create suggestion

@@ -1,13 +1,13 @@
 package cams.ui.auth;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ConfirmOrDiscard;
 import cams.components.input.GetStringInput;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.UserManager;
-import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.Dismiss;
+import cams.utils.LoadingIndicator;
 import cams.utils.Page;
 
 public class ChangePasswordUI extends GetStringInput implements UI {
@@ -20,7 +20,7 @@ public class ChangePasswordUI extends GetStringInput implements UI {
     
     public void body() {
         UserManager userManager = UserManager.getInstance();
-        IntInput confirm = new ConfirmOrDiscardUI();
+        IntInput confirm = new ConfirmOrDiscard();
 
         String pass1 = "";
         String pass2 = "";

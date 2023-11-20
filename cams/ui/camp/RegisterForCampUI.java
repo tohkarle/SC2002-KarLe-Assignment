@@ -2,17 +2,17 @@ package cams.ui.camp;
 
 import java.time.LocalDate;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ChooseBetweenTwoOptions;
+import cams.components.input.ConfirmOrDiscard;
 import cams.interfaces.IntInput;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
 import cams.model.RegistrationType;
-import cams.ui.ChooseBetweenTwoOptionsUI;
-import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.Dismiss;
+import cams.utils.LoadingIndicator;
 
-public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
+public class RegisterForCampUI extends ChooseBetweenTwoOptions implements UI {
 
     private UserManager userManager;
     private CampManager campManager;
@@ -27,7 +27,7 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
 
         userManager = UserManager.getInstance();
         campManager = CampManager.getInstance();
-        IntInput confirm = new ConfirmOrDiscardUI();
+        IntInput confirm = new ConfirmOrDiscard();
 
         System.out.printf(String.format("Is a committee member: %s\n", campManager.isACommitteeMember(userManager.getCurrentUser().getName())));
         

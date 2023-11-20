@@ -2,9 +2,9 @@ package cams.option.enquiry;
 
 import java.util.Arrays;
 
+import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.model.Enquiry;
-import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Page;
 
 public class EditEnquiryOptions extends EnquiryInfoOptions {
@@ -28,7 +28,7 @@ public class EditEnquiryOptions extends EnquiryInfoOptions {
 
     @Override
     public int selection() {
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(1, super.getOptionsSize());
+        IntInput selectionWithDismiss = new GetSelectionWithDismiss(1, super.getOptionsSize());
         return selectionWithDismiss.getValidInt("Your selection: ");
     }
 }

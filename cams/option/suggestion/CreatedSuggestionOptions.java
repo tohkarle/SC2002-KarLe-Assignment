@@ -2,11 +2,11 @@ package cams.option.suggestion;
 
 import java.util.Arrays;
 
+import cams.components.input.GetSelection;
 import cams.interfaces.IntInput;
 import cams.model.Suggestion;
 import cams.model.SuggestionStatus;
 import cams.option.camp.CampInfoOptions;
-import cams.ui.GetSelectionUI;
 
 public class CreatedSuggestionOptions extends CampInfoOptions {
     
@@ -33,7 +33,7 @@ public class CreatedSuggestionOptions extends CampInfoOptions {
 
     @Override
     public int selection() {
-        IntInput selection = new GetSelectionUI(-1, 2);
+        IntInput selection = new GetSelection(-1, 2);
         return selection.getValidInt("Your selection: ");
     }
 }

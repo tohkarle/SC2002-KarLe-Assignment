@@ -1,4 +1,4 @@
-package cams.components;
+package cams.utils;
 
 public class LoadingIndicator {
 

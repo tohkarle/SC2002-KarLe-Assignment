@@ -2,9 +2,9 @@ package cams.option.camp;
 
 import java.util.Arrays;
 
+import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.model.Camp;
-import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Page;
 
 public class EditCampOptions extends CampInfoOptions {
@@ -29,7 +29,7 @@ public class EditCampOptions extends CampInfoOptions {
 
     @Override
     public int selection() {
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(1, super.getOptionsSize());
+        IntInput selectionWithDismiss = new GetSelectionWithDismiss(1, super.getOptionsSize());
         return selectionWithDismiss.getValidInt("Your selection: ");
     }
 }

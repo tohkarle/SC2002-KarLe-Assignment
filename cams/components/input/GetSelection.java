@@ -1,11 +1,10 @@
-package cams.ui;
+package cams.components.input;
 
 import cams.Main;
-import cams.components.input.GetOptionInput;
 
-public class GetSelectionUI extends GetOptionInput {
+public class GetSelection extends GetOptionInput {
 
-    public GetSelectionUI(int min, int max) {
+    public GetSelection(int min, int max) {
         super(min, max);
     }
 

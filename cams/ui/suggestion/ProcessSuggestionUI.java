@@ -1,6 +1,7 @@
 package cams.ui.suggestion;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ConfirmOrDiscard;
+import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
@@ -9,9 +10,8 @@ import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
 import cams.model.Suggestion;
 import cams.model.SuggestionStatus;
-import cams.ui.ConfirmOrDiscardUI;
-import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Dismiss;
+import cams.utils.LoadingIndicator;
 
 public class ProcessSuggestionUI implements UI {
     
@@ -31,10 +31,10 @@ public class ProcessSuggestionUI implements UI {
         UserManager userManager = UserManager.getInstance();
         CampManager campManager = CampManager.getInstance();
         SuggestionManager suggestionManager = SuggestionManager.getInstance();
-        IntInput confirm  = new ConfirmOrDiscardUI();
+        IntInput confirm  = new ConfirmOrDiscard();
 
         // Allow staff to go back, approve or reject suggestion
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 2);
+        IntInput selectionWithDismiss = new GetSelectionWithDismiss(-1, 2);
         int option = selectionWithDismiss.getValidInt("Your selection: ");
         if (option == Dismiss.intOption() ) { 
             navigation.dismissView();

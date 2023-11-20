@@ -1,8 +1,8 @@
-package cams.ui;
+package cams.components.input;
 
-public class ConfirmOrDiscardUI extends ChooseBetweenTwoOptionsUI {
+public class ConfirmOrDiscard extends ChooseBetweenTwoOptions {
 
-    public ConfirmOrDiscardUI() {
+    public ConfirmOrDiscard() {
         super("Confirm", "Discard and go back");
     }
 

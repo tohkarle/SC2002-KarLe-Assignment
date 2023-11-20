@@ -3,7 +3,7 @@ package cams.ui.camp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ChooseBetweenTwoOptions;
 import cams.components.input.GetIntInput;
 import cams.interfaces.DateInput;
 import cams.interfaces.IntInput;
@@ -12,8 +12,8 @@ import cams.interfaces.StringInput;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
-import cams.ui.ChooseBetweenTwoOptionsUI;
 import cams.utils.Dismiss;
+import cams.utils.LoadingIndicator;
 
 public class EditCampInfoUI implements UI {
     
@@ -52,7 +52,7 @@ public class EditCampInfoUI implements UI {
         }
 
         // Get visibility
-        GetIntInput getOption = new ChooseBetweenTwoOptionsUI("On", "Off");
+        GetIntInput getOption = new ChooseBetweenTwoOptions("On", "Off");
         int option = getOption.getValidInt("Set visibility");
         boolean visibility = (option == 1);
 

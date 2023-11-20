@@ -1,8 +1,8 @@
 package cams.components.option;
 
+import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.DisplayableSelectable;
 import cams.interfaces.IntInput;
-import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Page;
 
 public class DismissableSelectableOptions extends Options implements DisplayableSelectable {
@@ -15,7 +15,7 @@ public class DismissableSelectableOptions extends Options implements Displayable
 
     @Override
     public int selection() {
-        IntInput selectionWithDismiss = new GetSelectionWithDismissUI(1, super.getOptionsSize());
+        IntInput selectionWithDismiss = new GetSelectionWithDismiss(1, super.getOptionsSize());
         return selectionWithDismiss.getValidInt("Your selection: ");
     }
 }

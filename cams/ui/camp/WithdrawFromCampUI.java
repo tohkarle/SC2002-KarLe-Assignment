@@ -1,12 +1,12 @@
 package cams.ui.camp;
 
-import cams.components.LoadingIndicator;
+import cams.components.input.ConfirmOrDiscard;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
-import cams.ui.ConfirmOrDiscardUI;
+import cams.utils.LoadingIndicator;
 
 public class WithdrawFromCampUI implements UI {
 
@@ -25,7 +25,7 @@ public class WithdrawFromCampUI implements UI {
     @Override
     public void body() {
 
-        IntInput confirm = new ConfirmOrDiscardUI();
+        IntInput confirm = new ConfirmOrDiscard();
 
         System.out.println("Selected camp: " + selectedCampID);
         

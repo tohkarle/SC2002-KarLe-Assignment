@@ -1,11 +1,11 @@
 package cams.ui.camp;
 
+import cams.components.input.ChooseBetweenTwoOptions;
 import cams.interfaces.UI;
 import cams.model.Camp;
-import cams.ui.ChooseBetweenTwoOptionsUI;
 import cams.utils.Dismiss;
 
-public class EditCampVisibilityUI extends ChooseBetweenTwoOptionsUI implements UI {
+public class EditCampVisibilityUI extends ChooseBetweenTwoOptions implements UI {
 
     private Camp camp;
     private String title;
