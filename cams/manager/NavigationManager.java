@@ -32,6 +32,7 @@ public class NavigationManager implements Navigation {
 
     public void displayView() {
         while (!views.isEmpty()) {
+            System.out.println("\nWelcome to the Camp Application and Management System");
             // for (View view : views) {
             //     System.out.println(view);
             // }
@@ -47,16 +48,19 @@ public class NavigationManager implements Navigation {
 
     @Override
     public void navigateTo(View view) {
+        clearTerminal();
         views.push(view);
     }
 
     @Override
     public void dismissView() {
+        clearTerminal();
         views.pop();
     }
 
     @Override
     public void popToRoot() {
+        clearTerminal();
         views.clear();
         views.push(rootView);
         views.push(new UserOptionsView(this));
@@ -68,5 +72,10 @@ public class NavigationManager implements Navigation {
             return null;  // No previous view
         }
         return views.get(views.size() - 2).getClass();
+    }
+
+    public void clearTerminal() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

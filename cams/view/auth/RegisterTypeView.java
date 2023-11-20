@@ -27,6 +27,6 @@ public class RegisterTypeView implements View {
         }
 
         boolean isStaff = (option == 1);
-        navigation.navigateTo(new RegisterView(isStaff));
+        navigation.navigateTo(new RegisterView(navigation, isStaff));
     }
 }

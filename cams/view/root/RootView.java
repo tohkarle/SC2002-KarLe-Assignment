@@ -18,7 +18,7 @@ public class RootView implements View {
 
     public void render() {
 
-        System.out.println("\nWelcome to the Camp Application and Management System");
+        // System.out.println("\nWelcome to the Camp Application and Management System");
 
         Options authOptions = new AuthOptions();
         authOptions.display("Would you like to register or log in?");

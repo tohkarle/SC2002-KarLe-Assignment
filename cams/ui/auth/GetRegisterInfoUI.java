@@ -4,22 +4,21 @@ import cams.components.input.GetStringInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.AuthManager;
-import cams.manager.NavigationManager;
 import cams.utils.Dismiss;
 import cams.view.user.UserOptionsView;
 
 public class GetRegisterInfoUI extends GetStringInput implements UI {
 
+    private Navigation navigation;
     private boolean isStaff;
 
-    public GetRegisterInfoUI(boolean isStaff) {
+    public GetRegisterInfoUI(Navigation navigation, boolean isStaff) {
+        this.navigation = navigation;
         this.isStaff = isStaff;
     }
 
     @Override
     public void body() {
-
-        Navigation navigation = NavigationManager.getInstance();
         AuthManager authManager = AuthManager.getInstance();
         
         // Get email
