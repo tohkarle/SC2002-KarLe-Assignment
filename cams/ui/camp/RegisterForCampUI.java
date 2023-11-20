@@ -4,30 +4,30 @@ import java.time.LocalDate;
 
 import cams.components.LoadingIndicator;
 import cams.interfaces.IntInput;
-import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
 import cams.model.RegistrationType;
 import cams.ui.ChooseBetweenTwoOptionsUI;
+import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.Dismiss;
 
 public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
 
-    // private Navigation navigation;
     private UserManager userManager;
     private CampManager campManager;
-    private IntInput confirm;
+    private int selectedCampID;
 
-    public RegisterForCampUI(Navigation navigation, UserManager userManager, CampManager campManager, IntInput confirm) {
+    public RegisterForCampUI(int selectedCampID) {
         super("ATTENDEE", "COMMITTEE");
-        // this.navigation = navigation;
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.confirm = confirm;
+        this.selectedCampID = selectedCampID;
     }
 
     public void body() {
+
+        userManager = UserManager.getInstance();
+        campManager = CampManager.getInstance();
+        IntInput confirm = new ConfirmOrDiscardUI();
 
         System.out.printf(String.format("Is a committee member: %s\n", campManager.isACommitteeMember(userManager.getCurrentUser().getName())));
         
@@ -40,10 +40,10 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptionsUI implements UI {
         if (confirm.getValidInt("Confirm register?") != 1) { return; }
 
         // Check for eligibility
-        if (this.notEligible(campManager.getSelectedCampID(), registrationType)) { return; }
+        if (this.notEligible(selectedCampID, registrationType)) { return; }
 
         // Register for camp
-        campManager.registerForCamp(userManager.getCurrentUser().getName(), campManager.getSelectedCampID(), registrationType);
+        campManager.registerForCamp(userManager.getCurrentUser().getName(), selectedCampID, registrationType);
         LoadingIndicator.registerLoadingIndicator("camp");
     }
 

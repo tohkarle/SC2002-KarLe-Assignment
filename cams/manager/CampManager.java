@@ -12,44 +12,22 @@ import cams.utils.UniqueKey;
 
 public class CampManager {
 
+    private static CampManager instance;
     private CampService campService;
-    private int selectedCampID;
-    private int selectedCampInfo;
 
-    private Camp tempCamp;
-
-    public CampManager(CampService campService) {
-        this.campService = campService;
-        this.selectedCampID = -1;
+    public CampManager() {
+        this.campService = new CampService();
     }
 
-    public void createTempCamp() {
-        System.out.println("FETCH FROM DATABASE");
-        this.tempCamp = campService.getCamp(selectedCampID);
+    public static CampManager getInstance() {
+        if (instance == null) {
+            instance = new CampManager();
+        }
+        return instance;
     }
 
-    public Camp getTempCamp() {
-        return this.tempCamp;
-    }
-
-    public int getSelectedCampID() {
-        return this.selectedCampID;
-    }
-
-    public void setSelectedCampID(int option) {
-        this.selectedCampID = option;
-    }
-
-    public int getSelectedCampInfo() {
-        return this.selectedCampInfo;
-    }
-
-    public void setSelectedCampInfo(int option) {
-        this.selectedCampInfo = option;
-    }
-
-    public Camp getSelectedCamp() {
-        return campService.getCamp(selectedCampID);
+    public Camp getCamp(int campID) {
+        return campService.getCamp(campID);
     }
 
     public ArrayList<Camp> getAllCamps() {

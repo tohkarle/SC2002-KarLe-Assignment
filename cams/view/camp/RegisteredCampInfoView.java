@@ -1,94 +1,95 @@
 package cams.view.camp;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
-import cams.option.camp.CampInfoOptions;
+import cams.model.Camp;
 import cams.option.camp.RegisteredCampInfoOptions;
+import cams.ui.camp.WithdrawFromCampUI;
 import cams.utils.Dismiss;
+import cams.view.enquiry.CreateEnquiryView;
+import cams.view.enquiry.EnquiryStatusView;
+import cams.view.suggestion.CreateSuggestionView;
+import cams.view.suggestion.SuggestionStatusView;
 
-public class RegisteredCampInfoView extends View {
+public class RegisteredCampInfoView implements View {
 
+    private Camp camp;
+    private Navigation navigation;
+    private int selectedCampID;
     private UserManager userManager;
     private CampManager campManager;
-    
-    // Options for this view:
-    private CampInfoOptions registeredCampInfoOptions;
+    private Options registeredCampInfoOptions;
 
-    // UIs for this view:
-    private UI withdrawFromCampUI;
-
-    public RegisteredCampInfoView(Navigation navigation, UserManager userManager, CampManager campManager) {
-        super(navigation);
-        this.userManager = userManager;
-        this.campManager = campManager;
+    public RegisteredCampInfoView(Navigation navigation, int selectedCampID) {
+        this.navigation = navigation;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
 
-        registeredCampInfoOptions = (RegisteredCampInfoOptions) super.getOptions("camp.RegisteredCampInfoOptions");
-
-        // Update registered camp details to latest
-        registeredCampInfoOptions.updateCampInfo();
+        userManager = UserManager.getInstance();
+        campManager = CampManager.getInstance();
+        camp = campManager.getCamp(selectedCampID);
+        registeredCampInfoOptions = new RegisteredCampInfoOptions(camp);
 
         // Display registered camp details
         registeredCampInfoOptions.display("Camp details: ");
 
-
-
         if (studentIsCommitteeForThisCamp()) {
-            createOrManageSuggestion();
+            committeeOptions();
         } else {
-            withdrawStudent();
+            attendeeOptions();
         }
     }
 
     public boolean studentIsCommitteeForThisCamp() {
-        return campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
+        return campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), selectedCampID);
     }
 
-    public void withdrawStudent() {
-        // Allow student to go back or withdraw from camp
+    public void attendeeOptions() {
+        // Allow student to go back, create enquiry, manage their enquiries or withdraw from camp
         int option = registeredCampInfoOptions.selection();
         if (option == Dismiss.intOption() ) { 
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return; 
         }
 
         switch(option) {
             case 1:
-                super.getNavigation().navigateTo("enquiry.CreateEnquiryView");
+                navigation.navigateTo(new CreateEnquiryView(navigation, selectedCampID));
                 break;
             case 2:
-                super.getNavigation().navigateTo("enquiry.EnquiryStatusView");
+                navigation.navigateTo(new EnquiryStatusView(navigation, selectedCampID));
                 break;
             case 3:
-                withdrawFromCampUI = super.getUI("camp.WithdrawFromCampUI");
+                UI withdrawFromCampUI = new WithdrawFromCampUI(navigation, userManager, campManager, selectedCampID);
                 withdrawFromCampUI.body();
                 break;
         }
     }
 
-    public void createOrManageSuggestion() {
+    public void committeeOptions() {
 
-        // Allow committee to go create or manage suggestion
+        // Allow committee to manage camp enquiries, create suggestion or manage their suggestions
         int option = registeredCampInfoOptions.selection();
         if (option == Dismiss.intOption() ) { 
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return; 
         }
 
         switch(option) {
             case 1:
-                super.getNavigation().navigateTo("enquiry.EnquiryStatusView");
+                navigation.navigateTo(new EnquiryStatusView(navigation, selectedCampID));
                 break;
             case 2:
-                super.getNavigation().navigateTo("suggestion.CreateSuggestionView");
+                navigation.navigateTo(new CreateSuggestionView(navigation, camp));
                 break;
             case 3:
-                super.getNavigation().navigateTo("suggestion.SuggestionStatusView");
+                navigation.navigateTo(new SuggestionStatusView(navigation, selectedCampID));
                 break;
         }
     }

@@ -8,14 +8,18 @@ import cams.utils.UniqueKey;
 
 public class EnquiryManager {
 
-    private int selectedEnquiryID;
-    private int selectedEnquiryInfo;
-    private boolean viewResolvedEnquiries;
+    private static EnquiryManager instance;
     private EnquiryService enquiryService;
-    private Enquiry tempEnquiry;
 
-    public EnquiryManager(EnquiryService enquiryService) {
-        this.enquiryService = enquiryService;
+    private EnquiryManager() {
+        this.enquiryService = new EnquiryService();
+    }
+
+    public static EnquiryManager getInstance() {
+        if (instance == null) {
+            instance = new EnquiryManager();
+        }
+        return instance;
     }
 
     public void updateEnquiry(Enquiry enquiry) {
@@ -23,36 +27,8 @@ public class EnquiryManager {
         enquiryService.save();
     }
 
-    public void createTempEnquiry() {
-        this.tempEnquiry = enquiryService.getEnquiry(selectedEnquiryID);
-    }
-
-    public Enquiry getTempEnquiry() {
-        return this.tempEnquiry;
-    }
-
-    public int getSelectedEnquiryInfo() {
-        return this.selectedEnquiryInfo;
-    }
-
-    public void setSelectedEnquiryInfo(int option) {
-        this.selectedEnquiryInfo = option;
-    }
-
-    public int getSelectedEnquiryID() {
-        return this.selectedEnquiryID;
-    }
-
-    public void setSelectedEnquiryID(int option) {
-        this.selectedEnquiryID = option;
-    }
-
-    public boolean getViewResolvedEnquiries() {
-        return this.viewResolvedEnquiries;
-    }
-
-    public void setViewResolvedEnquiries(boolean viewResolvedEnquiries) {
-        this.viewResolvedEnquiries = viewResolvedEnquiries;
+    public Enquiry getEnquiry(int enquiryID) {
+        return enquiryService.getEnquiry(enquiryID);
     }
 
     public void createEnquiry(String studentName, int campID, String title, String content){

@@ -3,35 +3,36 @@ package cams.view.suggestion;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.manager.SuggestionManager;
+import cams.model.SuggestionStatus;
+import cams.option.suggestion.CampSuggestionOptions;
 import cams.utils.Dismiss;
 
-public class CampSuggestionsView extends View {
+public class CampSuggestionsView implements View {
 
-    private SuggestionManager suggestionManager;
+    private Navigation navigation;
+    private SuggestionStatus suggestionStatus;
+    private int selectedCampID;
 
-    // Options for this view:
-    private Options campSuggestionOptions;
-
-    public CampSuggestionsView(Navigation navigation, SuggestionManager suggestionManager) {
-        super(navigation);
-        this.suggestionManager  = suggestionManager;
+    public CampSuggestionsView(Navigation navigation, SuggestionStatus suggestionStatus, int selectedCampID) {
+        this.navigation = navigation;
+        this.suggestionStatus = suggestionStatus;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
+
         // Display suggestion
-        campSuggestionOptions = super.getOptions("suggestion.CampSuggestionOptions");
+        Options campSuggestionOptions = new CampSuggestionOptions(suggestionStatus, selectedCampID);
         campSuggestionOptions.display("Select suggestion to view details:");
 
         // Let user select suggestion to view details
-        int option = campSuggestionOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedSuggestionID = campSuggestionOptions.selection();
+        if (selectedSuggestionID == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        suggestionManager.setSelectedSuggestionID(option);
 
         // Navigate to ProcessSuggestionView
-        super.getNavigation().navigateTo("suggestion.ProcessSuggestionView");
+        navigation.navigateTo(new ProcessSuggestionView(navigation, selectedSuggestionID, suggestionStatus));
     }
 }

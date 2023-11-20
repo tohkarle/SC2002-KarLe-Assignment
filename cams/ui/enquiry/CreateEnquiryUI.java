@@ -1,35 +1,33 @@
 package cams.ui.enquiry;
 
 import cams.components.LoadingIndicator;
+import cams.components.input.GetStringInput;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.StringInput;
 import cams.interfaces.UI;
-import cams.manager.CampManager;
 import cams.manager.EnquiryManager;
 import cams.manager.UserManager;
+import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.Dismiss;
 
 public class CreateEnquiryUI implements UI {
     
     private Navigation navigation;
-    private UserManager userManager;
-    private CampManager campManager;
-    private EnquiryManager enquiryManager;
-    private StringInput getString;
-    private IntInput confirm;
+    private int selectedCampID;
 
-    public CreateEnquiryUI(Navigation navigation, UserManager userManager, CampManager campManager, EnquiryManager enquiryManager, StringInput getString, IntInput confirm) {
+    public CreateEnquiryUI(Navigation navigation, int selectedCampID) {
         this.navigation = navigation;
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.enquiryManager = enquiryManager;
-        this.getString = getString;
-        this.confirm = confirm;
+        this.selectedCampID = selectedCampID;
     }
 
     @Override
     public void body() {
+
+        UserManager userManager = UserManager.getInstance();
+        EnquiryManager enquiryManager = EnquiryManager.getInstance();
+        StringInput getString = new GetStringInput();
+        IntInput confirm = new ConfirmOrDiscardUI();
 
         // Get title
         String title = getString.getValidString("Enter title: ");
@@ -52,7 +50,7 @@ public class CreateEnquiryUI implements UI {
         }
 
         // Create enquriry
-        enquiryManager.createEnquiry(userManager.getCurrentUser().getName(), campManager.getSelectedCampID(), title, content);
+        enquiryManager.createEnquiry(userManager.getCurrentUser().getName(), selectedCampID, title, content);
         LoadingIndicator.submitLoadingIndicator("enquiry");
         navigation.dismissView();
     }

@@ -1,32 +1,35 @@
 package cams.view.camp;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
+import cams.manager.CampManager;
+import cams.model.Camp;
 import cams.option.camp.CampInfoOptions;
 import cams.utils.Dismiss;
 
-public class CampInfoView extends View {
+public class CampInfoView implements View {
 
-    // Options for this view:
-    private CampInfoOptions campInfoOptions;
+    private Navigation navigation;
+    private int selectedCampID;
 
-    public CampInfoView(Navigation navigation) {
-        super(navigation);
+    public CampInfoView(Navigation navigation, int selectedCampID) {
+        this.navigation = navigation;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
 
-        campInfoOptions = (CampInfoOptions) super.getOptions("camp.CampInfoOptions");
+        CampManager campManager = CampManager.getInstance();
+        Camp camp = campManager.getCamp(selectedCampID);
+        Options campInfoOptions = new CampInfoOptions(camp);
 
-        // Update camp details to latest
-        campInfoOptions.initializeTempCamp();
-        campInfoOptions.updateCampInfo();
-
+        // Display camp details
         campInfoOptions.display("Camp details: ");
 
         // Allow user to go back
         if (campInfoOptions.selection() == Dismiss.intOption()) {
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return;
         }
     }

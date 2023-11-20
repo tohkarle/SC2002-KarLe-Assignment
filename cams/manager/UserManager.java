@@ -2,19 +2,17 @@ package cams.manager;
 
 import cams.model.Staff;
 import cams.model.User;
-import cams.service.AuthService;
 
 public class UserManager {
 
+    private static UserManager instance;
     private User currentUser;
-    private AuthService authService;
 
-    public UserManager(AuthService authService) {
-        this.authService = authService;
-    }
-
-    public AuthService getAuthService() {
-        return this.authService;
+    public static UserManager getInstance() {
+        if (instance == null) {
+            instance = new UserManager();
+        }
+        return instance;
     }
 
     public User getCurrentUser() {
@@ -30,42 +28,10 @@ public class UserManager {
     }
 
     public void updatePassword(String newPassword) {
-        authService.updatePassword(currentUser.getName(), newPassword);
+        AuthManager.getInstance().updatePassword(currentUser.getName(), newPassword);
     }
 
     public boolean isAuthenticated() {
         return (this.currentUser != null);
     }
-
-    // public String getName(int userID){
-    //     return ((User)userMap.get(userID)).getName();
-    // }
-
-    // public String getEmail(int userID){
-    //     return ((User)userMap.get(userID)).getEmail();
-    // }
-
-    // public String getFaculty(int userID){
-    //     return ((User)userMap.get(userID)).getFaculty();
-    // }
-
-    // public Boolean hasDefaultPassword(int userID){
-    //     return ((User)userMap.get(userID)).checkPassword("password");
-    // }
-
-    // public boolean passwordIsCorrect(int userID, String password) {
-    //     return ((User)userMap.get(userID)).checkPassword(password);
-    // }
-
-    // public void setPassword(int userID, String password){
-    //     ((User)userMap.get(userID)).setPassword(password);
-    // }
-
-    // public void addToUserCampIDs(int userID, int campID) {
-    //     ((User)userMap.get(userID)).addToCampIDsList(campID);
-    // }
-
-    // public void removeFromUserCampIDs(int userID, int campID) {
-    //     ((User)userMap.get(userID)).removeCamp(campID);
-    // }
 }

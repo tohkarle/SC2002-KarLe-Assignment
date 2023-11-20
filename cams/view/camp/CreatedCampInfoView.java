@@ -1,30 +1,34 @@
 package cams.view.camp;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.option.camp.CampInfoOptions;
+import cams.manager.CampManager;
+import cams.model.Camp;
 import cams.option.camp.CreatedCampInfoOptions;
+import cams.ui.camp.DeleteCampUI;
 import cams.utils.Dismiss;
+import cams.view.enquiry.EnquiryStatusView;
+import cams.view.suggestion.SuggestionStatusView;
 
-public class CreatedCampInfoView extends View {
-    
-    // Options for this view:
-    private CampInfoOptions createdCampInfoOptions;
+public class CreatedCampInfoView implements View {
 
-    // UIs for this view:
-    private UI deleteCampUI;
+    private Navigation navigation;
+    private int selectedCampID;
+    private Camp camp;
 
-    public CreatedCampInfoView(Navigation navigation) {
-        super(navigation);
+    public CreatedCampInfoView(Navigation navigation, int selectedCampID) {
+        this.navigation = navigation;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
 
-        createdCampInfoOptions = (CreatedCampInfoOptions) super.getOptions("camp.CreatedCampInfoOptions");
-
-        // Update created camp details to latest
-        createdCampInfoOptions.updateCampInfo();
+        CampManager campManager = CampManager.getInstance();
+        
+        this.camp = campManager.getCamp(selectedCampID);
+        Options createdCampInfoOptions = new CreatedCampInfoOptions(camp);
 
         // Display created camp details
         createdCampInfoOptions.display("Camp details: ");
@@ -32,24 +36,24 @@ public class CreatedCampInfoView extends View {
         // Allow staff to go back or edit camp, manage enquiries etc
         int option = createdCampInfoOptions.selection();
         if (option == Dismiss.intOption() ) { 
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return; 
         }
 
         switch (option) {
             case 1:
-                super.getNavigation().navigateTo("camp.EditCampView");
+                navigation.navigateTo(new EditCampView(navigation, camp));
                 break;
             case 2:
-                super.getNavigation().navigateTo("enquiry.EnquiryStatusView");
+                navigation.navigateTo(new EnquiryStatusView(navigation, selectedCampID));
                 break;
             case 3:
-                super.getNavigation().navigateTo("suggestion.SuggestionStatusView");
+                navigation.navigateTo(new SuggestionStatusView(navigation, selectedCampID));
                 break;
             case 4:
                 break;
             case 5:
-                deleteCampUI = super.getUI("camp.DeleteCampUI");
+                UI deleteCampUI = new DeleteCampUI(navigation, selectedCampID);
                 deleteCampUI.body();
                 break;
         }

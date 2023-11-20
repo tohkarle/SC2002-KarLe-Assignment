@@ -3,18 +3,18 @@ package cams.option.enquiry;
 import java.util.Arrays;
 
 import cams.interfaces.IntInput;
-import cams.manager.EnquiryManager;
+import cams.model.Enquiry;
 import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Page;
 
 public class EditEnquiryOptions extends EnquiryInfoOptions {
-    public EditEnquiryOptions(EnquiryManager enquiryManager) {
-        super(enquiryManager);
+
+    public EditEnquiryOptions(Enquiry enquiry) {
+        super(enquiry);
+        this.changeOption();
     }
 
-    @Override
-    public void updateEnquiryInfo() {
-        super.updateEnquiryInfo();
+    public void changeOption() {
         super.getOptions().addAll(Arrays.asList(
                 "Update changes"
         ));

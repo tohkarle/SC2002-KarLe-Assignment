@@ -23,7 +23,7 @@ public class Suggestion implements Serializable {
         this.id = other.id;
         this.studentName = other.studentName;
         this.title = other.title;
-        this.camp = other.camp;
+        this.camp = new Camp(other.camp);
         this.processedBy = other.processedBy;
         this.suggestionStatus = other.suggestionStatus;
     }

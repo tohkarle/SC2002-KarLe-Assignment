@@ -16,7 +16,6 @@ public class AuthService {
     private static HashMap<String, User> userMap;
 
     public AuthService(){
-        Serialize.checkAndCreateFile("UserManagerKey.sav");
         Serialize.checkAndCreateFile("userMap.sav");
         this.load();
     }

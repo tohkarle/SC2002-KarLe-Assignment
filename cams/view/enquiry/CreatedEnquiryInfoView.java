@@ -1,29 +1,30 @@
 package cams.view.enquiry;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.option.enquiry.EnquiryInfoOptions;
+import cams.manager.EnquiryManager;
+import cams.model.Enquiry;
+import cams.option.enquiry.CreatedEnquiryOptions;
+import cams.ui.enquiry.DeleteEnquiryUI;
 import cams.utils.Dismiss;
 
-public class CreatedEnquiryInfoView extends View {
+public class CreatedEnquiryInfoView implements View {
 
-    // Options for this view:
-    private EnquiryInfoOptions createdSuggestionOptions;
+    private Navigation navigation;
+    private int selectedEnquiryID;
 
-    // UIs for this view:
-    private UI deleteEnquiryUI;
-
-    public CreatedEnquiryInfoView(Navigation navigation) {
-        super(navigation);
+    public CreatedEnquiryInfoView(Navigation navigation, int selectedEnquiryID) {
+        this.navigation = navigation;
+        this.selectedEnquiryID = selectedEnquiryID;
     }
 
     public void render() {
 
-        createdSuggestionOptions = (EnquiryInfoOptions) super.getOptions("enquiry.CreatedEnquiryOptions");
-
-        // Update created enquiry details to latest
-        createdSuggestionOptions.updateEnquiryInfo();
+        EnquiryManager enquiryManager = EnquiryManager.getInstance();
+        Enquiry enquiry = enquiryManager.getEnquiry(selectedEnquiryID);
+        Options createdSuggestionOptions = new CreatedEnquiryOptions(enquiry);
 
         // Display created enquiry details
         createdSuggestionOptions.display("Enquiry details: ");
@@ -31,16 +32,16 @@ public class CreatedEnquiryInfoView extends View {
         // Allow student to go back or edit enquiry and delete enquiry
         int option = createdSuggestionOptions.selection();
         if (option == Dismiss.intOption() ) { 
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return; 
         }
 
         switch (option) {
             case 1:
-                super.getNavigation().navigateTo("enquiry.EditEnquiryView");
+                navigation.navigateTo(new EditEnquiryView(navigation, enquiry));
                 break;
             case 2:
-                deleteEnquiryUI = super.getUI("enquiry.DeleteEnquiryUI");
+                UI deleteEnquiryUI = new DeleteEnquiryUI(navigation, selectedEnquiryID);
                 deleteEnquiryUI.body();
                 break;
         }

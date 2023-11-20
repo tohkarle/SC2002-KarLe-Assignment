@@ -3,35 +3,35 @@ package cams.view.enquiry;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.manager.EnquiryManager;
+import cams.option.enquiry.CampEnquiryOptions;
 import cams.utils.Dismiss;
 
-public class CampEnquiriesView extends View {
+public class CampEnquiriesView implements View {
 
-    private EnquiryManager enquiryManager;
+    private Navigation navigation;
+    private boolean viewResolved;
+    private int selectedCampID;
 
-    // Options for this view:
-    private Options campEnquiryOptions;
-
-    public CampEnquiriesView(Navigation navigation, EnquiryManager enquiryManager) {
-        super(navigation);
-        this.enquiryManager  = enquiryManager;
+    public CampEnquiriesView(Navigation navigation, boolean viewResolved, int selectedCampID) {
+        this.navigation = navigation;
+        this.viewResolved = viewResolved;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
+
         // Display enquiry
-        campEnquiryOptions = super.getOptions("enquiry.CampEnquiryOptions");
+        Options campEnquiryOptions = new CampEnquiryOptions(viewResolved, selectedCampID);
         campEnquiryOptions.display("Select enquiry to view details:");
 
         // Let user select enquiry to view details
-        int option = campEnquiryOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedEnquiryID = campEnquiryOptions.selection();
+        if (selectedEnquiryID == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        enquiryManager.setSelectedEnquiryID(option);
 
         // Navigate to ReplyEnquiryView
-        super.getNavigation().navigateTo("enquiry.ReplyEnquiryView");
+        navigation.navigateTo(new ReplyEnquiryView(navigation, selectedEnquiryID));
     }
 }

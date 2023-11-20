@@ -5,19 +5,20 @@ import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.AuthManager;
 import cams.utils.Dismiss;
+import cams.view.user.UserOptionsView;
 
 public class GetEmailPasswordUI extends GetStringInput implements UI {
 
     private Navigation navigation;
-    private AuthManager authManager;
 
-    public GetEmailPasswordUI(Navigation navigation, AuthManager authManager) {
+    public GetEmailPasswordUI(Navigation navigation) {
         this.navigation = navigation;
-        this.authManager = authManager;
     }
 
     @Override
     public void body() {
+        AuthManager authManager = AuthManager.getInstance();
+
         String email = super.getValidString("Enter email: ");
         if (email.equals(Dismiss.stringOption())) { 
             navigation.dismissView();
@@ -32,8 +33,8 @@ public class GetEmailPasswordUI extends GetStringInput implements UI {
 
         if (authManager.logInSuccessful(email, password)) { 
             navigation.dismissView();
-            navigation.navigateTo("user.UserOptionsView");
-            return; 
+            navigation.navigateTo(new UserOptionsView(navigation));
+            return;
         }
     }
 }

@@ -7,28 +7,32 @@ import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
+import cams.model.Suggestion;
 import cams.model.SuggestionStatus;
+import cams.ui.ConfirmOrDiscardUI;
 import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Dismiss;
 
 public class ProcessSuggestionUI implements UI {
     
     private Navigation navigation;
-    private UserManager userManager;
-    private CampManager campManager;
-    private SuggestionManager suggestionManager;
-    private IntInput confirm;
+    private Suggestion suggestion;
+    private int selectedSuggestionID;
 
-    public ProcessSuggestionUI(Navigation navigation, UserManager userManager, CampManager campManager, SuggestionManager suggestionManager, IntInput confirm) {
+    public ProcessSuggestionUI(Navigation navigation, Suggestion suggestion, int selectedSuggestionID) {
         this.navigation = navigation;
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.suggestionManager = suggestionManager;
-        this.confirm = confirm;
+        this.suggestion = suggestion;
+        this.selectedSuggestionID = selectedSuggestionID;
     }
 
     @Override
     public void body() {
+
+        UserManager userManager = UserManager.getInstance();
+        CampManager campManager = CampManager.getInstance();
+        SuggestionManager suggestionManager = SuggestionManager.getInstance();
+        IntInput confirm  = new ConfirmOrDiscardUI();
+
         // Allow staff to go back, approve or reject suggestion
         IntInput selectionWithDismiss = new GetSelectionWithDismissUI(-1, 2);
         int option = selectionWithDismiss.getValidInt("Your selection: ");
@@ -42,7 +46,7 @@ public class ProcessSuggestionUI implements UI {
 
 
         // Check if suggestion has been processed before
-        if (suggestionManager.getTempSuggestion().getSuggestionStatus() != SuggestionStatus.PENDING) {
+        if (suggestion.getSuggestionStatus() != SuggestionStatus.PENDING) {
             System.out.println("Suggestion has already been processed.");
             navigation.dismissView();
             return;
@@ -50,11 +54,11 @@ public class ProcessSuggestionUI implements UI {
 
         // Process suggestion
         SuggestionStatus suggestionStatus = (option == 1) ? SuggestionStatus.ACCEPTED : SuggestionStatus.REJECTED;
-        suggestionManager.processSuggestion(userManager.getCurrentUser().getName(), suggestionManager.getSelectedSuggestionID(), suggestionStatus);
+        suggestionManager.processSuggestion(userManager.getCurrentUser().getName(), selectedSuggestionID, suggestionStatus);
 
         // If approved, updates actual camp
         if (option == 1) {
-            campManager.updateCamp(suggestionManager.getTempSuggestion().getCamp());
+            campManager.updateCamp(suggestion.getCamp());
         }
         
         LoadingIndicator.processLoadingIndicator("suggestion");

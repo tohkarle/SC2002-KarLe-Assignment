@@ -4,7 +4,8 @@ import java.util.Stack;
 
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.service.NavigationService;
+import cams.view.root.RootView;
+import cams.view.user.UserOptionsView;
 
 /**
  * RootController is a class that implements the Navigation interface and manages the navigation flow of views in the application.
@@ -14,12 +15,19 @@ import cams.service.NavigationService;
  */
 public class NavigationManager implements Navigation {
 
+    private static NavigationManager instance;
     private Stack<View> views;
-    private NavigationService navigationService;
+    private View rootView;
 
-    public NavigationManager(NavigationService navigationService) {
+    public NavigationManager() {
         this.views = new Stack<>();
-        this.navigationService = navigationService;
+    }
+
+    public static NavigationManager getInstance() {
+        if (instance == null) {
+            instance = new NavigationManager();
+        }
+        return instance;
     }
 
     public void displayView() {
@@ -27,19 +35,19 @@ public class NavigationManager implements Navigation {
             for (View view : views) {
                 System.out.println(view);
             }
-            getPreviousView();
             View view = views.peek();
             view.render();
         }
     }
 
     public void initializeRootView() {
-        views.push(this.navigationService.getView("root.RootView"));
+        rootView = new RootView(this);
+        views.push(rootView);
     }
 
     @Override
-    public void navigateTo(String viewName) {
-        views.push(navigationService.getView(viewName));
+    public void navigateTo(View view) {
+        views.push(view);
     }
 
     @Override
@@ -50,17 +58,15 @@ public class NavigationManager implements Navigation {
     @Override
     public void popToRoot() {
         views.clear();
-        views.push(this.navigationService.getView("root.RootView"));
-        views.push(this.navigationService.getView("user.UserOptionsView"));
+        views.push(rootView);
+        views.push(new UserOptionsView(this));
     }
 
     @Override
-    public String getPreviousView() {
+    public Class<?>  getPreviousView() {
         if (views.size() < 2) {
             return null;  // No previous view
         }
-        String name = navigationService.getViewName(views.get(views.size() - 2));
-        System.out.println("Previous view: " + name);
-        return name;
+        return views.get(views.size() - 2).getClass();
     }
 }

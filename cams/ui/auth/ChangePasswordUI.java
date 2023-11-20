@@ -6,22 +6,21 @@ import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.UserManager;
+import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.Dismiss;
 import cams.utils.Page;
 
 public class ChangePasswordUI extends GetStringInput implements UI {
 
     private Navigation navigation;
-    private UserManager userManager;
-    private IntInput confirm;
 
-    public ChangePasswordUI(Navigation navigation, UserManager userManager, IntInput confirm) {
+    public ChangePasswordUI(Navigation navigation) {
         this.navigation = navigation;
-        this.userManager = userManager;
-        this.confirm = confirm;
     }
     
     public void body() {
+        UserManager userManager = UserManager.getInstance();
+        IntInput confirm = new ConfirmOrDiscardUI();
 
         String pass1 = "";
         String pass2 = "";

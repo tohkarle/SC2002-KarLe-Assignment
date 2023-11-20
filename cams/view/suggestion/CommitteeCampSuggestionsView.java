@@ -3,35 +3,37 @@ package cams.view.suggestion;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.manager.SuggestionManager;
+import cams.model.SuggestionStatus;
+import cams.option.suggestion.CommitteeCampSuggestionsOptions;
 import cams.utils.Dismiss;
 
-public class CommitteeCampSuggestionsView extends View {
+public class CommitteeCampSuggestionsView implements View {
 
-    private SuggestionManager suggestionManager;
+    private Navigation navigation;
+    private SuggestionStatus suggestionStatus;
+    private int selectedCampID;
 
-    // Options for this view:
-    private Options CommitteeCampSuggestionsOptions;
 
-    public CommitteeCampSuggestionsView(Navigation navigation, SuggestionManager suggestionManager) {
-        super(navigation);
-        this.suggestionManager = suggestionManager;
+    public CommitteeCampSuggestionsView(Navigation navigation, SuggestionStatus suggestionStatus, int selectedCampID) {
+        this.navigation = navigation;
+        this.suggestionStatus = suggestionStatus;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
+
         // Display suggestions
-        CommitteeCampSuggestionsOptions = super.getOptions("suggestion.CommitteeCampSuggestionsOptions");
-        CommitteeCampSuggestionsOptions.display("Select suggestion to view details:");
+        Options committeeCampSuggestionsOptions = new CommitteeCampSuggestionsOptions(suggestionStatus, selectedCampID);
+        committeeCampSuggestionsOptions.display("Select suggestion to view details:");
 
         // Let user select suggestion to view details
-        int option = CommitteeCampSuggestionsOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedSuggestionID = committeeCampSuggestionsOptions.selection();
+        if (selectedSuggestionID == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        suggestionManager.setSelectedSuggestionID(option);
 
         // Navigate to CreatedSuggestionInfoView
-        super.getNavigation().navigateTo("suggestion.CreatedSuggestionInfoView");
+        navigation.navigateTo(new CreatedSuggestionInfoView(navigation, selectedSuggestionID, suggestionStatus));
     }
 }

@@ -5,22 +5,22 @@ import java.util.Arrays;
 import cams.interfaces.IntInput;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
+import cams.model.Camp;
 import cams.ui.GetSelectionUI;
 
 public class RegisteredCampInfoOptions extends CampInfoOptions {
 
-    private UserManager userManager;
-
-    public RegisteredCampInfoOptions(CampManager campManager, UserManager userManager) {
-        super(campManager);
-        this.userManager = userManager;
+    public RegisteredCampInfoOptions(Camp camp) {
+        super(camp);
+        this.changeOption();
     }
 
-    @Override
-    public void updateCampInfo() {
-        super.getCampManager().createTempCamp();
-        super.updateCampInfo();
-        if (super.getCampManager().isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), super.getCampManager().getSelectedCampID())) {
+    public void changeOption() {
+
+        UserManager userManager = UserManager.getInstance();
+        CampManager campManager = CampManager.getInstance();
+
+        if (campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), super.getCamp().getId())) {
             // Committee member can suggest edit for camp in the registered camp view
             // It will be a view-only display for the camp info so we will need to add number here
             super.getOptions().addAll(Arrays.asList(

@@ -4,46 +4,42 @@ import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.CampManager;
-import cams.manager.EnquiryManager;
 import cams.manager.UserManager;
+import cams.option.enquiry.EnquiryStatusOptions;
 import cams.utils.Dismiss;
 
-public class EnquiryStatusView extends View {
+public class EnquiryStatusView implements View {
 
-    private UserManager userManager;
-    private CampManager campManager;
-    private EnquiryManager enquiryManager;
+    private Navigation navigation;
+    private int selectedCampID;
 
-    // Options for this view:
-    private Options enquiryStatusOptions;
-
-    public EnquiryStatusView(Navigation navigation, UserManager userManager, CampManager campManager, EnquiryManager enquiryManager) {
-        super(navigation);
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.enquiryManager  = enquiryManager;
+    public EnquiryStatusView(Navigation navigation, int selectedCampID) {
+        this.navigation = navigation;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
+
+        UserManager userManager = UserManager.getInstance();
+        CampManager campManager = CampManager.getInstance();
+        Options enquiryStatusOptions = new EnquiryStatusOptions();
+
         // Display suggestion type options
-        enquiryStatusOptions = super.getOptions("enquiry.EnquiryStatusOptions");
         enquiryStatusOptions.display("Select enquiry status:");
 
         // Let user select which enquiry type to view
         int option = enquiryStatusOptions.selection();
         if (option == Dismiss.intOption()) {
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return; 
         }
 
-        // Navigate to respective view
-        enquiryManager.setViewResolvedEnquiries(option != 1);
+        boolean viewResolved = (option != 1);
 
-        if (userManager.isStaff() || campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), campManager.getSelectedCampID())) {
-            System.out.println("ENQUIRY: " + enquiryManager.getViewResolvedEnquiries());
-            super.getNavigation().navigateTo("enquiry.CampEnquiriesView");
+        if (userManager.isStaff() || campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), selectedCampID)) {
+            navigation.navigateTo(new CampEnquiriesView(navigation, viewResolved, selectedCampID));
         } else {
-            super.getNavigation().navigateTo("enquiry.AttendeeCampEnquiriesView");
+            navigation.navigateTo(new AttendeeCampEnquiriesView(navigation, viewResolved, selectedCampID));
         }
     }
 }

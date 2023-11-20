@@ -1,41 +1,41 @@
 package cams.view.enquiry;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.option.enquiry.EnquiryInfoOptions;
+import cams.manager.EnquiryManager;
+import cams.model.Enquiry;
+import cams.option.enquiry.ReplyEnquiryOptions;
+import cams.ui.enquiry.ReplyEnquiryUI;
 import cams.utils.Dismiss;
 
-public class ReplyEnquiryView extends View {
+public class ReplyEnquiryView implements View {
 
-    // Options for this view:
-    private EnquiryInfoOptions replyEnquiryOptions;
+    private Navigation navigation;
+    private int selectedEnquiryID;
 
-    // UIs for this view:
-    private UI replyEnquiryUI;
-
-    public ReplyEnquiryView(Navigation navigation) {
-        super(navigation);
+    public ReplyEnquiryView(Navigation navigation, int selectedEnquiryID) {
+        this.navigation = navigation;
+        this.selectedEnquiryID = selectedEnquiryID;
     }
 
     public void render() {
-
-        replyEnquiryOptions = (EnquiryInfoOptions) super.getOptions("enquiry.ReplyEnquiryOptions");
-
-        // Update enquiry details to latest
-        replyEnquiryOptions.updateEnquiryInfo();
+        EnquiryManager enquiryManager = EnquiryManager.getInstance();
+        Enquiry enquiry = enquiryManager.getEnquiry(selectedEnquiryID);
+        Options replyEnquiryOptions = new ReplyEnquiryOptions(enquiry);
 
         // Display enquiry details
         replyEnquiryOptions.display("Enquiry details: ");
 
         // Let user choose to go back or reply enquiry
         if (replyEnquiryOptions.selection() == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return; 
         }
 
         // Reply enquiry
-        replyEnquiryUI = super.getUI("enquiry.ReplyEnquiryUI");
+        UI replyEnquiryUI = new ReplyEnquiryUI(enquiry);
         replyEnquiryUI.body();
     }
 }

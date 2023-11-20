@@ -12,12 +12,8 @@ public class FacultyCampOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
     private ArrayList<Integer> campIDs;
-    private UserManager userManager;
-    private CampManager campManager;
 
-    public FacultyCampOptions(UserManager userManager, CampManager campManager) {
-        this.userManager = userManager;
-        this.campManager = campManager;
+    public FacultyCampOptions() {
         this.fetchFacultyCamps();
     }
 
@@ -39,6 +35,10 @@ public class FacultyCampOptions extends DismissableSelectableOptions {
     }
 
     private void fetchFacultyCamps() {
+        
+        UserManager userManager = UserManager.getInstance();
+        CampManager campManager = CampManager.getInstance();
+
         // Fetch all camps from faculty
         this.noCampTitle = "No camp has been created under this faculty. Please conme back at a later time.";
         super.setOptions(campManager.getAllFacultyCampNames(userManager.getCurrentUser().getFaculty()));

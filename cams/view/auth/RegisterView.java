@@ -1,25 +1,22 @@
 package cams.view.auth;
 
-import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
+import cams.ui.auth.GetRegisterInfoUI;
 import cams.utils.Page;
 
-public class RegisterView extends View {
+public class RegisterView implements View {
 
-    // No options for this view
+    private boolean isStaff;
 
-    // UIs for this view:
-    private UI getRegisterInfoUI;
-
-    public RegisterView(Navigation navigation) {
-        super(navigation);
+    public RegisterView(boolean isStaff) {
+        this.isStaff = isStaff;
     }
 
     public void render() {
         // Enter user info
         Page.header("Please enter your email, name, faculty and password."); 
-        getRegisterInfoUI = super.getUI("auth.GetRegisterInfoUI");
+        UI getRegisterInfoUI = new GetRegisterInfoUI(isStaff);
         getRegisterInfoUI.body();
     }
 }

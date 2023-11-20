@@ -3,20 +3,22 @@ package cams.view.enquiry;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
+import cams.ui.enquiry.CreateEnquiryUI;
 import cams.utils.Page;
 
-public class CreateEnquiryView extends View {
+public class CreateEnquiryView implements View {
 
-    // UIs in this view:
-    private UI createEnquiryUi;
+    private Navigation navigation;
+    private int selectedCampID;
 
-    public CreateEnquiryView(Navigation navigation) {
-        super(navigation);
+    public CreateEnquiryView(Navigation navigation, int selectedCampID) {
+        this.navigation = navigation;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
         Page.header("Please enter a title and content for the enquiry.");
-        createEnquiryUi = super.getUI("enquiry.CreateEnquiryUI");
+        UI createEnquiryUi = new CreateEnquiryUI(navigation, selectedCampID);
         createEnquiryUi.body();
     }
 }

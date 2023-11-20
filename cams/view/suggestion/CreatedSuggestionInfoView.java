@@ -1,29 +1,33 @@
 package cams.view.suggestion;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.option.camp.CampInfoOptions;
+import cams.manager.SuggestionManager;
+import cams.model.Suggestion;
+import cams.model.SuggestionStatus;
+import cams.option.suggestion.CreatedSuggestionOptions;
+import cams.ui.suggestion.DeleteSuggestionUI;
 import cams.utils.Dismiss;
 
-public class CreatedSuggestionInfoView extends View {
+public class CreatedSuggestionInfoView implements View {
 
-    // Options for this view:
-    private CampInfoOptions createdSuggestionOptions;
+    private Navigation navigation;
+    private int selectedSuggestionID;
+    private SuggestionStatus suggestionStatus;
 
-    // UIs for this view:
-    private UI deleteSuggestionUI;
-
-    public CreatedSuggestionInfoView(Navigation navigation) {
-        super(navigation);
+    public CreatedSuggestionInfoView(Navigation navigation, int selectedSuggestionID, SuggestionStatus suggestionStatus) {
+        this.navigation = navigation;
+        this.selectedSuggestionID = selectedSuggestionID;
+        this.suggestionStatus = suggestionStatus;
     }
 
     public void render() {
 
-        createdSuggestionOptions = (CampInfoOptions) super.getOptions("suggestion.CreatedSuggestionOptions");
-
-        // Update created suggestion details to latest
-        createdSuggestionOptions.updateCampInfo();
+        SuggestionManager suggestionManager = SuggestionManager.getInstance();
+        Suggestion suggestion = suggestionManager.getSuggestion(selectedSuggestionID);
+        Options createdSuggestionOptions = new CreatedSuggestionOptions(suggestion, suggestionStatus);
 
         // Display created suggestion details
         createdSuggestionOptions.display("Suggestion details: ");
@@ -31,16 +35,16 @@ public class CreatedSuggestionInfoView extends View {
         // Allow student to go back or edit suggestion and delete suggestion
         int option = createdSuggestionOptions.selection();
         if (option == Dismiss.intOption() ) { 
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return; 
         }
 
         switch (option) {
             case 1:
-                super.getNavigation().navigateTo("suggestion.EditSuggestionView");
+                navigation.navigateTo(new EditSuggestionView(navigation, suggestion));
                 break;
             case 2:
-                deleteSuggestionUI = super.getUI("suggestion.DeleteSuggestionUI");
+                UI deleteSuggestionUI = new DeleteSuggestionUI(navigation, suggestionManager, selectedSuggestionID);
                 deleteSuggestionUI.body();
                 break;
         }

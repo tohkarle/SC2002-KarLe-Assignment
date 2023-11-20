@@ -3,24 +3,22 @@ package cams.view.auth;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
+import cams.ui.auth.GetEmailPasswordUI;
 import cams.utils.Page;
 
-public class LogInView extends View {
+public class LogInView implements View {
 
-    // No options for this view
-
-    // UIs for this view:
-    private UI getEmailPasswordUI;
+    private Navigation navigation;
 
     public LogInView(Navigation navigation) {
-        super(navigation);
+        this.navigation = navigation;
     }
 
     public void render() {
         Page.header("Log in");
 
         // Get email and password
-        getEmailPasswordUI = super.getUI("auth.GetEmailPasswordUI");
+        UI getEmailPasswordUI = new GetEmailPasswordUI(navigation);
         getEmailPasswordUI.body();
     }
 }

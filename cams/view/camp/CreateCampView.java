@@ -3,22 +3,20 @@ package cams.view.camp;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
+import cams.ui.camp.CreateCampUI;
 import cams.utils.Page;
 
-public class CreateCampView extends View {
+public class CreateCampView implements View {
 
-    // No options in this view
-
-    // UIs in this view:
-    private UI getCampInfoUI;
+    private Navigation navigation;
 
     public CreateCampView(Navigation navigation) {
-        super(navigation);
+        this.navigation = navigation;
     }
 
     public void render() {
         Page.header("Please enter the name, faculty, visibility and dates of the camp.");
-        getCampInfoUI = super.getUI("camp.CreateCampUI");
+        UI getCampInfoUI = new CreateCampUI(navigation);
         getCampInfoUI.body();
     }
 }

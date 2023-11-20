@@ -3,38 +3,30 @@ package cams.view.auth;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
+import cams.option.auth.UserOptions;
 import cams.utils.Dismiss;
 
-public class RegisterTypeView extends View {
+public class RegisterTypeView implements View {
 
-    private boolean isStaff;
-
-    // Options for this view:
-    private Options userOptions;
-
-    // No UI for this view
+    private Navigation navigation;
 
     public RegisterTypeView(Navigation navigation) {
-        super(navigation);
-        isStaff = false;
+        this.navigation = navigation;
     }
 
     public void render() {
+
         // Choose to register as staff or student
-        userOptions = super.getOptions("auth.UserOptions");
+        Options userOptions = new UserOptions();
         userOptions.display("Do you want to register as a Staff or a Student?");
         int option = userOptions.selection();
 
         if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView(); 
+            navigation.dismissView(); 
             return;
         }
 
-        isStaff = (option == 1);
-        super.getNavigation().navigateTo("auth.RegisterView");
-    }
-
-    public boolean getIsStaff() {
-        return this.isStaff;
+        boolean isStaff = (option == 1);
+        navigation.navigateTo(new RegisterView(isStaff));
     }
 }

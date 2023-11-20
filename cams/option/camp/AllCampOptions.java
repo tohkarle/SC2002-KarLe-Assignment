@@ -11,10 +11,8 @@ public class AllCampOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
     private ArrayList<Integer> campIDs;
-    private CampManager campManager;
 
-    public AllCampOptions(CampManager campManager) {
-        this.campManager = campManager;
+    public AllCampOptions() {
         this.fetchAllCamps();
     }
 
@@ -36,6 +34,7 @@ public class AllCampOptions extends DismissableSelectableOptions {
     }
 
     private void fetchAllCamps() {
+        CampManager campManager = CampManager.getInstance();
         // Fetch all camps
         this.noCampTitle = "No camp has been created.";
         super.setOptions(campManager.getAllCampNames());

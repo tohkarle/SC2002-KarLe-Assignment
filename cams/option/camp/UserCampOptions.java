@@ -12,12 +12,8 @@ public class UserCampOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
     private ArrayList<Integer> campIDs;
-    private UserManager userManager;
-    private CampManager campManager;
 
-    public UserCampOptions(UserManager userManager, CampManager campManager) {
-        this.userManager = userManager;
-        this.campManager = campManager;
+    public UserCampOptions() {
         this.fetchUserCamps();
     }
 
@@ -38,6 +34,9 @@ public class UserCampOptions extends DismissableSelectableOptions {
     }
 
     public void fetchUserCamps() {
+        CampManager campManager = CampManager.getInstance();
+        UserManager userManager = UserManager.getInstance();
+        
         if (userManager.isStaff() ) {
             // Fetch all camps created by staff
             this.noCampTitle = "No camp has been created by you. Go to 'Create camp' to create a new camp.";

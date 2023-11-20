@@ -3,7 +3,6 @@ package cams.option.enquiry;
 import java.util.ArrayList;
 
 import cams.components.option.DismissableSelectableOptions;
-import cams.manager.CampManager;
 import cams.manager.EnquiryManager;
 import cams.manager.UserManager;
 import cams.utils.Dismiss;
@@ -13,15 +12,13 @@ public class AttendeeCampEnquiriesOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
     private ArrayList<Integer> enquiryIDs;
-    private UserManager userManager;
-    private CampManager campManager;
-    private EnquiryManager enquiryManager;
+    private boolean viewResolved;
+    private int selectedCampID;
 
-    public AttendeeCampEnquiriesOptions(UserManager userManager, CampManager campManager, EnquiryManager enquiryManager) {
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.enquiryManager = enquiryManager;
+    public AttendeeCampEnquiriesOptions(boolean viewResolved, int selectedCampID) {
+        this.viewResolved = viewResolved;
         this.fetchStudentCampEnquiries();
+        this.selectedCampID = selectedCampID;
     }
 
     @Override
@@ -43,18 +40,21 @@ public class AttendeeCampEnquiriesOptions extends DismissableSelectableOptions {
 
     private void fetchStudentCampEnquiries() {
 
+        UserManager userManager = UserManager.getInstance();
+        EnquiryManager enquiryManager = EnquiryManager.getInstance();
+
         // Fetch enquiries from camp, resolved or not
-        if (enquiryManager.getViewResolvedEnquiries()) {
+        if (viewResolved) {
 
             this.noCampTitle = "No resolved enquiry for this camp at the moment.";
-            super.setOptions(enquiryManager.getResolvedStudentCampEnquiryTitles(userManager.getCurrentUser().getName(), campManager.getSelectedCampID()));
-            this.enquiryIDs = enquiryManager.getResolvedStudentCampEnquiryIDs(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
+            super.setOptions(enquiryManager.getResolvedStudentCampEnquiryTitles(userManager.getCurrentUser().getName(), selectedCampID));
+            this.enquiryIDs = enquiryManager.getResolvedStudentCampEnquiryIDs(userManager.getCurrentUser().getName(), selectedCampID);
 
         } else {
 
             this.noCampTitle = "No pending enquiry for this camp at the moment.";
-            super.setOptions(enquiryManager.getNotResolvedStudentCampEnquiryTitles(userManager.getCurrentUser().getName(), campManager.getSelectedCampID()));
-            this.enquiryIDs = enquiryManager.getNotResolvedStudentCampEnquiryIDs(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
+            super.setOptions(enquiryManager.getNotResolvedStudentCampEnquiryTitles(userManager.getCurrentUser().getName(), selectedCampID));
+            this.enquiryIDs = enquiryManager.getNotResolvedStudentCampEnquiryIDs(userManager.getCurrentUser().getName(), selectedCampID);
 
         }
     }

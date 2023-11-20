@@ -3,20 +3,18 @@ package cams.option.camp;
 import java.util.Arrays;
 
 import cams.interfaces.IntInput;
-import cams.manager.CampManager;
+import cams.model.Camp;
 import cams.ui.GetSelectionUI;
 
 public class CreatedCampInfoOptions extends CampInfoOptions {
 
-    public CreatedCampInfoOptions(CampManager campManager) {
-        super(campManager);
+    public CreatedCampInfoOptions(Camp camp) {
+        super(camp);
+        this.changeOption();
     }
 
-    @Override
-    public void updateCampInfo() {
-        super.getCampManager().createTempCamp();
-        super.updateCampInfo();
-        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCampManager().getTempCamp().getStaffInCharge()));
+    public void changeOption() {
+        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
         super.getOptions().addAll(Arrays.asList(
             "(1) Edit camp details",
             "(2) Manage enquiries",

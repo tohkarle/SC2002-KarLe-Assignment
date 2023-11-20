@@ -1,42 +1,48 @@
 package cams.ui.enquiry;
 
 import cams.components.LoadingIndicator;
+import cams.components.input.GetStringInput;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.StringInput;
 import cams.interfaces.UI;
 import cams.manager.EnquiryManager;
+import cams.model.Enquiry;
+import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.Dismiss;
 
 public class EditEnquiryUI implements UI {
 
     private Navigation navigation;
-    private EnquiryManager enquiryManager;
-    private StringInput getString;
-    private IntInput confirm;
+    private int selectedEnquiryInfo;
+    private Enquiry enquiry;
 
-    public EditEnquiryUI(Navigation navigation, EnquiryManager enquiryManager, StringInput getString, IntInput confirm) {
+    public EditEnquiryUI(Navigation navigation, int selectedEnquiryInfo, Enquiry enquiry) {
         this.navigation = navigation;
-        this.enquiryManager = enquiryManager;
-        this.getString = getString;
-        this.confirm = confirm;
+        this.selectedEnquiryInfo = selectedEnquiryInfo;
+        this.enquiry = enquiry;
     }
 
     public void body() {
-        switch(enquiryManager.getSelectedEnquiryInfo()) {
+
+        EnquiryManager enquiryManager = EnquiryManager.getInstance();
+        StringInput getString = new GetStringInput();
+        IntInput confirm = new ConfirmOrDiscardUI();
+
+        switch(selectedEnquiryInfo) {
             case 1:
                 String title = getString.getValidString("Edit title: ");
                 if (title.equals(Dismiss.stringOption())) { return; }
-                enquiryManager.getTempEnquiry().setTitle(title);
+                enquiry.setTitle(title);
                 break;
             case 2:
                 String content = getString.getValidString("Edit content: ");
                 if (content.equals(Dismiss.stringOption())) { return; }
-                enquiryManager.getTempEnquiry().setContent(content);
+                enquiry.setContent(content);
                 break;
             case 3:
                 if (confirm.getValidInt("Confirm changes?") != 1) { return; }
-                enquiryManager.updateEnquiry(enquiryManager.getTempEnquiry());
+                enquiryManager.updateEnquiry(enquiry);
                 LoadingIndicator.editingLoadingIndicator("enquiry");
                 navigation.dismissView();
 

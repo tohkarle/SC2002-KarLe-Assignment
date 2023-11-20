@@ -3,26 +3,24 @@ package cams.option.suggestion;
 import java.util.Arrays;
 
 import cams.interfaces.IntInput;
-import cams.manager.CampManager;
-import cams.manager.SuggestionManager;
+import cams.model.Suggestion;
 import cams.option.camp.CampInfoOptions;
 import cams.ui.GetSelectionWithDismissUI;
 import cams.utils.Page;
 
 public class EditSuggestionOptions extends CampInfoOptions {
 
-    private SuggestionManager suggestionManager;
+    private Suggestion suggestion;
     
-    public EditSuggestionOptions(CampManager campManager, SuggestionManager suggestionManager) {
-        super(campManager);
-        this.suggestionManager = suggestionManager;
+    public EditSuggestionOptions(Suggestion suggestion) {
+        super(suggestion.getCamp());
+        this.suggestion = suggestion;
+        this.changeOption();
     }
 
-    @Override
-    public void updateCampInfo() {
-        super.updateCampInfo();
-        super.getOptions().add(0, String.format("Title: %s", suggestionManager.getTempSuggestion().getTitle()));
-        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCampManager().getTempCamp().getStaffInCharge()));
+    public void changeOption() {
+        super.getOptions().add(0, String.format("Title: %s", suggestion.getTitle()));
+        super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
         super.getOptions().addAll(Arrays.asList(
             "Update changes"
         ));

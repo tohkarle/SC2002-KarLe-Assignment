@@ -3,35 +3,35 @@ package cams.view.enquiry;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.manager.EnquiryManager;
+import cams.option.enquiry.AttendeeCampEnquiriesOptions;
 import cams.utils.Dismiss;
 
-public class AttendeeCampEnquiriesView extends View {
+public class AttendeeCampEnquiriesView implements View {
 
-    private EnquiryManager enquiryManager;
+    private Navigation navigation;
+    private boolean viewResolved;
+    private int selectedCampID;
 
-    // Options for this view:
-    private Options AttendeeCampEnquiriesOptions;
-
-    public AttendeeCampEnquiriesView(Navigation navigation, EnquiryManager enquiryManager) {
-        super(navigation);
-        this.enquiryManager = enquiryManager;
+    public AttendeeCampEnquiriesView(Navigation navigation, boolean viewResolved, int selectedCampID) {
+        this.navigation = navigation;
+        this.viewResolved = viewResolved;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
+
         // Display enquiries
-        AttendeeCampEnquiriesOptions = super.getOptions("enquiry.AttendeeCampEnquiriesOptions");
-        AttendeeCampEnquiriesOptions.display("Select enquiry to view details:");
+        Options attendeeCampEnquiriesOptions = new AttendeeCampEnquiriesOptions(viewResolved, selectedCampID);
+        attendeeCampEnquiriesOptions.display("Select enquiry to view details:");
 
         // Let user select enquiry to view details
-        int option = AttendeeCampEnquiriesOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedEnquiryID = attendeeCampEnquiriesOptions.selection();
+        if (selectedEnquiryID == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        enquiryManager.setSelectedEnquiryID(option);
 
         // Navigate to CreatedEnquiryInfoView
-        super.getNavigation().navigateTo("enquiry.CreatedEnquiryInfoView");
+        navigation.navigateTo(new CreatedEnquiryInfoView(navigation, selectedEnquiryID));
     }
 }

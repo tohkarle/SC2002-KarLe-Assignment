@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import cams.components.LoadingIndicator;
+import cams.components.input.GetDateInput;
 import cams.components.input.GetIntInput;
+import cams.components.input.GetStringInput;
 import cams.interfaces.DateInput;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
@@ -13,28 +15,26 @@ import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
 import cams.ui.ChooseBetweenTwoOptionsUI;
+import cams.ui.ConfirmOrDiscardUI;
 import cams.utils.Dismiss;
+import cams.view.camp.CreatedCampsView;
 
 public class CreateCampUI implements UI {
-    
+
     private Navigation navigation;
-    private UserManager userManager;
-    private CampManager campManager;
-    private StringInput getString;
-    private DateInput getDate;
-    private IntInput confirm;
 
-    public CreateCampUI(Navigation navigation, UserManager userManager, CampManager campManager, StringInput getString, DateInput getDate, IntInput confirm) {
+    public CreateCampUI(Navigation navigation) {
         this.navigation = navigation;
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.getString = getString;
-        this.getDate = getDate;
-        this.confirm = confirm;
     }
-
+    
     @Override
     public void body() {
+
+        UserManager userManager = UserManager.getInstance();
+        CampManager campManager = CampManager.getInstance();
+        StringInput getString = new GetStringInput();
+        DateInput getDate = new GetDateInput();
+        IntInput confirm = new ConfirmOrDiscardUI();
 
         // Get name
         String name = getString.getValidString("Enter name: ");
@@ -81,7 +81,7 @@ public class CreateCampUI implements UI {
         // Create camp
         if (campManager.createCampSuccessful(userManager.getCurrentUser().getName(), name, dates, faculty, visibility)) {
             LoadingIndicator.createLoadingIndicator("camp"); 
-            navigation.navigateTo("camp.CreatedCampsView");
+            navigation.navigateTo(new CreatedCampsView(navigation));
             return; 
         }
     }

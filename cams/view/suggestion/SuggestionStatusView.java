@@ -3,34 +3,33 @@ package cams.view.suggestion;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
 import cams.model.SuggestionStatus;
+import cams.option.suggestion.SuggestionStatusOptions;
 import cams.utils.Dismiss;
 
-public class SuggestionStatusView extends View {
+public class SuggestionStatusView implements View {
 
-    private UserManager userManager;
-    private SuggestionManager suggestionManager;
+    private Navigation navigation;
+    private int selectedCampID;
 
-    // Options for this view:
-    private Options suggestionStatusOptions;
-
-    public SuggestionStatusView(Navigation navigation, UserManager userManager, SuggestionManager suggestionManager) {
-        super(navigation);
-        this.userManager = userManager;
-        this.suggestionManager  = suggestionManager;
+    public SuggestionStatusView(Navigation navigation, int selectedCampID) {
+        this.navigation = navigation;
+        this.selectedCampID = selectedCampID;
     }
 
     public void render() {
+
+        UserManager userManager = UserManager.getInstance();
+
         // Display suggestion type options
-        suggestionStatusOptions = super.getOptions("suggestion.SuggestionStatusOptions");
+        Options suggestionStatusOptions = new SuggestionStatusOptions();
         suggestionStatusOptions.display("Select suggestion status:");
 
         // Let staff select which suggestion type to view
         int option = suggestionStatusOptions.selection();
         if (option == Dismiss.intOption()) {
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return; 
         }
 
@@ -39,14 +38,13 @@ public class SuggestionStatusView extends View {
         if (option == 1) { suggestionStatus = SuggestionStatus.PENDING; }
         if (option == 2) { suggestionStatus = SuggestionStatus.ACCEPTED; }
         if (option == 3) { suggestionStatus = SuggestionStatus.REJECTED; }
-        suggestionManager.setSelectedSuggestionStatus(suggestionStatus);
 
         // Staff can see all suggestions for this camp
         // Committee can only see their own suggestions for this camp
         if (userManager.isStaff()) {
-            super.getNavigation().navigateTo("suggestion.CampSuggestionsView");
+            navigation.navigateTo(new CampSuggestionsView(navigation, suggestionStatus, selectedCampID));
         } else {
-            super.getNavigation().navigateTo("suggestion.CommitteeCampSuggestionsView");
+            navigation.navigateTo(new CommitteeCampSuggestionsView(navigation, suggestionStatus, selectedCampID));
         }
     }
 }

@@ -1,46 +1,39 @@
 package cams.view.enquiry;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.manager.EnquiryManager;
-import cams.option.enquiry.EnquiryInfoOptions;
+import cams.model.Enquiry;
+import cams.option.enquiry.EditEnquiryOptions;
+import cams.ui.enquiry.EditEnquiryUI;
 import cams.utils.Dismiss;
 
-public class EditEnquiryView extends View {
+public class EditEnquiryView implements View {
 
-    private EnquiryManager enquiryManager;
+    private Navigation navigation;
+    private Enquiry enquiry;
 
-    // Options for this view:
-    private EnquiryInfoOptions editEnquiryOptions;
-
-    // UIs for this view:
-    private UI editEnquiryUI;
-
-    public EditEnquiryView(Navigation navigation, EnquiryManager enquiryManager) {
-        super(navigation);
-        this.enquiryManager = enquiryManager;
+    public EditEnquiryView(Navigation navigation, Enquiry enquiry) {
+        this.navigation = navigation;
+        this.enquiry = enquiry;
     }
 
     public void render() {
 
-        editEnquiryOptions = (EnquiryInfoOptions) super.getOptions("enquiry.EditEnquiryOptions");
-
-        // Update enquiry info to the latest
-        editEnquiryOptions.updateEnquiryInfo();
+        Options editEnquiryOptions = new EditEnquiryOptions(enquiry);
 
         // Display enquiry info for editing
         editEnquiryOptions.display("Select the field you want to edit: ");
 
         // Let user choose the field to edit
-        int option = editEnquiryOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedEnquiryInfo = editEnquiryOptions.selection();
+        if (selectedEnquiryInfo == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        enquiryManager.setSelectedEnquiryInfo(option);
 
-        editEnquiryUI = super.getUI("enquiry.EditEnquiryUI");
+        UI editEnquiryUI = new EditEnquiryUI(navigation, selectedEnquiryInfo, enquiry);
         editEnquiryUI.body();
     }
 }

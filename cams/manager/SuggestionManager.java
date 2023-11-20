@@ -10,20 +10,18 @@ import cams.utils.UniqueKey;
 
 public class SuggestionManager {
 
+    private static SuggestionManager instance;
     private SuggestionService suggestionService;
-    private SuggestionStatus selectedSuggestionStatus;
-    private int selectedSuggestionID;
-    private int selectedSuggestionCampInfo;
-    private Suggestion tempSuggestion;
 
-    public SuggestionManager(SuggestionService suggestionService) {
-        this.suggestionService = suggestionService;
-        this.selectedSuggestionID = -1;
-        this.selectedSuggestionCampInfo = -1;
+    private SuggestionManager() {
+        this.suggestionService = new SuggestionService();
     }
 
-    public SuggestionStatus getSelectedSuggestionStatus() {
-        return this.selectedSuggestionStatus;
+    public static SuggestionManager getInstance() {
+        if (instance == null) {
+            instance = new SuggestionManager();
+        }
+        return instance;
     }
 
     public int getNumberOfSuggestionsApproved(String studentName) {
@@ -36,42 +34,10 @@ public class SuggestionManager {
         return ids.size();
     }
 
-    public void setSelectedSuggestionStatus(SuggestionStatus suggestionStatus) {
-        this.selectedSuggestionStatus = suggestionStatus;
-    }
 
-    public Camp getSuggestionCamp() {
-        return suggestionService.getSuggestion(selectedSuggestionID).getCamp();
+    public Suggestion getSuggestion(int suggestionID) {
+        return suggestionService.getSuggestion(suggestionID);
     }
-
-    public void createTempSuggestion() {
-        this.tempSuggestion = suggestionService.getSuggestion(selectedSuggestionID);
-    }
-
-    public Suggestion getTempSuggestion() {
-        return this.tempSuggestion;
-    }
-
-    public void clearTempSuggestion() {
-        this.tempSuggestion = null;
-    }
-
-    public int getSelectedSuggestionID() {
-        return this.selectedSuggestionID;
-    }
-
-    public void setSelectedSuggestionID(int option) {
-        this.selectedSuggestionID = option;
-    }
-
-    public int getSelectedSuggestionCampInfo() {
-        return this.selectedSuggestionCampInfo;
-    }
-
-    public void setSelectedSuggestionCampInfo(int option) {
-        this.selectedSuggestionCampInfo = option;
-    }
-
 
 
 

@@ -2,10 +2,14 @@ package cams;
 
 import java.util.Scanner;
 
+import cams.manager.AuthManager;
+import cams.manager.CampManager;
+import cams.manager.EnquiryManager;
 import cams.manager.NavigationManager;
+import cams.manager.SuggestionManager;
+import cams.manager.UserManager;
 import cams.service.AuthService;
 import cams.service.CampService;
-import cams.service.DependencyService;
 import cams.service.EnquiryService;
 import cams.service.SuggestionService;
 
@@ -39,29 +43,27 @@ public class Main {
      * A reference to the EnquiryManager that is used to load from and save to enquiryMan.sav and EnquiryManagerKey.sav.
      * Acts like an API that we can request required enquiry information from.
      */
-    public static EnquiryService enquiryManager;
+    public static EnquiryService enquiryService;
 
     /**
      * A reference to the SuggestionManager that is used to load from and save to suggestionMan.sav and SuggestionManagerKey.sav.
      * Acts like an API that we can request required suggestion information from.
      */
-    public static SuggestionService suggestionManager;
+    public static SuggestionService suggestionService;
 
     /**
      * The launch point of the CAMS
      */
     public static void main(String args[]) {
 
-        // Initialize DependencyManager - manages dependencies and provides instances of classes
-        DependencyService dependencyService = new DependencyService();
+        UserManager.getInstance();
+        AuthManager.getInstance();
+        CampManager.getInstance();
+        EnquiryManager.getInstance();
+        SuggestionManager.getInstance();
 
-        AuthService authService = (AuthService) dependencyService.getInstance("AuthService");
-        CampService campService = (CampService) dependencyService.getInstance("CampService");
-        SuggestionService suggestionService = (SuggestionService) dependencyService.getInstance("SuggestionService");
-        
-
-        // Initialize ViewController - manages navigation flow of views
-        NavigationManager navigationManager = (NavigationManager) dependencyService.getInstance("NavigationManager");
+        // Initialize NavigationManager - manages navigation flow of views
+        NavigationManager navigationManager = new NavigationManager();
 
         // Initialize root view
         navigationManager.initializeRootView();
@@ -72,7 +74,7 @@ public class Main {
         // Save user data, camp data, enquiry data, and suggestion data
         authService.save();
         campService.save();
-        // enquiryManager.save();
+        enquiryService.save();
         suggestionService.save();
 
         // Close the scanner to release system resources

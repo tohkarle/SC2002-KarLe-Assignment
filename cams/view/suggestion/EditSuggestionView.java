@@ -1,46 +1,39 @@
 package cams.view.suggestion;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.manager.CampManager;
-import cams.option.camp.CampInfoOptions;
+import cams.model.Suggestion;
+import cams.option.suggestion.EditSuggestionOptions;
+import cams.ui.suggestion.EditSuggestionUI;
 import cams.utils.Dismiss;
 
-public class EditSuggestionView extends View {
+public class EditSuggestionView implements View {
 
-    private CampManager campManager;
+    private Navigation navigation;
+    private Suggestion suggestion;
 
-    // Options for this view:
-    private CampInfoOptions editSuggestionOptions;
-
-    // UIs for this view:
-    private UI editSuggestionUI;
-
-    public EditSuggestionView(Navigation navigation, CampManager campManager) {
-        super(navigation);
-        this.campManager = campManager;
+    public EditSuggestionView(Navigation navigation, Suggestion suggestion) {
+        this.navigation = navigation;
+        this.suggestion = suggestion;
     }
 
     public void render() {
 
-        editSuggestionOptions = (CampInfoOptions) super.getOptions("suggestion.EditSuggestionOptions");
-
-        // Update suggestion info to the latest
-        editSuggestionOptions.updateCampInfo();
+        Options editSuggestionOptions = new EditSuggestionOptions(suggestion);
 
         // Display suggestion info for editing
         editSuggestionOptions.display("Select the field you want to edit: ");
 
         // Let user choose the field to edit
-        int option = editSuggestionOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedCampInfo = editSuggestionOptions.selection();
+        if (selectedCampInfo == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        campManager.setSelectedCampInfo(option);
 
-        editSuggestionUI = super.getUI("suggestion.EditSuggestionUI");
+        UI editSuggestionUI = new EditSuggestionUI(navigation, suggestion, selectedCampInfo);
         editSuggestionUI.body();
     }
 }

@@ -7,32 +7,29 @@ import cams.manager.CampManager;
 import cams.manager.EnquiryManager;
 import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
+import cams.option.user.ProfileOptions;
 import cams.utils.Dismiss;
 
-public class ProfileView extends View {
+public class ProfileView implements View {
 
+    private Navigation navigation;
     private UserManager userManager;
     private CampManager campManager;
     private EnquiryManager enquiryManager;
     private SuggestionManager suggestionManager;
 
-    // Options:
-    private Options profileOptions;
-
-    // No UI for this view
-
-    public ProfileView(Navigation navigation, UserManager userManager, CampManager campManager, EnquiryManager enquiryManager, SuggestionManager suggestionManager) {
-        super(navigation);
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.enquiryManager = enquiryManager;
-        this.suggestionManager = suggestionManager;
+    public ProfileView(Navigation navigation) {
+        this.navigation = navigation;
+        this.userManager = UserManager.getInstance();
+        this.campManager = CampManager.getInstance();
+        this.enquiryManager = EnquiryManager.getInstance();
+        this.suggestionManager = SuggestionManager.getInstance();
     }
 
     public void render() {
-
+        
         // Display profile
-        profileOptions = super.getOptions("user.ProfileOptions");
+        Options profileOptions = new ProfileOptions();
         profileOptions.display("Profile: ");
 
         if (userManager.isStaff()) {
@@ -43,7 +40,7 @@ public class ProfileView extends View {
 
         int option = profileOptions.selection();
         if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+            navigation.dismissView();
             return;
         }
     }

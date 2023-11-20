@@ -3,35 +3,31 @@ package cams.view.camp;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.manager.CampManager;
+import cams.option.camp.FacultyCampOptions;
 import cams.utils.Dismiss;
 
-public class FacultyCampsView extends View {
+public class FacultyCampsView implements View {
 
-    private CampManager campManager;
+    private Navigation navigation;
 
-    // Options for this view:
-    private Options facultyCampOptions;
-
-    public FacultyCampsView(Navigation navigation, CampManager campManager) {
-        super(navigation);
-        this.campManager  = campManager;
+    public FacultyCampsView(Navigation navigation) {
+        this.navigation = navigation;
     }
 
     public void render() {
+
         // Display camps
-        facultyCampOptions = super.getOptions("camp.FacultyCampOptions");
+        Options facultyCampOptions = new FacultyCampOptions();
         facultyCampOptions.display("Select camp to view details:");
 
         // Let user select camp to view details
-        int option = facultyCampOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedCampID = facultyCampOptions.selection();
+        if (selectedCampID == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        campManager.setSelectedCampID(option);
 
         // Navigate to CampInfoView
-        super.getNavigation().navigateTo("camp.CampInfoView");
+        navigation.navigateTo(new CampInfoView(navigation, selectedCampID));
     }
 }

@@ -6,12 +6,18 @@ import cams.service.AuthService;
 
 public class AuthManager {
 
+    private static AuthManager instance;
     private AuthService authService;
-    private UserManager userManager;
 
-    public AuthManager(AuthService authService, UserManager userManager) {
-        this.authService = authService;
-        this.userManager = userManager;
+    public AuthManager() {
+        this.authService = new AuthService();
+    }
+
+    public static AuthManager getInstance() {
+        if (instance == null) {
+            instance = new AuthManager();
+        }
+        return instance;
     }
 
     public boolean registerSuccessful(String email, String name, String password, String faculty, boolean isStaff) {
@@ -30,7 +36,7 @@ public class AuthManager {
             System.out.println("Registration unsuccessful, please try again.");
             return false;
         }
-        this.userManager.setCurrentUser(newUser);
+        UserManager.getInstance().setCurrentUser(newUser);
         authService.save();
         LoadingIndicator.registerLoadingIndicator("user");
         return true;
@@ -50,12 +56,16 @@ public class AuthManager {
                 System.out.println("Log in unsuccessful, please try again.");
                 return false;
             }
-            this.userManager.setCurrentUser(user);
+            UserManager.getInstance().setCurrentUser(user);
             return true;
         } else {
             // password wrong, rejected
             System.out.println("Wrong password, please try again.");
             return false;
         }
+    }
+
+    public void updatePassword(String userName, String newPassword) {
+        authService.updatePassword(userName, newPassword);
     }
 }

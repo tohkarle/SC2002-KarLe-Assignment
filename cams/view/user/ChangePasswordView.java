@@ -1,14 +1,20 @@
 package cams.view.user;
 
+import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
+import cams.ui.auth.ChangePasswordUI;
 
-public class ChangePasswordView extends View {
+public class ChangePasswordView implements View {
 
-    private UI changPasswordUI;
+    private Navigation navigation;
+
+    public ChangePasswordView(Navigation navigation) {
+        this.navigation = navigation;
+    }
 
     public void render() {
-        changPasswordUI = super.getUI("auth.ChangePasswordUI");
+        UI changPasswordUI = new ChangePasswordUI(navigation);
         changPasswordUI.body();
     }
 }

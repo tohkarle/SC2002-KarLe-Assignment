@@ -8,7 +8,9 @@ import cams.manager.UserManager;
 
 public class ProfileOptions extends DismissableViewOnlyOptions {
 
-    public ProfileOptions(UserManager userManager) {
+    public ProfileOptions() {
+        UserManager userManager = UserManager.getInstance();
+        
         super.setOptions( 
             new ArrayList<String>(Arrays.asList(
                 String.format("Name: %s", userManager.getCurrentUser().getName()),

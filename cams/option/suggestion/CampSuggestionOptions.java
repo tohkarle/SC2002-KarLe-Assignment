@@ -3,7 +3,6 @@ package cams.option.suggestion;
 import java.util.ArrayList;
 
 import cams.components.option.DismissableSelectableOptions;
-import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
 import cams.model.SuggestionStatus;
 import cams.utils.Dismiss;
@@ -13,12 +12,12 @@ public class CampSuggestionOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
     private ArrayList<Integer> suggestionIDs;
-    private CampManager campManager;
-    private SuggestionManager suggestionManager;
+    private SuggestionStatus suggestionStatus;
+    private int selectedCampID;
 
-    public CampSuggestionOptions(CampManager campManager, SuggestionManager suggestionManager) {
-        this.campManager = campManager;
-        this.suggestionManager = suggestionManager;
+    public CampSuggestionOptions(SuggestionStatus suggestionStatus, int selectedCampID) {
+        this.suggestionStatus = suggestionStatus;
+        this.selectedCampID = selectedCampID;
         this.fetchCampSuggestions();
     }
 
@@ -41,24 +40,26 @@ public class CampSuggestionOptions extends DismissableSelectableOptions {
 
     private void fetchCampSuggestions() {
 
+        SuggestionManager suggestionManager = SuggestionManager.getInstance();
+
         // Fetch suggestions from camp, accepted, rejected or pending
-        if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.PENDING) {
+        if (suggestionStatus == SuggestionStatus.PENDING) {
 
             this.noCampTitle = "No pending suggestion for this camp at the moment. Please come back at a later time.";
-            super.setOptions(suggestionManager.getPendingCampSuggestionTitles(campManager.getSelectedCampID()));
-            this.suggestionIDs = suggestionManager.getPendingCampSuggestionIDs(campManager.getSelectedCampID());
+            super.setOptions(suggestionManager.getPendingCampSuggestionTitles(selectedCampID));
+            this.suggestionIDs = suggestionManager.getPendingCampSuggestionIDs(selectedCampID);
 
-        } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+        } else if (suggestionStatus == SuggestionStatus.ACCEPTED) {
 
             this.noCampTitle = "No approved suggestion for this camp at the moment. Please come back at a later time.";
-            super.setOptions(suggestionManager.getAcceptedCampSuggestionTitles(campManager.getSelectedCampID()));
-            this.suggestionIDs = suggestionManager.getAcceptedCampSuggestionIDs(campManager.getSelectedCampID());
+            super.setOptions(suggestionManager.getAcceptedCampSuggestionTitles(selectedCampID));
+            this.suggestionIDs = suggestionManager.getAcceptedCampSuggestionIDs(selectedCampID);
 
-        } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.REJECTED) {
+        } else if (suggestionStatus == SuggestionStatus.REJECTED) {
 
             this.noCampTitle = "No rejected suggestion for this camp at the moment. Please come back at a later time.";
-            super.setOptions(suggestionManager.getRejectedCampSuggestionTitles(campManager.getSelectedCampID()));
-            this.suggestionIDs = suggestionManager.getRejectedCampSuggestionIDs(campManager.getSelectedCampID());
+            super.setOptions(suggestionManager.getRejectedCampSuggestionTitles(selectedCampID));
+            this.suggestionIDs = suggestionManager.getRejectedCampSuggestionIDs(selectedCampID);
 
         }
     }

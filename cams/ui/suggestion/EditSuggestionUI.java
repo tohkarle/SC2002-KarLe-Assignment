@@ -9,6 +9,8 @@ import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
 import cams.model.Camp;
 import cams.model.Suggestion;
+import cams.option.camp.EditCampInfoOptions;
+import cams.ui.ConfirmOrDiscardUI;
 import cams.ui.camp.EditCampCommitteeSlotsUI;
 import cams.ui.camp.EditCampDatesUI;
 import cams.ui.camp.EditCampDescriptionUI;
@@ -21,11 +23,9 @@ import cams.ui.camp.EditCampVisibilityUI;
 
 public class EditSuggestionUI implements UI {
     
-    private Options EditCampInfoOptions;
     private Navigation navigation;
-    private CampManager campManager;
-    private SuggestionManager suggestionManager;
-    private IntInput confirm;
+    private Suggestion suggestion;
+    private int selectedCampInfo;
 
     // Edit suggestion involves editing camp details
     private UI editSuggestionTitleUI;
@@ -39,31 +39,32 @@ public class EditSuggestionUI implements UI {
     private UI editCampTotalSlotsUI;
     private UI editCampCommitteeSlotsUI;
 
-    public EditSuggestionUI(Navigation navigation, CampManager campManager, SuggestionManager suggestionManager, Options EditCampInfoOptions, IntInput confirm) {
+    public EditSuggestionUI(Navigation navigation, Suggestion suggestion, int selectedCampInfo) {
         this.navigation = navigation;
-        this.EditCampInfoOptions = EditCampInfoOptions;
-        this.campManager = campManager;
-        this.suggestionManager = suggestionManager;
-        this.confirm = confirm;
+        this.suggestion = suggestion;
+        this.selectedCampInfo = selectedCampInfo;
     }
 
     @Override
     public void body() {
 
-        Suggestion tempSuggestion = suggestionManager.getTempSuggestion();
-        Camp tempCamp = tempSuggestion.getCamp();
+        CampManager campManager = CampManager.getInstance();
+        SuggestionManager suggestionManager = SuggestionManager.getInstance();
+        IntInput confirm = new ConfirmOrDiscardUI();
+        Options editCampInfoOptions = new EditCampInfoOptions();
+        Camp camp = suggestion.getCamp();
 
         // Create and initialize all UIs for edit suggestion
-        editSuggestionTitleUI = new EditSuggestionTitleUI(tempSuggestion, "Edit title: ");
-        editCampNameUI = new EditCampNameUI(tempCamp, EditCampInfoOptions.getOption(0));
-        editCampFacultyUI = new EditCampFacultyUI(tempCamp, EditCampInfoOptions.getOption(1));
-        editCampLocationUI = new EditCampLocationUI(tempCamp, EditCampInfoOptions.getOption(2));
-        editCampDescriptionUI = new EditCampDescriptionUI(tempCamp, EditCampInfoOptions.getOption(3));
-        editCampVisibility = new EditCampVisibilityUI(tempCamp, EditCampInfoOptions.getOption(4));
-        editCampDatesUI = new EditCampDatesUI(tempCamp, EditCampInfoOptions.getOption(5), EditCampInfoOptions.getOption(6));
-        editCampRegiatrationClosingDateUI = new EditCampRegiatrationClosingDateUI(tempCamp, EditCampInfoOptions.getOption(7));
-        editCampTotalSlotsUI = new EditCampTotalSlotsUI(tempCamp, campManager, EditCampInfoOptions.getOption(8));
-        editCampCommitteeSlotsUI = new EditCampCommitteeSlotsUI(tempCamp, campManager, EditCampInfoOptions.getOption(9));
+        editSuggestionTitleUI = new EditSuggestionTitleUI(suggestion, "Edit title: ");
+        editCampNameUI = new EditCampNameUI(camp, editCampInfoOptions.getOption(0));
+        editCampFacultyUI = new EditCampFacultyUI(camp, editCampInfoOptions.getOption(1));
+        editCampLocationUI = new EditCampLocationUI(camp, editCampInfoOptions.getOption(2));
+        editCampDescriptionUI = new EditCampDescriptionUI(camp, editCampInfoOptions.getOption(3));
+        editCampVisibility = new EditCampVisibilityUI(camp, editCampInfoOptions.getOption(4));
+        editCampDatesUI = new EditCampDatesUI(camp, editCampInfoOptions.getOption(5), editCampInfoOptions.getOption(6));
+        editCampRegiatrationClosingDateUI = new EditCampRegiatrationClosingDateUI(camp, editCampInfoOptions.getOption(7));
+        editCampTotalSlotsUI = new EditCampTotalSlotsUI(camp, campManager, editCampInfoOptions.getOption(8));
+        editCampCommitteeSlotsUI = new EditCampCommitteeSlotsUI(camp, campManager, editCampInfoOptions.getOption(9));
 
         UI[] editCampUIs = new UI[] {
             editSuggestionTitleUI,
@@ -79,12 +80,12 @@ public class EditSuggestionUI implements UI {
         };
 
         // Edit camp details
-        if (campManager.getSelectedCampInfo() <= editCampUIs.length) {
-            editCampUIs[campManager.getSelectedCampInfo() - 1].body();
-        } else if (campManager.getSelectedCampInfo() == editCampUIs.length + 1) {            
+        if (selectedCampInfo <= editCampUIs.length) {
+            editCampUIs[selectedCampInfo - 1].body();
+        } else if (selectedCampInfo == editCampUIs.length + 1) {            
             // Confirm changes and submit or discard
             if (confirm.getValidInt("Confirm changes?") != 1) { return; }
-            suggestionManager.updateSuggestion(suggestionManager.getTempSuggestion());
+            suggestionManager.updateSuggestion(suggestion);
             LoadingIndicator.submitLoadingIndicator("suggestion");
             navigation.dismissView();
         }

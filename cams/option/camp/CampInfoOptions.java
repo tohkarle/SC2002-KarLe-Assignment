@@ -4,38 +4,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import cams.components.option.DismissableViewOnlyOptions;
-import cams.manager.CampManager;
+import cams.model.Camp;
 
 public class CampInfoOptions extends DismissableViewOnlyOptions {
 
-    private CampManager campManager;
+    private Camp camp;
 
-    public CampInfoOptions(CampManager campManager) {
-        this.campManager = campManager;
-    }
-
-    public void updateCampInfo() {
+    public CampInfoOptions(Camp camp) {
+        this.camp = camp;
         super.setOptions(
             new ArrayList<String>(Arrays.asList(
-                String.format("Name: %s", campManager.getTempCamp().getCampName()),
-                String.format("Faculty: %s", campManager.getTempCamp().getUserGroup()),
-                String.format("Location: %s", campManager.getTempCamp().getLocation()),
-                String.format("Description: %s", campManager.getTempCamp().getDescription()),
-                String.format("Visibility: %s", campManager.getTempCamp().getVisibility() ? "On" : "Off"),
-                String.format("Dates: %s to %s", campManager.getTempCamp().getStartDate(), campManager.getTempCamp().getEndDate()),
-                String.format("Registration closing date: %s", campManager.getTempCamp().getRegistrationClosingDate()),
-                String.format("Remaining slots: %d / %d", (campManager.getTempCamp().getTotalSlots() - (campManager.getTempCamp().getParticipatingStudentNames().size() + campManager.getTempCamp().getCommitteeMemberNames().size())), campManager.getTempCamp().getTotalSlots()),
-                String.format("Remaining committee slots: %d / %d", (campManager.getTempCamp().getCommitteeSlots() - campManager.getTempCamp().getCommitteeMemberNames().size()), campManager.getTempCamp().getCommitteeSlots()),
-                String.format("Staff-in-charge: %s", campManager.getTempCamp().getStaffInCharge())
+                String.format("Name: %s", camp.getCampName()),
+                String.format("Faculty: %s", camp.getUserGroup()),
+                String.format("Location: %s", camp.getLocation()),
+                String.format("Description: %s", camp.getDescription()),
+                String.format("Visibility: %s", camp.getVisibility() ? "On" : "Off"),
+                String.format("Dates: %s to %s", camp.getStartDate(), camp.getEndDate()),
+                String.format("Registration closing date: %s", camp.getRegistrationClosingDate()),
+                String.format("Remaining slots: %d / %d", (camp.getTotalSlots() - (camp.getParticipatingStudentNames().size() + camp.getCommitteeMemberNames().size())), camp.getTotalSlots()),
+                String.format("Remaining committee slots: %d / %d", (camp.getCommitteeSlots() - camp.getCommitteeMemberNames().size()), camp.getCommitteeSlots()),
+                String.format("Staff-in-charge: %s", camp.getStaffInCharge())
             ))
         );
     }
 
-    public void initializeTempCamp() {
-        campManager.createTempCamp();
-    }
-
-    public CampManager getCampManager() {
-        return this.campManager;
+    public Camp getCamp() {
+        return this.camp;
     }
 }

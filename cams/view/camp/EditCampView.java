@@ -1,46 +1,39 @@
 package cams.view.camp;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.manager.CampManager;
-import cams.option.camp.CampInfoOptions;
+import cams.model.Camp;
+import cams.option.camp.EditCampOptions;
+import cams.ui.camp.EditCampUI;
 import cams.utils.Dismiss;
 
-public class EditCampView extends View {
+public class EditCampView implements View {
 
-    private CampManager campManager;
+    private Navigation navigation;
+    private Camp camp;
 
-    // Options for this view:
-    private CampInfoOptions editCampOptions;
-
-    // UIs for this view:
-    private UI editCampUI;
-
-    public EditCampView(Navigation navigation, CampManager campManager) {
-        super(navigation);
-        this.campManager = campManager;
+    public EditCampView(Navigation navigation, Camp camp) {
+        this.navigation = navigation;
+        this.camp = camp;
     }
 
     public void render() {
 
-        editCampOptions = (CampInfoOptions) super.getOptions("camp.EditCampOptions");
-
-        // Remove Staff-in-charge, add Update changes, Manage enquiries, Create report and Delete camp options
-        editCampOptions.updateCampInfo();
+        Options editCampOptions = new EditCampOptions(camp);
 
         // Display camp info for editing
         editCampOptions.display("Select the field you want to edit: ");
 
         // Let user choose the field to edit
-        int option = editCampOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedEditField = editCampOptions.selection();
+        if (selectedEditField == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        campManager.setSelectedCampInfo(option);
 
-        editCampUI = super.getUI("camp.EditCampUI");
+        UI editCampUI = new EditCampUI(navigation, camp, selectedEditField);
         editCampUI.body();
     }
 }

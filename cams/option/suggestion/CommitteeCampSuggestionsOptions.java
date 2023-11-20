@@ -3,7 +3,6 @@ package cams.option.suggestion;
 import java.util.ArrayList;
 
 import cams.components.option.DismissableSelectableOptions;
-import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
 import cams.model.SuggestionStatus;
@@ -14,15 +13,13 @@ public class CommitteeCampSuggestionsOptions extends DismissableSelectableOption
 
     private String noCampTitle;
     private ArrayList<Integer> suggestionIDs;
-    private UserManager userManager;
-    private CampManager campManager;
-    private SuggestionManager suggestionManager;
+    private SuggestionStatus suggestionStatus;
+    private int selectedCampID;
 
-    public CommitteeCampSuggestionsOptions(UserManager userManager, CampManager campManager, SuggestionManager suggestionManager) {
-        this.userManager = userManager;
-        this.campManager = campManager;
-        this.suggestionManager = suggestionManager;
+    public CommitteeCampSuggestionsOptions(SuggestionStatus suggestionStatus, int selectedCampID) {
+        this.suggestionStatus = suggestionStatus;
         this.fetchStudentCampSuggestions();
+        this.selectedCampID = selectedCampID;
     }
 
     @Override
@@ -44,24 +41,27 @@ public class CommitteeCampSuggestionsOptions extends DismissableSelectableOption
 
     private void fetchStudentCampSuggestions() {
 
+        UserManager userManager = UserManager.getInstance();
+        SuggestionManager suggestionManager = SuggestionManager.getInstance();
+
         // Fetch suggestions from camp, accepted, rejected or pending
-        if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.PENDING) {
+        if (suggestionStatus == SuggestionStatus.PENDING) {
 
             this.noCampTitle = "No pending suggestion for this camp at the moment. Please raise suggestion under 'Raise Suggestion'.";
-            super.setOptions(suggestionManager.getPendingStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedCampID()));
-            this.suggestionIDs = suggestionManager.getPendingStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
+            super.setOptions(suggestionManager.getPendingStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), selectedCampID));
+            this.suggestionIDs = suggestionManager.getPendingStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), selectedCampID);
 
-        } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.ACCEPTED) {
+        } else if (suggestionStatus == SuggestionStatus.ACCEPTED) {
 
             this.noCampTitle = "No approved suggestion for this camp at the moment. Please raise suggestion under 'Raise Suggestion'.";
-            super.setOptions(suggestionManager.getAcceptedStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedCampID()));
-            this.suggestionIDs = suggestionManager.getAcceptedStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
+            super.setOptions(suggestionManager.getAcceptedStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), selectedCampID));
+            this.suggestionIDs = suggestionManager.getAcceptedStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), selectedCampID);
 
-        } else if (suggestionManager.getSelectedSuggestionStatus() == SuggestionStatus.REJECTED) {
+        } else if (suggestionStatus == SuggestionStatus.REJECTED) {
 
             this.noCampTitle = "No rejected suggestion for this camp at the moment. Please raise suggestion under 'Raise Suggestion'.";
-            super.setOptions(suggestionManager.getRejectedStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), campManager.getSelectedCampID()));
-            this.suggestionIDs = suggestionManager.getRejectedStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), campManager.getSelectedCampID());
+            super.setOptions(suggestionManager.getRejectedStudentCampSuggestionTitles(userManager.getCurrentUser().getName(), selectedCampID));
+            this.suggestionIDs = suggestionManager.getRejectedStudentCampSuggestionIDs(userManager.getCurrentUser().getName(), selectedCampID);
 
         }
     }

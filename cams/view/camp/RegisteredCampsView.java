@@ -1,42 +1,35 @@
 package cams.view.camp;
 
+import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.manager.CampManager;
 import cams.option.camp.UserCampOptions;
 import cams.utils.Dismiss;
 
-public class RegisteredCampsView extends View {
+public class RegisteredCampsView implements View {
 
-    private CampManager campManager;
+    private Navigation navigation;
 
-    // Options for this view:
-    private UserCampOptions userCampOptions;
-
-    public RegisteredCampsView(Navigation navigation, CampManager campManager) {
-        super(navigation);
-        this.campManager  = campManager;
+    public RegisteredCampsView(Navigation navigation) {
+        this.navigation = navigation;
     }
 
     public void render() {
-        // Display camps
-        userCampOptions = (UserCampOptions) super.getOptions("camp.UserCampOptions");
 
-        // Fetch latest registered camps
-        userCampOptions.fetchUserCamps();
+        // Display camps
+        Options userCampOptions = new UserCampOptions();
 
         // Display registered camps
         userCampOptions.display("Select camp to view details:");
 
         // Let user select camp to view details
-        int option = userCampOptions.selection();
-        if (option == Dismiss.intOption()) { 
-            super.getNavigation().dismissView();
+        int selectedCampID = userCampOptions.selection();
+        if (selectedCampID == Dismiss.intOption()) { 
+            navigation.dismissView();
             return; 
         }
-        campManager.setSelectedCampID(option);
 
         // Navigate to CampInfoView
-        super.getNavigation().navigateTo("camp.RegisteredCampInfoView");
+        navigation.navigateTo(new RegisteredCampInfoView(navigation, selectedCampID));
     }
 }
