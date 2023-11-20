@@ -27,6 +27,10 @@ public class CampService {
         return new Camp(campMap.get(campID));
     }
 
+    public String getCampName(int camID) {
+        return campMap.get(camID).getCampName();
+    }
+
     public HashMap<Integer, Camp> getCampMap() {
         return new HashMap<>(campMap);
     }

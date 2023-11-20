@@ -12,6 +12,7 @@ import cams.ui.camp.WithdrawFromCampUI;
 import cams.utils.Dismiss;
 import cams.view.enquiry.CreateEnquiryView;
 import cams.view.enquiry.EnquiryStatusView;
+import cams.view.report.GenerateRegistrationReportView;
 import cams.view.suggestion.CreateSuggestionView;
 import cams.view.suggestion.SuggestionStatusView;
 
@@ -90,6 +91,9 @@ public class RegisteredCampInfoView implements View {
                 break;
             case 3:
                 navigation.navigateTo(new SuggestionStatusView(navigation, selectedCampID));
+                break;
+            case 4:
+                navigation.navigateTo(new GenerateRegistrationReportView(navigation, selectedCampID));
                 break;
         }
     }

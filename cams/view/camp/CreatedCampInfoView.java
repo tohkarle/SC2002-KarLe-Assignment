@@ -1,5 +1,6 @@
 package cams.view.camp;
 
+import cams.components.input.ConfirmOrDiscard;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
@@ -9,7 +10,10 @@ import cams.model.Camp;
 import cams.option.camp.CreatedCampInfoOptions;
 import cams.ui.camp.DeleteCampUI;
 import cams.utils.Dismiss;
+import cams.utils.LoadingIndicator;
+import cams.utils.ReportWriter;
 import cams.view.enquiry.EnquiryStatusView;
+import cams.view.report.GenerateRegistrationReportView;
 import cams.view.suggestion.SuggestionStatusView;
 
 public class CreatedCampInfoView implements View {
@@ -51,8 +55,14 @@ public class CreatedCampInfoView implements View {
                 navigation.navigateTo(new SuggestionStatusView(navigation, selectedCampID));
                 break;
             case 4:
+                navigation.navigateTo(new GenerateRegistrationReportView(navigation, selectedCampID));
                 break;
             case 5:
+                if (new ConfirmOrDiscard().getValidInt("Confirm generate report?") != 1) { return; }
+                ReportWriter.generatePerformanceReport(selectedCampID);
+                LoadingIndicator.createLoadingIndicator("report");
+                break;
+            case 6:
                 UI deleteCampUI = new DeleteCampUI(navigation, selectedCampID);
                 deleteCampUI.body();
                 break;

@@ -115,6 +115,13 @@ public class CampManager {
         return ids;
     }
 
+    public ArrayList<String> getParticipatingStudentNames(int campID) {
+        return campService.getParticipatingStudentNames(campID);
+    }
+
+    public ArrayList<String> getCommitteeMemberNames(int campID) {
+        return campService.getCommitteeMemberNames(campID);
+    }
 
     public boolean createCampSuccessful(String staffName, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility) {
         if (campService.campAlreadyExists(campName)) {
@@ -267,5 +274,9 @@ public class CampManager {
 
     public int getRegCount(int campID) {
         return campService.getParticipatingStudentNames(campID).size();
+    }
+
+    public String getCampName(int campID) {
+        return campService.getCampName(campID);
     }
 }

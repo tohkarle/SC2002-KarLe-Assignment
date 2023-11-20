@@ -19,8 +19,9 @@ public class CreatedCampInfoOptions extends CampInfoOptions {
             "(1) Edit camp details",
             "(2) Manage enquiries",
             "(3) Manage suggestions",
-            "(4) Create report",
-            "(5) Delete Camp"
+            "(4) Generate registration report",
+            "(5) Generate performance report",
+            "(6) Delete Camp"
         ));
     }
 
