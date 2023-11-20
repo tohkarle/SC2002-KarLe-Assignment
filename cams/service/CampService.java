@@ -82,7 +82,7 @@ public class CampService {
         }
     }
 
-    public boolean campAlreadyExists(String name) {
+    public boolean campNameAlreadyExists(String name) {
         for (Camp camp : campMap.values()) {
             if (camp.getCampName().equals(name)) {
                 return true;

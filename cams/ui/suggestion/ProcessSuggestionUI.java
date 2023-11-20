@@ -58,7 +58,7 @@ public class ProcessSuggestionUI implements UI {
 
         // If approved, updates actual camp
         if (option == 1) {
-            campManager.updateCamp(suggestion.getCamp());
+            if (!campManager.updateCampSuccessful(suggestion.getCamp())) { return; };
         }
         
         LoadingIndicator.processLoadingIndicator("suggestion");

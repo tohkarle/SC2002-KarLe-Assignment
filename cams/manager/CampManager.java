@@ -124,7 +124,7 @@ public class CampManager {
     }
 
     public boolean createCampSuccessful(String staffName, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility) {
-        if (campService.campAlreadyExists(campName)) {
+        if (campService.campNameAlreadyExists(campName)) {
             System.out.println("Camp of the same name already exists, please choose another name.");
             return false;
         }
@@ -162,9 +162,14 @@ public class CampManager {
         campService.save();
     }
 
-    public void updateCamp(Camp camp) {
+    public boolean updateCampSuccessful(Camp camp) {
+        if (campService.campNameAlreadyExists(camp.getCampName())) {
+            System.out.println("Camp of the same name already exists, please choose another name.");
+            return false;
+        }
         campService.updateCamp(camp);
         campService.save();
+        return true;
     }
 
     public boolean hasRegisteredForCamp(String studentName, int campID) {

@@ -58,8 +58,9 @@ public class EditCampUI implements UI {
         } else if (selectedEditField == editCampUIs.length + 1) {
             // Confirm changes or discard
             if (confirm.getValidInt("Confirm changes?") != 1) { return; }
+            if (!campManager.updateCampSuccessful(camp)) { return; }
+            
             LoadingIndicator.editingLoadingIndicator("camp");
-            campManager.updateCamp(camp);
             navigation.dismissView();
         }
     }

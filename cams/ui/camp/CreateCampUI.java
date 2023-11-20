@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import cams.components.input.ChooseBetweenTwoOptions;
 import cams.components.input.ConfirmOrDiscard;
 import cams.components.input.GetDateInput;
-import cams.components.input.GetIntInput;
 import cams.components.input.GetStringInput;
 import cams.interfaces.DateInput;
 import cams.interfaces.IntInput;
@@ -51,7 +50,7 @@ public class CreateCampUI implements UI {
         }
 
         // Get visibility
-        GetIntInput getOption = new ChooseBetweenTwoOptions("On", "Off");
+        IntInput getOption = new ChooseBetweenTwoOptions("On", "Off");
         int option = getOption.getValidInt("Set visibility");
         boolean visibility = (option == 1);
 

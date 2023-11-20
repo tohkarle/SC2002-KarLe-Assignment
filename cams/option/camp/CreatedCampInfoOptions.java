@@ -27,7 +27,7 @@ public class CreatedCampInfoOptions extends CampInfoOptions {
 
     @Override
     public int selection() {
-        IntInput selection = new GetSelection(-1, 5);
+        IntInput selection = new GetSelection(-1, 6);
         return selection.getValidInt("Your selection: ");
     }
 }
