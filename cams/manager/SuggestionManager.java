@@ -34,6 +34,16 @@ public class SuggestionManager {
         return ids.size();
     }
 
+    public int getNumberOfSuggestionsGiven(String studentName) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Suggestion suggestion : suggestionService.getSuggestionMap().values()) {
+            if (suggestion.getStudentName().equals(studentName)) {
+                ids.add(suggestion.getId());
+            }
+        }
+        return ids.size();
+    }
+
 
     public Suggestion getSuggestion(int suggestionID) {
         return suggestionService.getSuggestion(suggestionID);

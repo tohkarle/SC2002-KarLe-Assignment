@@ -47,8 +47,9 @@ public class ProfileView implements View {
 
     public void studentSpecificProfile() {
         int numberOfEnquiriesReplied = enquiryManager.getNumberOfEnquiriesReplied(userManager.getCurrentUser().getName());
+        int numberOfSuggestionsGiven = suggestionManager.getNumberOfSuggestionsGiven(userManager.getCurrentUser().getName());
         int numberOfSuggestionsApproved = suggestionManager.getNumberOfSuggestionsApproved(userManager.getCurrentUser().getName());
-        System.out.println("Point: " + (numberOfEnquiriesReplied + numberOfSuggestionsApproved));
+        System.out.println("Point: " + (numberOfEnquiriesReplied + numberOfSuggestionsGiven + numberOfSuggestionsApproved));
         String campName = campManager.committeeMemberFor(userManager.getCurrentUser().getName());
         if (campName != null) {
             System.out.println("Committee member for: " + campName);
