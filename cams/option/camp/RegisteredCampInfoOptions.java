@@ -3,6 +3,7 @@ package cams.option.camp;
 import java.util.Arrays;
 
 import cams.components.input.GetSelection;
+import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
@@ -45,10 +46,10 @@ public class RegisteredCampInfoOptions extends CampInfoOptions {
     @Override
     public int selection() {
         if (campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), super.getCamp().getId())) {
-            IntInput selection = new GetSelection(-1, 4);
+            IntInput selection = new GetSelectionWithDismiss(1, 4);
             return selection.getValidInt("Your selection: ");
         } else {
-            IntInput selection = new GetSelection(-1, 3);
+            IntInput selection = new GetSelectionWithDismiss(1, 3);
             return selection.getValidInt("Your selection: ");
         }
     }

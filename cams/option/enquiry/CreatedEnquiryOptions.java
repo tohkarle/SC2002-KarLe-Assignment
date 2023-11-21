@@ -3,6 +3,7 @@ package cams.option.enquiry;
 import java.util.Arrays;
 
 import cams.components.input.GetSelection;
+import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.model.Enquiry;
 
@@ -29,7 +30,7 @@ public class CreatedEnquiryOptions extends EnquiryInfoOptions {
 
     @Override
     public int selection() {
-        IntInput selection = new GetSelection(-1, 2);
+        IntInput selection = new GetSelectionWithDismiss(1, 2);
         return selection.getValidInt("Your selection: ");
     }
 }
