@@ -1,7 +1,7 @@
 package cams.view.report;
 
-import cams.components.input.ConfirmOrDiscard;
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.option.report.GenerateReportOptions;
@@ -12,10 +12,12 @@ import cams.utils.ReportWriter;
 public class GenerateRegistrationReportView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private int selectedCampID;
 
-    public GenerateRegistrationReportView(Navigation navigation, int selectedCampID) {
+    public GenerateRegistrationReportView(Navigation navigation, Input getInput, int selectedCampID) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.selectedCampID = selectedCampID;
     }
 
@@ -30,7 +32,7 @@ public class GenerateRegistrationReportView implements View {
             return; 
         }
 
-        if (new ConfirmOrDiscard().getValidInt("Confirm generate report?") != 1) { return; };
+        if (getInput.confirmOrDiscard("Confirm generate report?") != 1) { return; };
         ReportWriter.generateRegistrationReport(selectedCampID, selectedReportOption);
         LoadingIndicator.createLoadingIndicator("report");
     }

@@ -1,6 +1,7 @@
 package cams.view.enquiry;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
@@ -12,10 +13,12 @@ import cams.utils.Dismiss;
 public class EditEnquiryView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private Enquiry enquiry;
 
-    public EditEnquiryView(Navigation navigation, Enquiry enquiry) {
+    public EditEnquiryView(Navigation navigation, Input getInput, Enquiry enquiry) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.enquiry = enquiry;
     }
 
@@ -33,7 +36,7 @@ public class EditEnquiryView implements View {
             return; 
         }
 
-        UI editEnquiryUI = new EditEnquiryUI(navigation, selectedEnquiryInfo, enquiry);
+        UI editEnquiryUI = new EditEnquiryUI(navigation, getInput, selectedEnquiryInfo, enquiry);
         editEnquiryUI.body();
     }
 }

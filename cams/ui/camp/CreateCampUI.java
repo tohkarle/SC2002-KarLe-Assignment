@@ -4,13 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import cams.components.input.ChooseBetweenTwoOptions;
-import cams.components.input.ConfirmOrDiscard;
-import cams.components.input.GetDateInput;
-import cams.components.input.GetStringInput;
-import cams.interfaces.DateInput;
+import cams.interfaces.Input;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
-import cams.interfaces.StringInput;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
@@ -21,9 +17,11 @@ import cams.view.camp.CreatedCampsView;
 public class CreateCampUI implements UI {
 
     private Navigation navigation;
+    private Input getInput;
 
-    public CreateCampUI(Navigation navigation) {
+    public CreateCampUI(Navigation navigation, Input getInput) {
         this.navigation = navigation;
+        this.getInput = getInput;
     }
     
     @Override
@@ -31,19 +29,16 @@ public class CreateCampUI implements UI {
 
         UserManager userManager = UserManager.getInstance();
         CampManager campManager = CampManager.getInstance();
-        StringInput getString = new GetStringInput();
-        DateInput getDate = new GetDateInput();
-        IntInput confirm = new ConfirmOrDiscard();
 
         // Get name
-        String name = getString.getValidString("Enter name: ");
+        String name = getInput.getValidString("Enter name: ");
         if (name.equals(Dismiss.stringOption())) {
             navigation.dismissView();
             return;
         }
 
         // Get faculty
-        String faculty = getString.getValidString("Enter faculty: ");
+        String faculty = getInput.getValidString("Enter faculty: ");
         if (faculty.equals(Dismiss.stringOption())) {
             navigation.dismissView();
             return;
@@ -55,12 +50,12 @@ public class CreateCampUI implements UI {
         boolean visibility = (option == 1);
 
         // Get start date
-        LocalDate startDate = getDate.getValidDate("Enter start date (yyyy-MM-dd): ");
+        LocalDate startDate = getInput.getValidDate("Enter start date (yyyy-MM-dd): ");
 
         // Get end date
         LocalDate endDate;
         while (true) {
-            endDate = getDate.getValidDate("Enter end date (yyyy-MM-dd): ");
+            endDate = getInput.getValidDate("Enter end date (yyyy-MM-dd): ");
             if (endDate == null) { return; }
             if (endDate.isEqual(startDate) || endDate.isAfter(startDate)) { break; }
             System.out.println("End date cannot be before start date.");
@@ -72,7 +67,7 @@ public class CreateCampUI implements UI {
         dates.add(endDate);
 
         // Confirm create
-        if (confirm.getValidInt("Confirm changes?") != 1) {
+        if (getInput.confirmOrDiscard("Confirm changes?") != 1) {
             navigation.dismissView();
             return; 
         }
@@ -80,7 +75,7 @@ public class CreateCampUI implements UI {
         // Create camp
         if (campManager.createCampSuccessful(userManager.getCurrentUser().getName(), name, dates, faculty, visibility)) {
             LoadingIndicator.createLoadingIndicator("camp"); 
-            navigation.navigateTo(new CreatedCampsView(navigation));
+            navigation.navigateTo(new CreatedCampsView(navigation, getInput));
             return; 
         }
     }

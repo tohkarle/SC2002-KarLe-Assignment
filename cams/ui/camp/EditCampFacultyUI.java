@@ -1,23 +1,25 @@
 package cams.ui.camp;
 
-import cams.components.input.GetStringInput;
+import cams.interfaces.Input;
 import cams.interfaces.UI;
 import cams.model.Camp;
 import cams.utils.Dismiss;
 
-public class EditCampFacultyUI extends GetStringInput implements UI {
+public class EditCampFacultyUI implements UI {
     
+    private Input getInput;
     private Camp camp;
     private String title;
 
-    public EditCampFacultyUI(Camp camp, String title) {
+    public EditCampFacultyUI(Input getInput, Camp camp, String title) {
+        this.getInput = getInput;
         this.camp = camp;
         this.title = title;
     }
 
     @Override
     public void body() {
-        String faculty = super.getValidString(title);
+        String faculty = getInput.getValidString(title);
         if (faculty.equals(Dismiss.stringOption())) { return; }
         camp.setUserGroup(faculty);
     }

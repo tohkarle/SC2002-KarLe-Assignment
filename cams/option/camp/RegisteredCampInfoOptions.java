@@ -2,7 +2,6 @@ package cams.option.camp;
 
 import java.util.Arrays;
 
-import cams.components.input.GetSelection;
 import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.manager.CampManager;

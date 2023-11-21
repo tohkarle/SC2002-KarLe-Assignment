@@ -1,6 +1,7 @@
 package cams.view.enquiry;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.option.enquiry.CampEnquiryOptions;
@@ -9,11 +10,13 @@ import cams.utils.Dismiss;
 public class CampEnquiriesView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private boolean viewResolved;
     private int selectedCampID;
 
-    public CampEnquiriesView(Navigation navigation, boolean viewResolved, int selectedCampID) {
+    public CampEnquiriesView(Navigation navigation, Input getInput, boolean viewResolved, int selectedCampID) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.viewResolved = viewResolved;
         this.selectedCampID = selectedCampID;
     }
@@ -32,6 +35,6 @@ public class CampEnquiriesView implements View {
         }
 
         // Navigate to ReplyEnquiryView
-        navigation.navigateTo(new ReplyEnquiryView(navigation, selectedEnquiryID));
+        navigation.navigateTo(new ReplyEnquiryView(navigation, getInput, selectedEnquiryID));
     }
 }

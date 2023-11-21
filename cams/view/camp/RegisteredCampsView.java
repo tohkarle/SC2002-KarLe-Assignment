@@ -1,6 +1,7 @@
 package cams.view.camp;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.option.camp.UserCampOptions;
@@ -9,9 +10,11 @@ import cams.utils.Dismiss;
 public class RegisteredCampsView implements View {
 
     private Navigation navigation;
+    private Input getInput;
 
-    public RegisteredCampsView(Navigation navigation) {
+    public RegisteredCampsView(Navigation navigation, Input getInput) {
         this.navigation = navigation;
+        this.getInput = getInput;
     }
 
     public void render() {
@@ -30,6 +33,6 @@ public class RegisteredCampsView implements View {
         }
 
         // Navigate to CampInfoView
-        navigation.navigateTo(new RegisteredCampInfoView(navigation, selectedCampID));
+        navigation.navigateTo(new RegisteredCampInfoView(navigation, getInput, selectedCampID));
     }
 }

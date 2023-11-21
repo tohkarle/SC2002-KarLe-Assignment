@@ -2,6 +2,7 @@ package cams.view.camp;
 
 import cams.components.input.ConfirmOrDiscard;
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
@@ -19,11 +20,12 @@ import cams.view.suggestion.SuggestionStatusView;
 public class CreatedCampInfoView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private int selectedCampID;
-    private Camp camp;
 
-    public CreatedCampInfoView(Navigation navigation, int selectedCampID) {
+    public CreatedCampInfoView(Navigation navigation, Input getInput, int selectedCampID) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.selectedCampID = selectedCampID;
     }
 
@@ -31,7 +33,7 @@ public class CreatedCampInfoView implements View {
 
         CampManager campManager = CampManager.getInstance();
         
-        this.camp = campManager.getCamp(selectedCampID);
+        Camp camp = campManager.getCamp(selectedCampID);
         Options createdCampInfoOptions = new CreatedCampInfoOptions(camp);
 
         // Display created camp details
@@ -46,16 +48,16 @@ public class CreatedCampInfoView implements View {
 
         switch (option) {
             case 1:
-                navigation.navigateTo(new EditCampView(navigation, camp));
+                navigation.navigateTo(new EditCampView(navigation, getInput, camp));
                 break;
             case 2:
-                navigation.navigateTo(new EnquiryStatusView(navigation, selectedCampID));
+                navigation.navigateTo(new EnquiryStatusView(navigation, getInput, selectedCampID));
                 break;
             case 3:
-                navigation.navigateTo(new SuggestionStatusView(navigation, selectedCampID));
+                navigation.navigateTo(new SuggestionStatusView(navigation, getInput, selectedCampID));
                 break;
             case 4:
-                navigation.navigateTo(new GenerateRegistrationReportView(navigation, selectedCampID));
+                navigation.navigateTo(new GenerateRegistrationReportView(navigation, getInput, selectedCampID));
                 break;
             case 5:
                 if (new ConfirmOrDiscard().getValidInt("Confirm generate report?") != 1) { return; }
@@ -63,7 +65,7 @@ public class CreatedCampInfoView implements View {
                 LoadingIndicator.createLoadingIndicator("report");
                 break;
             case 6:
-                UI deleteCampUI = new DeleteCampUI(navigation, selectedCampID);
+                UI deleteCampUI = new DeleteCampUI(navigation, selectedCampID, getInput);
                 deleteCampUI.body();
                 break;
         }

@@ -1,7 +1,7 @@
 package cams.ui.auth;
 
 import cams.components.input.ConfirmOrDiscard;
-import cams.components.input.GetStringInput;
+import cams.interfaces.Input;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
@@ -10,12 +10,14 @@ import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 import cams.utils.Page;
 
-public class ChangePasswordUI extends GetStringInput implements UI {
+public class ChangePasswordUI implements UI {
 
     private Navigation navigation;
+    private Input getInput;
 
-    public ChangePasswordUI(Navigation navigation) {
+    public ChangePasswordUI(Navigation navigation, Input getInput) {
         this.navigation = navigation;
+        this.getInput = getInput;
     }
     
     public void body() {
@@ -30,7 +32,7 @@ public class ChangePasswordUI extends GetStringInput implements UI {
         Page.header("Change password");
 
         // Check if current password is correct
-        pass1 = super.getValidString("Enter current password: ");
+        pass1 = getInput.getValidString("Enter current password: ");
         if (pass1.equals(Dismiss.stringOption())) { 
             navigation.dismissView();
             return; 
@@ -42,7 +44,7 @@ public class ChangePasswordUI extends GetStringInput implements UI {
 
         // Enter and re-enter new password
         while (true) {
-            pass2 = super.getValidString("Enter new password: ");
+            pass2 = getInput.getValidString("Enter new password: ");
 
             if (pass2.equals(Dismiss.stringOption())) { 
                 navigation.dismissView();
@@ -55,7 +57,7 @@ public class ChangePasswordUI extends GetStringInput implements UI {
                 continue;
             }
 
-            pass3 = super.getValidString("Re-enter new password: ");
+            pass3 = getInput.getValidString("Re-enter new password: ");
 
             if (pass3.equals(Dismiss.stringOption())) { 
                 navigation.dismissView();

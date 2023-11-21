@@ -1,6 +1,8 @@
 package cams.view.user;
 
+import cams.components.input.GetInput;
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.UserManager;
@@ -26,20 +28,22 @@ public class UserOptionsView implements View {
     @Override
     public void render() {
 
+        Input getInput = new GetInput();
+
         View[] staffViews = new View[] {
             new ProfileView(navigation),
-            new ChangePasswordView(navigation),
+            new ChangePasswordView(navigation, getInput),
             new AllCampsView(navigation),
-            new CreateCampView(navigation),
-            new CreatedCampsView(navigation),
+            new CreateCampView(navigation, getInput),
+            new CreatedCampsView(navigation, getInput),
         };
 
         View[] studentViews = new View[] {
             new ProfileView(navigation),
-            new ChangePasswordView(navigation),
+            new ChangePasswordView(navigation, getInput),
             new FacultyCampsView(navigation),
-            new RegisteredCampsView(navigation),
-            new RegisterForCampView(navigation),
+            new RegisteredCampsView(navigation, getInput),
+            new RegisterForCampView(navigation, getInput),
         };
 
         userManager = UserManager.getInstance();

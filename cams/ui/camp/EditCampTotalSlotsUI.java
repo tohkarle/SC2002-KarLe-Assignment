@@ -1,17 +1,19 @@
 package cams.ui.camp;
 
-import cams.components.input.GetIntInput;
+import cams.interfaces.Input;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.model.Camp;
 
-public class EditCampTotalSlotsUI extends GetIntInput implements UI {
+public class EditCampTotalSlotsUI implements UI {
 
+    private Input getInput;
     private Camp camp;
     private CampManager campManager;
     private String title;
 
-    public EditCampTotalSlotsUI(Camp camp, CampManager campManager, String title) {
+    public EditCampTotalSlotsUI(Input getInput, Camp camp, CampManager campManager, String title) {
+        this.getInput = getInput;
         this.camp = camp;
         this.campManager = campManager;
         this.title = title;
@@ -19,7 +21,7 @@ public class EditCampTotalSlotsUI extends GetIntInput implements UI {
 
     @Override
     public void body() {
-        int totalSlots = super.getValidInt(title);
+        int totalSlots = getInput.getValidInt(title);
 
         // ensure new total slots will allow at least 1 student to register
         if (totalSlots <= 0){

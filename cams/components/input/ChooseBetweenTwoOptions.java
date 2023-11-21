@@ -9,7 +9,7 @@ public class ChooseBetweenTwoOptions extends GetOptionInput {
     private String option2;
 
     public ChooseBetweenTwoOptions(String option1, String option2) {
-        super(1, 2);
+        super.setMinMax(1, 2);
         this.option1 = option1;
         this.option2 = option2;
     }

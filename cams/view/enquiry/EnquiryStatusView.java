@@ -1,6 +1,7 @@
 package cams.view.enquiry;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.manager.CampManager;
@@ -11,9 +12,11 @@ import cams.utils.Dismiss;
 public class EnquiryStatusView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private int selectedCampID;
 
-    public EnquiryStatusView(Navigation navigation, int selectedCampID) {
+    public EnquiryStatusView(Navigation navigation, Input getInput, int selectedCampID) {
+        this.navigation = navigation;
         this.navigation = navigation;
         this.selectedCampID = selectedCampID;
     }
@@ -37,9 +40,9 @@ public class EnquiryStatusView implements View {
         boolean viewResolved = (option != 1);
 
         if (userManager.isStaff() || campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), selectedCampID)) {
-            navigation.navigateTo(new CampEnquiriesView(navigation, viewResolved, selectedCampID));
+            navigation.navigateTo(new CampEnquiriesView(navigation, getInput, viewResolved, selectedCampID));
         } else {
-            navigation.navigateTo(new AttendeeCampEnquiriesView(navigation, viewResolved, selectedCampID));
+            navigation.navigateTo(new AttendeeCampEnquiriesView(navigation, getInput, viewResolved, selectedCampID));
         }
     }
 }

@@ -1,6 +1,7 @@
 package cams.view.suggestion;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.model.SuggestionStatus;
@@ -10,12 +11,14 @@ import cams.utils.Dismiss;
 public class CommitteeCampSuggestionsView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private SuggestionStatus suggestionStatus;
     private int selectedCampID;
 
 
-    public CommitteeCampSuggestionsView(Navigation navigation, SuggestionStatus suggestionStatus, int selectedCampID) {
+    public CommitteeCampSuggestionsView(Navigation navigation, Input getInput, SuggestionStatus suggestionStatus, int selectedCampID) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.suggestionStatus = suggestionStatus;
         this.selectedCampID = selectedCampID;
     }
@@ -34,6 +37,6 @@ public class CommitteeCampSuggestionsView implements View {
         }
 
         // Navigate to CreatedSuggestionInfoView
-        navigation.navigateTo(new CreatedSuggestionInfoView(navigation, selectedSuggestionID, suggestionStatus));
+        navigation.navigateTo(new CreatedSuggestionInfoView(navigation, getInput, selectedSuggestionID, suggestionStatus));
     }
 }

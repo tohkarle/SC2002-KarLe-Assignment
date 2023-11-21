@@ -42,6 +42,8 @@ public class CampManager {
         return campService.getFacultyCamps(faculty);
     }
 
+    // KARLE_TODO: Sort them in alphabetical order
+    // KARLE_TODO: Also remember to change the (New) implementation
     public ArrayList<Integer> getAllCampIDs(){
         ArrayList<Integer> arr = new ArrayList<>(campService.getCampMap().keySet());
         return arr;

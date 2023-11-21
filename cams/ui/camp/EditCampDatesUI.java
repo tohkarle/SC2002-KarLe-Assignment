@@ -3,19 +3,21 @@ package cams.ui.camp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import cams.components.input.GetDateInput;
+import cams.interfaces.Input;
 import cams.interfaces.UI;
 import cams.model.Camp;
 
-public class EditCampDatesUI extends GetDateInput implements UI {
+public class EditCampDatesUI implements UI {
 
+    private Input getInput;
     private Camp camp;
     private LocalDate startDate;
     private LocalDate endDate;
     private String startDateTitle;
     private String endDateTitle;
 
-    public EditCampDatesUI(Camp camp, String startDateTitle, String endDateTitle) {
+    public EditCampDatesUI(Input getInput, Camp camp, String startDateTitle, String endDateTitle) {
+        this.getInput = getInput;
         this.camp = camp;
         this.startDateTitle = startDateTitle;
         this.endDateTitle = endDateTitle;
@@ -23,7 +25,7 @@ public class EditCampDatesUI extends GetDateInput implements UI {
 
     @Override
     public void body() {
-        startDate = super.getValidDate(startDateTitle);
+        startDate = getInput.getValidDate(startDateTitle);
         if (startDate == null) { return; }
 
         endDate = getValidEndDate();
@@ -37,9 +39,9 @@ public class EditCampDatesUI extends GetDateInput implements UI {
         return;
     }
 
-    public LocalDate getValidEndDate() {
+    private LocalDate getValidEndDate() {
         while (true) {
-            endDate = super.getValidDate(endDateTitle);
+            endDate = getInput.getValidDate(endDateTitle);
             if (endDate == null) { return null; }
             if (endDate.isEqual(startDate) || endDate.isAfter(startDate)) { break; }
             System.out.println("End date cannot be before start date.");

@@ -1,7 +1,7 @@
 package cams.ui.suggestion;
 
-import cams.components.input.ConfirmOrDiscard;
 import cams.components.input.GetSelectionWithDismiss;
+import cams.interfaces.Input;
 import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
@@ -16,11 +16,13 @@ import cams.utils.LoadingIndicator;
 public class ProcessSuggestionUI implements UI {
     
     private Navigation navigation;
+    private Input getInput;
     private Suggestion suggestion;
     private int selectedSuggestionID;
 
-    public ProcessSuggestionUI(Navigation navigation, Suggestion suggestion, int selectedSuggestionID) {
+    public ProcessSuggestionUI(Navigation navigation, Input getInput, Suggestion suggestion, int selectedSuggestionID) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.suggestion = suggestion;
         this.selectedSuggestionID = selectedSuggestionID;
     }
@@ -31,7 +33,6 @@ public class ProcessSuggestionUI implements UI {
         UserManager userManager = UserManager.getInstance();
         CampManager campManager = CampManager.getInstance();
         SuggestionManager suggestionManager = SuggestionManager.getInstance();
-        IntInput confirm  = new ConfirmOrDiscard();
 
         // Allow staff to go back, approve or reject suggestion
         IntInput selectionWithDismiss = new GetSelectionWithDismiss(-1, 2);
@@ -42,7 +43,7 @@ public class ProcessSuggestionUI implements UI {
         }
 
         // Confirm decision or discard
-        if (confirm.getValidInt("Confirm decision?") != 1) { return; }
+        if (getInput.confirmOrDiscard("Confirm decision?") != 1) { return; }
 
 
         // Check if suggestion has been processed before

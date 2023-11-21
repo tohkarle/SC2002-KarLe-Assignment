@@ -1,18 +1,20 @@
 package cams.ui.camp;
 
-import cams.components.input.GetIntInput;
+import cams.interfaces.Input;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.model.Camp;
 import cams.utils.Dismiss;
 
-public class EditCampCommitteeSlotsUI extends GetIntInput implements UI {
+public class EditCampCommitteeSlotsUI implements UI {
 
+    private Input getInput;
     private Camp camp;
     private CampManager campManager;
     private String title;
 
-    public EditCampCommitteeSlotsUI(Camp camp, CampManager campManager, String title) {
+    public EditCampCommitteeSlotsUI(Input getInput, Camp camp, CampManager campManager, String title) {
+        this.getInput = getInput;
         this.camp = camp;
         this.campManager = campManager;
         this.title = title;
@@ -21,7 +23,7 @@ public class EditCampCommitteeSlotsUI extends GetIntInput implements UI {
     @Override
     public void body() {
 
-        int committeeSlots = super.getValidInt(title);
+        int committeeSlots = getInput.getValidInt(title);
         if (committeeSlots == Dismiss.intOption()) { return; }
 
         // Max 10

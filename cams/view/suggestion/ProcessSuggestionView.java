@@ -1,6 +1,7 @@
 package cams.view.suggestion;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
@@ -14,11 +15,13 @@ import cams.utils.Dismiss;
 public class ProcessSuggestionView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private int selectedSuggestionID;
     private SuggestionStatus suggestionStatus;
 
-    public ProcessSuggestionView(Navigation navigation, int selectedSuggestionID, SuggestionStatus suggestionStatus) {
+    public ProcessSuggestionView(Navigation navigation, Input getInput, int selectedSuggestionID, SuggestionStatus suggestionStatus) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.selectedSuggestionID = selectedSuggestionID;
         this.suggestionStatus = suggestionStatus;
     }
@@ -33,7 +36,7 @@ public class ProcessSuggestionView implements View {
 
         if (suggestionStatus == SuggestionStatus.PENDING) {
             // Allo process suggestion if suggestion is pending
-            UI processSuggestionUI = new ProcessSuggestionUI(navigation, suggestion, selectedSuggestionID);
+            UI processSuggestionUI = new ProcessSuggestionUI(navigation, getInput, suggestion, selectedSuggestionID);
             processSuggestionUI.body();
         } else {
             // Let staff view details and go back only

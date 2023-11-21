@@ -2,7 +2,6 @@ package cams.option.enquiry;
 
 import java.util.Arrays;
 
-import cams.components.input.GetSelection;
 import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.model.Enquiry;

@@ -1,23 +1,25 @@
 package cams.ui.camp;
 
-import cams.components.input.GetStringInput;
+import cams.interfaces.Input;
 import cams.interfaces.UI;
 import cams.model.Camp;
 import cams.utils.Dismiss;
 
-public class EditCampLocationUI extends GetStringInput implements UI {
+public class EditCampLocationUI implements UI {
 
+    private Input getInput;
     private Camp camp;
     private String title;
     
-    public EditCampLocationUI(Camp camp, String title) {
+    public EditCampLocationUI(Input getInput, Camp camp, String title) {
+        this.getInput = getInput;
         this.camp = camp;
         this.title = title;
     }
 
     @Override
     public void body() {
-        String location = super.getValidString(title);
+        String location = getInput.getValidString(title);
         if (location.equals(Dismiss.stringOption())) { return; }
         camp.setLocation(location);
     }

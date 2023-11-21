@@ -76,6 +76,7 @@ public class NavigationManager implements Navigation {
         views.clear();
         views.push(rootView);
         views.push(new UserOptionsView(this));
+        System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override

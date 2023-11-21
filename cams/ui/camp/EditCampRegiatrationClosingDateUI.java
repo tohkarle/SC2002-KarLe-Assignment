@@ -2,23 +2,25 @@ package cams.ui.camp;
 
 import java.time.LocalDate;
 
-import cams.components.input.GetDateInput;
+import cams.interfaces.Input;
 import cams.interfaces.UI;
 import cams.model.Camp;
 
-public class EditCampRegiatrationClosingDateUI extends GetDateInput implements UI {
+public class EditCampRegiatrationClosingDateUI implements UI {
 
+    private Input getInput;
     private Camp camp;
     private String title;
 
-    public EditCampRegiatrationClosingDateUI(Camp camp, String title) {
+    public EditCampRegiatrationClosingDateUI(Input getInput, Camp camp, String title) {
+        this.getInput = getInput;
         this.camp = camp;
         this.title = title;
     }
 
     @Override
     public void body() {
-        LocalDate registrationClosingDate = super.getValidDate(title);
+        LocalDate registrationClosingDate = getInput.getValidDate(title);
         if (registrationClosingDate == null) { return; }
 
         // error, registration close date after camp start

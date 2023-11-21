@@ -1,8 +1,7 @@
 package cams.ui.camp;
 
-import cams.components.input.ConfirmOrDiscard;
 import cams.components.option.Options;
-import cams.interfaces.IntInput;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
@@ -13,12 +12,14 @@ import cams.utils.LoadingIndicator;
 public class EditCampUI implements UI {
 
     private Navigation navigation;
+    private Input getInput;
     private Camp camp;
     private int selectedEditField;
 
-    public EditCampUI(Navigation navigation, Camp camp, int selectedEditField) {
-        this.camp = camp;
+    public EditCampUI(Navigation navigation, Input getInput, Camp camp, int selectedEditField) {
         this.navigation = navigation;
+        this.getInput = getInput;
+        this.camp = camp;
         this.selectedEditField = selectedEditField;
     }
 
@@ -26,30 +27,19 @@ public class EditCampUI implements UI {
     public void body() {
         
         CampManager campManager = CampManager.getInstance();
-        IntInput confirm = new ConfirmOrDiscard();
         Options editCampInfoOptions = new EditCampInfoOptions();
 
         // Create and initialize all UIs for edit camp
-        UI editCampNameUI = new EditCampNameUI(camp, editCampInfoOptions.getOption(0));
-        UI editCampFacultyUI = new EditCampFacultyUI(camp, editCampInfoOptions.getOption(1));
-        UI editCampLocationUI = new EditCampLocationUI(camp, editCampInfoOptions.getOption(2));
-        UI editCampDescriptionUI = new EditCampDescriptionUI(camp, editCampInfoOptions.getOption(3));
-        UI editCampVisibility = new EditCampVisibilityUI(camp, editCampInfoOptions.getOption(4));
-        UI editCampDatesUI = new EditCampDatesUI(camp, editCampInfoOptions.getOption(5), editCampInfoOptions.getOption(6));
-        UI editCampRegiatrationClosingDateUI = new EditCampRegiatrationClosingDateUI(camp, editCampInfoOptions.getOption(7));
-        UI editCampTotalSlotsUI = new EditCampTotalSlotsUI(camp, campManager, editCampInfoOptions.getOption(8));
-        UI editCampCommitteeSlotsUI = new EditCampCommitteeSlotsUI(camp, campManager, editCampInfoOptions.getOption(9));
-
         UI[] editCampUIs = new UI[] {
-            editCampNameUI,
-            editCampFacultyUI,
-            editCampLocationUI,
-            editCampDescriptionUI,
-            editCampVisibility,
-            editCampDatesUI,
-            editCampRegiatrationClosingDateUI,
-            editCampTotalSlotsUI,
-            editCampCommitteeSlotsUI
+            new EditCampNameUI(getInput, camp, editCampInfoOptions.getOption(0)),
+            new EditCampFacultyUI(getInput, camp, editCampInfoOptions.getOption(1)),
+            new EditCampLocationUI(getInput, camp, editCampInfoOptions.getOption(2)),
+            new EditCampDescriptionUI(getInput, camp, editCampInfoOptions.getOption(3)),
+            new EditCampVisibilityUI(camp, editCampInfoOptions.getOption(4)),
+            new EditCampDatesUI(getInput, camp, editCampInfoOptions.getOption(5), editCampInfoOptions.getOption(6)),
+            new EditCampRegiatrationClosingDateUI(getInput, camp, editCampInfoOptions.getOption(7)),
+            new EditCampTotalSlotsUI(getInput, camp, campManager, editCampInfoOptions.getOption(8)),
+            new EditCampCommitteeSlotsUI(getInput, camp, campManager, editCampInfoOptions.getOption(9)),
         };
 
         // Display corresponding UI
@@ -57,7 +47,7 @@ public class EditCampUI implements UI {
             editCampUIs[selectedEditField - 1].body();
         } else if (selectedEditField == editCampUIs.length + 1) {
             // Confirm changes or discard
-            if (confirm.getValidInt("Confirm changes?") != 1) { return; }
+            if (getInput.confirmOrDiscard("Confirm changes?") != 1) { return; }
             if (!campManager.updateCampSuccessful(camp)) { return; }
             
             LoadingIndicator.editingLoadingIndicator("camp");

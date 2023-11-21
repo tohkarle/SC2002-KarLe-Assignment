@@ -5,7 +5,7 @@ import cams.Main;
 public class GetSelection extends GetOptionInput {
 
     public GetSelection(int min, int max) {
-        super(min, max);
+        super.setMinMax(min, max);
     }
 
     @Override

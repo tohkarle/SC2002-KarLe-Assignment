@@ -6,7 +6,7 @@ import cams.utils.Dismiss;
 public class GetSelectionWithDismiss extends GetOptionInput {
 
     public GetSelectionWithDismiss(int min, int max) {
-        super(min, max);
+        super.setMinMax(min, max);
     }
 
     @Override

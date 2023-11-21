@@ -1,6 +1,7 @@
 package cams.view.camp;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
@@ -18,15 +19,17 @@ import cams.view.suggestion.SuggestionStatusView;
 
 public class RegisteredCampInfoView implements View {
 
-    private Camp camp;
     private Navigation navigation;
+    private Input getInput;
+    private Camp camp;
     private int selectedCampID;
     private UserManager userManager;
     private CampManager campManager;
     private Options registeredCampInfoOptions;
 
-    public RegisteredCampInfoView(Navigation navigation, int selectedCampID) {
+    public RegisteredCampInfoView(Navigation navigation, Input getInput, int selectedCampID) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.selectedCampID = selectedCampID;
     }
 
@@ -47,11 +50,11 @@ public class RegisteredCampInfoView implements View {
         }
     }
 
-    public boolean studentIsCommitteeForThisCamp() {
+    private boolean studentIsCommitteeForThisCamp() {
         return campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), selectedCampID);
     }
 
-    public void attendeeOptions() {
+    private void attendeeOptions() {
         // Allow student to go back, create enquiry, manage their enquiries or withdraw from camp
         int option = registeredCampInfoOptions.selection();
         if (option == Dismiss.intOption() ) { 
@@ -64,7 +67,7 @@ public class RegisteredCampInfoView implements View {
                 navigation.navigateTo(new CreateEnquiryView(navigation, selectedCampID));
                 break;
             case 2:
-                navigation.navigateTo(new EnquiryStatusView(navigation, selectedCampID));
+                navigation.navigateTo(new EnquiryStatusView(navigation, getInput, selectedCampID));
                 break;
             case 3:
                 UI withdrawFromCampUI = new WithdrawFromCampUI(navigation, userManager, campManager, selectedCampID);
@@ -73,7 +76,7 @@ public class RegisteredCampInfoView implements View {
         }
     }
 
-    public void committeeOptions() {
+    private void committeeOptions() {
 
         // Allow committee to manage camp enquiries, create suggestion or manage their suggestions
         int option = registeredCampInfoOptions.selection();
@@ -84,16 +87,16 @@ public class RegisteredCampInfoView implements View {
 
         switch(option) {
             case 1:
-                navigation.navigateTo(new EnquiryStatusView(navigation, selectedCampID));
+                navigation.navigateTo(new EnquiryStatusView(navigation, getInput, selectedCampID));
                 break;
             case 2:
-                navigation.navigateTo(new CreateSuggestionView(navigation, camp));
+                navigation.navigateTo(new CreateSuggestionView(navigation, getInput, camp));
                 break;
             case 3:
-                navigation.navigateTo(new SuggestionStatusView(navigation, selectedCampID));
+                navigation.navigateTo(new SuggestionStatusView(navigation, getInput, selectedCampID));
                 break;
             case 4:
-                navigation.navigateTo(new GenerateRegistrationReportView(navigation, selectedCampID));
+                navigation.navigateTo(new GenerateRegistrationReportView(navigation, getInput, selectedCampID));
                 break;
         }
     }

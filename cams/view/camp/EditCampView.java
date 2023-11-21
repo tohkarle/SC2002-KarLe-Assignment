@@ -1,6 +1,7 @@
 package cams.view.camp;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
@@ -12,10 +13,12 @@ import cams.utils.Dismiss;
 public class EditCampView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private Camp camp;
 
-    public EditCampView(Navigation navigation, Camp camp) {
+    public EditCampView(Navigation navigation, Input getInput, Camp camp) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.camp = camp;
     }
 
@@ -33,7 +36,7 @@ public class EditCampView implements View {
             return; 
         }
 
-        UI editCampUI = new EditCampUI(navigation, camp, selectedEditField);
+        UI editCampUI = new EditCampUI(navigation, getInput, camp, selectedEditField);
         editCampUI.body();
     }
 }

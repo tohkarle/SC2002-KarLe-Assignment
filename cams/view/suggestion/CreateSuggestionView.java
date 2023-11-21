@@ -1,6 +1,7 @@
 package cams.view.suggestion;
 
 import cams.components.option.Options;
+import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
@@ -12,10 +13,12 @@ import cams.utils.Dismiss;
 public class CreateSuggestionView implements View {
 
     private Navigation navigation;
+    private Input getInput;
     private Camp camp;
 
-    public CreateSuggestionView(Navigation navigation, Camp camp) {
+    public CreateSuggestionView(Navigation navigation, Input getInput, Camp camp) {
         this.navigation = navigation;
+        this.getInput = getInput;
         this.camp = camp;
     }
 
@@ -32,7 +35,7 @@ public class CreateSuggestionView implements View {
             return; 
         }
 
-        UI createSuggestionUI = new CreateSuggestionUI(navigation, selectedCampInfo, camp);
+        UI createSuggestionUI = new CreateSuggestionUI(navigation, getInput, selectedCampInfo, camp);
         createSuggestionUI.body();
     }
 }

@@ -3,7 +3,7 @@ package cams.ui.camp;
 import java.time.LocalDate;
 
 import cams.components.input.ChooseBetweenTwoOptions;
-import cams.components.input.ConfirmOrDiscard;
+import cams.interfaces.Input;
 import cams.interfaces.IntInput;
 import cams.interfaces.UI;
 import cams.manager.CampManager;
@@ -12,14 +12,14 @@ import cams.model.RegistrationType;
 import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 
-public class RegisterForCampUI extends ChooseBetweenTwoOptions implements UI {
+public class RegisterForCampUI implements UI {
 
+    private Input getInput;
     private UserManager userManager;
     private CampManager campManager;
     private int selectedCampID;
 
-    public RegisterForCampUI(int selectedCampID) {
-        super("ATTENDEE", "COMMITTEE");
+    public RegisterForCampUI(Input getInput, int selectedCampID) {
         this.selectedCampID = selectedCampID;
     }
 
@@ -27,15 +27,15 @@ public class RegisterForCampUI extends ChooseBetweenTwoOptions implements UI {
 
         userManager = UserManager.getInstance();
         campManager = CampManager.getInstance();
-        IntInput confirm = new ConfirmOrDiscard();
         
         // Let user choose to sign up as ATTENDEE or COMMITTEE
-        int option = super.getValidInt("Do you want to sign up as ATTENDEE or COMMITTEE?");
+        IntInput choose = new ChooseBetweenTwoOptions("ATTENDEE", "COMMITTEE");
+        int option = choose.getValidInt("Do you want to sign up as ATTENDEE or COMMITTEE?");
         if (option == Dismiss.intOption()) { return; }
         RegistrationType registrationType = (option == 1) ? RegistrationType.ATTENDEE : RegistrationType.COMMITTEE;
 
         // Confirm register or discard and go back
-        if (confirm.getValidInt("Confirm register?") != 1) { return; }
+        if (getInput.confirmOrDiscard("Confirm register?") != 1) { return; }
 
         // Check for eligibility
         if (this.notEligible(selectedCampID, registrationType)) { return; }
