@@ -5,4 +5,5 @@ public interface Navigation {
     void dismissView();
     void popToRoot();
     Class<?> getPreviousView();
+    void terminate();
 }

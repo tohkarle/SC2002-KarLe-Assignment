@@ -13,9 +13,9 @@ import cams.utils.Serialize;
 // Log user out
 public class AuthService {
 
-    private static HashMap<String, User> userMap;
+    private HashMap<String, User> userMap;
 
-    public AuthService(){
+    public AuthService() {
         Serialize.checkAndCreateFile("userMap.sav");
         this.load();
     }

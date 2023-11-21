@@ -53,7 +53,7 @@ public class GetRegisterInfoUI extends GetStringInput implements UI {
         if (authManager.registerSuccessful(email, name, password, faculty, isStaff)) { 
             navigation.dismissView();
             navigation.navigateTo(new UserOptionsView(navigation));
-            return; 
+            return;
         }
     }
 }

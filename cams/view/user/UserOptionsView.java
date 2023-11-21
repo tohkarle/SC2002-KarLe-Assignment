@@ -52,6 +52,7 @@ public class UserOptionsView implements View {
         }
 
         if (userManager.isStaff()) {
+            
             // Display staff's options and let staff select action
             Options staffOptions = new StaffOptions();
             staffOptions.display("Choose your option: ");

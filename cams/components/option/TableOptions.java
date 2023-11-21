@@ -20,7 +20,6 @@ public abstract class TableOptions extends Options {
         }
     }
     
-
     public abstract void display(String title);
     public abstract int selection();
 }

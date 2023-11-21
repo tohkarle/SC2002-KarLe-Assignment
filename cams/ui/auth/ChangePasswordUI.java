@@ -19,6 +19,7 @@ public class ChangePasswordUI extends GetStringInput implements UI {
     }
     
     public void body() {
+        
         UserManager userManager = UserManager.getInstance();
         IntInput confirm = new ConfirmOrDiscard();
 
@@ -42,25 +43,29 @@ public class ChangePasswordUI extends GetStringInput implements UI {
         // Enter and re-enter new password
         while (true) {
             pass2 = super.getValidString("Enter new password: ");
+
             if (pass2.equals(Dismiss.stringOption())) { 
                 navigation.dismissView();
                 return; 
-             }
+            }
+
+            // Check if new password same as old password
+            if (pass2.equals(pass1)) {
+                System.out.println("New password cannot be the same as old password, please try again.");
+                continue;
+            }
 
             pass3 = super.getValidString("Re-enter new password: ");
+
             if (pass3.equals(Dismiss.stringOption())) { 
                 navigation.dismissView();
                 return; 
-             }
+            }
 
             if (pass2.equals(pass3)) { break; }
 
             if (!pass2.equals(pass3)) {
                 System.out.println("Passwords do not match, please try again.");
-            }
-
-            if (pass2.equals(pass1)) {
-                System.out.println("New password cannot be the same as old password, please try again.");
             }
         }
         

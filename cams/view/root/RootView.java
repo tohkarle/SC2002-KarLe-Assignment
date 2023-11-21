@@ -18,8 +18,6 @@ public class RootView implements View {
 
     public void render() {
 
-        // System.out.println("\nWelcome to the Camp Application and Management System");
-
         Options authOptions = new AuthOptions();
         authOptions.display("Would you like to register or log in?");
         int option = authOptions.selection();
@@ -33,7 +31,7 @@ public class RootView implements View {
                 break;
             case 3:
                 LoadingIndicator.terminateAppLoadingIndicator();
-                navigation.dismissView();
+                navigation.terminate();
                 break;
         }
     }
