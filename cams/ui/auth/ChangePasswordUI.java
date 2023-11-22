@@ -1,8 +1,6 @@
 package cams.ui.auth;
 
-import cams.components.input.ConfirmOrDiscard;
 import cams.interfaces.Input;
-import cams.interfaces.IntInput;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.manager.UserManager;
@@ -23,7 +21,6 @@ public class ChangePasswordUI implements UI {
     public void body() {
         
         UserManager userManager = UserManager.getInstance();
-        IntInput confirm = new ConfirmOrDiscard();
 
         String pass1 = "";
         String pass2 = "";
@@ -31,15 +28,18 @@ public class ChangePasswordUI implements UI {
 
         Page.header("Change password");
 
-        // Check if current password is correct
-        pass1 = getInput.getValidString("Enter current password: ");
-        if (pass1.equals(Dismiss.stringOption())) { 
-            navigation.dismissView();
-            return; 
-        }
-        if (!userManager.getCurrentUser().passwordMatches(pass1)) {
-            System.out.println("Password incorrect, please try again.");
-            return;
+        while (true) {
+            // Check if current password is correct
+            pass1 = getInput.getValidString("Enter current password: ");
+            if (pass1.equals(Dismiss.stringOption())) { 
+                navigation.dismissView();
+                return; 
+            }
+            if (!userManager.getCurrentUser().passwordMatches(pass1)) {
+                System.out.println("Password incorrect, please try again.");
+                continue;
+            }
+            break;
         }
 
         // Enter and re-enter new password
@@ -72,7 +72,7 @@ public class ChangePasswordUI implements UI {
         }
         
         // Confirm changes
-        if (confirm.getValidInt("Confirm changes?") != 1) { return; };
+        if (getInput.confirmOrDiscard("Confirm changes?") != 1) { return; };
 
         // Update password
         userManager.updatePassword(pass3);

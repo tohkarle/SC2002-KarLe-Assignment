@@ -2,9 +2,18 @@ package cams.utils;
 
 import java.io.IOException;
 
+import cams.Main;
+
 public class LoadingIndicator {
 
     private static final int DELAY_MILLISECONDS = 666;
+
+    public static void customLoadingIndicator(String title1, String title2) {
+        System.out.println("\n" + title1);
+        delay();
+        System.out.println(title2 + " (Press Enter to dismiss)");
+        Main.scanner.nextLine();
+    }
 
     public static void logInLoadingIndicator() {
         System.out.println("\nLogging in...");

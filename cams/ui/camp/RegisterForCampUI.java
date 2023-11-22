@@ -21,13 +21,14 @@ public class RegisterForCampUI implements UI {
 
     public RegisterForCampUI(Input getInput, int selectedCampID) {
         this.selectedCampID = selectedCampID;
+        this.getInput = getInput;
     }
 
     public void body() {
 
         userManager = UserManager.getInstance();
         campManager = CampManager.getInstance();
-        
+
         // Let user choose to sign up as ATTENDEE or COMMITTEE
         IntInput choose = new ChooseBetweenTwoOptions("ATTENDEE", "COMMITTEE");
         int option = choose.getValidInt("Do you want to sign up as ATTENDEE or COMMITTEE?");
@@ -56,39 +57,39 @@ public class RegisterForCampUI implements UI {
         */
 
         if (campManager.hasRegisteredForCamp(userManager.getCurrentUser().getName(), campID)) {
-            System.out.println("\nRegistration is unsuccessful. You have already registered for this camp");
+            LoadingIndicator.customLoadingIndicator("Registering...", "Registration is unsuccessful. You have already registered for this camp.");
             return true;
         }
 
         if (campManager.hasWithdrawnFromCamp(userManager.getCurrentUser().getName(), campID)){
-            System.out.println("\nRegistration is unsuccessful. You have withdrawn from this camp before");
+            LoadingIndicator.customLoadingIndicator("Registering...", "Registration is unsuccessful. You have withdrawn from this camp before.");
             return true;
         }
 
         if (campManager.isAfterRegistrationClosingDate(campID, LocalDate.now())) { 
-            System.out.println("\nRegister unsuccessful. The dateline for the registration is over.");
+            LoadingIndicator.customLoadingIndicator("Registering...", "Register unsuccessful. The dateline for the registration is over.");
             return true;
         }
 
         if (campManager.hasCampClashes(userManager.getCurrentUser().getName(), campID)) { 
-            System.out.println("\nRegister unsuccessful. This camp has clashes in dates with other camps you have registered.");
+            LoadingIndicator.customLoadingIndicator("Registering...", "Register unsuccessful. This camp has clashes in dates with other camps you have registered.");
             return true;
         }
 
         if (registrationType == RegistrationType.ATTENDEE) {
 
             if (campManager.participationIsFull(campID)) {
-                System.out.println("\nRegister unsuccessful. Camp is full.");
+                LoadingIndicator.customLoadingIndicator("Registering...", "Register unsuccessful. Camp is full.");
                 return true;
             }
         } else {
             if (campManager.committeeIsFull(campID)) {
-                System.out.println("\nRegister unsuccessful. Camp's committee slot is full.");
+                LoadingIndicator.customLoadingIndicator("Registering...", "Register unsuccessful. Camp's committee slot is full.");
                 return true;
             }
 
             if (campManager.isCommitteeMemberForAnotherCamp(userManager.getCurrentUser().getName(), campID)) {
-                System.out.println("\nRegister unsuccessful. You are already a committee member in another camp.");
+                LoadingIndicator.customLoadingIndicator("Registering...", "Register unsuccessful. You are already a committee member in another camp.");
                 return true;
             }
         }

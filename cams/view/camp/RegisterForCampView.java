@@ -20,21 +20,19 @@ public class RegisterForCampView implements View {
     }
 
     public void render() {
-        while (true) {
-            // Show all available camps
-            Options facultyCampOptions = new FacultyCampOptions();
-            facultyCampOptions.display("Select the camp you wish to register. Do note that committee members are only allowed to register other camps as attendee.");
+        // Show all available camps
+        Options facultyCampOptions = new FacultyCampOptions();
+        facultyCampOptions.display("Select the camp you wish to register. Do note that committee members are only allowed to register other camps as attendee.");
 
-            // Let user select the camp to register
-            int selectedCampID = facultyCampOptions.selection();
-            if (selectedCampID == Dismiss.intOption()) { 
-                navigation.dismissView();
-                return; 
-            }
-
-            // Register for camp
-            UI registerForCampUI = new RegisterForCampUI(getInput, selectedCampID);
-            registerForCampUI.body();
+        // Let user select the camp to register
+        int selectedCampID = facultyCampOptions.selection();
+        if (selectedCampID == Dismiss.intOption()) { 
+            navigation.dismissView();
+            return; 
         }
+
+        // Register for camp
+        UI registerForCampUI = new RegisterForCampUI(getInput, selectedCampID);
+        registerForCampUI.body();
     }
 }

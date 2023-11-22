@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
+import cams.utils.Page;
 import cams.view.root.RootView;
 import cams.view.user.UserOptionsView;
 
@@ -32,14 +33,9 @@ public class NavigationManager implements Navigation {
 
     public void displayView() {
         while (!views.isEmpty()) {
-
+            Page.clearTerminal();
+            System.out.println("\nWelcome to the Camp Application and Management System");
             View view = views.peek();
-            
-            // For showing how the stack controls navigation
-            // for (View view : views) {
-            //     System.out.println(view);
-            // }
-
             view.render();
         }
     }
@@ -47,48 +43,42 @@ public class NavigationManager implements Navigation {
     public void initializeRootView() {
         rootView = new RootView(this);
         views.push(rootView);
-        System.out.println("\nWelcome to the Camp Application and Management System");
+        // System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override
     public void navigateTo(View view) {
-        clearTerminal();
         views.push(view);
-        System.out.println("\nWelcome to the Camp Application and Management System");
+        // System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override
     public void dismissView() {
-        clearTerminal();
+        // Page.clearTerminal();
         views.pop();
-        System.out.println("\nWelcome to the Camp Application and Management System");
+        // System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override
     public void terminate() {
-        clearTerminal();
+        Page.clearTerminal();
         views.clear();
     }
 
     @Override
     public void popToRoot() {
-        clearTerminal();
+        // Page.clearTerminal();
         views.clear();
         views.push(rootView);
         views.push(new UserOptionsView(this));
-        System.out.println("\nWelcome to the Camp Application and Management System");
+        // System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override
     public Class<?> getPreviousView() {
         if (views.size() < 2) {
-            return null;  // No previous view
+            return null;
         }
         return views.get(views.size() - 2).getClass();
-    }
-
-    public void clearTerminal() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 }
