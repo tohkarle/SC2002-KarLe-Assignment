@@ -22,18 +22,18 @@ public class AuthManager {
 
     public boolean registerSuccessful(String email, String name, String password, String faculty, boolean isStaff) {
         if (authService.emailAlreadyExists(email)) {
-            System.out.println("Email already used, please enter another email.");
+            LoadingIndicator.customLoadingIndicator("Registering...", "Email already used, please enter another email.");
             return false;
         }
 
         if (authService.nameAlreadyExists(name)) {
-            System.out.println("Name already used, please enter another name.");
+            LoadingIndicator.customLoadingIndicator("Registering...", "Name already used, please enter another name.");
             return false;
         }
 
         User newUser = authService.registerUser(email, name, password, faculty, isStaff);
         if (newUser == null) {
-            System.out.println("Registration unsuccessful, please try again.");
+            LoadingIndicator.customLoadingIndicator("Registering...", "Registration unsuccessful, please try again.");
             return false;
         }
         UserManager.getInstance().setCurrentUser(newUser);
@@ -44,7 +44,7 @@ public class AuthManager {
 
     public boolean logInSuccessful(String email, String password) {
         if (!authService.isValidUser(email)) {
-            System.out.println("Email not found!");
+            LoadingIndicator.customLoadingIndicator("Logging in...", "Email not found!");
             return false;
         }
 
@@ -53,14 +53,14 @@ public class AuthManager {
             LoadingIndicator.logInLoadingIndicator();
             User user = authService.logIn(email);
             if (user == null) {
-                System.out.println("Log in unsuccessful, please try again.");
+                LoadingIndicator.customLoadingIndicator("Logging in...", "Log in unsuccessful, please try again.");
                 return false;
             }
             UserManager.getInstance().setCurrentUser(user);
             return true;
         } else {
             // password wrong, rejected
-            System.out.println("Wrong password, please try again.");
+            LoadingIndicator.customLoadingIndicator("Logging in...", "Wrong password, please try again.");
             return false;
         }
     }
