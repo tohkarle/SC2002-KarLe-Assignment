@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 /**
- * A base abstracct class to create Option objects
+ * A base abstract class to create Option objects
  */
 public abstract class Options {
 
