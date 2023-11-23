@@ -46,8 +46,6 @@ public class ProfileView implements View {
     }
 
     public void studentSpecificProfile() {
-
-        // KARLE_TODO: CHANGE THIS SHIT
         int numberOfEnquiriesReplied = enquiryManager.getNumberOfEnquiriesReplied(userManager.getCurrentUser().getName());
         int numberOfSuggestionsGiven = suggestionManager.getNumberOfSuggestionsGiven(userManager.getCurrentUser().getName());
         int numberOfSuggestionsApproved = suggestionManager.getNumberOfSuggestionsApproved(userManager.getCurrentUser().getName());

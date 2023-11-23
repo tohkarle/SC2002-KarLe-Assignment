@@ -13,12 +13,21 @@ public class CreatedCampsView implements View {
     private Navigation navigation;
     private Input getInput;
     private FilterCamps filterCamps;
+    private String newCampName;
     private Options userCampOptions;
+
+    public CreatedCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps, String newCampName) {
+        this.navigation = navigation;
+        this.getInput = getInput;
+        this.filterCamps = filterCamps;
+        this.newCampName = newCampName;
+    }
 
     public CreatedCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.filterCamps = filterCamps;
+        this.newCampName = null;
     }
 
     public void render() {
@@ -26,7 +35,7 @@ public class CreatedCampsView implements View {
         userCampOptions = new UserCampsOptions(filterCamps);
 
         // Label camp as new if staff just created camp
-        if (justCreatedCamp()) { labelCampAsNew(); }
+        if (newCampName != null) { labelCampAsNew(); }
 
         // Display camps
         userCampOptions.display("Select camp to view details:");
@@ -47,12 +56,8 @@ public class CreatedCampsView implements View {
     }
 
     public void labelCampAsNew() {
-        String name = userCampOptions.getOption(userCampOptions.getOptionsSize() - 1);
-        System.out.println("Labeling: " + name);
-        userCampOptions.replaceOption(name, name + " (New)");
-    }
-
-    public boolean justCreatedCamp() {
-        return (navigation.getPreviousView().equals(CreateCampView.class));
+        if (newCampName != null) {
+            userCampOptions.replaceOption(newCampName, newCampName + " (New)");
+        }
     }
 }

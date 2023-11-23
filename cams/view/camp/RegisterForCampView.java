@@ -34,8 +34,12 @@ public class RegisterForCampView implements View {
             return; 
         }
 
-        // Register for camp
-        UI registerForCampUI = new RegisterForCampUI(getInput, selectedCampID);
-        registerForCampUI.body();
+        if (selectedCampID == 0) {
+            navigation.navigateTo(new FilterFacultyCampsView(navigation, getInput, filterCamps));
+        } else {
+            // Register for camp
+            UI registerForCampUI = new RegisterForCampUI(getInput, selectedCampID);
+            registerForCampUI.body();
+        }
     }
 }

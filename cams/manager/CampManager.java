@@ -57,27 +57,67 @@ public class CampManager {
         return campService.getCamp(campID);
     }
 
-    // KARLE_TODO: Also remember to change the (New) implementation
+
+    /**
+     * Retrieves a list of all camps sorted by name in alphebatical order.
+     *
+     * @return A sorted list of all camps by alphebatical order.
+     */
     public ArrayList<Camp> getAllCampsByNameSorted() {
         return campService.getAllCampsByNameSorted();
     }
     
+
+    /**
+     * Retrieves a list of camps sorted by name in alphebatical order that a specific staff member is in charge of.
+     *
+     * @param staffName The name of the staff member.
+     * @return A sorted list of camps that the staff member is in charge of.
+     */
     public ArrayList<Camp> getStaffCampsByNameSorted(String staffName) {
         return campService.getStaffCampsByNameSorted(staffName);
     }
-    
+
+
+    /**
+     * Retrieves a list of camps sorted by name in alphebatical order that are associated with a specific faculty.
+     *
+     * @param faculty The name of the faculty.
+     * @return A sorted list of camps associated with the faculty.
+     */
     public ArrayList<Camp> getFacultyCampsByNameSorted(String faculty) {
         return campService.getFacultyCampsByNameSorted(faculty);
     }
 
+
+    /**
+     * Retrieves a list of camps sorted by name in alphebatical order that a specific student is registered for.
+     *
+     * @param studentName The name of the student.
+     * @return A sorted list of camps that the student is registered for.
+     */
     public ArrayList<Camp> getRegisteredCampsByNameSorted(String studentName) {
         return campService.getRegisteredCampsByNameSorted(studentName);
     }
 
+
+    /**
+     * Retrieves a list of names of students participating in a specific camp.
+     *
+     * @param campID The ID of the camp.
+     * @return A list of names of students participating in the camp.
+     */
     public ArrayList<String> getParticipatingStudentNames(int campID) {
         return campService.getParticipatingStudentNames(campID);
     }
 
+    
+    /**
+     * Retrieves a list of names of committee members for a specific camp.
+     *
+     * @param campID The ID of the camp.
+     * @return A list of names of committee members for the camp.
+     */
     public ArrayList<String> getCommitteeMemberNames(int campID) {
         return campService.getCommitteeMemberNames(campID);
     }
@@ -98,7 +138,7 @@ public class CampManager {
             return false;
         }
 
-        // Set registration closing date to be 45 days after date of creation
+        // Set registration closing date to be 1 day before camp start date
         LocalDate registrationClosingDate = dates.get(0).minusDays(1);
 
         // Create new camp and add to 'database'
