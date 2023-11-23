@@ -3,17 +3,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 import cams.model.Camp;
 import cams.utils.Serialize;
 
 public class CampService {
 
-    private Map<Integer, Camp> campMap;
+    private HashMap<Integer, Camp> campMap = new HashMap<Integer, Camp>();
 
-    public CampService() {
+    public CampService(){
         Serialize.checkAndCreateFile("campMap.sav");
         this.load();
     }
@@ -35,53 +33,89 @@ public class CampService {
         return campMap.get(camID).getCampName();
     }
 
-    // public HashMap<Integer, Camp> getCampMap() {
-    //     return new HashMap<>(campMap);
-    // }
-
-    public Map<Integer, Camp> getCampMap() {
-        System.out.println(campMap);
-        // Return the map as a sorted map, without exposing the specific implementation
-        return Collections.unmodifiableMap(campMap);
+    public HashMap<Integer, Camp> getCampMap() {
+        return new HashMap<>(campMap);
     }
 
-    public ArrayList<Camp> getAllCamps() {
+    public ArrayList<Camp> getAllCampsByNameSorted() {
         ArrayList<Camp> camps = new ArrayList<>();
         for (Camp camp : campMap.values()) {
             camps.add(new Camp(camp));
         }
+        Collections.sort(camps, Comparator.comparing(Camp::getCampName));
         return camps;
     }
-    
-    public ArrayList<Camp> getStaffCamps(String staffName) {
+
+    public ArrayList<Camp> getStaffCampsByNameSorted(String staffName) {
         ArrayList<Camp> camps = new ArrayList<>();
         for (Camp camp : campMap.values()) {
             if (camp.getStaffInCharge().equals(staffName)) {
                 camps.add(new Camp(camp));
             }
         }
+        Collections.sort(camps, Comparator.comparing(Camp::getCampName));
         return camps;
     }
     
-    public ArrayList<Camp> getFacultyCamps(String faculty) {
+    public ArrayList<Camp> getFacultyCampsByNameSorted(String faculty) {
         ArrayList<Camp> camps = new ArrayList<>();
         for (Camp camp : campMap.values()) {
             if ((camp.getUserGroup().equals(faculty) || camp.getUserGroup().equals("NTU")) && camp.getVisibility()) {
                 camps.add(new Camp(camp));
             }
         }
+        Collections.sort(camps, Comparator.comparing(Camp::getCampName));
         return camps;
     }
     
-    public ArrayList<Camp> getRegisteredCamps(String studentName) {
+    public ArrayList<Camp> getRegisteredCampsByNameSorted(String studentName) {
         ArrayList<Camp> camps = new ArrayList<>();
         for (Camp camp : campMap.values()) {
             if ((camp.getParticipatingStudentNames().contains(studentName) || camp.getCommitteeMemberNames().contains(studentName)) && camp.getVisibility()) {
                 camps.add(new Camp(camp));
             }
         }
+        Collections.sort(camps, Comparator.comparing(Camp::getCampName));
         return camps;
     }
+
+    // public ArrayList<Camp> getAllCamps() {
+    //     ArrayList<Camp> camps = new ArrayList<>();
+    //     for (Camp camp : campMap.values()) {
+    //         camps.add(new Camp(camp));
+    //     }
+    //     return camps;
+    // }
+    
+    // public ArrayList<Camp> getStaffCamps(String staffName) {
+    //     ArrayList<Camp> camps = new ArrayList<>();
+    //     for (Camp camp : campMap.values()) {
+    //         if (camp.getStaffInCharge().equals(staffName)) {
+    //             camps.add(new Camp(camp));
+    //         }
+    //     }
+    //     return camps;
+    // }
+    
+    // public ArrayList<Camp> getFacultyCamps(String faculty) {
+    //     ArrayList<Camp> camps = new ArrayList<>();
+    //     for (Camp camp : campMap.values()) {
+    //         if ((camp.getUserGroup().equals(faculty) || camp.getUserGroup().equals("NTU")) && camp.getVisibility()) {
+    //             camps.add(new Camp(camp));
+    //         }
+    //     }
+    //     return camps;
+    // }
+    
+    // public ArrayList<Camp> getRegisteredCamps(String studentName) {
+    //     ArrayList<Camp> camps = new ArrayList<>();
+    //     for (Camp camp : campMap.values()) {
+    //         if ((camp.getParticipatingStudentNames().contains(studentName) || camp.getCommitteeMemberNames().contains(studentName)) && camp.getVisibility()) {
+    //             camps.add(new Camp(camp));
+    //         }
+    //     }
+    //     return camps;
+    // }
 
     public void updateCamp(Camp camp) {
         int campID = camp.getId();
@@ -92,7 +126,7 @@ public class CampService {
         }
     }
 
-    public int campNameAlreadyExists(String name) {
+    public int getCampIDWithName(String name) {
         for (Camp camp : campMap.values()) {
             if (camp.getCampName().equals(name)) {
                 return camp.getId();
@@ -125,26 +159,18 @@ public class CampService {
         Serialize.save("campMap.sav", campMap);
     }
 
-    public void load() {
-        try {
+    public void load(){
+        try{
             @SuppressWarnings("unchecked")
             HashMap<Integer, Camp> loadedMap = (HashMap<Integer, Camp>) Serialize.load("campMap.sav");
             if (loadedMap != null) {
-                // To keep the camps in alphabetical order
-                // If camps are loaded from a file, create a new TreeMap with the loaded camps
-                Comparator<Integer> valueComparator = (k1, k2) -> {
-                    Camp c1 = loadedMap.get(k1);
-                    Camp c2 = loadedMap.get(k2);
-                    return c1.getCampName().compareToIgnoreCase(c2.getCampName());
-                };
-                campMap = new TreeMap<>(valueComparator);
-                campMap.putAll(loadedMap);
-                System.out.println(campMap);
+                campMap = loadedMap;
             } else {
-                campMap = new TreeMap<>();
+                campMap = new HashMap<Integer, Camp>();
             }
-        } catch (Exception ex) {
-            campMap = new TreeMap<>();
+        }
+        catch(Exception ex){
+            campMap = new HashMap<Integer, Camp>();
         }
     }
 }

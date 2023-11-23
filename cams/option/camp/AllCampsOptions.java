@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cams.components.option.DismissableSelectableOptions;
 import cams.manager.CampManager;
+import cams.model.Camp;
 import cams.utils.Dismiss;
 import cams.utils.Page;
 
@@ -35,10 +36,19 @@ public class AllCampsOptions extends DismissableSelectableOptions {
 
     public void fetchCamps() {
         CampManager campManager = CampManager.getInstance();
-        // Fetch all camps
         this.noCampTitle = "No camp has been created.";
-        super.setOptions(campManager.getAllCampNames());
-        this.campIDs = campManager.getAllCampIDs();
+        
+        ArrayList<Camp> camps = campManager.getAllCampsByNameSorted();
+        ArrayList<String> campNames = new ArrayList<>();
+        ArrayList<Integer> campIds = new ArrayList<>();
+        
+        for (Camp camp : camps) {
+            campNames.add(camp.getCampName());
+            campIds.add(camp.getId());
+        }
+        
+        super.setOptions(campNames);
+        this.campIDs = campIds;
     }
 
     public void setNoCampTitle(String title) {

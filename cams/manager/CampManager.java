@@ -31,91 +31,21 @@ public class CampManager {
         return campService.getCamp(campID);
     }
 
-    public ArrayList<Camp> getAllCamps() {
-        return campService.getAllCamps();
-    }
-    
-    public ArrayList<Camp> getStaffCamps(String staffName) {
-        return campService.getStaffCamps(staffName);
-    }
-    
-    public ArrayList<Camp> getFacultyCamps(String faculty) {
-        return campService.getFacultyCamps(faculty);
-    }
-
-    // KARLE_TODO: Sort them in alphabetical order
     // KARLE_TODO: Also remember to change the (New) implementation
-    public ArrayList<Integer> getAllCampIDs(){
-        ArrayList<Integer> arr = new ArrayList<>(campService.getCampMap().keySet());
-        return arr;
+    public ArrayList<Camp> getAllCampsByNameSorted() {
+        return campService.getAllCampsByNameSorted();
+    }
+    
+    public ArrayList<Camp> getStaffCampsByNameSorted(String staffName) {
+        return campService.getStaffCampsByNameSorted(staffName);
+    }
+    
+    public ArrayList<Camp> getFacultyCampsByNameSorted(String faculty) {
+        return campService.getFacultyCampsByNameSorted(faculty);
     }
 
-    public ArrayList<String> getAllCampNames() {
-        ArrayList<String> names = new ArrayList<>();
-        for (Camp camp : campService.getCampMap().values()) {
-            names.add(camp.getCampName());
-        }
-        return names;
-    }
-
-    public ArrayList<String> getAllStaffCampNames(String staffName) {
-        ArrayList<String> names = new ArrayList<>();
-        for (Camp camp : campService.getCampMap().values()) {
-            if (camp.getStaffInCharge().equals(staffName)) {
-                names.add(camp.getCampName());
-            }
-        }
-        return names;
-    }
-
-    public ArrayList<Integer> getAllStaffCampIDs(String staffName) {
-        ArrayList<Integer> ids = new ArrayList<>();
-        for (Camp camp : campService.getCampMap().values()) {
-            if (camp.getStaffInCharge().equals(staffName)) {
-                ids.add(camp.getId());
-            }
-        }
-        return ids;
-    }
-
-    public ArrayList<String> getAllFacultyCampNames(String faculty) {
-        ArrayList<String> names = new ArrayList<>();
-        for (Camp camp : campService.getCampMap().values()) {
-            if ((camp.getUserGroup().equals(faculty) || camp.getUserGroup().equals("NTU")) && camp.getVisibility()) {
-                names.add(camp.getCampName());
-            }
-        }
-        return names;
-    }
-
-    public ArrayList<Integer> getAllFacultyCampIDs(String faculty) {
-        ArrayList<Integer> ids = new ArrayList<>();
-        for (Camp camp : campService.getCampMap().values()) {
-            if ((camp.getUserGroup().equals(faculty) || camp.getUserGroup().equals("NTU")) && camp.getVisibility()) {
-                ids.add(camp.getId());
-            }
-        }
-        return ids;
-    }
-
-    public ArrayList<String> getAllRegisteredCampNames(String studentName) {
-        ArrayList<String> names = new ArrayList<String>();
-        for (Camp camp : campService.getCampMap().values()) {
-            if ((camp.getParticipatingStudentNames().contains(studentName) || camp.getCommitteeMemberNames().contains(studentName)) && camp.getVisibility()) {
-                names.add(camp.getCampName());
-            }
-        }
-        return names;
-    }
-
-    public ArrayList<Integer> getAllRegisteredCampIDs(String studentName) {
-        ArrayList<Integer> ids = new ArrayList<Integer>();
-        for (Camp camp : campService.getCampMap().values()) {
-            if ((camp.getParticipatingStudentNames().contains(studentName) || camp.getCommitteeMemberNames().contains(studentName)) && camp.getVisibility()) {
-                ids.add(camp.getId());
-            }
-        }
-        return ids;
+    public ArrayList<Camp> getRegisteredCampsByNameSorted(String studentName) {
+        return campService.getRegisteredCampsByNameSorted(studentName);
     }
 
     public ArrayList<String> getParticipatingStudentNames(int campID) {
@@ -127,7 +57,7 @@ public class CampManager {
     }
 
     public boolean createCampSuccessful(String staffName, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility) {
-        if (campService.campNameAlreadyExists(campName) != -1) {
+        if (campService.getCampIDWithName(campName) != -1) {
             LoadingIndicator.customLoadingIndicator("Creating camp...", "Camp of the same name already exists, please choose another name.");
             return false;
         }
@@ -166,7 +96,7 @@ public class CampManager {
     }
 
     public boolean updateCampSuccessful(Camp camp) {
-        int campID = campService.campNameAlreadyExists(camp.getCampName());
+        int campID = campService.getCampIDWithName(camp.getCampName());
         if (campID != -1 && campID != camp.getId()) {
             LoadingIndicator.customLoadingIndicator("Editing camp...", "Camp of the same name already exists, please choose another name.");
             return false;
