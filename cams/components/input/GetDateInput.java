@@ -8,6 +8,10 @@ import cams.Main;
 import cams.interfaces.DateInput;
 import cams.utils.Dismiss;
 
+
+/**
+ * Input object to get input for date
+ */
 public class GetDateInput implements DateInput {
 
     // Input must be in the right format yyyy-MM-dd
@@ -16,9 +20,18 @@ public class GetDateInput implements DateInput {
     protected String input;
     protected LocalDate date;
 
+    /**
+     * Initialize the input object
+     */
     public GetDateInput () {
     }
 
+
+    /**
+     * Gets user to input a date, ensuring user inputs valid date
+     * @param title The title of what the date is for
+     * @return LocalDate object for the date the user has inputed
+     */
     @Override
     public LocalDate getValidDate(String title) {
         while (true) {
@@ -31,6 +44,11 @@ public class GetDateInput implements DateInput {
         }
     }
 
+
+    /**
+     * A method to check whether the date inside this input object is not the correct format
+     * @return boolean of whether the input is a valid date format
+     */
     public boolean inputIsInWrongFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
@@ -42,6 +60,11 @@ public class GetDateInput implements DateInput {
         }
     }
 
+    
+    /**
+     * A method to check if the current input in this input object is empty
+     * @return boolean of whether the input is empty
+     */
     public boolean inputIsEmpty() {
         if (!this.input.isEmpty()) { return false; }
         System.out.println("You didn't enter anything. Please try again."); 
