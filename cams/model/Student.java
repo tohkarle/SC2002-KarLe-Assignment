@@ -1,7 +1,11 @@
 package cams.model;
 
-public class Student extends User {
 
+/**
+ * A specialized class of the generic user class
+ */
+public class Student extends User {
+    
     private int point;
 
     public Student(String name, String email, String password, String faculty) {
