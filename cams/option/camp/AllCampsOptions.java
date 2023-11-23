@@ -7,18 +7,18 @@ import cams.manager.CampManager;
 import cams.utils.Dismiss;
 import cams.utils.Page;
 
-public class AllCampOptions extends DismissableSelectableOptions {
+public class AllCampsOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
     private ArrayList<Integer> campIDs;
 
-    public AllCampOptions() {
-        this.fetchAllCamps();
+    public AllCampsOptions() {
+        this.fetchCamps();
     }
 
     @Override
     public void display(String title) {
-        fetchAllCamps();
+        fetchCamps();
         if (super.getOptionsSize() == 0) {
             Page.header(this.noCampTitle);
         } else {
@@ -33,11 +33,19 @@ public class AllCampOptions extends DismissableSelectableOptions {
         return this.campIDs.get(option - 1);
     }
 
-    private void fetchAllCamps() {
+    public void fetchCamps() {
         CampManager campManager = CampManager.getInstance();
         // Fetch all camps
         this.noCampTitle = "No camp has been created.";
         super.setOptions(campManager.getAllCampNames());
         this.campIDs = campManager.getAllCampIDs();
+    }
+
+    public void setNoCampTitle(String title) {
+        this.noCampTitle = title;
+    }
+
+    public void setCampIDs(ArrayList<Integer> campIDs) {
+        this.campIDs = campIDs;
     }
 }

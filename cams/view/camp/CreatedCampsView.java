@@ -4,7 +4,7 @@ import cams.components.option.Options;
 import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.option.camp.UserCampOptions;
+import cams.option.camp.UserCampsOptions;
 import cams.utils.Dismiss;
 
 public class CreatedCampsView implements View {
@@ -20,7 +20,7 @@ public class CreatedCampsView implements View {
 
     public void render() {
 
-        userCampOptions = new UserCampOptions();
+        userCampOptions = new UserCampsOptions();
 
         // Label camp as new if staff just created camp
         if (justCreatedCamp()) { labelCampAsNew(); }

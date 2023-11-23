@@ -42,7 +42,6 @@ public class EditEnquiryUI implements UI {
                 enquiryManager.updateEnquiry(enquiry);
                 LoadingIndicator.editingLoadingIndicator("enquiry");
                 navigation.dismissView();
-
         }
     }
 }

@@ -7,7 +7,7 @@ import cams.interfaces.UI;
 import cams.interfaces.View;
 import cams.manager.EnquiryManager;
 import cams.model.Enquiry;
-import cams.option.enquiry.CreatedEnquiryOptions;
+import cams.option.enquiry.CreatedEnquiryInfoOptions;
 import cams.ui.enquiry.DeleteEnquiryUI;
 import cams.utils.Dismiss;
 
@@ -27,7 +27,7 @@ public class CreatedEnquiryInfoView implements View {
 
         EnquiryManager enquiryManager = EnquiryManager.getInstance();
         Enquiry enquiry = enquiryManager.getEnquiry(selectedEnquiryID);
-        Options createdSuggestionOptions = new CreatedEnquiryOptions(enquiry);
+        Options createdSuggestionOptions = new CreatedEnquiryInfoOptions(enquiry);
 
         // Display created enquiry details
         createdSuggestionOptions.display("Enquiry details: ");

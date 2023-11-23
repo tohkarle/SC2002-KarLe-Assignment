@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.utils.Page;
+import cams.interfaces.ViewHandler;
 import cams.view.root.RootView;
 import cams.view.user.UserOptionsView;
 
@@ -14,64 +14,53 @@ import cams.view.user.UserOptionsView;
  *
  * @author Toh Kar Le
  */
-public class NavigationManager implements Navigation {
+public class NavigationManager implements Navigation, ViewHandler {
 
-    private static NavigationManager instance;
     private Stack<View> views;
     private View rootView;
 
     public NavigationManager() {
         this.views = new Stack<>();
+        this.rootView = new RootView(this);
     }
 
-    public static NavigationManager getInstance() {
-        if (instance == null) {
-            instance = new NavigationManager();
-        }
-        return instance;
-    }
-
+    @Override
     public void displayView() {
+
         while (!views.isEmpty()) {
-            Page.clearTerminal();
+            clearTerminal();
             System.out.println("\nWelcome to the Camp Application and Management System");
             View view = views.peek();
             view.render();
         }
     }
 
-    public void initializeRootView() {
-        rootView = new RootView(this);
+    @Override
+    public void initializeView() {
         views.push(rootView);
-        // System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override
     public void navigateTo(View view) {
         views.push(view);
-        // System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override
     public void dismissView() {
-        // Page.clearTerminal();
         views.pop();
-        // System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override
     public void terminate() {
-        Page.clearTerminal();
+        clearTerminal();
         views.clear();
     }
 
     @Override
     public void popToRoot() {
-        // Page.clearTerminal();
         views.clear();
         views.push(rootView);
         views.push(new UserOptionsView(this));
-        // System.out.println("\nWelcome to the Camp Application and Management System");
     }
 
     @Override
@@ -80,5 +69,10 @@ public class NavigationManager implements Navigation {
             return null;
         }
         return views.get(views.size() - 2).getClass();
+    }
+
+    private void clearTerminal() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

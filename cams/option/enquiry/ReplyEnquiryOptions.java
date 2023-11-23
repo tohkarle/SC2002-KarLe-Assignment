@@ -13,7 +13,7 @@ public class ReplyEnquiryOptions extends EnquiryInfoOptions {
         this.changeOption();
     }
 
-    public void changeOption() {
+    private void changeOption() {
         if (super.getEnquiry().getReply() != null && super.getEnquiry().getResolvedBy() != null && super.getEnquiry().getIsResolved()) {
             super.getOptions().remove("(1) Reply enquiry");
             super.getOptions().addAll(Arrays.asList(

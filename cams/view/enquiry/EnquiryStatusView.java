@@ -17,7 +17,7 @@ public class EnquiryStatusView implements View {
 
     public EnquiryStatusView(Navigation navigation, Input getInput, int selectedCampID) {
         this.navigation = navigation;
-        this.navigation = navigation;
+        this.getInput = getInput;
         this.selectedCampID = selectedCampID;
     }
 

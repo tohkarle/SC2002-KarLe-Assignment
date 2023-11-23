@@ -8,6 +8,7 @@ import java.util.List;
 import cams.model.Camp;
 import cams.model.RegistrationType;
 import cams.service.CampService;
+import cams.utils.LoadingIndicator;
 import cams.utils.UniqueKey;
 
 public class CampManager {
@@ -126,8 +127,8 @@ public class CampManager {
     }
 
     public boolean createCampSuccessful(String staffName, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility) {
-        if (campService.campNameAlreadyExists(campName)) {
-            System.out.println("Camp of the same name already exists, please choose another name.");
+        if (campService.campNameAlreadyExists(campName) != -1) {
+            LoadingIndicator.customLoadingIndicator("Creating camp...", "Camp of the same name already exists, please choose another name.");
             return false;
         }
 
@@ -165,8 +166,9 @@ public class CampManager {
     }
 
     public boolean updateCampSuccessful(Camp camp) {
-        if (campService.campNameAlreadyExists(camp.getCampName())) {
-            System.out.println("Camp of the same name already exists, please choose another name.");
+        int campID = campService.campNameAlreadyExists(camp.getCampName());
+        if (campID != -1 && campID != camp.getId()) {
+            LoadingIndicator.customLoadingIndicator("Editing camp...", "Camp of the same name already exists, please choose another name.");
             return false;
         }
         campService.updateCamp(camp);

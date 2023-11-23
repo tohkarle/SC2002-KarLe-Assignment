@@ -6,9 +6,9 @@ import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.model.Enquiry;
 
-public class CreatedEnquiryOptions extends EnquiryInfoOptions {
+public class CreatedEnquiryInfoOptions extends EnquiryInfoOptions {
     
-    public CreatedEnquiryOptions(Enquiry enquiry) {
+    public CreatedEnquiryInfoOptions(Enquiry enquiry) {
         super(enquiry);
         this.changeOption();
     }

@@ -7,14 +7,14 @@ import cams.manager.EnquiryManager;
 import cams.utils.Dismiss;
 import cams.utils.Page;
 
-public class CampEnquiryOptions extends DismissableSelectableOptions {
+public class CampEnquiriesOptions extends DismissableSelectableOptions {
 
     private boolean viewResolved;
     private String noCampTitle;
     private ArrayList<Integer> enquiryIDs;
     private int selectedCampID;
 
-    public CampEnquiryOptions(boolean viewResolved, int selectedCampID) {
+    public CampEnquiriesOptions(boolean viewResolved, int selectedCampID) {
         this.viewResolved = viewResolved;
         this.fetchCampEnquiries();
         this.selectedCampID = selectedCampID;

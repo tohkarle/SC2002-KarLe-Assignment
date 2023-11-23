@@ -4,7 +4,7 @@ import cams.components.option.Options;
 import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.option.camp.UserCampOptions;
+import cams.option.camp.UserCampsOptions;
 import cams.utils.Dismiss;
 
 public class RegisteredCampsView implements View {
@@ -20,7 +20,7 @@ public class RegisteredCampsView implements View {
     public void render() {
 
         // Display camps
-        Options userCampOptions = new UserCampOptions();
+        Options userCampOptions = new UserCampsOptions();
 
         // Display registered camps
         userCampOptions.display("Select camp to view details:");

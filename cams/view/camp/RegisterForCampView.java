@@ -5,7 +5,7 @@ import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
-import cams.option.camp.FacultyCampOptions;
+import cams.option.camp.FacultyCampsOptions;
 import cams.ui.camp.RegisterForCampUI;
 import cams.utils.Dismiss;
 
@@ -21,7 +21,7 @@ public class RegisterForCampView implements View {
 
     public void render() {
         // Show all available camps
-        Options facultyCampOptions = new FacultyCampOptions();
+        Options facultyCampOptions = new FacultyCampsOptions();
         facultyCampOptions.display("Select the camp you wish to register. Do note that committee members are only allowed to register other camps as attendee.");
 
         // Let user select the camp to register

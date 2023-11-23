@@ -4,7 +4,7 @@ import cams.components.option.Options;
 import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.option.enquiry.CampEnquiryOptions;
+import cams.option.enquiry.CampEnquiriesOptions;
 import cams.utils.Dismiss;
 
 public class CampEnquiriesView implements View {
@@ -24,7 +24,7 @@ public class CampEnquiriesView implements View {
     public void render() {
 
         // Display enquiry
-        Options campEnquiryOptions = new CampEnquiryOptions(viewResolved, selectedCampID);
+        Options campEnquiryOptions = new CampEnquiriesOptions(viewResolved, selectedCampID);
         campEnquiryOptions.display("Select enquiry to view details:");
 
         // Let user select enquiry to view details

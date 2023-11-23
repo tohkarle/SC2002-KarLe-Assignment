@@ -82,13 +82,13 @@ public class CampService {
         }
     }
 
-    public boolean campNameAlreadyExists(String name) {
+    public int campNameAlreadyExists(String name) {
         for (Camp camp : campMap.values()) {
             if (camp.getCampName().equals(name)) {
-                return true;
+                return camp.getId();
             }
         }
-        return false;
+        return -1;
     }
 
     public ArrayList<String> getParticipatingStudentNames(int campID) {

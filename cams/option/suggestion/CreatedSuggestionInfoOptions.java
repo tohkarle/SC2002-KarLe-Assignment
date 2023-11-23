@@ -8,12 +8,12 @@ import cams.model.Suggestion;
 import cams.model.SuggestionStatus;
 import cams.option.camp.CampInfoOptions;
 
-public class CreatedSuggestionOptions extends CampInfoOptions {
+public class CreatedSuggestionInfoOptions extends CampInfoOptions {
     
     private Suggestion suggestion;
     private SuggestionStatus suggestionStatus;
 
-    public CreatedSuggestionOptions(Suggestion suggestion, SuggestionStatus suggestionStatus) {
+    public CreatedSuggestionInfoOptions(Suggestion suggestion, SuggestionStatus suggestionStatus) {
         super(suggestion.getCamp());
         this.suggestion = suggestion;
         this.suggestionStatus = suggestionStatus;

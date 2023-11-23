@@ -6,14 +6,14 @@ public abstract class Options {
 
     private ArrayList<String> options;
 
+    public abstract void display(String title);
+    public abstract int selection();
+
     public void printOptions() {
         for (int i = 0; i < this.options.size(); i++) {
             System.out.println("(" + (i + 1) + ") " + options.get(i));
         }
     }
-
-    public abstract void display(String title);
-    public abstract int selection();
 
     public ArrayList<String> getOptions() {
         return options;

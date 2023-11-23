@@ -8,7 +8,7 @@ import cams.interfaces.View;
 import cams.manager.SuggestionManager;
 import cams.model.Suggestion;
 import cams.model.SuggestionStatus;
-import cams.option.suggestion.CreatedSuggestionOptions;
+import cams.option.suggestion.CreatedSuggestionInfoOptions;
 import cams.ui.suggestion.DeleteSuggestionUI;
 import cams.utils.Dismiss;
 
@@ -30,7 +30,7 @@ public class CreatedSuggestionInfoView implements View {
 
         SuggestionManager suggestionManager = SuggestionManager.getInstance();
         Suggestion suggestion = suggestionManager.getSuggestion(selectedSuggestionID);
-        Options createdSuggestionOptions = new CreatedSuggestionOptions(suggestion, suggestionStatus);
+        Options createdSuggestionOptions = new CreatedSuggestionInfoOptions(suggestion, suggestionStatus);
 
         // Display created suggestion details
         createdSuggestionOptions.display("Suggestion details: ");

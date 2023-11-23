@@ -2,6 +2,7 @@ package cams;
 
 import java.util.Scanner;
 
+import cams.interfaces.ViewHandler;
 import cams.manager.NavigationManager;
 
 /**
@@ -24,10 +25,10 @@ public class Main {
     public static void main(String args[]) {
 
         // Initialize NavigationManager - manages navigation flow of views
-        NavigationManager navigationManager = new NavigationManager();
+        ViewHandler navigationManager = new NavigationManager();
 
         // Initialize root view
-        navigationManager.initializeRootView();
+        navigationManager.initializeView();
 
         // Display view according to user selection - displays root view first
         navigationManager.displayView();

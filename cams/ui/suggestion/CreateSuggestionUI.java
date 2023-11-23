@@ -46,7 +46,6 @@ public class CreateSuggestionUI implements UI {
         // Create and initialize all UIs for create suggestion
         UI[] editCampUIs = new UI[] {
             new EditCampNameUI(getInput, camp, editCampInfoOptions.getOption(0)),
-            new EditCampNameUI(getInput, camp, editCampInfoOptions.getOption(0)),
             new EditCampFacultyUI(getInput, camp, editCampInfoOptions.getOption(1)),
             new EditCampLocationUI(getInput, camp, editCampInfoOptions.getOption(2)),
             new EditCampDescriptionUI(getInput, camp, editCampInfoOptions.getOption(3)),

@@ -3,7 +3,7 @@ package cams.view.camp;
 import cams.components.option.Options;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
-import cams.option.camp.AllCampOptions;
+import cams.option.camp.AllCampsOptions;
 import cams.utils.Dismiss;
 
 public class AllCampsView implements View {
@@ -17,7 +17,7 @@ public class AllCampsView implements View {
     public void render() {
 
         // Display camps
-        Options allCampOptions = new AllCampOptions();
+        Options allCampOptions = new AllCampsOptions();
         allCampOptions.display("Select camp to view details:");
 
         // Let user select camp to view details
