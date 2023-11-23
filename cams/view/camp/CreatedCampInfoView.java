@@ -1,6 +1,5 @@
 package cams.view.camp;
 
-import cams.components.input.ConfirmOrDiscard;
 import cams.components.option.Options;
 import cams.interfaces.Input;
 import cams.interfaces.Navigation;
@@ -60,14 +59,18 @@ public class CreatedCampInfoView implements View {
                 navigation.navigateTo(new GenerateRegistrationReportView(navigation, getInput, selectedCampID));
                 break;
             case 5:
-                if (new ConfirmOrDiscard().getValidInt("Confirm generate report?") != 1) { return; }
-                ReportWriter.generatePerformanceReport(selectedCampID);
-                LoadingIndicator.createLoadingIndicator("report");
+                generatePerformanceReport();
                 break;
             case 6:
                 UI deleteCampUI = new DeleteCampUI(navigation, selectedCampID, getInput);
                 deleteCampUI.body();
                 break;
         }
+    }
+
+    private void generatePerformanceReport() {
+        if (getInput.confirmOrDiscard("Confirm generate report?") != 1) { return; }
+        ReportWriter.generatePerformanceReport(selectedCampID);
+        LoadingIndicator.createLoadingIndicator("report");
     }
 }

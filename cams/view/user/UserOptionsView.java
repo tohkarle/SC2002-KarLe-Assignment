@@ -23,10 +23,16 @@ public class UserOptionsView implements View {
 
     public UserOptionsView(Navigation navigation) {
         this.navigation = navigation;
+        this.userManager = UserManager.getInstance();
     }
 
     @Override
     public void render() {
+        
+        if (userManager.getCurrentUser() == null) { 
+            navigation.dismissView();
+            return; 
+        }
 
         Input getInput = new GetInput();
 
@@ -45,8 +51,6 @@ public class UserOptionsView implements View {
             new RegisteredCampsView(navigation, getInput),
             new RegisterForCampView(navigation, getInput),
         };
-
-        userManager = UserManager.getInstance();
 
         // Check if user is authenticated
         if (!userManager.isAuthenticated()) {

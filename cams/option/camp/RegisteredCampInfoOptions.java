@@ -21,7 +21,6 @@ public class RegisteredCampInfoOptions extends CampInfoOptions {
     }
 
     public void changeOption() {
-
         if (campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), super.getCamp().getId())) {
             // Committee member can suggest edit for camp in the registered camp view
             // It will be a view-only display for the camp info so we will need to add number here

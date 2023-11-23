@@ -1,15 +1,19 @@
 package cams.service;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import cams.model.Camp;
 import cams.utils.Serialize;
 
 public class CampService {
 
-    private HashMap<Integer, Camp> campMap = new HashMap<Integer, Camp>();
+    private Map<Integer, Camp> campMap;
 
-    public CampService(){
+    public CampService() {
         Serialize.checkAndCreateFile("campMap.sav");
         this.load();
     }
@@ -31,8 +35,14 @@ public class CampService {
         return campMap.get(camID).getCampName();
     }
 
-    public HashMap<Integer, Camp> getCampMap() {
-        return new HashMap<>(campMap);
+    // public HashMap<Integer, Camp> getCampMap() {
+    //     return new HashMap<>(campMap);
+    // }
+
+    public Map<Integer, Camp> getCampMap() {
+        System.out.println(campMap);
+        // Return the map as a sorted map, without exposing the specific implementation
+        return Collections.unmodifiableMap(campMap);
     }
 
     public ArrayList<Camp> getAllCamps() {
@@ -115,18 +125,26 @@ public class CampService {
         Serialize.save("campMap.sav", campMap);
     }
 
-    public void load(){
-        try{
+    public void load() {
+        try {
             @SuppressWarnings("unchecked")
             HashMap<Integer, Camp> loadedMap = (HashMap<Integer, Camp>) Serialize.load("campMap.sav");
             if (loadedMap != null) {
-                campMap = loadedMap;
+                // To keep the camps in alphabetical order
+                // If camps are loaded from a file, create a new TreeMap with the loaded camps
+                Comparator<Integer> valueComparator = (k1, k2) -> {
+                    Camp c1 = loadedMap.get(k1);
+                    Camp c2 = loadedMap.get(k2);
+                    return c1.getCampName().compareToIgnoreCase(c2.getCampName());
+                };
+                campMap = new TreeMap<>(valueComparator);
+                campMap.putAll(loadedMap);
+                System.out.println(campMap);
             } else {
-                campMap = new HashMap<Integer, Camp>();
+                campMap = new TreeMap<>();
             }
-        }
-        catch(Exception ex){
-            campMap = new HashMap<Integer, Camp>();
+        } catch (Exception ex) {
+            campMap = new TreeMap<>();
         }
     }
 }
