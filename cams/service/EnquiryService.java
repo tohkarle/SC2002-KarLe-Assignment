@@ -7,7 +7,7 @@ import cams.utils.Serialize;
 
 public class EnquiryService {
 
-    private HashMap<Integer, Enquiry> enquiryMap; // the Enquiry objects stored in a map
+    private HashMap<Integer, Enquiry> enquiryMap;
 
     public EnquiryService(){
         Serialize.checkAndCreateFile("enquiryMap.sav");

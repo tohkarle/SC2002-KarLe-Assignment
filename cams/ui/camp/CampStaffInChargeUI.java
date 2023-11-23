@@ -5,13 +5,13 @@ import cams.interfaces.UI;
 import cams.model.Camp;
 import cams.utils.Dismiss;
 
-public class EditCampFacultyUI implements UI {
-    
+public class CampStaffInChargeUI implements UI {
+
     private Input getInput;
     private Camp camp;
     private String title;
 
-    public EditCampFacultyUI(Input getInput, Camp camp, String title) {
+    public CampStaffInChargeUI(Input getInput, Camp camp, String title) {
         this.getInput = getInput;
         this.camp = camp;
         this.title = title;
@@ -19,8 +19,8 @@ public class EditCampFacultyUI implements UI {
 
     @Override
     public void body() {
-        String faculty = getInput.getValidString(title);
-        if (faculty.equals(Dismiss.stringOption())) { return; }
-        camp.setUserGroup(faculty);
+        String staffName = getInput.getValidString(title);
+        if (staffName.equals(Dismiss.stringOption())) { return; }
+        camp.setStaffInCharge(staffName);
     }
 }

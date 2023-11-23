@@ -4,20 +4,19 @@ import cams.components.option.Options;
 import cams.interfaces.Input;
 import cams.interfaces.Navigation;
 import cams.interfaces.UI;
-import cams.manager.CampManager;
 import cams.manager.SuggestionManager;
 import cams.manager.UserManager;
 import cams.model.Camp;
 import cams.option.camp.EditCampInfoOptions;
-import cams.ui.camp.EditCampCommitteeSlotsUI;
-import cams.ui.camp.EditCampDatesUI;
-import cams.ui.camp.EditCampDescriptionUI;
-import cams.ui.camp.EditCampFacultyUI;
-import cams.ui.camp.EditCampLocationUI;
-import cams.ui.camp.EditCampNameUI;
-import cams.ui.camp.EditCampRegiatrationClosingDateUI;
-import cams.ui.camp.EditCampTotalSlotsUI;
-import cams.ui.camp.EditCampVisibilityUI;
+import cams.ui.camp.CampCommitteeSlotsUI;
+import cams.ui.camp.CampDatesUI;
+import cams.ui.camp.CampDescriptionUI;
+import cams.ui.camp.CampFacultyUI;
+import cams.ui.camp.CampLocationUI;
+import cams.ui.camp.CampNameUI;
+import cams.ui.camp.CampRegiatrationClosingDateUI;
+import cams.ui.camp.CampTotalSlotsUI;
+import cams.ui.camp.CampVisibilityUI;
 import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 
@@ -40,20 +39,19 @@ public class CreateSuggestionUI implements UI {
 
         UserManager userManager = UserManager.getInstance();
         SuggestionManager suggestionManager = SuggestionManager.getInstance();
-        CampManager campManager = CampManager.getInstance();
         Options editCampInfoOptions = new EditCampInfoOptions();
 
         // Create and initialize all UIs for create suggestion
         UI[] editCampUIs = new UI[] {
-            new EditCampNameUI(getInput, camp, editCampInfoOptions.getOption(0)),
-            new EditCampFacultyUI(getInput, camp, editCampInfoOptions.getOption(1)),
-            new EditCampLocationUI(getInput, camp, editCampInfoOptions.getOption(2)),
-            new EditCampDescriptionUI(getInput, camp, editCampInfoOptions.getOption(3)),
-            new EditCampVisibilityUI(camp, editCampInfoOptions.getOption(4)),
-            new EditCampDatesUI(getInput, camp, editCampInfoOptions.getOption(5), editCampInfoOptions.getOption(6)),
-            new EditCampRegiatrationClosingDateUI(getInput, camp, editCampInfoOptions.getOption(7)),
-            new EditCampTotalSlotsUI(getInput, camp, campManager, editCampInfoOptions.getOption(8)),
-            new EditCampCommitteeSlotsUI(getInput, camp, campManager, editCampInfoOptions.getOption(9)),
+            new CampNameUI(getInput, camp, editCampInfoOptions.getOption(0)),
+            new CampFacultyUI(getInput, camp, editCampInfoOptions.getOption(1)),
+            new CampLocationUI(getInput, camp, editCampInfoOptions.getOption(2)),
+            new CampDescriptionUI(getInput, camp, editCampInfoOptions.getOption(3)),
+            new CampVisibilityUI(camp, editCampInfoOptions.getOption(4)),
+            new CampDatesUI(getInput, camp, editCampInfoOptions.getOption(5), editCampInfoOptions.getOption(6)),
+            new CampRegiatrationClosingDateUI(getInput, camp, editCampInfoOptions.getOption(7)),
+            new CampTotalSlotsUI(getInput, camp, editCampInfoOptions.getOption(8)),
+            new CampCommitteeSlotsUI(getInput, camp, editCampInfoOptions.getOption(9)),
         };
 
         // Edit camp details

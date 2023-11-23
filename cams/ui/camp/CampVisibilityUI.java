@@ -6,12 +6,12 @@ import cams.interfaces.UI;
 import cams.model.Camp;
 import cams.utils.Dismiss;
 
-public class EditCampVisibilityUI implements UI {
+public class CampVisibilityUI implements UI {
 
     private Camp camp;
     private String title;
 
-    public EditCampVisibilityUI(Camp camp, String title) {
+    public CampVisibilityUI(Camp camp, String title) {
         this.camp = camp;
         this.title = title;
     }

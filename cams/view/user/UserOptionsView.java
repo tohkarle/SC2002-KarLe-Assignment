@@ -8,6 +8,7 @@ import cams.interfaces.View;
 import cams.manager.UserManager;
 import cams.option.user.StaffOptions;
 import cams.option.user.StudentOptions;
+import cams.utils.FilterCamps;
 import cams.utils.LoadingIndicator;
 import cams.view.camp.AllCampsView;
 import cams.view.camp.CreateCampView;
@@ -35,21 +36,22 @@ public class UserOptionsView implements View {
         }
 
         Input getInput = new GetInput();
+        FilterCamps filterCamps = new FilterCamps();
 
         View[] staffViews = new View[] {
             new ProfileView(navigation),
             new ChangePasswordView(navigation, getInput),
-            new AllCampsView(navigation),
-            new CreateCampView(navigation, getInput),
-            new CreatedCampsView(navigation, getInput),
+            new AllCampsView(navigation, getInput, filterCamps),
+            new CreateCampView(navigation, getInput, filterCamps),
+            new CreatedCampsView(navigation, getInput, filterCamps),
         };
 
         View[] studentViews = new View[] {
             new ProfileView(navigation),
             new ChangePasswordView(navigation, getInput),
-            new FacultyCampsView(navigation),
-            new RegisteredCampsView(navigation, getInput),
-            new RegisterForCampView(navigation, getInput),
+            new FacultyCampsView(navigation, getInput, filterCamps),
+            new RegisteredCampsView(navigation, getInput, filterCamps),
+            new RegisterForCampView(navigation, getInput, filterCamps),
         };
 
         // Check if user is authenticated

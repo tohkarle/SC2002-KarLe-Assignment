@@ -5,21 +5,24 @@ import cams.interfaces.Navigation;
 import cams.interfaces.UI;
 import cams.interfaces.View;
 import cams.ui.camp.CreateCampUI;
+import cams.utils.FilterCamps;
 import cams.utils.Page;
 
 public class CreateCampView implements View {
 
     private Navigation navigation;
     private Input getInput;
+    private FilterCamps filterCamps;
 
-    public CreateCampView(Navigation navigation, Input getInput) {
+    public CreateCampView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;
+        this.filterCamps = filterCamps;
     }
 
     public void render() {
         Page.header("Please enter the name, faculty, visibility and dates of the camp.");
-        UI getCampInfoUI = new CreateCampUI(navigation, getInput);
+        UI getCampInfoUI = new CreateCampUI(navigation, getInput, filterCamps);
         getCampInfoUI.body();
     }
 }

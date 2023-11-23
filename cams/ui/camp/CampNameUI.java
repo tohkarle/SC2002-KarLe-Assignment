@@ -5,13 +5,13 @@ import cams.interfaces.UI;
 import cams.model.Camp;
 import cams.utils.Dismiss;
 
-public class EditCampNameUI implements UI {
+public class CampNameUI implements UI {
 
     private Input getInput;
     private Camp camp;
     private String title;
     
-    public EditCampNameUI(Input getInput, Camp camp, String title) {
+    public CampNameUI(Input getInput, Camp camp, String title) {
         this.getInput = getInput;
         this.camp = camp;
         this.title = title;

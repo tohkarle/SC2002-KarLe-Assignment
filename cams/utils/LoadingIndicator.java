@@ -15,6 +15,11 @@ public class LoadingIndicator {
         Main.scanner.nextLine();
     }
 
+    public static void customWarningIndicator(String title) {
+        System.out.println("\n" + title + " (Press Enter to dismiss)");
+        Main.scanner.nextLine();
+    }
+
     public static void logInLoadingIndicator() {
         System.out.println("\nLogging in...");
         delay();

@@ -157,6 +157,10 @@ public class Camp implements Serializable {
         return this.staffInCharge;
     }
 
+    public void setStaffInCharge(String staffName) {
+        this.staffInCharge = staffName;
+    } 
+
     public ArrayList<String> getParticipatingStudentNames() {
         return this.participatingStudentNames;
     }

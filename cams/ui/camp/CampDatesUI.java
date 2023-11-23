@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import cams.interfaces.Input;
 import cams.interfaces.UI;
 import cams.model.Camp;
+import cams.utils.LoadingIndicator;
 
-public class EditCampDatesUI implements UI {
+public class CampDatesUI implements UI {
 
     private Input getInput;
     private Camp camp;
@@ -16,7 +17,7 @@ public class EditCampDatesUI implements UI {
     private String startDateTitle;
     private String endDateTitle;
 
-    public EditCampDatesUI(Input getInput, Camp camp, String startDateTitle, String endDateTitle) {
+    public CampDatesUI(Input getInput, Camp camp, String startDateTitle, String endDateTitle) {
         this.getInput = getInput;
         this.camp = camp;
         this.startDateTitle = startDateTitle;
@@ -44,7 +45,7 @@ public class EditCampDatesUI implements UI {
             endDate = getInput.getValidDate(endDateTitle);
             if (endDate == null) { return null; }
             if (endDate.isEqual(startDate) || endDate.isAfter(startDate)) { break; }
-            System.out.println("End date cannot be before start date.");
+            LoadingIndicator.customWarningIndicator("End date cannot be before start date.");
         }
         return endDate;
     }

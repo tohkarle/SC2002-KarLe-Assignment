@@ -31,15 +31,15 @@ public class EditCampUI implements UI {
 
         // Create and initialize all UIs for edit camp
         UI[] editCampUIs = new UI[] {
-            new EditCampNameUI(getInput, camp, editCampInfoOptions.getOption(0)),
-            new EditCampFacultyUI(getInput, camp, editCampInfoOptions.getOption(1)),
-            new EditCampLocationUI(getInput, camp, editCampInfoOptions.getOption(2)),
-            new EditCampDescriptionUI(getInput, camp, editCampInfoOptions.getOption(3)),
-            new EditCampVisibilityUI(camp, editCampInfoOptions.getOption(4)),
-            new EditCampDatesUI(getInput, camp, editCampInfoOptions.getOption(5), editCampInfoOptions.getOption(6)),
-            new EditCampRegiatrationClosingDateUI(getInput, camp, editCampInfoOptions.getOption(7)),
-            new EditCampTotalSlotsUI(getInput, camp, campManager, editCampInfoOptions.getOption(8)),
-            new EditCampCommitteeSlotsUI(getInput, camp, campManager, editCampInfoOptions.getOption(9)),
+            new CampNameUI(getInput, camp, editCampInfoOptions.getOption(0)),
+            new CampFacultyUI(getInput, camp, editCampInfoOptions.getOption(1)),
+            new CampLocationUI(getInput, camp, editCampInfoOptions.getOption(2)),
+            new CampDescriptionUI(getInput, camp, editCampInfoOptions.getOption(3)),
+            new CampVisibilityUI(camp, editCampInfoOptions.getOption(4)),
+            new CampDatesUI(getInput, camp, editCampInfoOptions.getOption(5), editCampInfoOptions.getOption(6)),
+            new CampRegiatrationClosingDateUI(getInput, camp, editCampInfoOptions.getOption(7)),
+            new CampTotalSlotsUI(getInput, camp, editCampInfoOptions.getOption(8)),
+            new CampCommitteeSlotsUI(getInput, camp, editCampInfoOptions.getOption(9)),
         };
 
         // Display corresponding UI

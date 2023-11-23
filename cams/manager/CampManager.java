@@ -1,7 +1,6 @@
 package cams.manager;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class CampManager {
         }
 
         // Set registration closing date to be 45 days after date of creation
-        LocalDate registrationClosingDate = LocalDate.now().plus(45, ChronoUnit.DAYS);
+        LocalDate registrationClosingDate = dates.get(0).minusDays(1);
 
         // Create new camp and add to 'database'
         int uniqueKey = 0;

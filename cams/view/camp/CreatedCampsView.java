@@ -6,21 +6,24 @@ import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.option.camp.UserCampsOptions;
 import cams.utils.Dismiss;
+import cams.utils.FilterCamps;
 
 public class CreatedCampsView implements View {
 
     private Navigation navigation;
     private Input getInput;
+    private FilterCamps filterCamps;
     private Options userCampOptions;
 
-    public CreatedCampsView(Navigation navigation, Input getInput) {
+    public CreatedCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;
+        this.filterCamps = filterCamps;
     }
 
     public void render() {
 
-        userCampOptions = new UserCampsOptions();
+        userCampOptions = new UserCampsOptions(filterCamps);
 
         // Label camp as new if staff just created camp
         if (justCreatedCamp()) { labelCampAsNew(); }
@@ -35,8 +38,12 @@ public class CreatedCampsView implements View {
             return; 
         }
 
-        // Navigate to EditCampView
-        navigation.navigateTo(new CreatedCampInfoView(navigation, getInput, selectedCampID));
+        if (selectedCampID == 0) {
+            navigation.navigateTo(new FilterCreatedCampsView(navigation, getInput, filterCamps));
+        } else {
+            // Navigate to EditCampView
+            navigation.navigateTo(new CreatedCampInfoView(navigation, getInput, selectedCampID));
+        }
     }
 
     public void labelCampAsNew() {

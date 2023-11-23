@@ -5,14 +5,15 @@ import java.time.LocalDate;
 import cams.interfaces.Input;
 import cams.interfaces.UI;
 import cams.model.Camp;
+import cams.utils.LoadingIndicator;
 
-public class EditCampRegiatrationClosingDateUI implements UI {
+public class CampRegiatrationClosingDateUI implements UI {
 
     private Input getInput;
     private Camp camp;
     private String title;
 
-    public EditCampRegiatrationClosingDateUI(Input getInput, Camp camp, String title) {
+    public CampRegiatrationClosingDateUI(Input getInput, Camp camp, String title) {
         this.getInput = getInput;
         this.camp = camp;
         this.title = title;
@@ -23,10 +24,11 @@ public class EditCampRegiatrationClosingDateUI implements UI {
         LocalDate registrationClosingDate = getInput.getValidDate(title);
         if (registrationClosingDate == null) { return; }
 
+        // check if the camp passed in is actually for editing
         // error, registration close date after camp start
-        if (registrationClosingDate.isAfter(camp.getStartDate())){
-            System.out.println("Error, registration should close before camp starts!");
-            System.out.println("Registration closing date not changed!");
+        if (camp.getId() != -1 && registrationClosingDate.isAfter(camp.getStartDate())){
+            LoadingIndicator.customWarningIndicator("Registration should close before camp starts.");
+            return;
         }
         
         camp.setRegistrationClosingDate(registrationClosingDate);

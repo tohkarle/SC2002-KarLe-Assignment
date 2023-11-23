@@ -9,7 +9,7 @@ import cams.utils.Serialize;
 
 public class CampService {
 
-    private HashMap<Integer, Camp> campMap = new HashMap<Integer, Camp>();
+    private HashMap<Integer, Camp> campMap;
 
     public CampService(){
         Serialize.checkAndCreateFile("campMap.sav");
@@ -78,44 +78,6 @@ public class CampService {
         Collections.sort(camps, Comparator.comparing(Camp::getCampName));
         return camps;
     }
-
-    // public ArrayList<Camp> getAllCamps() {
-    //     ArrayList<Camp> camps = new ArrayList<>();
-    //     for (Camp camp : campMap.values()) {
-    //         camps.add(new Camp(camp));
-    //     }
-    //     return camps;
-    // }
-    
-    // public ArrayList<Camp> getStaffCamps(String staffName) {
-    //     ArrayList<Camp> camps = new ArrayList<>();
-    //     for (Camp camp : campMap.values()) {
-    //         if (camp.getStaffInCharge().equals(staffName)) {
-    //             camps.add(new Camp(camp));
-    //         }
-    //     }
-    //     return camps;
-    // }
-    
-    // public ArrayList<Camp> getFacultyCamps(String faculty) {
-    //     ArrayList<Camp> camps = new ArrayList<>();
-    //     for (Camp camp : campMap.values()) {
-    //         if ((camp.getUserGroup().equals(faculty) || camp.getUserGroup().equals("NTU")) && camp.getVisibility()) {
-    //             camps.add(new Camp(camp));
-    //         }
-    //     }
-    //     return camps;
-    // }
-    
-    // public ArrayList<Camp> getRegisteredCamps(String studentName) {
-    //     ArrayList<Camp> camps = new ArrayList<>();
-    //     for (Camp camp : campMap.values()) {
-    //         if ((camp.getParticipatingStudentNames().contains(studentName) || camp.getCommitteeMemberNames().contains(studentName)) && camp.getVisibility()) {
-    //             camps.add(new Camp(camp));
-    //         }
-    //     }
-    //     return camps;
-    // }
 
     public void updateCamp(Camp camp) {
         int campID = camp.getId();

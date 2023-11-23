@@ -11,6 +11,7 @@ import cams.interfaces.UI;
 import cams.manager.CampManager;
 import cams.manager.UserManager;
 import cams.utils.Dismiss;
+import cams.utils.FilterCamps;
 import cams.utils.LoadingIndicator;
 import cams.view.camp.CreatedCampsView;
 
@@ -18,10 +19,12 @@ public class CreateCampUI implements UI {
 
     private Navigation navigation;
     private Input getInput;
+    private FilterCamps filterCamps;
 
-    public CreateCampUI(Navigation navigation, Input getInput) {
+    public CreateCampUI(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;
+        this.filterCamps = filterCamps;
     }
     
     @Override
@@ -51,6 +54,7 @@ public class CreateCampUI implements UI {
 
         // Get start date
         LocalDate startDate = getInput.getValidDate("Enter start date (yyyy-MM-dd): ");
+        if (startDate == null) { return; }
 
         // Get end date
         LocalDate endDate;
@@ -75,7 +79,7 @@ public class CreateCampUI implements UI {
         // Create camp
         if (campManager.createCampSuccessful(userManager.getCurrentUser().getName(), name, dates, faculty, visibility)) {
             LoadingIndicator.createLoadingIndicator("camp"); 
-            navigation.navigateTo(new CreatedCampsView(navigation, getInput));
+            navigation.navigateTo(new CreatedCampsView(navigation, getInput, filterCamps));
             return; 
         }
     }
