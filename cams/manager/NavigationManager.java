@@ -16,7 +16,14 @@ import cams.view.user.UserOptionsView;
  */
 public class NavigationManager implements Navigation, ViewHandler {
 
+    /**
+     * A stack of View objects that signify the view hierarchy
+     */
     private Stack<View> views;
+
+    /**
+     * A View object that is the root view
+     */
     private View rootView;
 
     public NavigationManager() {
@@ -24,6 +31,10 @@ public class NavigationManager implements Navigation, ViewHandler {
         this.rootView = new RootView(this);
     }
 
+
+    /**
+     * The method to display the view
+     */
     @Override
     public void displayView() {
 
@@ -35,27 +46,47 @@ public class NavigationManager implements Navigation, ViewHandler {
         }
     }
 
+
+    /**
+     * A method to initialize the root view
+     */
     @Override
     public void initializeView() {
         views.push(rootView);
     }
 
+
+    /**
+     * A method to change the current view
+     */
     @Override
     public void navigateTo(View view) {
         views.push(view);
     }
 
+
+    /**
+     * A method to go back to the previous view layer
+     */
     @Override
     public void dismissView() {
         views.pop();
     }
 
+
+    /**
+     * A method to clear all the views
+     */
     @Override
     public void terminate() {
         clearTerminal();
         views.clear();
     }
 
+
+    /**
+     * A method to go back to the root view
+     */
     @Override
     public void popToRoot() {
         views.clear();
@@ -63,6 +94,10 @@ public class NavigationManager implements Navigation, ViewHandler {
         views.push(new UserOptionsView(this));
     }
 
+
+    /**
+     * A method to get the previous view object
+     */
     @Override
     public Class<?> getPreviousView() {
         if (views.size() < 2) {
@@ -71,6 +106,10 @@ public class NavigationManager implements Navigation, ViewHandler {
         return views.get(views.size() - 2).getClass();
     }
 
+
+    /**
+     * A method to flush the screen
+     */
     private void clearTerminal() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
