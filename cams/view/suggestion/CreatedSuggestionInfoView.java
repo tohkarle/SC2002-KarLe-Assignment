@@ -12,6 +12,9 @@ import cams.option.suggestion.CreatedSuggestionInfoOptions;
 import cams.ui.suggestion.DeleteSuggestionUI;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Created Suggestion Info page
+ */
 public class CreatedSuggestionInfoView implements View {
 
     private Navigation navigation;
@@ -19,6 +22,13 @@ public class CreatedSuggestionInfoView implements View {
     private int selectedSuggestionID;
     private SuggestionStatus suggestionStatus;
 
+    /**
+     * Initialize the CreatedSuggestionInfoView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param selectedSuggestionID int of the selected suggestion ID
+     * @param suggestionStatus The status of the suggestions to view
+     */
     public CreatedSuggestionInfoView(Navigation navigation, Input getInput, int selectedSuggestionID, SuggestionStatus suggestionStatus) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -26,6 +36,9 @@ public class CreatedSuggestionInfoView implements View {
         this.suggestionStatus = suggestionStatus;
     }
 
+    /**
+     * Render the CreatedSuggestionInfoView
+     */
     public void render() {
 
         SuggestionManager suggestionManager = SuggestionManager.getInstance();

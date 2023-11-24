@@ -10,18 +10,30 @@ import cams.ui.camp.FilterCreatedCampsUI;
 import cams.utils.Dismiss;
 import cams.utils.FilterCamps;
 
+/**
+ * View object for Filter Created Camps page
+ */
 public class FilterCreatedCampsView implements View {
 
     private Navigation navigation;
     private Input getInput;
     private FilterCamps filterCamps;
 
+    /**
+     * Initialize the FilterCreatedCampsView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param filterCamps FilterCamps object used to filter camps
+     */
     public FilterCreatedCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.filterCamps = filterCamps;
     }
 
+    /**
+     * Render the FilterCreatedCampsView
+     */
     public void render() {
 
         Options filterUserCampsOptions = new FilterUserCampsOptions();

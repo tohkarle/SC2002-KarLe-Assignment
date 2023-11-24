@@ -8,14 +8,24 @@ import cams.utils.LoadingIndicator;
 import cams.view.auth.LogInView;
 import cams.view.auth.RegisterTypeView;
 
+/**
+ * View object for Root page, the first page of the application
+ */
 public class RootView implements View {
 
     private Navigation navigation;
 
+    /**
+     * Initialize the RootView
+     * @param navigation Navigation object used to control navigation of the application
+     */
     public RootView(Navigation navigation) {
         this.navigation = navigation;
     }
 
+    /**
+     * Render the RootView
+     */
     public void render() {
 
         Options authOptions = new AuthOptions();

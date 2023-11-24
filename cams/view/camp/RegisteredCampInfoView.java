@@ -17,6 +17,9 @@ import cams.view.report.GenerateRegistrationReportView;
 import cams.view.suggestion.CreateSuggestionView;
 import cams.view.suggestion.SuggestionStatusView;
 
+/**
+ * View object for Registered Camp Info page
+ */
 public class RegisteredCampInfoView implements View {
 
     private Navigation navigation;
@@ -27,12 +30,21 @@ public class RegisteredCampInfoView implements View {
     private CampManager campManager;
     private Options registeredCampInfoOptions;
 
+    /**
+     * Initialize the RegisteredCampInfoView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param selectedCampID int of the selected camp ID
+     */
     public RegisteredCampInfoView(Navigation navigation, Input getInput, int selectedCampID) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Render the RegisteredCampInfoView
+     */
     public void render() {
 
         userManager = UserManager.getInstance();
@@ -50,10 +62,17 @@ public class RegisteredCampInfoView implements View {
         }
     }
 
+    /**
+     * Check if student is a committee for this camp
+     * @return boolean true if student is a committee for this camp, false otherwise
+     */
     private boolean studentIsCommitteeForThisCamp() {
         return campManager.isACommitteeMemberOfThisCamp(userManager.getCurrentUser().getName(), selectedCampID);
     }
 
+    /**
+     * Display options for attendee
+     */
     private void attendeeOptions() {
         // Allow student to go back, create enquiry, manage their enquiries or withdraw from camp
         int option = registeredCampInfoOptions.selection();
@@ -76,6 +95,9 @@ public class RegisteredCampInfoView implements View {
         }
     }
 
+    /**
+     * Display options for committee
+     */
     private void committeeOptions() {
 
         // Allow committee to manage camp enquiries, create suggestion or manage their suggestions
