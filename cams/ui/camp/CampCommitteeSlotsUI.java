@@ -6,18 +6,30 @@ import cams.model.Camp;
 import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for editing the number of committee slots for a camp
+ */
 public class CampCommitteeSlotsUI implements UI {
 
     private Input getInput;
     private Camp camp;
     private String title;
 
+    /**
+     * Initialize the CampCommitteeSlotsUI
+     * @param getInput Input object used to get user input
+     * @param camp Camp object to be edited
+     * @param title Title of the UI
+     */
     public CampCommitteeSlotsUI(Input getInput, Camp camp, String title) {
         this.getInput = getInput;
         this.camp = camp;
         this.title = title;
     }
 
+    /**
+     * Executes user interaction logic for editing the number of committee slots for a camp
+     */
     @Override
     public void body() {
 

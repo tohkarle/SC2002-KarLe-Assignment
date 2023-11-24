@@ -11,16 +11,27 @@ import cams.manager.UserManager;
 import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for creating an enquiry
+ */
 public class CreateEnquiryUI implements UI {
     
     private Navigation navigation;
     private int selectedCampID;
 
+    /**
+     * Initialize the CreateEnquiryUI
+     * @param navigation Navigation object used to control navigation of the application
+     * @param selectedCampID ID of the camp to create an enquiry for
+     */
     public CreateEnquiryUI(Navigation navigation, int selectedCampID) {
         this.navigation = navigation;
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Executes user interaction logic for creating an enquiry
+     */
     @Override
     public void body() {
 

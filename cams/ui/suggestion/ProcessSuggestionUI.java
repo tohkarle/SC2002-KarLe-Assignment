@@ -13,6 +13,9 @@ import cams.model.SuggestionStatus;
 import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for processing (accept / reject) a suggestion
+ */
 public class ProcessSuggestionUI implements UI {
     
     private Navigation navigation;
@@ -20,6 +23,13 @@ public class ProcessSuggestionUI implements UI {
     private Suggestion suggestion;
     private int selectedSuggestionID;
 
+    /**
+     * Initialize the ProcessSuggestionUI
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get user input
+     * @param suggestion Suggestion object to be processed
+     * @param selectedSuggestionID ID of the suggestion to be processed
+     */
     public ProcessSuggestionUI(Navigation navigation, Input getInput, Suggestion suggestion, int selectedSuggestionID) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -27,6 +37,9 @@ public class ProcessSuggestionUI implements UI {
         this.selectedSuggestionID = selectedSuggestionID;
     }
 
+    /**
+     * Executes user interaction logic for processing a suggestion
+     */
     @Override
     public void body() {
 

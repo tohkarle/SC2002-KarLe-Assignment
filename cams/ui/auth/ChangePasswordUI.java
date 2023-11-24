@@ -8,16 +8,27 @@ import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 import cams.utils.Page;
 
+/**
+ * UI object for Change Password page
+ */
 public class ChangePasswordUI implements UI {
 
     private Navigation navigation;
     private Input getInput;
 
+    /**
+     * Initialize the ChangePasswordUI
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     */
     public ChangePasswordUI(Navigation navigation, Input getInput) {
         this.navigation = navigation;
         this.getInput = getInput;
     }
     
+    /**
+     * Executes user interaction logic for Change Password page
+     */
     public void body() {
         
         UserManager userManager = UserManager.getInstance();

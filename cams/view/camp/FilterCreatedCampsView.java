@@ -23,7 +23,7 @@ public class FilterCreatedCampsView implements View {
      * Initialize the FilterCreatedCampsView
      * @param navigation Navigation object used to control navigation of the application
      * @param getInput Input object used to get input from user
-     * @param filterCamps FilterCamps object used to filter camps
+     * @param filterCamps FilterCamps object containing the applied filters
      */
     public FilterCreatedCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;

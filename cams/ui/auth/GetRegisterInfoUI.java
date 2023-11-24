@@ -7,16 +7,27 @@ import cams.manager.AuthManager;
 import cams.utils.Dismiss;
 import cams.view.user.UserOptionsView;
 
+/**
+ * UI object for User Registration page
+ */
 public class GetRegisterInfoUI extends GetStringInput implements UI {
 
     private Navigation navigation;
     private boolean isStaff;
 
+    /**
+     * Initialize the GetRegisterInfoUI
+     * @param navigation Navigation object used to control navigation of the application
+     * @param isStaff Boolean value indicating whether the user is registering as a staff member
+     */
     public GetRegisterInfoUI(Navigation navigation, boolean isStaff) {
         this.navigation = navigation;
         this.isStaff = isStaff;
     }
 
+    /**
+     * Executes user interaction logic for entering user registration
+     */
     @Override
     public void body() {
         AuthManager authManager = AuthManager.getInstance();

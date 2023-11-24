@@ -21,7 +21,7 @@ public class CreateCampView implements View {
      * Initialize the CreateCampView
      * @param navigation Navigation object used to control navigation of the application
      * @param getInput Input object used to get user input
-     * @param filterCamps FilterCamps object used to filter camps
+     * @param filterCamps FilterCamps object containing the applied filters
      */
     public CreateCampView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;

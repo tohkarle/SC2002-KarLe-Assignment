@@ -20,6 +20,9 @@ import cams.ui.camp.CampVisibilityUI;
 import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for creating a suggestion
+ */
 public class CreateSuggestionUI implements UI {
 
     private Navigation navigation;
@@ -27,6 +30,13 @@ public class CreateSuggestionUI implements UI {
     private int selectedCampInfo;
     private Camp camp;
 
+    /**
+     * Initialize the CreateSuggestionUI
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get user input
+     * @param selectedCampInfo The camp information to be edited via the suggestion
+     * @param camp Camp object to be edited
+     */
     public CreateSuggestionUI(Navigation navigation, Input getInput, int selectedCampInfo, Camp camp) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -34,6 +44,9 @@ public class CreateSuggestionUI implements UI {
         this.camp = camp;
     }
 
+    /**
+     * Executes user interaction logic for creating a suggestion
+     */
     @Override
     public void body() {
 

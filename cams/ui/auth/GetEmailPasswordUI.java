@@ -7,14 +7,24 @@ import cams.manager.AuthManager;
 import cams.utils.Dismiss;
 import cams.view.user.UserOptionsView;
 
+/**
+ * UI object for Get Email Password (login) page
+ */
 public class GetEmailPasswordUI extends GetStringInput implements UI {
 
     private Navigation navigation;
 
+    /**
+     * Initialize the GetEmailPasswordUI
+     * @param navigation Navigation object used to control navigation of the application
+     */
     public GetEmailPasswordUI(Navigation navigation) {
         this.navigation = navigation;
     }
 
+    /**
+     * Executes user interaction logic for entering login email and password
+     */
     @Override
     public void body() {
         AuthManager authManager = AuthManager.getInstance();
