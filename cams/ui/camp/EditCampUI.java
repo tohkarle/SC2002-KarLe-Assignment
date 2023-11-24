@@ -63,7 +63,7 @@ public class EditCampUI implements UI {
             if (getInput.confirmOrDiscard("Confirm changes?") != 1) { return; }
             if (!campManager.updateCampSuccessful(camp)) { return; }
             
-            LoadingIndicator.editingLoadingIndicator("camp");
+            LoadingIndicator.editLoadingIndicator("camp");
             navigation.dismissView();
         }
     }

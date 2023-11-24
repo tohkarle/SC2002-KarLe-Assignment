@@ -53,7 +53,7 @@ public class EditEnquiryUI implements UI {
             case 3:
                 if (getInput.confirmOrDiscard("Confirm changes?") != 1) { return; }
                 enquiryManager.updateEnquiry(enquiry);
-                LoadingIndicator.editingLoadingIndicator("enquiry");
+                LoadingIndicator.editLoadingIndicator("enquiry");
                 navigation.dismissView();
         }
     }

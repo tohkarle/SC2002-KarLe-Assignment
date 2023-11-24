@@ -115,7 +115,7 @@ public class LoadingIndicator {
     /**
      * Prints a loading indicator for user editing action
      */
-    public static void editingLoadingIndicator(String title) {
+    public static void editLoadingIndicator(String title) {
         System.out.println("\nEditing " + title + "...");
         delay();
         System.out.println("Edit " + title + " successful!");
