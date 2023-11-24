@@ -8,11 +8,19 @@ import cams.model.Suggestion;
 import cams.model.SuggestionStatus;
 import cams.option.camp.CampInfoOptions;
 
+/**
+ * Options object for selecting whether to edit or delete a suggestion in the CreatedSuggestionInfoView
+ */
 public class CreatedSuggestionInfoOptions extends CampInfoOptions {
     
     private Suggestion suggestion;
     private SuggestionStatus suggestionStatus;
 
+    /**
+     * Initialize the CreatedSuggestionInfo options
+     * @param suggestion The suggestion to edit or delete
+     * @param suggestionStatus The status of the suggestion
+     */
     public CreatedSuggestionInfoOptions(Suggestion suggestion, SuggestionStatus suggestionStatus) {
         super(suggestion.getCamp());
         this.suggestion = suggestion;
@@ -20,6 +28,9 @@ public class CreatedSuggestionInfoOptions extends CampInfoOptions {
         this.changeOption();
     }
 
+    /**
+     * Change the options to add the edit and delete suggestion options
+     */
     public void changeOption() {
         super.getOptions().add(0, String.format("Title: %s", suggestion.getTitle()));
         super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));

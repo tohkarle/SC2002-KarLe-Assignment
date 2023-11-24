@@ -7,8 +7,15 @@ import cams.interfaces.IntInput;
 import cams.model.Camp;
 import cams.utils.Page;
 
+/**
+ * Options object for managing edits to a camp in the EditCampView
+ */
 public class EditCampOptions extends CampInfoOptions {
     
+    /**
+     * Initialize the camp information options
+     * @param camp Camp object to display information of
+     */
     public EditCampOptions(Camp camp) {
         super(camp);
         this.changeOption();

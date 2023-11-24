@@ -5,6 +5,10 @@ import java.util.Arrays;
 
 import cams.components.option.DismissableSelectableOptions;
 
+/**
+ * Options object for selecting status of enquiries to view in the EnquiryStatusView
+ * i.e. pending or resolved enquiries
+ */
 public class EnquiryStatusOptions extends DismissableSelectableOptions {
 
     public EnquiryStatusOptions() {

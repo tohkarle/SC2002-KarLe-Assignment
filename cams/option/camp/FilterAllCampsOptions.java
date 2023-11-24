@@ -8,7 +8,14 @@ import cams.components.option.DismissableSelectableOptions;
 import cams.interfaces.IntInput;
 import cams.utils.Page;
 
+/**
+ * Options object for selecting camp filter in the FilterAllCampsView
+ */
 public class FilterAllCampsOptions extends DismissableSelectableOptions {
+
+    /**
+     * Initialize the camp filter options
+     */
     public FilterAllCampsOptions() {
         super.setOptions( 
             new ArrayList<String>(Arrays.asList(

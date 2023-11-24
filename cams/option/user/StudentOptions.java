@@ -5,8 +5,14 @@ import java.util.Arrays;
 
 import cams.components.option.SelectableOptions;
 
+/**
+ * Options object for Student options in the StudentView
+ */
 public class StudentOptions extends SelectableOptions {
     
+    /**
+     * Initialize the student options
+     */
     public StudentOptions() {
         super.setOptions( 
             new ArrayList<String>(Arrays.asList(

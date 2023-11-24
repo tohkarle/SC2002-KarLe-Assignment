@@ -8,13 +8,23 @@ import cams.model.Camp;
 import cams.option.camp.CampInfoOptions;
 import cams.utils.Page;
 
+/**
+ * Options object for submitting a suggestion in the CreateSuggestionView
+ */
 public class CreateSuggestionOptions extends CampInfoOptions {
 
+    /**
+     * Initialize the CreateSuggestion options
+     * @param camp The camp to submit a suggestion for
+     */
     public CreateSuggestionOptions(Camp camp) {
         super(camp);
         this.changeOption();
     }
 
+    /**
+     * Change the options to add the submit suggestion option
+     */
     public void changeOption() {
         super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
         super.getOptions().addAll(Arrays.asList(

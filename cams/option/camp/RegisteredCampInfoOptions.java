@@ -8,11 +8,19 @@ import cams.manager.CampManager;
 import cams.manager.UserManager;
 import cams.model.Camp;
 
+/**
+ * Options object for containing selections in the RegisteredCampInfoView
+ * These options include managing enquiries, giving suggestions, managing suggestions, and generating registration report, for committee members
+ */
 public class RegisteredCampInfoOptions extends CampInfoOptions {
 
     UserManager userManager;
     CampManager campManager;
 
+    /**
+     * Initialize the camp information options
+     * @param camp The selected Camp object
+     */
     public RegisteredCampInfoOptions(Camp camp) {
         super(camp);
         this.userManager = UserManager.getInstance();

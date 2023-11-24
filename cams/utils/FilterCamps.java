@@ -8,6 +8,7 @@ import cams.model.Camp;
 
 /**
  * Utility class for filtering Camp objects
+ * It stores the filters applied by the current user
  */
 public class FilterCamps {
 
@@ -16,7 +17,6 @@ public class FilterCamps {
 
     /**
      * Initialize FilterCamps object with default values
-     * It stores the filters applied by the current user
      * selectedFilterBy is the type of filter selected, e.g. campName, userGroup, location, etc.
      * camp is the Camp object that contains the filter values, used for filtering
      */

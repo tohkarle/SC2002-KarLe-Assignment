@@ -5,8 +5,15 @@ import java.util.Arrays;
 
 import cams.components.option.ViewOnlyOptions;
 
+/**
+ * Options object for selecting which camp information to edit in the EditCampInfoView
+ * Also includes options for managing enquiries and suggestions, and creating reports
+ */
 public class EditCampInfoOptions extends ViewOnlyOptions {
 
+    /**
+     * Initialize the camp information options
+     */
     public EditCampInfoOptions() {
         super.setOptions( 
                 new ArrayList<String>(Arrays.asList(

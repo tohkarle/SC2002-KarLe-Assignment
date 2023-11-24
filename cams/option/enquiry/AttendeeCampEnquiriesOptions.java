@@ -8,6 +8,9 @@ import cams.manager.UserManager;
 import cams.utils.Dismiss;
 import cams.utils.Page;
 
+/**
+ * Options object for selecting an enquiry in the AttendeeCampEnquiriesView
+ */
 public class AttendeeCampEnquiriesOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
@@ -15,6 +18,11 @@ public class AttendeeCampEnquiriesOptions extends DismissableSelectableOptions {
     private boolean viewResolved;
     private int selectedCampID;
 
+    /**
+     * Initialize the AttendeeCampEnquiries options
+     * @param viewResolved Whether to view resolved enquiries or not
+     * @param selectedCampID The camp ID of the camp to view enquiries for
+     */
     public AttendeeCampEnquiriesOptions(boolean viewResolved, int selectedCampID) {
         this.viewResolved = viewResolved;
         this.fetchStudentCampEnquiries();

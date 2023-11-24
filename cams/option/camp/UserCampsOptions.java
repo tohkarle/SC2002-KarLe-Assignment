@@ -7,8 +7,15 @@ import cams.manager.UserManager;
 import cams.model.Camp;
 import cams.utils.FilterCamps;
 
+/**
+ * Options object for camp selection in the CreatedCampsView and RegisteredCampsView
+ */
 public class UserCampsOptions extends AllCampsOptions {
 
+    /**
+     * Initialize the camp selection options
+     * @param filterCamps FilterCamps object containing the applied filters
+     */
     public UserCampsOptions(FilterCamps filterCamps) {
         super(filterCamps);
     }
