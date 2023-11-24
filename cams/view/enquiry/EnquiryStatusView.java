@@ -9,18 +9,30 @@ import cams.manager.UserManager;
 import cams.option.enquiry.EnquiryStatusOptions;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Enquiry Status page
+ */
 public class EnquiryStatusView implements View {
 
     private Navigation navigation;
     private Input getInput;
     private int selectedCampID;
 
+    /**
+     * Initialize the EnquiryStatusView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param selectedCampID int of the selected camp ID
+     */
     public EnquiryStatusView(Navigation navigation, Input getInput, int selectedCampID) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Render the EnquiryStatusView
+     */
     public void render() {
 
         UserManager userManager = UserManager.getInstance();

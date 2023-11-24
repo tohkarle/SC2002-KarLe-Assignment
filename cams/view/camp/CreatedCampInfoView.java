@@ -16,18 +16,30 @@ import cams.view.enquiry.EnquiryStatusView;
 import cams.view.report.GenerateRegistrationReportView;
 import cams.view.suggestion.SuggestionStatusView;
 
+/**
+ * View object for Created Camp Info page
+ */
 public class CreatedCampInfoView implements View {
 
     private Navigation navigation;
     private Input getInput;
     private int selectedCampID;
 
+    /**
+     * Initialize the CreatedCampInfoView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param selectedCampID int of the selected camp ID
+     */
     public CreatedCampInfoView(Navigation navigation, Input getInput, int selectedCampID) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Render the CreatedCampInfoView
+     */
     public void render() {
 
         CampManager campManager = CampManager.getInstance();
@@ -68,6 +80,9 @@ public class CreatedCampInfoView implements View {
         }
     }
 
+    /**
+     * Generate performance report for the selected camp
+     */
     private void generatePerformanceReport() {
         if (getInput.confirmOrDiscard("Confirm generate report?") != 1) { return; }
         ReportWriter.generatePerformanceReport(selectedCampID);

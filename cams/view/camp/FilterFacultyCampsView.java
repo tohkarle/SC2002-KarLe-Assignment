@@ -10,6 +10,9 @@ import cams.ui.camp.FilterFacultyCampsUI;
 import cams.utils.Dismiss;
 import cams.utils.FilterCamps;
 
+/**
+ * View object for Filter Faculty Camps page
+ */
 public class FilterFacultyCampsView implements View {
 
     private Navigation navigation;
@@ -22,6 +25,9 @@ public class FilterFacultyCampsView implements View {
         this.filterCamps = filterCamps;
     }
 
+    /**
+     * Render the FilterFacultyCampsView
+     */
     public void render() {
 
         Options filterFacultyCampsOptions = new FilterFacultyCampsOptions();

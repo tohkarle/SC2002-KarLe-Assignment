@@ -10,18 +10,30 @@ import cams.option.enquiry.EditEnquiryOptions;
 import cams.ui.enquiry.EditEnquiryUI;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Edit Enquiry page
+ */
 public class EditEnquiryView implements View {
 
     private Navigation navigation;
     private Input getInput;
     private Enquiry enquiry;
 
+    /**
+     * Initialize the EditEnquiryView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param enquiry Enquiry object to be edited
+     */
     public EditEnquiryView(Navigation navigation, Input getInput, Enquiry enquiry) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.enquiry = enquiry;
     }
 
+    /**
+     * Render the EditEnquiryView
+     */
     public void render() {
 
         Options editEnquiryOptions = new EditEnquiryOptions(enquiry);

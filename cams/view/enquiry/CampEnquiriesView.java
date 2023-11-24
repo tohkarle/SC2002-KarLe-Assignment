@@ -7,6 +7,9 @@ import cams.interfaces.View;
 import cams.option.enquiry.CampEnquiriesOptions;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Camp Enquiries page
+ */
 public class CampEnquiriesView implements View {
 
     private Navigation navigation;
@@ -14,6 +17,13 @@ public class CampEnquiriesView implements View {
     private boolean viewResolved;
     private int selectedCampID;
 
+    /**
+     * Initialize the CampEnquiriesView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param viewResolved boolean to indicate whether to view resolved enquiries
+     * @param selectedCampID int of the selected camp ID
+     */
     public CampEnquiriesView(Navigation navigation, Input getInput, boolean viewResolved, int selectedCampID) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -21,6 +31,9 @@ public class CampEnquiriesView implements View {
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Render the CampEnquiriesView
+     */
     public void render() {
 
         // Display enquiry

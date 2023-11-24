@@ -8,16 +8,27 @@ import cams.model.Camp;
 import cams.option.camp.CampInfoOptions;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Camp Info page
+ */
 public class CampInfoView implements View {
 
     private Navigation navigation;
     private int selectedCampID;
 
+    /**
+     * Initialize the CampInfoView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param selectedCampID int of the selected camp ID
+     */
     public CampInfoView(Navigation navigation, int selectedCampID) {
         this.navigation = navigation;
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Render the CampInfoView
+     */
     public void render() {
 
         CampManager campManager = CampManager.getInstance();

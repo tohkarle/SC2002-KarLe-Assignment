@@ -8,6 +8,9 @@ import cams.model.SuggestionStatus;
 import cams.option.suggestion.CampSuggestionOptions;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Camp Suggestions page
+ */
 public class CampSuggestionsView implements View {
 
     private Navigation navigation;
@@ -15,6 +18,13 @@ public class CampSuggestionsView implements View {
     private SuggestionStatus suggestionStatus;
     private int selectedCampID;
 
+    /**
+     * Initialize the CampSuggestionsView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param suggestionStatus The status of the suggestions to view
+     * @param selectedCampID int of the selected camp ID
+     */
     public CampSuggestionsView(Navigation navigation, Input getInput, SuggestionStatus suggestionStatus, int selectedCampID) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -22,6 +32,9 @@ public class CampSuggestionsView implements View {
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Render the CampSuggestionsView
+     */
     public void render() {
 
         // Display suggestion

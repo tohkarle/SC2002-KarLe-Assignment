@@ -8,6 +8,9 @@ import cams.option.camp.UserCampsOptions;
 import cams.utils.Dismiss;
 import cams.utils.FilterCamps;
 
+/**
+ * View object for Created Camps page
+ */
 public class CreatedCampsView implements View {
 
     private Navigation navigation;
@@ -16,6 +19,13 @@ public class CreatedCampsView implements View {
     private String newCampName;
     private Options userCampOptions;
 
+    /**
+     * Initialize the CreatedCampsView with new camp name
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param filterCamps FilterCamps object used to filter camps
+     * @param newCampName String of the new camp name
+     */
     public CreatedCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps, String newCampName) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -23,6 +33,12 @@ public class CreatedCampsView implements View {
         this.newCampName = newCampName;
     }
 
+    /**
+     * Initialize the CreatedCampsView without new camp name
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param filterCamps FilterCamps object used to filter camps
+     */
     public CreatedCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -30,6 +46,9 @@ public class CreatedCampsView implements View {
         this.newCampName = null;
     }
 
+    /**
+     * Render the CreatedCampsView
+     */
     public void render() {
 
         userCampOptions = new UserCampsOptions(filterCamps);
