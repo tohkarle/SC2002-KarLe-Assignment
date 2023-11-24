@@ -19,6 +19,9 @@ import cams.ui.camp.CampTotalSlotsUI;
 import cams.ui.camp.CampVisibilityUI;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for editing a suggestion
+ */
 public class EditSuggestionUI implements UI {
     
     private Navigation navigation;
@@ -26,6 +29,13 @@ public class EditSuggestionUI implements UI {
     private Suggestion suggestion;
     private int selectedCampInfo;
 
+    /**
+     * Initialize the EditSuggestionUI
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get user input
+     * @param suggestion Suggestion object to be edited
+     * @param selectedCampInfo The camp information to be edited via the suggestion
+     */
     public EditSuggestionUI(Navigation navigation, Input getInput, Suggestion suggestion, int selectedCampInfo) {
         this.navigation = navigation;
         this.getInput = getInput;

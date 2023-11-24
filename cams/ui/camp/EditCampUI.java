@@ -9,6 +9,9 @@ import cams.model.Camp;
 import cams.option.camp.EditCampInfoOptions;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for editing a camp
+ */
 public class EditCampUI implements UI {
 
     private Navigation navigation;
@@ -16,6 +19,13 @@ public class EditCampUI implements UI {
     private Camp camp;
     private int selectedEditField;
 
+    /**
+     * Initialize the EditCampUI
+     * @param navigation Navigation object used to navigate between views
+     * @param getInput Input object used to get user input
+     * @param camp Camp object to be edited
+     * @param selectedEditField ID of the Camp field to be edited
+     */
     public EditCampUI(Navigation navigation, Input getInput, Camp camp, int selectedEditField) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -23,6 +33,9 @@ public class EditCampUI implements UI {
         this.selectedEditField = selectedEditField;
     }
 
+    /**
+     * Executes user interaction logic for editing a camp
+     */
     @Override
     public void body() {
         

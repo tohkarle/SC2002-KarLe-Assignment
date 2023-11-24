@@ -6,6 +6,9 @@ import cams.interfaces.UI;
 import cams.model.Camp;
 import cams.utils.FilterCamps;
 
+/**
+ * UI object for filtering faculty camps
+ */
 public class FilterFacultyCampsUI implements UI {
     
     private Navigation navigation;
@@ -13,6 +16,13 @@ public class FilterFacultyCampsUI implements UI {
     private FilterCamps filterCamps;
     private int selectedFilterBy;
 
+    /**
+     * Initialize the FilterFacultyCampsUI
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get user input
+     * @param filterCamps FilterCamps object containing the applied filters
+     * @param selectedFilterBy The filter to be applied
+     */
     public FilterFacultyCampsUI(Navigation navigation, Input getInput, FilterCamps filterCamps, int selectedFilterBy) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -20,6 +30,9 @@ public class FilterFacultyCampsUI implements UI {
         this.selectedFilterBy = selectedFilterBy;
     }
 
+    /**
+     * Render the FilterFacultyCampsUI
+     */
     @Override
     public void body() {
 
