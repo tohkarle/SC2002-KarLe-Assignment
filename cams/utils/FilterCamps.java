@@ -6,16 +6,29 @@ import java.util.stream.Collectors;
 
 import cams.model.Camp;
 
+/**
+ * Utility class for filtering Camp objects
+ */
 public class FilterCamps {
 
     private String selectedFilterBy;
     private Camp camp;
 
+    /**
+     * Initialize FilterCamps object with default values
+     * selectedFilterBy is the type of filter selected, e.g. campName, userGroup, location, etc.
+     * camp is the Camp object that contains the filter values, used for filtering
+     */
     public FilterCamps() {
         this.selectedFilterBy = "";
         this.camp = new Camp(-1, "Default", new ArrayList<>(), "NTU", false, "Default staff", LocalDate.now());
     }
 
+    /**
+     * Get list of filtered camps based on the type of filter selected in selectedFilterBy
+     * @param camps
+     * @return ArrayList<Camp> filtered camps based on the type of filter selected in selectedFilterBy
+     */
     public ArrayList<Camp> filteredCamps(ArrayList<Camp> camps) {
         switch (selectedFilterBy) {
             case "campName":

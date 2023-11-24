@@ -10,10 +10,13 @@ import cams.manager.EnquiryManager;
 import cams.manager.SuggestionManager;
 import cams.model.Camp;
 
+/**
+ * Utility class for generating camp reports
+ */
 public class ReportWriter {
 
     /**
-     * Generates a report for the specified list of camps, saved as a CSV file
+     * Generates a report for the specified list of camps, saved as a txt file
      * @param camID The id of camps to generate the report for
      */
     public static void generateRegistrationReport(int campID, int selectedReportOption) {
@@ -76,7 +79,7 @@ public class ReportWriter {
     }
 
     /**
-     * Generates a performance report (Points) for the specified list of camps, saved as a CSV file
+     * Generates a performance report (Points) for the specified list of camps, saved as a txt file
      * @param campList The list of camps to generate the report for
      * @param reportName The name of the report to be generated
      */
