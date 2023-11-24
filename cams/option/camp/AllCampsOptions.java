@@ -11,11 +11,18 @@ import cams.utils.Dismiss;
 import cams.utils.FilterCamps;
 import cams.utils.Page;
 
+/**
+ * Options object for camp selection in the AllCampsView
+ */
 public class AllCampsOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
     private ArrayList<Integer> campIDs;
 
+    /**
+     * Initialize the camp selection options
+     * @param filterCamps FilterCamps object containing the applied filters
+     */
     public AllCampsOptions(FilterCamps filterCamps) {
         this.fetchCamps(filterCamps);
         super.getOptions().add(0, "Filter");
@@ -41,6 +48,10 @@ public class AllCampsOptions extends DismissableSelectableOptions {
         return this.campIDs.get(option - 1);
     }
 
+    /**
+     * Fetches all camps from the CampManager and labels them as options
+     * @param filterCamps FilterCamps object containing the applied filters
+     */
     public void fetchCamps(FilterCamps filterCamps) {
 
         CampManager campManager = CampManager.getInstance();
@@ -59,10 +70,18 @@ public class AllCampsOptions extends DismissableSelectableOptions {
         this.campIDs = campIds;
     }
 
+    /**
+     * Sets the title to be displayed when there are no camps
+     * @param title The title to be displayed when there are no camps
+     */
     public void setNoCampTitle(String title) {
         this.noCampTitle = title;
     }
 
+    /**
+     * Sets the list of camp IDs corresponding to the selectable camp options
+     * @param campIDs The list of camp IDs corresponding to the camp options
+     */
     public void setCampIDs(ArrayList<Integer> campIDs) {
         this.campIDs = campIDs;
     }

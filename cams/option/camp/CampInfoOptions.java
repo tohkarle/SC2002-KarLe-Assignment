@@ -6,10 +6,17 @@ import java.util.Arrays;
 import cams.components.option.DismissableViewOnlyOptions;
 import cams.model.Camp;
 
+/**
+ * Options object for camp information selection in the CampInfoView
+ */
 public class CampInfoOptions extends DismissableViewOnlyOptions {
 
     private Camp camp;
 
+    /**
+     * Initialize the camp information options
+     * @param camp Camp object to display information of
+     */
     public CampInfoOptions(Camp camp) {
         this.camp = camp;
         super.setOptions(

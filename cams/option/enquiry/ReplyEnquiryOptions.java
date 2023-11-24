@@ -6,8 +6,15 @@ import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.model.Enquiry;
 
+/**
+ * Options object for replying to an enquiry in the ReplyEnquiryView
+ */
 public class ReplyEnquiryOptions extends EnquiryInfoOptions {
 
+    /**
+     * Initialize the ReplyEnquiry options
+     * @param enquiry The enquiry to reply to
+     */
     public ReplyEnquiryOptions(Enquiry enquiry) {
         super(enquiry);
         this.changeOption();

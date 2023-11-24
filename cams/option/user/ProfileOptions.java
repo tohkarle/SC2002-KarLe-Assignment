@@ -6,8 +6,14 @@ import java.util.Arrays;
 import cams.components.option.DismissableViewOnlyOptions;
 import cams.manager.UserManager;
 
+/**
+ * Options object for user profile options in the ProfileView
+ */
 public class ProfileOptions extends DismissableViewOnlyOptions {
 
+    /**
+     * Initialize the user profile options
+     */
     public ProfileOptions() {
         UserManager userManager = UserManager.getInstance();
         

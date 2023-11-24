@@ -6,11 +6,19 @@ import cams.model.Suggestion;
 import cams.model.SuggestionStatus;
 import cams.option.camp.CampInfoOptions;
 
+/**
+ * Options object for a Staff to select whether to approve or reject a suggestion in the ProcessSuggestionView
+ */
 public class ProcessSuggestionOptions extends CampInfoOptions {
 
     private Suggestion suggestion;
     private SuggestionStatus suggestionStatus;
     
+    /**
+     * Initialize the ProcessSuggestion options
+     * @param suggestion The suggestion to approve or reject
+     * @param suggestionStatus The status of the suggestion
+     */
     public ProcessSuggestionOptions(Suggestion suggestion, SuggestionStatus suggestionStatus) {
         super(suggestion.getCamp());
         this.suggestion = suggestion;

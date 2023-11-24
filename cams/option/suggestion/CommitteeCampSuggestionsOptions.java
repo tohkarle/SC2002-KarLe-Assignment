@@ -9,6 +9,10 @@ import cams.model.SuggestionStatus;
 import cams.utils.Dismiss;
 import cams.utils.Page;
 
+/**
+ * Options object for selecting a camp suggestion to view in the CommitteeCampSuggestionsView
+ * These options are only available to committee members
+ */
 public class CommitteeCampSuggestionsOptions extends DismissableSelectableOptions {
 
     private String noCampTitle;
@@ -16,6 +20,11 @@ public class CommitteeCampSuggestionsOptions extends DismissableSelectableOption
     private SuggestionStatus suggestionStatus;
     private int selectedCampID;
 
+    /**
+     * Initialize the CampSuggestion options
+     * @param suggestionStatus The status of the suggestion to view
+     * @param selectedCampID The camp ID of the camp to view suggestions for
+     */
     public CommitteeCampSuggestionsOptions(SuggestionStatus suggestionStatus, int selectedCampID) {
         this.suggestionStatus = suggestionStatus;
         this.fetchStudentCampSuggestions();

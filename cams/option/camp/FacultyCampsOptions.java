@@ -7,8 +7,15 @@ import cams.manager.UserManager;
 import cams.model.Camp;
 import cams.utils.FilterCamps;
 
+/**
+ * Options object for camp selection in the FacultyCampsView
+ */
 public class FacultyCampsOptions extends AllCampsOptions {
 
+    /**
+     * Initialize the camp selection options
+     * @param filterCamps FilterCamps object containing the applied filters
+     */
     public FacultyCampsOptions(FilterCamps filterCamps) {
         super(filterCamps);
     }

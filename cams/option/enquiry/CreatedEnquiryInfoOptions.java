@@ -6,6 +6,9 @@ import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.IntInput;
 import cams.model.Enquiry;
 
+/**
+ * Options object for editing an enquiry in the CreatedEnquiryInfoView
+ */
 public class CreatedEnquiryInfoOptions extends EnquiryInfoOptions {
     
     public CreatedEnquiryInfoOptions(Enquiry enquiry) {

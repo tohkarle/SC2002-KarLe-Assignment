@@ -8,16 +8,26 @@ import cams.model.Suggestion;
 import cams.option.camp.CampInfoOptions;
 import cams.utils.Page;
 
+/**
+ * Options object for managing edits to a suggestion in the EditSuggestionView
+ */
 public class EditSuggestionOptions extends CampInfoOptions {
 
     private Suggestion suggestion;
     
+    /**
+     * Initialize the EditSuggestion options
+     * @param suggestion The suggestion to edit
+     */
     public EditSuggestionOptions(Suggestion suggestion) {
         super(suggestion.getCamp());
         this.suggestion = suggestion;
         this.changeOption();
     }
 
+    /**
+     * Change the options to add the update changes option
+     */
     public void changeOption() {
         super.getOptions().add(0, String.format("Title: %s", suggestion.getTitle()));
         super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));
