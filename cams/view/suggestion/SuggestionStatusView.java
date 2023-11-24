@@ -9,18 +9,30 @@ import cams.model.SuggestionStatus;
 import cams.option.suggestion.SuggestionStatusOptions;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Suggestion Status page
+ */
 public class SuggestionStatusView implements View {
 
     private Navigation navigation;
     private Input getInput;
     private int selectedCampID;
 
+    /**
+     * Initialize the SuggestionStatusView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param selectedCampID int of the selected camp ID
+     */
     public SuggestionStatusView(Navigation navigation, Input getInput, int selectedCampID) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Render the SuggestionStatusView
+     */
     public void render() {
 
         UserManager userManager = UserManager.getInstance();

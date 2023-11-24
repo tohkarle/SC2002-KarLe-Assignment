@@ -10,6 +10,9 @@ import cams.manager.UserManager;
 import cams.option.user.ProfileOptions;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Profile page
+ */
 public class ProfileView implements View {
 
     private Navigation navigation;
@@ -18,6 +21,10 @@ public class ProfileView implements View {
     private EnquiryManager enquiryManager;
     private SuggestionManager suggestionManager;
 
+    /**
+     * Initialize the ProfileView
+     * @param navigation Navigation object used to control navigation of the application
+     */
     public ProfileView(Navigation navigation) {
         this.navigation = navigation;
         this.userManager = UserManager.getInstance();
@@ -26,6 +33,9 @@ public class ProfileView implements View {
         this.suggestionManager = SuggestionManager.getInstance();
     }
 
+    /**
+     * Render the ProfileView
+     */
     public void render() {
         
         // Display profile
@@ -45,6 +55,9 @@ public class ProfileView implements View {
         }
     }
 
+    /**
+     * Display student profile
+     */
     public void studentSpecificProfile() {
         int numberOfEnquiriesReplied = enquiryManager.getNumberOfEnquiriesReplied(userManager.getCurrentUser().getName());
         int numberOfSuggestionsGiven = suggestionManager.getNumberOfSuggestionsGiven(userManager.getCurrentUser().getName());
@@ -56,6 +69,9 @@ public class ProfileView implements View {
         }
     }
 
+    /**
+     * Display staff profile
+     */
     public void staffSpecificProfile() {
 
     }

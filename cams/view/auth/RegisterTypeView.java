@@ -6,10 +6,17 @@ import cams.interfaces.View;
 import cams.option.auth.UserOptions;
 import cams.utils.Dismiss;
 
+/**
+ * View object for Register Type page
+ */
 public class RegisterTypeView implements View {
 
     private Navigation navigation;
 
+    /**
+     * Initialize the RegisterTypeView
+     * @param navigation
+     */
     public RegisterTypeView(Navigation navigation) {
         this.navigation = navigation;
     }

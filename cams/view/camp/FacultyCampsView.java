@@ -8,18 +8,30 @@ import cams.option.camp.FacultyCampsOptions;
 import cams.utils.Dismiss;
 import cams.utils.FilterCamps;
 
+/**
+ * View object for Faculty Camps page
+ */
 public class FacultyCampsView implements View {
 
     private Navigation navigation;
     private Input getInput;
     private FilterCamps filterCamps;
 
+    /**
+     * Initialize the FacultyCampsView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param filterCamps FilterCamps object used to filter camps
+     */
     public FacultyCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.filterCamps = filterCamps;
     }
 
+    /**
+     * Render the FacultyCampsView
+     */
     public void render() {
 
         // Display camps

@@ -17,16 +17,26 @@ import cams.view.camp.FacultyCampsView;
 import cams.view.camp.RegisterForCampView;
 import cams.view.camp.RegisteredCampsView;
 
+/**
+ * View object for User Options page, which is the main menu for the user after logging in
+ */
 public class UserOptionsView implements View {
 
     private Navigation navigation;
     private UserManager userManager;
 
+    /**
+     * Initialize the UserOptionsView
+     * @param navigation Navigation object used to control navigation of the application
+     */
     public UserOptionsView(Navigation navigation) {
         this.navigation = navigation;
         this.userManager = UserManager.getInstance();
     }
 
+    /**
+     * Render the UserOptionsView
+     */
     @Override
     public void render() {
         
@@ -95,6 +105,9 @@ public class UserOptionsView implements View {
         }
     }
 
+    /**
+     * Log out the current user
+     */
     private void logOut() {
         LoadingIndicator.logOutLoadingIndicator();
         userManager.setCurrentUser(null);
