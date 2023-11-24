@@ -75,6 +75,10 @@ public class Serialize
 		}
 	}
 
+	/**
+	 * Used to check if a file exists in the data folder, if not create the new file
+	 * @param filename The filename to be checked and created if not exists
+	 */
 	public static void checkAndCreateFile(String filename) {
         File file = new File("cams/data",filename);
         if (!file.exists()) {
