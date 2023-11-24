@@ -6,7 +6,7 @@ import cams.utils.LoadingIndicator;
 
 
 /**
- * A high level controller object to manage authorisation logic,
+ * A high level controller object to manage authentication logic,
  * is a singleton object
  */
 public class AuthManager {
@@ -17,7 +17,7 @@ public class AuthManager {
     private static AuthManager instance;
 
     /**
-     * A singleton object to a authorisation service object
+     * A singleton object to a authentication service object
      */
     private AuthService authService;
 
