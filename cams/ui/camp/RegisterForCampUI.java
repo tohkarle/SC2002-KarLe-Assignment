@@ -12,6 +12,9 @@ import cams.model.RegistrationType;
 import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for registering for a camp
+ */
 public class RegisterForCampUI implements UI {
 
     private Input getInput;
@@ -19,11 +22,19 @@ public class RegisterForCampUI implements UI {
     private CampManager campManager;
     private int selectedCampID;
 
+    /**
+     * Initialize the RegisterForCampUI
+     * @param getInput Input object used to get user input
+     * @param selectedCampID ID of the camp to be registered for
+     */
     public RegisterForCampUI(Input getInput, int selectedCampID) {
         this.selectedCampID = selectedCampID;
         this.getInput = getInput;
     }
 
+    /**
+     * Executes user interaction logic for registering for a camp
+     */
     public void body() {
 
         userManager = UserManager.getInstance();
@@ -46,6 +57,12 @@ public class RegisterForCampUI implements UI {
         LoadingIndicator.registerLoadingIndicator("camp");
     }
 
+    /**
+     * Checks if the user is eligible to register for the camp
+     * @param campID ID of the camp to be registered for
+     * @param registrationType RegistrationType of the user
+     * @return true if the user is not eligible to register for the camp, false otherwise
+     */
     public boolean notEligible(int campID, RegistrationType registrationType) {
         /*
         * A student is not allowed to register for a camp more than once

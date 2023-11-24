@@ -8,6 +8,9 @@ import cams.manager.CampManager;
 import cams.manager.UserManager;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for withdrawing from a camp
+ */
 public class WithdrawFromCampUI implements UI {
 
     private Navigation navigation;
@@ -15,6 +18,13 @@ public class WithdrawFromCampUI implements UI {
     private CampManager campManager;
     private int selectedCampID;
 
+    /**
+     * Initialize the WithdrawFromCampUI
+     * @param navigation Navigation object used to navigate between views
+     * @param userManager UserManager object used to get user information
+     * @param campManager CampManager object used to manage camp data
+     * @param selectedCampID ID of the camp to be withdrawn from
+     */
     public WithdrawFromCampUI(Navigation navigation, UserManager userManager, CampManager campManager, int selectedCampID) {
         this.navigation = navigation;
         this.userManager = userManager;
@@ -22,6 +32,9 @@ public class WithdrawFromCampUI implements UI {
         this.selectedCampID = selectedCampID;
     }
 
+    /**
+     * Executes user interaction logic for withdrawing from a camp
+     */
     @Override
     public void body() {
 

@@ -8,6 +8,9 @@ import cams.model.Enquiry;
 import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 
+/**
+ * UI object for editing an enquiry
+ */
 public class EditEnquiryUI implements UI {
 
     private Navigation navigation;
@@ -15,6 +18,13 @@ public class EditEnquiryUI implements UI {
     private int selectedEnquiryInfo;
     private Enquiry enquiry;
 
+    /**
+     * Initialize the EditEnquiryUI
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get user input
+     * @param selectedEnquiryInfo field of Enquiry object to be edited, 1 = title, 2 = content
+     * @param enquiry Enquiry object to be edited
+     */
     public EditEnquiryUI(Navigation navigation, Input getInput, int selectedEnquiryInfo, Enquiry enquiry) {
         this.navigation = navigation;
         this.getInput = getInput;
@@ -22,6 +32,9 @@ public class EditEnquiryUI implements UI {
         this.enquiry = enquiry;
     }
 
+    /**
+     * Executes user interaction logic for editing an enquiry
+     */
     public void body() {
 
         EnquiryManager enquiryManager = EnquiryManager.getInstance();

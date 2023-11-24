@@ -15,18 +15,30 @@ import cams.utils.FilterCamps;
 import cams.utils.LoadingIndicator;
 import cams.view.camp.CreatedCampsView;
 
+/**
+ * UI object for creating a camp
+ */
 public class CreateCampUI implements UI {
 
     private Navigation navigation;
     private Input getInput;
     private FilterCamps filterCamps;
 
+    /**
+     * Initialize the CreateCampUI
+     * @param navigation Navigation object used to navigate between views
+     * @param getInput Input object used to get user input
+     * @param filterCamps FilterCamps object containing the applied filters
+     */
     public CreateCampUI(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;
         this.filterCamps = filterCamps;
     }
     
+    /**
+     * Executes user interaction logic for creating a camp
+     */
     @Override
     public void body() {
 
