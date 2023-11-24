@@ -4,6 +4,4 @@ public interface Navigation {
     void navigateTo(View view);
     void dismissView();
     void popToRoot();
-    Class<?> getPreviousView();
-    void terminate();
 }

@@ -31,7 +31,7 @@ public class RootView implements View {
                 break;
             case 3:
                 LoadingIndicator.terminateAppLoadingIndicator();
-                navigation.terminate();
+                navigation.dismissView();
                 break;
         }
     }

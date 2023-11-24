@@ -37,13 +37,13 @@ public class NavigationManager implements Navigation, ViewHandler {
      */
     @Override
     public void displayView() {
-
         while (!views.isEmpty()) {
             clearTerminal();
             System.out.println("\nWelcome to the Camp Application and Management System");
             View view = views.peek();
             view.render();
         }
+        clearTerminal();
     }
 
 
@@ -75,16 +75,6 @@ public class NavigationManager implements Navigation, ViewHandler {
 
 
     /**
-     * A method to clear all the views
-     */
-    @Override
-    public void terminate() {
-        clearTerminal();
-        views.clear();
-    }
-
-
-    /**
      * A method to go back to the root view
      */
     @Override
@@ -92,18 +82,6 @@ public class NavigationManager implements Navigation, ViewHandler {
         views.clear();
         views.push(rootView);
         views.push(new UserOptionsView(this));
-    }
-
-
-    /**
-     * A method to get the previous view object
-     */
-    @Override
-    public Class<?> getPreviousView() {
-        if (views.size() < 2) {
-            return null;
-        }
-        return views.get(views.size() - 2).getClass();
     }
 
 
