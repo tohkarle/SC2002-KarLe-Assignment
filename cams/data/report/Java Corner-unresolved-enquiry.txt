@@ -1,0 +1,13 @@
+Camp name: Java Corner
+Faculty: NTU
+Location: NTU
+Description: This camp is about Java.
+Visibility: On
+Dates: 2024-03-15 to 2024-03-18
+Registration closing date: 2024-03-14
+Remaining slots: 66 / 69
+Remaining committee slots: 8 / 10
+Staff-in-charge: Staff 1
+
+Title, Content, Reply
+Enquiry 2 by Student 3, Do I need to bring my own laptop for the camp, do does the camp give out free laptop?, (Not resolved)

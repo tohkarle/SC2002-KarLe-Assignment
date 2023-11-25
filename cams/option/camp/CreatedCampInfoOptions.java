@@ -38,6 +38,7 @@ public class CreatedCampInfoOptions extends CampInfoOptions {
             "Manage suggestions",
             "Generate registration report",
             "Generate performance report",
+            "Generate enquiry report",
             "Delete Camp"
         );
 

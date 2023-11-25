@@ -13,6 +13,7 @@ import cams.utils.Dismiss;
 import cams.utils.LoadingIndicator;
 import cams.utils.ReportWriter;
 import cams.view.enquiry.EnquiryStatusView;
+import cams.view.report.GenerateEnquiryReportView;
 import cams.view.report.GenerateRegistrationReportView;
 import cams.view.suggestion.SuggestionStatusView;
 
@@ -77,6 +78,9 @@ public class CreatedCampInfoView implements View {
                 generatePerformanceReport();
                 break;
             case 7:
+                navigation.navigateTo(new GenerateEnquiryReportView(navigation, getInput, selectedCampID));
+                break;
+            case 8:
                 UI deleteCampUI = new DeleteCampUI(navigation, selectedCampID, getInput);
                 deleteCampUI.body();
                 break;

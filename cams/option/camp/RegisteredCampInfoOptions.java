@@ -33,7 +33,7 @@ public class RegisteredCampInfoOptions extends CampInfoOptions {
 
     /**
      * Change the options based on whether the current user is a committee member or attendee of the camp.
-     * If the user is a committee member, the options include managing enquiries, giving suggestions, managing their own suggestions, and generating a registration report.
+     * If the user is a committee member, the options include managing enquiries, giving suggestions, managing their own suggestions, and generating a registration or enquiry report.
      * If the user is an attendee, the options include raising enquiries, managing their own enquiries, and withdrawing from the camp.
      */
     public void changeOption() {
@@ -43,7 +43,8 @@ public class RegisteredCampInfoOptions extends CampInfoOptions {
                 "Manage enquiries",
                 "Give suggestions",
                 "Manage your suggestions",
-                "Generate registration report"
+                "Generate registration report",
+                "Generate enquiry report"
             );
         } else {
             this.additionalOptions = Arrays.asList(

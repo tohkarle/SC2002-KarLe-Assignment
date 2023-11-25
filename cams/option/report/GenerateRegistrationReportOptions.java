@@ -8,12 +8,12 @@ import cams.components.option.DismissableSelectableOptions;
 /**
  * Options object for filter selection of report generation in the GenerateRegistrationReportView
  */
-public class GenerateReportOptions extends DismissableSelectableOptions {
+public class GenerateRegistrationReportOptions extends DismissableSelectableOptions {
 
     /**
      * Initialize the report generation options
      */
-    public GenerateReportOptions() {
+    public GenerateRegistrationReportOptions() {
         super.setOptions(
             new ArrayList<String>(Arrays.asList(
                 "Attendees only",

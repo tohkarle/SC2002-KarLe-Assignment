@@ -229,6 +229,52 @@ public class EnquiryManager {
 
 
     /**
+     * A method to get all enquiries for specified camp
+     * @param campID The ID of the camp
+     * @return ArrayList<Enquiry> of all the enquiries for the camp
+     */
+    public ArrayList<Enquiry> getAllCampEnquiries(int campID) {
+        ArrayList<Enquiry> enquiries = new ArrayList<>();
+        for (Enquiry enquiry : enquiryService.getEnquiryMap().values()) {
+            if (enquiry.getCampID() == campID) {
+                enquiries.add(enquiry);
+            }
+        }
+        return enquiries;
+    }
+
+    /**
+     * A method to get all resolved enquiries for specified camp
+     * @param campID The ID of the camp
+     * @return ArrayList<Enquiry> of all the enquiries for the camp
+     */
+    public ArrayList<Enquiry> getAllResolvedCampEnquiries(int campID) {
+        ArrayList<Enquiry> enquiries = new ArrayList<>();
+        for (Enquiry enquiry : enquiryService.getEnquiryMap().values()) {
+            if (enquiry.getCampID() == campID && enquiry.getIsResolved()) {
+                enquiries.add(enquiry);
+            }
+        }
+        return enquiries;
+    }
+
+    /**
+     * A method to get all unresolved enquiries for specified camp
+     * @param campID The ID of the camp
+     * @return ArrayList<Enquiry> of all the enquiries for the camp
+     */
+    public ArrayList<Enquiry> getAllNotResolvedCampEnquiries(int campID) {
+        ArrayList<Enquiry> enquiries = new ArrayList<>();
+        for (Enquiry enquiry : enquiryService.getEnquiryMap().values()) {
+            if (enquiry.getCampID() == campID && !enquiry.getIsResolved()) {
+                enquiries.add(enquiry);
+            }
+        }
+        return enquiries;
+    }
+
+
+    /**
      * A method to get all enquiry titles for specified camp
      * @param campID The ID of the camp
      * @return ArrayList<String> of all the enquiry titles for the camp
