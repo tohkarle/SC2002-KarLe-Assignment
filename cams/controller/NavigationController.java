@@ -1,5 +1,6 @@
 package cams.controller;
 
+import java.io.IOException;
 import java.util.Stack;
 
 import cams.interfaces.Navigation;
@@ -89,7 +90,15 @@ public class NavigationController implements Navigation, ViewHandler {
      * A method to flush the screen
      */
     private void clearTerminal() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (IOException | InterruptedException ex) {
+            System.out.println("Unable to clear terminal. Error: " + ex.getMessage());
+        }
     }
 }

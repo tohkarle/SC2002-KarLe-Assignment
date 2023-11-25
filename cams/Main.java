@@ -2,8 +2,8 @@ package cams;
 
 import java.util.Scanner;
 
+import cams.controller.NavigationController;
 import cams.interfaces.ViewHandler;
-import cams.manager.NavigationManager;
 
 /**
  * The Launcher for the Camp Application and Management System
@@ -25,7 +25,7 @@ public class Main {
     public static void main(String args[]) {
 
         // Initialize NavigationManager - manages navigation flow of views
-        ViewHandler navigationManager = new NavigationManager();
+        ViewHandler navigationManager = new NavigationController();
 
         // Initialize root view
         navigationManager.initializeView();
