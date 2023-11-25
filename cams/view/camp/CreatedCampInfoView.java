@@ -62,18 +62,21 @@ public class CreatedCampInfoView implements View {
                 navigation.navigateTo(new EditCampView(navigation, getInput, camp));
                 break;
             case 2:
-                navigation.navigateTo(new EnquiryStatusView(navigation, getInput, selectedCampID));
+                navigation.navigateTo(new CampStudentsView(navigation, selectedCampID));
                 break;
             case 3:
-                navigation.navigateTo(new SuggestionStatusView(navigation, getInput, selectedCampID));
+                navigation.navigateTo(new EnquiryStatusView(navigation, getInput, selectedCampID));
                 break;
             case 4:
-                navigation.navigateTo(new GenerateRegistrationReportView(navigation, getInput, selectedCampID));
+                navigation.navigateTo(new SuggestionStatusView(navigation, getInput, selectedCampID));
                 break;
             case 5:
-                generatePerformanceReport();
+                navigation.navigateTo(new GenerateRegistrationReportView(navigation, getInput, selectedCampID));
                 break;
             case 6:
+                generatePerformanceReport();
+                break;
+            case 7:
                 UI deleteCampUI = new DeleteCampUI(navigation, selectedCampID, getInput);
                 deleteCampUI.body();
                 break;
