@@ -1,6 +1,6 @@
 package cams.components.option;
 
-import cams.components.input.GetSelection;
+import cams.components.input.GetSelectionWithDismiss;
 import cams.interfaces.Displayable;
 import cams.interfaces.IntInput;
 import cams.utils.Page;
@@ -31,7 +31,7 @@ public class DismissableViewOnlyOptions extends Options implements Displayable {
      */
     @Override
     public int selection() {
-        IntInput selection = new GetSelection(-1, -1);
-        return selection.getValidInt("Your selection: ");
+        IntInput selectionWithDismiss = new GetSelectionWithDismiss(-1, -1);
+        return selectionWithDismiss.getValidInt("Your selection: ");
     }
 }

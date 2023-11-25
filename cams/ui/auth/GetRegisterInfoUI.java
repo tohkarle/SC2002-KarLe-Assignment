@@ -53,12 +53,8 @@ public class GetRegisterInfoUI extends GetStringInput implements UI {
             return;
         }
 
-        // Get password
-        String password = super.getValidString("Enter password: ");
-        if (password.equals(Dismiss.stringOption())) { 
-            navigation.dismissView();
-            return;
-         }
+        // Default password is "password"
+        String password = "password";
 
         // Register user
         if (authManager.registerSuccessful(email, name, password, faculty, isStaff)) { 

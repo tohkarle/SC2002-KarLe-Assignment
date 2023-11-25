@@ -1,6 +1,7 @@
 package cams.components.input;
 
 import cams.Main;
+import cams.manager.UserManager;
 
 
 /**
@@ -28,10 +29,18 @@ public class GetSelection extends GetOptionInput {
     public int getValidInt(String title) {
         System.out.println("");
         while (true) {
-            System.out.print("Your selection: ");
+            askForPasswordChange();
+            System.out.print(title);
             super.input = Main.scanner.nextLine();
             if (super.inputIsEmpty() || super.inputIsNotInt() || super.inputIsNotBetweenMinMax()) { continue; }
             return super.number;
+        }
+    }
+
+    private void askForPasswordChange() {
+        UserManager userManager = UserManager.getInstance();
+        if (userManager.getCurrentUser() != null && userManager.getCurrentUser().passwordMatches("password")) {
+            System.out.println("You are still using the default password, please go to 'Change password' to change to a new password.");
         }
     }
 }

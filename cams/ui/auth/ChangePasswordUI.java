@@ -62,6 +62,12 @@ public class ChangePasswordUI implements UI {
                 return; 
             }
 
+            // Check if new password is the default password
+            if (pass2.equals("password")) {
+                System.out.println("New password cannot be the default password, please try again.");
+                continue; 
+            }
+
             // Check if new password same as old password
             if (pass2.equals(pass1)) {
                 System.out.println("New password cannot be the same as old password, please try again.");
