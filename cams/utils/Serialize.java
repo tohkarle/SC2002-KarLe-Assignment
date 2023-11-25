@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * An object that reads and writes Serializable Object List into/ from a file
+ * Utility class that reads and writes Serializable Object List into/ from a file
  */
 public class Serialize
 {
