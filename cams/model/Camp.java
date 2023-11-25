@@ -10,7 +10,13 @@ import java.util.ArrayList;
 public class Camp implements Serializable {
     private int id;
     private String campName;
-    private ArrayList<LocalDate> dates; // 0: start, 1: end
+
+    /**
+     * stores only the start and end date of the camp as
+     * LocalDate objects, index-0: start, index-1: end
+     */
+    private ArrayList<LocalDate> dates;
+
     private LocalDate registrationClosingDate;
     private boolean visibility;
     private String userGroup;
@@ -33,7 +39,7 @@ public class Camp implements Serializable {
      * @param dates ArrayList<LocalDate> for the dates of the camp in the format <start, end>
      * @param faculty The faculty/user group of the camp
      * @param visibility Whether the camp is visible to all students
-     * @param staffInCharge The ID of the staff in charge
+     * @param staffInCharge The name of the staff in charge
      * @param registrationClosingDate The registration close date
      */
     public Camp(int campID, String campName, ArrayList<LocalDate> dates, String faculty, boolean visibility, String staffInCharge, LocalDate registrationClosingDate) {
@@ -282,7 +288,7 @@ public class Camp implements Serializable {
 
     /**
      * Getter for staff in charge name
-     * @return String of the staff in charge
+     * @return String of the name of the  staff in charge
      */
     public String getStaffInCharge() {
         return this.staffInCharge;
@@ -290,7 +296,7 @@ public class Camp implements Serializable {
 
 
     /**
-     * Setter for the staff in charge of the camp.
+     * Setter for the staff in charge name of the camp.
      *
      * @param staffName The new name of the staff in charge.
      */

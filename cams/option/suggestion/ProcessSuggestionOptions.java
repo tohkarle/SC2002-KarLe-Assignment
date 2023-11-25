@@ -26,6 +26,11 @@ public class ProcessSuggestionOptions extends CampInfoOptions {
         this.changeOption();
     }
 
+
+
+    /**
+     * A method to change the options to add the update changes option
+     */
     public void changeOption() {
         super.getOptions().add(0, String.format("Title: %s", suggestion.getTitle()));
         super.getOptions().remove(String.format("Staff-in-charge: %s", super.getCamp().getStaffInCharge()));

@@ -19,6 +19,13 @@ public class FilterFacultyCampsView implements View {
     private Input getInput;
     private FilterCamps filterCamps;
 
+
+    /**
+     * Initialize the FilterFacultyCampsView
+     * @param navigation Navigation object used to control navigation of the application
+     * @param getInput Input object used to get input from user
+     * @param filterCamps FilterCamps object containing the applied filters
+     */
     public FilterFacultyCampsView(Navigation navigation, Input getInput, FilterCamps filterCamps) {
         this.navigation = navigation;
         this.getInput = getInput;

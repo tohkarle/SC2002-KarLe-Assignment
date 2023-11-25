@@ -11,6 +11,10 @@ import cams.components.option.DismissableSelectableOptions;
  */
 public class EnquiryStatusOptions extends DismissableSelectableOptions {
 
+
+    /**
+     * Initialize this option object
+     */
     public EnquiryStatusOptions() {
 
         super.setOptions( new ArrayList<String>(Arrays.asList(

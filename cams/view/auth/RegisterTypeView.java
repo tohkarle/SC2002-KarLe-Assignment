@@ -21,6 +21,10 @@ public class RegisterTypeView implements View {
         this.navigation = navigation;
     }
 
+
+    /**
+     * Render the RegisterTypeView
+     */
     public void render() {
 
         // Choose to register as staff or student

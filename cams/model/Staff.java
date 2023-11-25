@@ -6,9 +6,9 @@ package cams.model;
 public class Staff extends User {
 
     /**
-     * Constructor
+     * Constructor for staff model
      * @param name The name of the staff
-     * @param email The email od the staff
+     * @param email The email of the staff
      * @param password The password for the staff account
      * @param faculty The faculty/user group the staff is from
      */

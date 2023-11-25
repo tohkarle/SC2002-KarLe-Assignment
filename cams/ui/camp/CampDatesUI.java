@@ -53,6 +53,11 @@ public class CampDatesUI implements UI {
         return;
     }
 
+
+    /**
+     * A method to get a valid end date via input objects
+     * @return LocalDate object
+     */
     private LocalDate getValidEndDate() {
         while (true) {
             endDate = getInput.getValidDate(endDateTitle);

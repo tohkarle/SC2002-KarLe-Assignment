@@ -28,6 +28,11 @@ public class AllCampsOptions extends DismissableSelectableOptions {
         super.getOptions().add(0, "Filter");
     }
 
+
+    /**
+     * The method to display the options
+     * @param title The title of what the options are about
+     */
     @Override
     public void display(String title) {
         if (super.getOptionsSize() == 0) {
@@ -40,6 +45,11 @@ public class AllCampsOptions extends DismissableSelectableOptions {
         }
     }
 
+
+    /**
+     * A method to get the user to choose from the presented options
+     * @return int of the option the user selected
+     */
     @Override
     public int selection() {
         IntInput selectionWithDismiss = new GetSelectionWithDismiss(0, super.getOptionsSize() - 1);

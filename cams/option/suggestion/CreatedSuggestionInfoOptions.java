@@ -42,6 +42,11 @@ public class CreatedSuggestionInfoOptions extends CampInfoOptions {
         }
     }
 
+
+    /**
+     * A method to get the user to choose from the presented options
+     * @return int of the option the user selected
+     */
     @Override
     public int selection() {
         IntInput selection = new GetSelectionWithDismiss(1, 2);
