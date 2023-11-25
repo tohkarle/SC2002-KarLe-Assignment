@@ -20,6 +20,10 @@ public class FacultyCampsOptions extends AllCampsOptions {
         super(filterCamps);
     }
 
+
+    /**
+     * A method to build the options for this options object
+     */
     @Override
     public void fetchCamps(FilterCamps filterCamps) {
         UserManager userManager = UserManager.getInstance();

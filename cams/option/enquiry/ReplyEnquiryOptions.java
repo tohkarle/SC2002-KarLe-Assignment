@@ -20,6 +20,10 @@ public class ReplyEnquiryOptions extends EnquiryInfoOptions {
         this.changeOption();
     }
 
+
+    /**
+     * A method to switch between the options
+     */
     private void changeOption() {
         if (super.getEnquiry().getReply() != null && super.getEnquiry().getResolvedBy() != null && super.getEnquiry().getIsResolved()) {
             super.getOptions().remove("(1) Reply enquiry");
@@ -34,6 +38,11 @@ public class ReplyEnquiryOptions extends EnquiryInfoOptions {
         }
     }
 
+
+    /**
+     * A method to get the user to choose from the presented options
+     * @return int of the option the user selected
+     */
     @Override
     public int selection() {
         if (super.getEnquiry().getReply() != null && super.getEnquiry().getResolvedBy() != null && super.getEnquiry().getIsResolved()) {

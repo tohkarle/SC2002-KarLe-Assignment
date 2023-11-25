@@ -6,8 +6,19 @@ package cams.model;
  */
 public class Student extends User {
     
+    /**
+     * Deprecated
+     */
     private int point;
 
+
+    /**
+     * Constructor for the model
+     * @param name The name of the student
+     * @param email The email of the student
+     * @param password The password
+     * @param faculty The faculty / user group
+     */
     public Student(String name, String email, String password, String faculty) {
         super(name, email, password, faculty);
         this.point = 0;
@@ -19,10 +30,17 @@ public class Student extends User {
         this.point = 0;
     }
 
+    /**
+     * Deprecated
+     */
     public int getPoint() {
         return this.point;
     }
 
+
+    /**
+     * Deprecated
+     */
     public void addOnePoint() {
         this.point++;
     }

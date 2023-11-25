@@ -31,6 +31,11 @@ public class CommitteeCampSuggestionsOptions extends DismissableSelectableOption
         this.selectedCampID = selectedCampID;
     }
 
+
+    /**
+     * The method to display the options
+     * @param title The title of what the options are about
+     */
     @Override
     public void display(String title) {
         fetchStudentCampSuggestions();
@@ -41,6 +46,11 @@ public class CommitteeCampSuggestionsOptions extends DismissableSelectableOption
         }
     }
 
+
+    /**
+     * A method to get the user to choose from the presented options
+     * @return int of the option the user selected
+     */
     @Override
     public int selection() {
         int option = super.selection();
@@ -48,6 +58,11 @@ public class CommitteeCampSuggestionsOptions extends DismissableSelectableOption
         return this.suggestionIDs.get(option - 1);
     }
 
+
+
+    /**
+     * A method to build the options list
+     */
     private void fetchStudentCampSuggestions() {
 
         UserManager userManager = UserManager.getInstance();

@@ -20,6 +20,10 @@ public class UserCampsOptions extends AllCampsOptions {
         super(filterCamps);
     }
 
+
+    /**
+     * A method to build the options list
+     */
     @Override
     public void fetchCamps(FilterCamps filterCamps) {
         CampManager campManager = CampManager.getInstance();

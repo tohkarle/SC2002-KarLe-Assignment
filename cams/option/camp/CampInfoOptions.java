@@ -35,6 +35,11 @@ public class CampInfoOptions extends DismissableViewOnlyOptions {
         );
     }
 
+
+    /**
+     * A method to retrieve the camp object this options are for
+     * @return Camp object
+     */
     public Camp getCamp() {
         return this.camp;
     }

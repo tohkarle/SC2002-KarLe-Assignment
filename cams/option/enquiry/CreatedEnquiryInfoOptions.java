@@ -11,11 +11,18 @@ import cams.model.Enquiry;
  */
 public class CreatedEnquiryInfoOptions extends EnquiryInfoOptions {
     
+
+    /**
+     * Initialize this option object
+     */
     public CreatedEnquiryInfoOptions(Enquiry enquiry) {
         super(enquiry);
         this.changeOption();
     }
     
+    /**
+     * A method to switch between option types
+     */
     public void changeOption() {
         if (!super.getEnquiry().getIsResolved()) {
             super.getOptions().addAll(Arrays.asList(
@@ -30,6 +37,11 @@ public class CreatedEnquiryInfoOptions extends EnquiryInfoOptions {
         }
     }
 
+
+    /**
+     * A method to get the user to choose from the presented options
+     * @return int of the option the user selected
+     */
     @Override
     public int selection() {
         IntInput selection = new GetSelectionWithDismiss(1, 2);
