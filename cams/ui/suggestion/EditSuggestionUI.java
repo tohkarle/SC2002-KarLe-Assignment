@@ -43,6 +43,10 @@ public class EditSuggestionUI implements UI {
         this.selectedCampInfo = selectedCampInfo;
     }
 
+
+    /**
+     * Executes user interaction logic for what they can suggest to change
+     */
     @Override
     public void body() {
 
