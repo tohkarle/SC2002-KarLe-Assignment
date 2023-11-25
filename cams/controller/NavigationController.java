@@ -1,4 +1,4 @@
-package cams.manager;
+package cams.controller;
 
 import java.util.Stack;
 
@@ -14,7 +14,7 @@ import cams.view.user.UserOptionsView;
  *
  * @author Toh Kar Le
  */
-public class NavigationManager implements Navigation, ViewHandler {
+public class NavigationController implements Navigation, ViewHandler {
 
     /**
      * A stack of View objects that signify the view hierarchy
@@ -26,7 +26,7 @@ public class NavigationManager implements Navigation, ViewHandler {
      */
     private View rootView;
 
-    public NavigationManager() {
+    public NavigationController() {
         this.views = new Stack<>();
         this.rootView = new RootView(this);
     }
