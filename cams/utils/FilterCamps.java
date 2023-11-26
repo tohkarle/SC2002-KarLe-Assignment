@@ -109,6 +109,9 @@ public class FilterCamps {
      * @return ArrayList<Camp> filtered camps based on camp date
      */
     private ArrayList<Camp> filteredByDates(ArrayList<Camp> camps) {
+        
+        if (this.camp.getDates().isEmpty()) { return new ArrayList<Camp>(); }
+
         LocalDate filterStartDate = this.camp.getDates().get(0);
         LocalDate filterEndDate = this.camp.getDates().get(1);
     
