@@ -1,7 +1,7 @@
 package cams.utils;
 
 /**
- * UniqueKey is a utility class that generates a unique key for an object
+ * Utility class that generates a unique key for an object
  */
 public class UniqueKey {
     /**

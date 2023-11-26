@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 
 /**
- * Interface classes to ensure the input object has method to
+ * Interface to ensure the input object has method to
  * prompt user for date input
  */
 public interface DateInput {

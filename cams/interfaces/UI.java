@@ -2,7 +2,7 @@ package cams.interfaces;
 
 
 /**
- * Interface object to build UI objects
+ * Interface to build UI objects
  */
 public interface UI {
 
