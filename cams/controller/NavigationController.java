@@ -6,12 +6,15 @@ import java.util.Stack;
 import cams.interfaces.Navigation;
 import cams.interfaces.View;
 import cams.interfaces.ViewHandler;
+import cams.utils.AsciiArt;
 import cams.view.root.RootView;
 import cams.view.user.UserOptionsView;
 
 /**
- * RootController is a class that implements the Navigation interface and manages the navigation flow of views in the application.
- * It maintains a stack of views and uses a NavigationManager to fetch and display views based on user interactions.
+ * RootController is a class that implements the Navigation interface and
+ * manages the navigation flow of views in the application.
+ * It maintains a stack of views and uses a NavigationManager to fetch and
+ * display views based on user interactions.
  *
  * @author Toh Kar Le
  */
@@ -32,7 +35,6 @@ public class NavigationController implements Navigation, ViewHandler {
         this.rootView = new RootView(this);
     }
 
-
     /**
      * The method to display the view
      */
@@ -40,13 +42,14 @@ public class NavigationController implements Navigation, ViewHandler {
     public void displayView() {
         while (!views.isEmpty()) {
             clearTerminal();
-            System.out.println("\nWelcome to the Camp Application and Management System");
+            // System.out.println("\nWelcome to the Camp Application and Management
+            // System");
+            AsciiArt.printCams();
             View view = views.peek();
             view.render();
         }
         clearTerminal();
     }
-
 
     /**
      * A method to initialize the root view
@@ -56,7 +59,6 @@ public class NavigationController implements Navigation, ViewHandler {
         views.push(rootView);
     }
 
-
     /**
      * A method to change the current view
      */
@@ -65,7 +67,6 @@ public class NavigationController implements Navigation, ViewHandler {
         views.push(view);
     }
 
-
     /**
      * A method to go back to the previous view layer
      */
@@ -73,7 +74,6 @@ public class NavigationController implements Navigation, ViewHandler {
     public void dismissView() {
         views.pop();
     }
-
 
     /**
      * A method to go back to the root view
@@ -84,7 +84,6 @@ public class NavigationController implements Navigation, ViewHandler {
         views.push(rootView);
         views.push(new UserOptionsView(this));
     }
-
 
     /**
      * A method to flush the screen
