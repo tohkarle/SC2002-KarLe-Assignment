@@ -7,5 +7,4 @@ To run on windows:
 To run on mac:
 1. Ensure JDK 17 or later is installed
 2. Open a terminal and navigate to the folder that contains cams
-3. Compile by using the command: javac cams/Main.java
-4. Run by using the command: java cams/Main
+3. Run the app by using the command: ./run.sh
