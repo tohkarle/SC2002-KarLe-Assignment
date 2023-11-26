@@ -26,8 +26,8 @@ public class FilterAllCampsOptions extends DismissableSelectableOptions {
                 "Description",
                 "Dates",
                 "Registration closing date",
-                "Remaining slots",
-                "Remaining committee slots",
+                "Total slots",
+                "Total committee slots",
                 "Staff-in-charge"
             ))
         );

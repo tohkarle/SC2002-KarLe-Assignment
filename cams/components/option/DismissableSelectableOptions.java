@@ -1,15 +1,16 @@
 package cams.components.option;
 
 import cams.components.input.GetSelectionWithDismiss;
-import cams.interfaces.DisplayableSelectable;
+import cams.interfaces.Displayable;
 import cams.interfaces.IntInput;
+import cams.interfaces.Selectable;
 import cams.utils.Page;
 
 
 /**
  * Option object that presents options that can be backed out/ dismissed
  */
-public class DismissableSelectableOptions extends Options implements DisplayableSelectable {
+public class DismissableSelectableOptions extends Options implements Displayable, Selectable {
 
     /**
      * The method to display the options

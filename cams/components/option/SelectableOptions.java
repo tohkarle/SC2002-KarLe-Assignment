@@ -1,15 +1,15 @@
 package cams.components.option;
 
 import cams.components.input.GetSelection;
-import cams.interfaces.DisplayableSelectable;
+import cams.interfaces.Displayable;
 import cams.interfaces.IntInput;
+import cams.interfaces.Selectable;
 
 
 /**
  * Option object that presents a list for selection
  */
-public class SelectableOptions extends Options implements DisplayableSelectable {
-    
+public class SelectableOptions extends Options implements Displayable, Selectable {
 
     /**
      * The method to display the options
